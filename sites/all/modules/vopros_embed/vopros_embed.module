@@ -33,6 +33,21 @@ function vopros_embed_menu() {
     'file' => 'vopros_embed.pages.inc',
   );
 
+  // Administrative pages.
+  $items['admin/vopros/config/embed'] = array(
+    'title' => 'Embed settings',
+    'description' => 'Configure embed settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_embed_setting_form'),
+    'access arguments' => array('administer vopros_embed'),
+    'file' => 'vopros_embed.admin.inc',
+  );
+
+  $items['admin/vopros/config/embed/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -40,7 +55,19 @@ function vopros_embed_menu() {
  * Menu title callback.
  */
 function _vopros_embed_menu_title() {
-  return t('Ask @site_name', array('@site_name' => variable_get('site_name', 'Drupal')));
+  return format_string(variable_get('vopros_embed_title', 'Ask @site_name'), array('@site_name' => variable_get('site_name', 'Drupal')));
+}
+
+/**
+ * Implements hook_permission().
+ */
+function vopros_embed_permission() {
+  return array(
+    'administer vopros_embed' => array(
+      'title' => t('Administer embed settings'),
+      'description' => '',
+    ),
+  );
 }
 
 /**
@@ -56,6 +83,13 @@ function vopros_embed_theme() {
       'render element' => 'page',
       'template' => 'embedded-page',
     ),
+    'vopros_embed_question_form' => array(
+      'render element' => 'element',
+    ),
+    'vopros_embed_tab' => array(
+      'variables' => array('title' => '', 'url' => ''),
+      'template' => 'vopros-embed-tab',
+    ),
   );
 }
 
@@ -70,6 +104,39 @@ function vopros_embed_element_info() {
   );
 
   return $types;
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_embed_vopros_question_channels() {
+  return array(
+    'webform' => array(
+      'name' => t('Webform'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+    'chat' => array(
+      'name' => t('Chat'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+  );
+}
+
+/**
+ * Channel data render callback.
+ */
+function vopros_embed_channel_data_render($data) {
+  $output = array();
+  if ($data['from_url']) {
+    $url = $data['from_url'];
+    $output[] = t('From page: ') . l($url, $url, array('external' => TRUE));
+  }
+  if ($data['site_email']) {
+    $mail = $data['site_email'];
+    $output[] = t('Site email: ') . l($mail, 'mailto:' . $mail, array('external' => TRUE));
+  }
+
+  return implode('<br />', $output);
 }
 
 /**
@@ -127,6 +194,12 @@ function vopros_embed_render_page($page) {
   if (!$main_content_display) {
     $page['content']['system_main'] = drupal_set_page_content();
   }
+
+  // Include files.
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css');
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed_form.css');
+  drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_styling.js');
+  drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_popup.js');
 
   return drupal_render($page);
 }
@@ -192,12 +265,25 @@ function template_preprocess_embedded_page(&$variables) {
     }
   }
 
+
+  // Prep the logo for the template.
+  $logo = variable_get('vopros_embed_logo', '');
+  if (!empty($logo)) {
+    $variables['logo'] = theme(
+      'image', array(
+        'path' => image_style_url(
+          'medium',
+          $logo
+        )
+      )
+    );
+  }
+
   $variables['base_path']         = base_path();
   $variables['language']          = $GLOBALS['language'];
   $variables['language']->dir     = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
   $variables['site_name']         = (theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', 'Drupal')) : '');
   $variables['site_slogan']       = (theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
-
 }
 
 /**
@@ -215,4 +301,41 @@ function template_process_embedded_page(&$variables) {
   if (!isset($variables['messages'])) {
     $variables['messages'] = $variables['show_messages'] ? theme('status_messages') : '';
   }
+}
+
+function theme_vopros_embed_question_form(&$vars) {
+  $element = $vars['element'];
+  $output = '';
+  if ($element['user_answer_preference']) {
+    $output .= '<div class="answer_type">' . drupal_render($element['user_answer_preference']) . '</div>';
+  }
+
+  $output .= '<div class="answer_details">' . drupal_render_children($element) . '</div>';
+
+  return $output;
+}
+
+/**
+ * Get the HTML for a close popup link.
+ *
+ * @param string $text
+ *   The raw HTML link content.
+ */
+function vopros_embed_popup_close_link($text) {
+  return '<a href=# class="element-hidden close-popup">' . $text . '</a>';
+}
+
+/**
+ * Get applicable answering methods.
+ */
+function _vopros_embed_answer_preferences() {
+  // Pick out a specific subset of options.
+  $options = _vopros_question_user_answer_preference();
+  $options = array_intersect_key($options, array(
+    'mail' => TRUE,
+    'sms' => TRUE,
+    'chat' => TRUE,
+  ));
+
+  return $options;
 }

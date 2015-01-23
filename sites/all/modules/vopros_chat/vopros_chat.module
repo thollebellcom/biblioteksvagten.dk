@@ -1,0 +1,979 @@
+<?php
+
+/**
+ * @file
+ * Vopros chat module.
+ */
+
+define('VOPROS_CHAT_PIDFILE', '/tmp/vopros_chat.pid');
+
+// Types of chat log entries.
+define('VOPROS_CHAT_LOG_MESSAGE', 1);
+define('VOPROS_CHAT_LOG_JOINPART', 2);
+
+include_once 'vopros_chat.features.inc';
+
+/**
+ * Implements hook_modules_enabled().
+ *
+ * Add chat session to search index, when vopros_search is enabled.
+ */
+function vopros_chat_modules_enabled($modules) {
+  if (in_array('vopros_search', $modules)) {
+    _vopros_chat_add_search_api_field();
+  }
+}
+
+/**
+ * Implements hook_modules_disabled().
+ *
+ * Remove chat session from search index, when vopros_search is enabled.
+ */
+function vopros_chat_modules_disabled($modules) {
+  if (in_array('vopros_search', $modules)) {
+    _vopros_chat_remove_search_api_field();
+  }
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Add JavaScript for chat status in the shortcut bar to the page if the user is
+ * able to answer chats.
+ */
+function vopros_chat_init() {
+  if (user_access('answer vopros chats')) {
+    drupal_add_js(array('vopros_chat' => array('chat_path' => url('admin/vopros/chat'))), 'setting');
+    drupal_add_js(drupal_get_path('module', 'vopros_chat') . '/js/vopros_chat_admin_status.js');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function vopros_chat_menu() {
+  $items = array();
+
+  $items['embed/ask-question/chat/%/%'] = array(
+    'title' => 'Chat',
+    'page callback' => 'vopros_chat_client_page',
+    'page arguments' => array(3, 4),
+    // @todo access callback should check that chat id is bound to a question.
+    'access callback' => TRUE,
+    'file' => 'vopros_chat.pages.inc',
+    'delivery callback' => 'vopros_embed_deliver_html_page',
+  );
+
+  $items['admin/vopros/chat'] = array(
+    'title' => 'Chat questions',
+    'page callback' => 'vopros_chat_admin_page',
+    'page arguments' => array(),
+    'access callback' => 'vopros_chat_access',
+    'file' => 'vopros_chat.pages.inc',
+  );
+
+  $items['admin/vopros/chat/channels'] = array(
+    'title' => 'AHAH callback',
+    'page callback' => 'vopros_chat_channels_js',
+    'delivery callback' => 'ajax_deliver',
+    'access callback' => 'vopros_chat_access',
+    'theme callback' => 'ajax_base_page_theme',
+    'file' => 'vopros_chat.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/vopros/chat/add/%vopros_question'] = array(
+    'title' => 'AHAH callback',
+    'page callback' => 'vopros_chat_add_chat_js',
+    'page arguments' => array(4),
+    'delivery callback' => 'ajax_deliver',
+    'access arguments' => array('answer vopros chats'),
+    'theme callback' => 'ajax_base_page_theme',
+    'file' => 'vopros_chat.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Administrative pages.
+  $items['admin/vopros/config/chat'] = array(
+    'title' => 'Chat settings',
+    'description' => 'Configure chat settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_chat_setting_form'),
+    'access arguments' => array('administer vopros_chat'),
+    'file' => 'vopros_chat.admin.inc',
+  );
+
+  $items['admin/vopros/config/chat/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Access callback.
+ *
+ * Grants access if the user have either administer chat or answer chat
+ * permission.
+ */
+function vopros_chat_access() {
+  if (user_access('administer vopros_chat') ||
+    user_access('answer vopros chats')) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function vopros_chat_permission() {
+  return array(
+    'administer vopros_chat' => array(
+      'title' => t('Administer chat settings'),
+      'description' => '',
+    ),
+    'answer vopros chats' => array(
+      'title' => t('Answer chats'),
+      'description' => '',
+    ),
+  );
+}
+
+/**
+ * Implements hook_library().
+ */
+function vopros_chat_libraries_info() {
+  return array(
+    'autolinker' => array(
+      'name' => 'Autolinker.js',
+      'vendor url' => 'https://github.com/gregjacobs/Autolinker.js',
+      'download url' => 'https://github.com/gregjacobs/Autolinker.js/archive/0.11.0.zip',
+      'version' => '0.11.0',
+      'files' => array(
+        'js' => array(
+          'src/Autolinker.js',
+        ),
+      ),
+    ),
+    'date_format' => array(
+      'name' => 'date.format',
+      'vendor url' => 'https://github.com/jacwright/date.format',
+      'download url' => 'https://raw.githubusercontent.com/jacwright/date.format/8f74b32d065bdcc5ffbc547985c576ef78e1d148/date.format.js',
+      'version' => '8f74b32d065bdcc5ffbc547985c576ef78e1d148',
+      'files' => array(
+        'js' => array(
+          'date.format.js',
+        ),
+      ),
+    ),
+    'jquery_color' => array(
+      'name' => 'jquery.color',
+      'vendor url' => 'https://github.com/jquery/jquery-color',
+      'download url' => 'http://code.jquery.com/color/jquery.color-2.1.2.min.js',
+      'version' => '2.1.2',
+      'files' => array(
+        'js' => array(
+          'jquery.color-2.1.2.min.js',
+        ),
+      ),
+    ),
+    'playsound' => array(
+      'name' => 'jQuery playSound',
+      'vendor url' => 'https://github.com/admsev/jquery-play-sound',
+      'download url' => 'https://raw.githubusercontent.com/admsev/jquery-play-sound/ed002a306b473c7a57d8e51a8a1a73705a09222c/jquery.playSound.js',
+      'version' => 'ed002a306b473c7a57d8e51a8a1a73705a09222c',
+      'files' => array(
+        'js' => array(
+          'jquery.playSound.js',
+        ),
+      ),
+    ),
+    'notificationjs' => array(
+      'name' => 'notification.js',
+      'vendor url' => 'http://adodson.com/notification.js/',
+      'download url' => 'https://raw.githubusercontent.com/MrSwitch/notification.js/38217ab84bd9ddc4ba0fef565a188bbbde6e930f/notification.js',
+      'version' => '38217ab84bd9ddc4ba0fef565a188bbbde6e930f',
+      'files' => array(
+        'js' => array(
+          'notification.js',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ *
+ * Add the chat session as a property on question entities.
+ */
+function vopros_chat_entity_property_info_alter(&$info) {
+  $info['vopros_question']['properties']['chat_session'] = array(
+    'label' => t('Chat session'),
+    'type' => 'text',
+    'description' => t("The chat session of a chat question."),
+    'getter callback' => 'vopros_chat_get_properties',
+  );
+}
+
+/**
+ * Property getter function.
+ */
+function vopros_chat_get_properties($question, $options, $name, $entity_type) {
+  switch ($name) {
+    case 'chat_session':
+      if (empty($question->question_id)) {
+        return NULL;
+      }
+      // Build the log just as for the admin.
+      $build = array();
+      $build['log_items'] = array(
+        '#log' => vopros_chat_log_load($question->question_id),
+        '#theme' => 'vopros_chat_log_activity_feed_items',
+        '#pre_render' => array('vopros_chat_log_activity_feed_items_pre_render'),
+      );
+      return drupal_render($build);
+  }
+}
+
+/**
+ * Implements hook_vopros_question_insert().
+ *
+ * When a new chat question is created we log the question to the chat log.
+ */
+function vopros_chat_vopros_question_insert($question) {
+  global $user;
+  if ($question->user_answer_preference == 'chat') {
+    $chat_log = array(
+      'timestamp' => $question->created,
+      'question_id' => $question->question_id,
+      'uid' => $user->uid,
+      'name' => $question->user_name,
+      'session_id' => '',
+      'msg' => $question->question_content,
+      'type' => VOPROS_CHAT_LOG_MESSAGE,
+    );
+    drupal_write_record('vopros_chat_log', $chat_log);
+  }
+}
+
+/**
+ * Implements hook_vopros_question_presave().
+ *
+ * Update the question title when it is answered, if it is still the default.
+ */
+function vopros_chat_vopros_question_presave($question) {
+  if ($question->user_answer_preference == 'chat' && $question->question_status == 'answered' && $question->question_title == t('New question')) {
+    $question->question_title = t('Answered chat question');
+  }
+}
+
+/**
+ * Implements hook_vopros_question_user_answer_preference().
+ *
+ * Exposes chat as an user answer preference for questions.
+ */
+function vopros_chat_vopros_question_user_answer_preference() {
+  return array('chat' => t('Chat'));
+}
+
+/**
+ * Implements hook_theme().
+ */
+function vopros_chat_theme() {
+  $path = drupal_get_path('module', 'vopros_chat') . '/templates';
+  return array(
+    'vopros_chat_admin_page' => array(
+      'render element' => 'elements',
+      'path' => $path,
+      'template' => 'vopros-chat-admin-page',
+    ),
+    'vopros_chat_log_activity_feed' => array(
+      'render element' => 'log',
+      'path' => $path,
+      'template' => 'vopros-chat-log-activity-feed',
+    ),
+    'vopros_chat_log_activity_feed_items' => array(
+      'render element' => 'log_items',
+      'path' => $path,
+      'template' => 'vopros-chat-log-activity-feed-items',
+    ),
+    'vopros_chat_admin_hours' => array(
+      'render element' => 'elements',
+      'file' => 'vopros_chat.admin.inc',
+    ),
+    'vopros_chat_standard_messages' => array(
+      'render element' => 'elements',
+    ),
+    'vopros_chat_standard_message' => array(
+      'variables' => array('title' => NULL, 'content' => NULL),
+    ),
+  );
+}
+
+/**
+ * Returns HTML for standard messages.
+ */
+function theme_vopros_chat_standard_messages(&$variables) {
+  $element = &$variables['elements'];
+  if (empty($element['#messages'])) {
+    return '';
+  }
+
+  $output = theme('vopros_chat_standard_message', array('title' => t('Standard messages'), 'content' => $element['#messages']));
+
+  // #attached won't work here.
+  drupal_add_js(drupal_get_path('module', 'vopros_chat') . '/js/vopros_chat_standard_messages.js');
+
+  return $output;
+}
+
+/**
+ * Returns HTML for one standard message.
+ */
+function theme_vopros_chat_standard_message($variables) {
+  $rendered_content = '';
+  $sub_menu = FALSE;
+  if (is_array($variables['content'])) {
+    $sub_menu = TRUE;
+    $rendered_content = '<div class="content">';
+    foreach ($variables['content'] as $title => $content) {
+      $rendered_content .= theme('vopros_chat_standard_message', array('title' => $title, 'content' => $content));
+    }
+    $rendered_content .= '</div>';
+  }
+  else {
+    $rendered_content = ' - <span class="text">' . $variables['content'] . '</span>';
+  }
+  $output = '<div class="standard-' . ($sub_menu ? 'group' : 'message') . '"><a class="' . ($sub_menu ? 'title' : 'message') . '" href=#>' . $variables['title'] . '</a>' . $rendered_content . '</div>';
+
+  return $output;
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function vopros_chat_element_info() {
+  $types = array();
+
+  $types['standard_messages'] = array(
+    '#theme' => 'vopros_chat_standard_messages',
+    '#input' => FALSE,
+    '#messages' => array(),
+  );
+
+  return $types;
+}
+
+/**
+ * Implements hook_vopros_question_activity_feed().
+ *
+ * Return renderable activity feed item for chat logs.
+ */
+function vopros_chat_vopros_question_activity_feed($question, &$feed) {
+  if ($question->channel == 'chat') {
+    $feed['vopros_chat_' . $question->question_id] = array(
+      '#weight' => 1,
+      'log_items' => array(
+        '#weight' => 1,
+        '#log' => vopros_chat_log_load($question->question_id),
+        '#theme' => 'vopros_chat_log_activity_feed_items',
+        '#pre_render' => array('vopros_chat_log_activity_feed_items_pre_render'),
+      ),
+      '#question' => vopros_question_load($question->question_id),
+      '#theme' => 'vopros_chat_log_activity_feed',
+      '#attached' => array(
+        'css' => array(drupal_get_path('module', 'vopros_chat') . '/css/vopros_chat.css'),
+      ),
+    );
+  }
+}
+
+/**
+ * Pre render chat logs.
+ *
+ * We use it to prettify the chat logs by running each message though a text
+ * format. We need it i.e. for:
+ *  - Convert line breaks to <br /> tags.
+ *  - Convert hyper links to links.
+ *
+ * @param array $element
+ *   The render array containing chat log items.
+ *
+ * @return array
+ *   The pre rendered render array.
+ *
+ * @see vopros_chat_vopros_question_activity_feed()
+ */
+function vopros_chat_log_activity_feed_items_pre_render(array $element) {
+  if (!empty($element['#log'])) {
+    $format_id = variable_get('vopros_chat_log_format_id', NULL);
+    foreach ($element['#log'] as &$item) {
+      $item->msg = check_markup($item->msg, $format_id);
+    }
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function vopros_chat_form_vopros_embed_question_alter(&$form, $form_state) {
+  $form['user_answer_preference']['#after_build'] = array('vopros_chat_user_answer_preference_after_build');
+  $form['user_answer_preference']['#attached'] = array(
+    'js' => array(
+      drupal_get_path('module', 'vopros_chat') . '/js/vopros_chat_status.js',
+      array(
+        'type' => 'setting',
+        'data' => array(
+          'vopros_chat' => array(
+            'busy_message' => variable_get('vopros_chat_busy_message', 'Chat busy.'),
+            'closed_message' => nl2br(variable_get('vopros_chat_closed_message', 'Chat closed.')),
+          ),
+        ),
+      ),
+    ),
+    'css' => array(
+      drupal_get_path('module', 'vopros_chat') . '/css/vopros_chat_embed.css',
+    ),
+  );
+
+}
+
+/**
+ * After build function to disable the chat option (re-enabled by JS).
+ */
+function vopros_chat_user_answer_preference_after_build($element, &$form_state) {
+  // Not setting #disabled, as that would make FormAPI ignore input for this
+  // element.
+  if (isset($element['chat'])) {
+    $element['chat']['#attributes']['class'][] = 'vopros-chat-status-radio';
+    $element['chat']['#attributes']['disabled'] = 'disabled';
+  }
+  return $element;
+}
+
+/**
+ * Load a question chat log.
+ *
+ * @param int $question_id
+ *   The ID of the question to load the log for.
+ *
+ * @return array
+ *   An array of chat log object keyed by timestamp.
+ */
+function vopros_chat_log_load($question_id) {
+  return db_select('vopros_chat_log', 'vcl')
+    ->fields('vcl')
+    ->condition('question_id', $question_id)
+    ->orderBy('timestamp')
+    ->execute()
+    ->fetchAll();
+}
+
+/**
+ * Render a chat log in plain text.
+ */
+function vopros_chat_log_render_plain($log) {
+  global $user;
+  $plain = array();
+  foreach ($log as $item) {
+    $plain[] = format_date($item->timestamp, 'custom', 'G:i') . ' - ' . $item->name . ': ' . $item->msg;
+  }
+  return implode("\n", $plain);
+}
+
+/**
+ * Implements hook_views_data_alter().
+ *
+ * Add an extra field to questions for chat status.
+ */
+function vopros_chat_views_data_alter(&$data) {
+  $data['vopros_question']['chat_status'] = array(
+    'title' => t('Chat status'),
+    'help' => t('Shows the current status of chat questions.'),
+    'field' => array(
+      'handler' => 'vopros_chat_handler_field_vopros_quesiton_chat_status',
+    ),
+  );
+}
+
+/**
+ * Get path to chat from a question.
+ *
+ * @param VoprosQuestion $question
+ *   The question to chat about.
+ *
+ * @return string
+ *   The local path to the chat.
+ */
+function vopros_chat_url($question) {
+  return 'embed/ask-question/chat/' . $question->question_id . '/' . vopros_chat_get_channel_hash_from_question_id($question->question_id);
+}
+
+
+/**
+ * Get channel name from question ID.
+ *
+ * @param int $question_id
+ *   The ID of the question.
+ *
+ * @return string
+ *   The name of the channel associated with the question.
+ */
+function vopros_chat_get_channel_name_from_question_id($question_id) {
+  return 'vopros_chat__' . $question_id . '_' . preg_replace('/[^(_|a-zA-Z0-9)]/', '_', vopros_chat_get_channel_hash_from_question_id($question_id));
+}
+
+/**
+ * Get channel hash from question ID.
+ *
+ * @param int $question_id
+ *   The ID of the question.
+ *
+ * @return string
+ *   The hash of the channel associated with the question.
+ */
+function vopros_chat_get_channel_hash_from_question_id($question_id) {
+  return hash('sha256', variable_get('nodejs_service_key', '') . $question_id);
+}
+
+/**
+ * Create a chart config file.
+ *
+ * You can define overrides in $conf['vopros_chat_config_override'].
+ *
+ * @return string
+ *   File name of the generated config file.
+ */
+function vopros_chat_create_chat_config() {
+  $vopros_chat_extension_path = _vopros_chat_relative_path(drupal_get_path('module', 'nodejs'), drupal_get_path('module', 'vopros_chat') . '/extensions');
+
+  global $is_https;
+
+  $nodejs_config = nodejs_get_config();
+
+  $config = array(
+    'scheme' => $nodejs_config['nodejs']['scheme'],
+    'port' => $nodejs_config['nodejs']['port'],
+    'host' => $nodejs_config['nodejs']['host'],
+    'resource' => $nodejs_config['resource'],
+    'serviceKey' => $nodejs_config['serviceKey'],
+    'backend' => array(
+      'port' => $is_https ? 443 : 80,
+      'host' => $_SERVER['HTTP_HOST'],
+      'scheme' => $is_https ? 'https' : 'http',
+      'basePath' => base_path(),
+      'messagePath' => 'nodejs/message',
+    ),
+    'debug' => FALSE,
+    'sslKeyPath' => '',
+    'sslCertPath' => '',
+    'sslCAPath' => '',
+    'baseAuthPath' => '/nodejs/',
+    'publishUrl' => 'publish',
+    'kickUserUrl' => 'user/kick/:uid',
+    'logoutUserUrl' => 'user/logout/:authtoken',
+    'addUserToChannelUrl' => 'user/channel/add/:channel/:uid',
+    'removeUserFromChannelUrl' => 'user/channel/remove/:channel/:uid',
+    'addChannelUrl' => 'channel/add/:channel',
+    'removeChannelUrl' => 'channel/remove/:channel',
+    'setUserPresenceListUrl' => 'user/presence-list/:uid/:uidList',
+    'addAuthTokenToChannelUrl' => 'authtoken/channel/add/:channel/:uid',
+    'removeAuthTokenFromChannelUrl' => 'authtoken/channel/remove/:channel/:uid',
+    'toggleDebugUrl' => 'debug/toggle',
+    'contentTokenUrl' => 'content/token',
+    'publishMessageToContentChannelUrl' => 'content/token/message',
+    'extensions' => array(
+      $vopros_chat_extension_path . '/vopros_chat.module.js',
+      $vopros_chat_extension_path . '/ssl_passphrase_dialog.js',
+    ),
+    'clientsCanWriteToChannels' => TRUE,
+    'clientsCanWriteToClients' => TRUE,
+    'transports' => array('websocket', 'polling'),
+    'jsMinification' => TRUE,
+    'jsEtag' => TRUE,
+    'logLevel' => 1,
+  );
+
+  $db_connection = Database::getConnection();
+  $config['database'] = $db_connection->getConnectionOptions();
+  $config['database_tables'] = array();
+  foreach (array('{vopros_chat_log}', '{variable}') as $table) {
+    $config['database_tables'][$table] = $db_connection->prefixTables($table);
+  };
+
+  // Merge in overrides from $conf['vopros_chat_config_override'].
+  $config = variable_get('vopros_chat_config_override', array()) + $config;
+
+  // Create temporary config file.
+  $config_file = drupal_tempnam(variable_get('file_temporary_path', '/tmp'), 'vopros_chat_config_');
+
+  file_put_contents($config_file, 'settings = ' . drupal_json_encode($config));
+
+  return $config_file;
+}
+
+/**
+ * Get a relative path from one file/dir to another.
+ *
+ * This implementation is borrowed from php.net.
+ *
+ * @param string $from
+ *   The file to derive the relative path from.
+ * @param string $to
+ *   The file to get the relative path to.
+ * @param string $ps
+ *   (optional) Directory separator.
+ *
+ * @return string
+ *   The relative path from $from to $to.
+ *
+ * @see http://dk1.php.net/manual/en/function.realpath.php#105876
+ */
+function _vopros_chat_relative_path($from, $to, $ps = DIRECTORY_SEPARATOR) {
+  $ar_from = explode($ps, rtrim($from, $ps));
+  $ar_to = explode($ps, rtrim($to, $ps));
+  while (count($ar_from) && count($ar_to) && ($ar_from[0] == $ar_to[0])) {
+    array_shift($ar_from);
+    array_shift($ar_to);
+  }
+  return str_pad('', count($ar_from) * 3, '..' . $ps) . implode($ps, $ar_to);
+}
+
+/**
+ * Admimintrator chat action buttons.
+ */
+function vopros_chat_admin_chat_actions($form, &$form_state, $question) {
+  $rebuild = FALSE;
+  if (!empty($form_state['values']['question_id'])) {
+    $rebuild = TRUE;
+    $question = vopros_question_load($form_state['values']['question_id']);
+  }
+
+  $form['#id'] = 'vopros-chat-admin-buttons-' . $question->question_id;
+
+  // We're saving the question id and reloading the question, as this form can
+  // be quite long-lived, and the question might be changed in the meantime.
+  $form['question_id'] = array(
+    '#type' => 'value',
+    '#value' => $question->question_id,
+  );
+
+  // If rebuilding, it's the answer later form.
+  if ($rebuild) {
+    $form['title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title'),
+    );
+
+    $form['keep'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Keep question'),
+    );
+
+    $form['later'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save'),
+      '#ajax' => array(
+        'callback' => 'vopros_chat_admin_chat_actions_button_callback',
+        'wrapper' => 'vopros-chat-admin-' . $question->question_id,
+      ),
+      '#question_status' => 'active',
+      '#question_status_reason' => '',
+    );
+  }
+  else {
+    $form['close'] = array(
+      '#type' => 'submit',
+      '#value' => t('Close as answered'),
+      '#ajax' => array(
+        'callback' => 'vopros_chat_admin_chat_actions_button_callback',
+        'wrapper' => 'vopros-chat-admin-' . $question->question_id,
+      ),
+      '#question_status' => 'answered',
+      '#question_status_reason' => '',
+    );
+
+    // This button only reloads the form.
+    $form['later'] = array(
+      '#type' => 'submit',
+      '#value' => t('Answer later'),
+      '#ajax' => array(
+        'callback' => 'vopros_chat_admin_chat_actions_button_later_callback',
+        'wrapper' => 'vopros-chat-admin-buttons-' . $question->question_id,
+      ),
+      '#submit' => array('vopros_chat_admin_chat_actions_button_submit_later'),
+    );
+
+    $form['spam'] = array(
+      '#type' => 'submit',
+      '#value' => t('Close as spam'),
+      '#ajax' => array(
+        'callback' => 'vopros_chat_admin_chat_actions_button_callback',
+        'wrapper' => 'vopros-chat-admin-' . $question->question_id,
+      ),
+      '#question_status' => 'closed',
+      '#question_status_reason' => 'spam',
+    );
+
+    $form['leave'] = array(
+      '#type' => 'submit',
+      '#value' => t('Leave'),
+      '#ajax' => array(
+        'callback' => 'vopros_chat_admin_chat_actions_button_callback',
+        'wrapper' => 'vopros-chat-admin-' . $question->question_id,
+      ),
+      '#leave' => TRUE,
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Submit handler for the 'answer later' button.
+ *
+ * Triggers rebuilding the form with title setting form.
+ */
+function vopros_chat_admin_chat_actions_button_submit_later($form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Ajax callback.
+ *
+ * Reloads the form to allow setting title.
+ *
+ * @see vopros_chat_admin_chat_actions()
+ */
+function vopros_chat_admin_chat_actions_button_later_callback($form, &$form_state) {
+  $commands = array(
+    ajax_command_replace('#vopros-chat-admin-buttons-' . $form_state['values']['question_id'], render($form)),
+  );
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+
+/**
+ * Ajax callback.
+ *
+ * Close question with specific state.
+ *
+ * @see vopros_chat_admin_chat_actions()
+ * @todo this needs a refactor. The logic of each button is getting hard to
+ *   follow.
+ */
+function vopros_chat_admin_chat_actions_button_callback($form, &$form_state) {
+  $button = $form_state['triggering_element'];
+  $question = vopros_question_load($form_state['values']['question_id']);
+  if ($question && !$button['#leave']) {
+    // Change status.
+    $question->question_status = $button['#question_status'];
+    $question->question_status_reason = $button['#question_status_reason'];
+
+    // Copy the chat log to the question body field.
+    $log = vopros_chat_log_load($question->question_id);
+    $question->question_content = t('Chat log: ') . "\n" .
+      vopros_chat_log_render_plain($log);
+
+    // The question is still open, change the answer preference to allow editors
+    // to contact the user by mail later.
+    if ($question->question_status == 'active') {
+      $question->user_answer_preference = 'mail';
+    }
+
+    if ($form_state['values']['keep']) {
+      $question->question_status = 'assigned';
+    }
+    else {
+      // Release the question.
+      $question->uid = 0;
+    }
+
+    $title = '';
+    if (isset($form_state['values']['title'])) {
+      $title = trim($form_state['values']['title']);
+    }
+    if (!empty($title)) {
+      $question->question_title = $title;
+    }
+
+    $question->save();
+
+    // Send message to the client to disable input.
+    $message = (object) array(
+      'type' => 'vopros_chat',
+      'action' => 'chat_close',
+      'channel' => vopros_chat_get_channel_name_from_question_id($question->question_id),
+      'callback' => 'closeChannelHandler',
+      'data' => array(
+        'msg' => variable_get('vopros_chat_closing_message', 'Chat closed'),
+      ),
+    );
+    nodejs_send_message($message);
+  }
+
+  // Contrary to what the docs say, ajax_command_remove() doesn't use the
+  // wrapper set on the triggering element.
+  $commands = array(
+    ajax_command_remove('#vopros-chat-admin-' . $form_state['values']['question_id']),
+  );
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Add chat session to search index.
+ */
+function _vopros_chat_add_search_api_field() {
+  if (module_exists('search_api')) {
+    $index_name = 'vopros_answer_question';
+    $indexes = search_api_index_load_multiple(FALSE, array('machine_name' => $index_name));
+    if ($indexes[$index_name]) {
+      $indexes[$index_name]->options['fields']['question:chat_session'] = array(
+        'type' => 'text',
+      );
+      $indexes[$index_name]->save();
+    }
+  }
+}
+
+/**
+ * Remove chat session from search index.
+ */
+function _vopros_chat_remove_search_api_field() {
+  if (module_exists('search_api')) {
+    $index_name = 'vopros_answer_question';
+    $indexes = search_api_index_load_multiple(FALSE, array('machine_name' => $index_name));
+    if ($indexes[$index_name]) {
+      unset($indexes[$index_name]->options['fields']['question:chat_session']);
+      $indexes[$index_name]->save();
+    }
+  }
+}
+
+/**
+ * Standard messages for editors.
+ */
+function _vopros_chat_standard_messages() {
+  $text = variable_get('vopros_chat_standard_messages', '');
+  $messages = array();
+  foreach (explode("\n", $text) as $line) {
+    $parts = explode('|', trim($line));
+    if (count($parts) > 2) {
+      if (!empty($parts[0])) {
+        $messages[$parts[0]][$parts[1]] = $parts[2];
+      }
+      else {
+        $messages[$parts[1]] = $parts[2];
+      }
+    }
+  }
+  return $messages;
+}
+
+/**
+ * Check whether the server is running.
+ */
+function _vopros_chat_server_running() {
+  // Starting the server by hand doesn't create the pid file, so we check if
+  // there's a drush command in the process list which runs the server start
+  // command.
+  exec('ps xa', $output);
+  foreach ($output as $line) {
+    if (strpos($line, 'drush') !== FALSE &&
+      strpos($line, 'vopros-chat-start') !== FALSE) {
+      return TRUE;
+    }
+  }
+
+  if (file_exists(VOPROS_CHAT_PIDFILE) &&
+    $pid = trim(file_get_contents(VOPROS_CHAT_PIDFILE))) {
+    // Kill -0 doesn't actually send a signal, but does all the preflight
+    // checking. So it'll check that the process is running and that we're
+    // allowed to signal it.
+    exec('kill 2>&1 -0 ' . escapeshellarg($pid), $output, $return_code);
+    if ($return_code == 0) {
+      // Success, all good.
+      return TRUE;
+    }
+    elseif (strpos(implode("\n", $output), 'not permitted')) {
+      // Failure, but the output indicated that we're not allowed to signal the
+      // process, which means that it's runnning. So we'll call that a success
+      // too.
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Start or stop the server.
+ */
+function _vopros_chat_start_stop_server($start = TRUE, $method = 'node', $exec = 'shell_exec', $debug = FALSE) {
+  $node_bin = '/usr/bin/node';
+  // Stop implies daemon.
+  if ($method == 'daemon' || !$start) {
+    $node_bin = '/sbin/start-stop-daemon --' . ($start ? 'start' : 'stop') .
+      ' --oknodo --make-pidfile --pidfile ' .
+      escapeshellarg(VOPROS_CHAT_PIDFILE) . ' ' .
+      ($start ? '--background' : '') . ' --exec ' . $node_bin . ' -- ';
+  }
+  elseif ($method == 'nodemon') {
+    $node_bin = 'nodemon';
+  }
+
+  $nodejs_path = getcwd() . '/' . drupal_get_path('module', 'nodejs');
+  $vopros_chat_path = getcwd() . '/' . drupal_get_path('module', 'vopros_chat');
+
+  $old_dir = getcwd();
+  chdir(drupal_get_path('module', 'vopros_chat') . '/server');
+  $config_file = vopros_chat_create_chat_config();
+
+  $command_parts = array();
+
+  if ($debug) {
+    $command_parts[] = 'DEBUG=*';
+  }
+
+  $command_parts[] = 'NODE_PATH=' .
+    escapeshellarg($vopros_chat_path . '/server/node_modules');
+
+  $command_parts[] = $node_bin;
+  $command_parts[] = escapeshellarg($nodejs_path . '/server.js');
+  $command_parts[] = escapeshellarg($config_file);
+
+  $command = implode(' ', $command_parts);
+
+  $exec($command);
+
+  chdir($old_dir);
+  if (!$start) {
+    // start-stop-daemon doesn't remove the pid file when stopping, so we do.
+    unlink('/tmp/vopros_chat.pid');
+  }
+
+  return $command;
+}
+
+/**
+ * Get chat username for authenticated users.
+ */
+function _vopros_chat_authenticated_user_name($user) {
+  $watch_name = variable_get('site_name', t('Watch'));
+  if (module_exists('profile2')) {
+    $profile = profile2_load_by_user($user, 'vopros_user_librarian');
+    if ($profile) {
+      $wrapper = entity_metadata_wrapper('profile2', $profile);
+      $name = $wrapper->vopros_user_first_name->value();
+      return format_string('@name (@watch)', array('@name' => $name, '@watch' => $watch_name));
+    }
+  }
+
+  return $watch_name;
+}

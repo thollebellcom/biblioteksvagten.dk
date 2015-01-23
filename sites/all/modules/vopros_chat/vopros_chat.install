@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the vopros_chat module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Generate a service key for NodeJS if we don't already have one.
+ */
+function vopros_chat_install() {
+  // Generate a service key for NodeJS if we don't already have one.
+  if (!variable_get('nodejs_service_key', FALSE)) {
+    variable_set('nodejs_service_key', drupal_random_key());
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete configuration variables.
+ */
+function vopros_chat_uninstall() {
+  variable_del('vopros_chat_closed_message');
+  variable_del('vopros_chat_hours');
+}
+
+/**
+ * Implements hook_enable().
+ *
+ * Add chat log to search index.
+ */
+function vopros_chat_enable() {
+  _vopros_chat_add_search_api_field();
+}
+
+/**
+ * Implements hook_disable().
+ *
+ * Remove chat log from search index.
+ */
+function vopros_chat_disable() {
+  _vopros_chat_remove_search_api_field();
+}
+
+/**
+ * Implements hook_schema().
+ */
+function vopros_chat_schema() {
+  $schema = array(
+    'vopros_chat_log' => array(
+      'description' => 'Chat logs',
+      'fields' => array(
+        'timestamp' => array(
+          'description' => 'Timestamp when the entry was logged.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'question_id' => array(
+          'description' => 'UID of the logger',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'uid' => array(
+          'description' => 'UID of the logger',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'name' => array(
+          'description' => 'Name of the logger',
+          'type' => 'varchar',
+          'length' => 256,
+          'not null' => TRUE,
+        ),
+        'session_id' => array(
+          'description' => 'Session ID of the chat',
+          'type' => 'varchar',
+          'length' => 256,
+          'not null' => TRUE,
+        ),
+        'msg' => array(
+          'description' => 'The chatted message',
+          'type' => 'varchar',
+          'length' => 1024,
+          'not null' => TRUE,
+        ),
+        'type' => array(
+          'description' => 'Message type',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+      ),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Remove unused variable.
+ */
+function vopros_chat_update_7001() {
+  variable_del('vopros_chat_open');
+}
+
+/**
+ * Remove unused variable again, after we remembered to remove it from the
+ * configuration page.
+ */
+function vopros_chat_update_7002() {
+  variable_del('vopros_chat_open');
+}
+
+/**
+ * Rename vopros_chat_closed_message variable to vopros_chat_closing_message.
+ */
+function vopros_chat_update_7003() {
+  $message = variable_get('vopros_chat_closed_message', NULL);
+  if ($message) {
+    variable_set('vopros_chat_closing_message', $message);
+    variable_del('vopros_chat_closed_message');
+  }
+}
+
+/**
+ * Remove jGrowl config.
+ */
+function vopros_chat_update_7004() {
+  variable_del('vopros_chat_notification_config_options');
+}
+
+/**
+ * Add type to chat_log.
+ */
+function vopros_chat_update_7005() {
+  $field = array(
+    'description' => 'Message type',
+    'type' => 'int',
+    'size' => 'tiny',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+  );
+  db_add_field('vopros_chat_log', 'type', $field);
+  // Set existing entries to 'message' type.
+  db_update('vopros_chat_log')
+    ->fields(array('type' => 1))
+    ->execute();
+}

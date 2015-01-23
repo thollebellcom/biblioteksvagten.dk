@@ -1,0 +1,35 @@
+
+.ask-vopros-tab {
+  background-color: #01c676;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+
+  display: table;
+  cursor: pointer;
+
+  position: fixed;
+  bottom: 0;
+  right: 25%;
+}
+
+.ask-vopros-tab a:link,
+.ask-vopros-tab a:hover,
+.ask-vopros-tab a:visited,
+.ask-vopros-tab a:active {
+  line-height: 1.5;
+  color: white;
+  display: table-cell;
+  vertical-align: middle;
+  height: 35px;
+  padding: 0 20px;
+  text-decoration: none;
+}
+
+.ask-vopros-tab .fa-angle-right {
+  display: table-cell;
+  background-color: #01a863;
+  vertical-align: middle;
+  font-weight: bold;
+}

@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/watchmen.git'
+  revision: 8f40a2f7ea3c74e8ace5e989704a5ecfbe28f3b8

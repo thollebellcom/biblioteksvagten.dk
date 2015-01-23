@@ -1,0 +1,5 @@
+name = "Watchmen"
+description = "Specialized frontend theme for Biblioteksvagten.dk"
+base theme  = "bartik"
+stylesheets[all][] = css/vopros_embed_form.css
+core = "7.x"

@@ -11,20 +11,21 @@
  * Returns a form for asking a question.
  */
 function vopros_embed_question($form, &$form_state) {
-  $form['#attached'] = array(
-    'css' => array(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css'),
-  );
-
+  // @todo implement configuration of forms on the clients.
   $agency_id = isset($_GET['agency_id']) ? check_plain($_GET['agency_id']) : '';
 
+  $client = vopros_question_client_load_by_agency($agency_id);
   // We can't work without an agency.
-  if (empty($agency_id)) {
+  if (empty($client)) {
     $form['error'] = array(
       '#markup' => t('Whoops, widget not configured properly. Please contact the site and tell them about this.'),
     );
 
     return $form;
   }
+
+  // Custom theme function to lay out the form.
+  $form['#theme'] = array('vopros_embed_question_form');
 
   $question = vopros_question_new();
   $form['question'] = array(
@@ -45,12 +46,31 @@ jQuery(document).ready(function ($) {
 });
 EOF;
 
+  $options = _vopros_embed_answer_preferences();
+
+  $answer_preference = 'mail';
+  if (isset($_GET['answer_preference']) &&
+    isset($options[$_GET['answer_preference']])) {
+    $answer_preference = $_GET['answer_preference'];
+  }
+
+  $form['user_answer_preference'] = array(
+    '#type' => 'radios',
+    '#title' => t('How to receive answer'),
+    '#options' => $options,
+    '#default_value' => $answer_preference,
+    '#weight' => -70,
+    '#attributes' => array(
+      'class' => array('options-' . count($options)),
+    ),
+  );
+
   $form['question_content'] = array(
     '#type' => 'textarea',
-    '#title' => t('Question content'),
+    '#title' => t("What's your question?"),
     '#required' => TRUE,
     '#default_value' => '',
-    '#weight' => -70,
+    '#weight' => -60,
     '#attached' => array(
       'js' => array(
         $focus_script => array('type' => 'inline'),
@@ -60,49 +80,58 @@ EOF;
 
   $form['user_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Name'),
+    '#title' => t("What's your name?"),
     '#required' => TRUE,
     '#default_value' => isset($_GET['name']) ? check_plain($_GET['name']) : '',
-    '#weight' => -60,
-  );
-
-  $form['user_postal_code'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Postal code'),
-    '#required' => TRUE,
-    '#default_value' => isset($_GET['zip']) ? check_plain($_GET['zip']) : '',
     '#weight' => -50,
-  );
-
-  // Pick out a specific subset of options.
-  $options = array_intersect_key(_vopros_question_user_answer_preference(), array('mail' => TRUE, 'sms' => TRUE));
-  $form['user_answer_preference'] = array(
-    '#type' => 'radios',
-    '#title' => t('How to recieve answer'),
-    '#options' => $options,
-    '#default_value' => 'mail',
-    '#weight' => -40,
   );
 
   $form['user_email'] = array(
     '#type' => 'textfield',
-    '#title' => t('Email'),
+    '#title' => t('Enter your e-mail address'),
     '#default_value' => isset($_GET['mail']) ? check_plain($_GET['mail']) : '',
     '#states' => array(
       'visible' => array(
-        'input[name=user_answer_preference]' => array('value' => 'mail'),
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'mail'),
+          array('value' => 'chat'),
+        ),
+      ),
+      'required' => array(
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'mail'),
+          array('value' => 'chat'),
+        ),
+      ),
+    ),
+    '#weight' => -40,
+  );
+
+  $form['user_mobile_phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter your cell number'),
+    '#default_value' => isset($_GET['phone']) ? check_plain($_GET['phone']) : '',
+    '#states' => array(
+      'visible' => array(
+        'input[name=user_answer_preference]' => array('value' => 'sms'),
+      ),
+      'required' => array(
+        'input[name=user_answer_preference]' => array('value' => 'sms'),
       ),
     ),
     '#weight' => -30,
   );
 
-  $form['user_mobile_phone'] = array(
+  $form['user_postal_code'] = array(
     '#type' => 'textfield',
-    '#title' => t('Mobile phone'),
-    '#default_value' => isset($_GET['phone']) ? check_plain($_GET['phone']) : '',
+    '#title' => t("What's your zip code?"),
+    '#default_value' => isset($_GET['zip']) ? check_plain($_GET['zip']) : '',
     '#states' => array(
       'visible' => array(
-        'input[name=user_answer_preference]' => array('value' => 'sms'),
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'mail'),
+          array('value' => 'sms'),
+        ),
       ),
     ),
     '#weight' => -20,
@@ -111,16 +140,21 @@ EOF;
   $deadline_options = _vopros_question_deadline();
   $form['question_deadline'] = array(
     '#type' => 'radios',
-    '#title' => t('Deadline'),
+    '#title' => t('When do you need the answer?'),
     '#required' => TRUE,
     '#options' => $deadline_options,
     '#default_value' => -1,
     '#weight' => -10,
+    '#states' => array(
+      'invisible' => array(
+        'input[name=user_answer_preference]' => array('value' => 'chat'),
+      ),
+    ),
   );
 
-  $form['agency_id'] = array(
+  $form['client_id'] = array(
     '#type' => 'value',
-    '#value' => $agency_id,
+    '#value' => $client->client_id,
   );
 
   $form['agency_mail'] = array(
@@ -161,22 +195,24 @@ EOF;
     '#type' => 'submit',
     '#value' => t('Submit question'),
     '#attributes' => array('class' => array('primary-action')),
+    '#states' => array(
+      'invisible' => array(
+        'input[name=user_answer_preference]' => array('value' => 'chat'),
+      ),
+    ),
   );
 
-  $form['help'] = array(
-    '#prefix' => '<p>',
-    '#suffix' => '</p>',
-    '#markup' => 'Biblioteksvagten er de danske bibliotekers nationale spørgetjeneste, hvor en lang række biblioteker arbejder sammen om at besvare spørgsmål fra brugere i hele landet.',
-  );
-
-  $image = array(
-    'path' => drupal_get_path('module', 'vopros_embed') . '/images/bvagt_logo_mid.jpg',
-    'alt' => 'Biblioteksvagten.dk',
-  );
-  $form['image'] = array(
-    '#prefix' => '<div>',
-    '#suffix' => '</div>',
-    '#markup' => theme('image', $image),
+  // This a copy of $form['submit'] with just the label changed and only show
+  // when chat is chosen as user answer preference.
+  $form['submit-chat'] = array(
+    '#type' => 'submit',
+    '#value' => t('Start chat'),
+    '#attributes' => array('class' => array('primary-action', 'chat-submit')),
+    '#states' => array(
+      'visible' => array(
+        'input[name=user_answer_preference]' => array('value' => 'chat'),
+      ),
+    ),
   );
 
   return $form;
@@ -186,23 +222,33 @@ EOF;
  * Validate handler for vopros_embed_question().
  */
 function vopros_embed_question_validate($form, &$form_state) {
-  if ($form_state['values']['user_answer_preference'] == 'mail' &&
-    empty($form_state['values']['user_email'])) {
-    form_error($form['user_email'], t('E-mail required.'));
-    // Unset sms in case it was prepopulated.
-    form_set_value($form['user_mobile_phone'], '', $form_state);
+  if (in_array($form_state['values']['user_answer_preference'], array('mail', 'chat'))) {
+    if (empty($form_state['values']['user_email'])) {
+      form_error($form['user_email'], t('E-mail required.'));
+    }
+    if (!valid_email_address($form_state['values']['user_email'])) {
+      form_error($form['user_email'], t('E-mail invalid.'));
+    }
   }
 
   if ($form_state['values']['user_answer_preference'] == 'sms' &&
     empty($form_state['values']['user_mobile_phone'])) {
     form_error($form['user_mobile_phone'], t('Mobile phone number required.'));
-    // Unset E-mail in case it was prepopulated.
+  }
+
+  // Unset mail in case it was prepopulated.
+  if ($form_state['values']['user_answer_preference'] == 'sms') {
     form_set_value($form['user_email'], '', $form_state);
   }
 
-  // Validate fields.
-  field_attach_validate('vopros_question', $question, $form, $form_state);
+  // Unset sms in case it was prepopulated.
+  if ($form_state['values']['user_answer_preference'] != 'sms') {
+    form_set_value($form['user_mobile_phone'], '', $form_state);
+  }
 
+  // Validate fields.
+  $question = $form_state['values']['question'];
+  field_attach_validate('vopros_question', $question, $form, $form_state);
 }
 
 /**
@@ -219,40 +265,16 @@ function vopros_embed_question_submit($form, &$form_state) {
   }
   $log = array();
 
-  // Ensure that there's an qanda_service_name fer this sender.
-  $agency_id = $question->agency_id;
-  $qanda_options = _vopros_question_qanda_serice_options();
-  if (!isset($qanda_options[$agency_id])) {
-    $options = variable_get('vopros_question_qanda_service_options', '');
-    // @todo look up agency name.
-    $new_options = trim($options) . "\n" . $agency_id . '|' . $agency_id . "\n";
-    variable_set('vopros_question_qanda_service_options', $new_options);
-  }
-  $question->qanda_service_name = $agency_id;
+  $question->channel = $form_state['values']['user_answer_preference'] == 'chat' ? 'chat' : 'webform';
+  $question->channel_data = array(
+    'from_url' => $form_state['values']['from_url'],
+    'site_email' => $form_state['values']['agency_mail'],
+  );
 
   field_attach_submit('vopros_question', $question, $form, $form_state);
 
   // Save question.
   $question->save();
-
-  if (module_exists('vopros_log')) {
-    if ($form_state['values']['from_url']) {
-      $log[] = "Sendt fra " . $form_state['values']['from_url'];
-    }
-
-    if ($form_state['values']['agency_mail']) {
-      $log[] = "Videresend til " . $form_state['values']['agency_mail'] . " hvis dette er et spørgsmål der bedre kan besvares lokalt.";
-    }
-    // Save log entry.
-    $values = array(
-      'question_id' => $question->question_id,
-      // 'answer_id' => NULL,
-      'log_content' => implode("\n", $log),
-      // 'uid' => NULL,
-    );
-    $log = vopros_log_new($values);
-    vopros_log_save($log);
-  }
 
   // If the form was not shown from a popup, add the originating URL to the
   // path, so we can add a return link.
@@ -260,54 +282,32 @@ function vopros_embed_question_submit($form, &$form_state) {
     $query = array('destination' => $form_state['values']['from_url']);
   }
 
-  $form_state['redirect'] = array('embed/ask-question/submitted', array('query' => $query));
+  if ($form_state['values']['user_answer_preference'] == 'chat' && module_exists('vopros_chat')) {
+    // Redirect chats to the chat page.
+    $form_state['redirect'] = array(vopros_chat_url($question), array('query' => $query));
+  }
+  else {
+    // Else redirect to the confirmation page.
+    $form_state['redirect'] = array('embed/ask-question/submitted', array('query' => $query));
+  }
 }
 
 /**
  * Page callback for the question submitted page.
  */
 function vopros_embed_question_submitted_page() {
+  $build = array();
+
   $build[] = array(
     '#prefix' => '<p>',
     '#suffix' => '</p>',
     '#markup' => t('Your question has been submitted.'),
-    '#attached' => array(
-      'css' => array(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css'),
-    'js' => array(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_popup.js'),
-    ),
-  );
-
-  $opening_hours = array(
-    array(
-      'data' => array(
-        'Mandag-torsdag:',
-        array('data' => 'kl. 8.00 - 22.00', 'class' => 'hours'),
-      )
-    ),
-    array(
-      'data' => array(
-        'Fredag:',
-        array('data' => 'kl. 8.00 - 20.00', 'class' => 'hours'),
-      ),
-    ),
-    array(
-      'data' => array(
-        'Lørdag:',
-        array('data' => 'kl. 8.00 - 16.00', 'class' => 'hours'),
-      ),
-    ),
-    array(
-      'data' => array(
-        'Søndag:',
-        array('data' => 'kl.14.00 - 22.00', 'class' => 'hours'),
-      ),
-    ),
   );
 
   $build[] = array(
     '#prefix' => '<p>',
     '#suffix' => '</p>',
-    '#markup' => theme('table', array('rows' => $opening_hours, 'caption' => 'Biblioteksvagten er online:')),
+    '#markup' => vopros_embed_popup_close_link(check_plain(t('Close window'))),
   );
 
   // Add return button.
@@ -347,14 +347,47 @@ function vopros_embed_question_modal_js() {
 
   $ask_url = url('embed/ask-question', array('absolute' => TRUE));
 
-  // Add our own code.
-  $our_js = file_get_contents($base . '/js/vopros_embed.js');
-  $css = array(
-    '!mag_style' => url($base . '/libraries/magnific-popup-0.9.9/magnific-popup.css', array('absolute' => TRUE)),
-    '!vopros_style' => url($base . '/css/vopros_embed_popup.css', array('absolute' => TRUE)),
-    '!ask_url' => $ask_url,
+  // Required styles.
+  $styles = array(
+    url($base . '/libraries/magnific-popup-0.9.9/magnific-popup.css', array('absolute' => TRUE)),
+    url($base . '/css/vopros_embed_popup.css', array('absolute' => TRUE)),
   );
-  $js .= strtr($our_js, $css);
+
+  // Allow module/themes to override tab styles.
+  $tab_styles = array();
+  drupal_alter('vopros_embed_tab_style', $tab_styles);
+  if (empty($tab_styles)) {
+    $tab_styles = array(url($base . '/css/vopros_embed_tab.css', array('absolute' => TRUE)));
+  }
+
+  $styles = array_merge($styles, $tab_styles);
+
+  // Prepare query for link.
+  $query = array_intersect_key($_GET, array_flip(array('agency_id', 'url', 'agency_mail', 'popup', 'answer_preference', 'destination')));
+
+  $tab_title = format_string(variable_get('vopros_embed_tab_title', 'Ask @site_name'), array('@site_name' => variable_get('site_name', 'Drupal')));
+
+  // Include the volatile script inline in the function.
+  $volatile = file_get_contents($base . '/js/vopros_embed_volatile.js');
+
+  // Render our code.
+  $our_js = file_get_contents($base . '/js/vopros_embed.js');
+  $settings = array(
+    'styles' => $styles,
+    'ask_url' => $ask_url,
+    'tab' => theme('vopros_embed_tab', array('title' => $tab_title, 'url' => $ask_url)),
+    'add_tab' => isset($_GET['tab']),
+    'query' => $query,
+    'confirm_message' => t('Are you sure you want to close?'),
+  );
+
+  $replacements = array(
+    '!settings' => json_encode($settings),
+    '!volatile' => $volatile,
+  );
+
+  // And add it to the collected JS.
+  $js .= strtr($our_js, $replacements);
   $js .= "\n";
 
   print $js;

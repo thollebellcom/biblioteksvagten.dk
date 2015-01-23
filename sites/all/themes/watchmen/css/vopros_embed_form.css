@@ -1,0 +1,230 @@
+/**
+ * @file
+ * Styles for the vopros_embed popup.
+ */
+
+body.vopros-embed {
+  font-family: Arial, helvetica, sans-serif;
+  font-size: 14px;
+  background-color: #f6f6f6;
+  background-image: url(../images/background.png);
+  background-attachment: fixed;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+body.vopros-embed #page,
+body.vopros-embed #main-wrapper {
+  background-color: transparent;
+}
+
+body.vopros-embed .header {
+  background-image: url(../images/logo.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  height: 35px;
+  margin-bottom: 60px;
+}
+
+body.vopros-embed h1#page-title {
+  font-size: 1.5em;
+  padding: 7px 0;
+}
+
+@media all AND (min-width: 500px) {
+  body.vopros-embed form > div {
+    display: table;
+    width: 100%;
+  }
+  body.vopros-embed .answer_type {
+    display: table-cell;
+    width: 200px;
+    vertical-align: top;
+  }
+  body.vopros-embed .answer_details {
+    display: table-cell;
+    width: auto;
+    vertical-align: top;
+    padding-left: 10px;
+  }
+}
+
+body.vopros-embed .form-item {
+  margin-top: 0;
+}
+
+body.vopros-embed .form-required {
+  color: #01c676;
+}
+
+body.vopros-embed .form-item label {
+  font-family: Arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+body.vopros-embed input[type='text'],
+body.vopros-embed input[type='number'],
+body.vopros-embed textarea {
+  width: 100%;
+}
+
+body.vopros-embed .form-item input:focus,
+body.vopros-embed .form-item textarea:focus {
+  outline: none;
+}
+
+body.vopros-embed .form-item input,
+body.vopros-embed .vopros-chat .form-item textarea {
+  border: 2px solid #01c676;
+  border-radius: 2px;
+}
+
+body.vopros-embed .form-item textarea {
+  border: 0;
+  background-color: white;
+}
+
+body.vopros-embed .resizable-textarea .grippie {
+  background-color: white;
+  border: 0;
+}
+
+body.vopros-embed .form-item-user-answer-preference .form-item input {
+  display: none;
+}
+
+body.vopros-embed .form-item-user-answer-preference .form-radios .form-item {
+  margin: 0 0 1em;
+}
+
+body.vopros-embed .form-item-user-answer-preference .form-item label {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: table;
+  background: #01c676;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+body.vopros-embed .form-item-user-answer-preference .form-item label span {
+  display: table-cell;
+  vertical-align: middle;
+  height: 35px;
+}
+
+body.vopros-embed .form-item-user-answer-preference .form-item label .fa-angle-right {
+  display: table-cell;
+  background-color: #01a863;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+body.vopros-embed .form-item-user-answer-preference .active_answer_type label {
+  background: #01a863;
+  color: #ddd;
+}
+
+body.vopros-embed .form-item-user-answer-preference .disabled_answer_type label,
+body.vopros-embed .form-item-user-answer-preference .form-disabled label {
+  color: white;
+  background: #aee8d0;
+  cursor: default;
+}
+
+body.vopros-embed .form-item-user-answer-preference .disabled_answer_type label .fa-angle-right,
+body.vopros-embed .form-item-user-answer-preference .form-disabled label .fa-angle-right {
+  background: #aedfca;
+}
+
+body.vopros-embed .form-item-question-content label,
+body.vopros-embed .vopros-chat legend  {
+  display: block;
+  padding: 12px;
+  background: #01c676;
+  color: white;
+}
+
+/* Resetting. */
+body.vopros-embed fieldset.vopros-chat {
+  border: 0;
+}
+
+body.vopros-embed .vopros-chat legend {
+  font-family: Arial, helvetica, sans-serif;
+  border-radius: 0;
+  border: 0;
+  padding: 12px 0;
+  height: auto;
+}
+
+body.vopros-embed .vopros-chat legend span.fieldset-legend {
+  /* position: absolute; */
+  display: block;
+  text-shadow: none;
+  left: 10px;
+}
+
+body.vopros-embed .vopros-chat div.fieldset-wrapper {
+  border: 0;
+  margin-top: 45px;
+  padding: 0;
+}
+
+body.vopros-embed .vopros-chat div.fieldset-wrapper .chat-log {
+  border: 0;
+}
+/* End resetting. */
+
+body.vopros-embed .vopros-chat .form-type-textarea label {
+  display: none;
+}
+
+body.vopros-embed input.form-submit {
+  border: 0;
+  border-radius: 0;
+  font-weight: normal;
+  margin: 0;
+  padding: 10px;
+  background: #01c676;
+  color: white;
+  cursor: pointer;
+}
+
+body.vopros-embed input.form-submit:hover {
+  background: #01c676;
+}
+
+body.vopros-embed .chat-status-message .fa-exclamation-triangle {
+  color: #01c676;
+}
+
+body.vopros-embed .form-item-question-deadline  .form-item input {
+  display: none;
+}
+
+body.vopros-embed .form-item-question-deadline .form-item label:before {
+  color: #01c676;
+  padding-right: 10px;
+  /* Copied directly from FontAwesomes CSS. */
+  font-family: 'FontAwesome';
+  content: "\f10c";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* And this is .fa-lg. */
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+
+}
+
+body.vopros-embed .form-item-question-deadline .form-item.checked label:before {
+  content: "\f111";
+}

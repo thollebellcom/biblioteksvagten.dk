@@ -98,7 +98,6 @@ projects[ting][download][tag] = "7.x-0.11"
 projects[vopros_modules][type] = module
 projects[vopros_modules][download][type] = git
 projects[vopros_modules][download][url] = "https://github.com/DBCDK/Vopros-base.git"
-projects[vopros_modules][download][revision] = 0c97535cf1d9e7dbd657fb6c13a7753d9591f339
 projects[vopros_modules][directory_name] = vopros
 
 ; Libraries

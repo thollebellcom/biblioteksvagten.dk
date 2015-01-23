@@ -1,0 +1,154 @@
+/*
+ * Default styling of the form.
+ */
+
+/**
+ * Title.
+ */
+#content .header {
+  background: #555;
+  margin: -1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+
+#content .header:after {
+  /* Clearfix. */
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#content .header #page-title {
+  color: #ddd;
+  font-size: 1.3rem;
+  float: left;
+  margin: 0;
+}
+
+/**
+ * Form layout.
+ */
+.answer_type {
+  float: left;
+  width: 37.5%;
+}
+
+.answer_details {
+  float: right;
+  width: 57.5%;
+}
+
+/**
+ * General styling.
+ */
+#content .form-item label {
+  color: #555;
+}
+
+#content .form-item .active_answer_type label {
+  color: #ddd;
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+textarea {
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  -webkit-border-bottom-right-radius: 0;
+  -moz-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/**
+ * Slightly less aggressive red.
+ */
+.form-required {
+  color: #D3321E;
+}
+
+.chat-submit.disabled {
+  color: #C2C2C2;
+  background: #F5F5F5;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  opacity: 0.75;
+}
+
+/**
+ * Answer type.
+ */
+.form-item-user-answer-preference .form-item input {
+  display: none;
+}
+
+.form-item-user-answer-preference .form-item label {
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.4rem;
+  display: block;
+  background: #ddd;
+  cursor: pointer;
+}
+
+.form-item-user-answer-preference .active_answer_type label {
+  background: #555;
+  color: #ddd;
+}
+
+.form-item-user-answer-preference .disabled_answer_type label {
+  color: #b6b6b6;
+  background: #f3f3f3;
+  cursor: default;
+}
+
+/**
+ * Media width: < 500px.
+ */
+@media all AND (max-width: 500px) {
+  /**
+   * Form layout.
+   */
+  .answer_type {
+    float: none;
+    width: 100%;
+  }
+
+  .answer_details {
+    float: none;
+    width: 100%;
+  }
+
+  /**
+   * Header.
+   */
+  #content .header #page-title {
+    float: none;
+    display: block;
+    text-align: center;
+    margin-top: 0.6rem;
+  }
+
+  #content .header img {
+    float: none;
+    margin: 0 auto;
+    display: block;
+  }
+}

@@ -1,0 +1,5 @@
+name = BV Vopros
+description = Vopros alterations for biblioteksvagten.dk
+package = Biblioteksvagten
+core = 7.x
+dependencies[] = vopros_question

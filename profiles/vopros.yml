@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:DBCDK/Vopros-install.git'
+  revision: 7dcd0434aa9a0aa4c60281be5821441a7bb627df

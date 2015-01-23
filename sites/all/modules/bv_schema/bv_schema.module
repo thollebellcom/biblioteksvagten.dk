@@ -1,0 +1,395 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function bv_schema_menu() {
+  $items['admin/config/content/bv-schema'] = array(
+    'title' => 'BV Schema',
+    'description' => 'Settings for BV Schema',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bv_schema_settings_form'),
+    'access arguments' => array('administer site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Settings form.
+ */
+function bv_schema_settings_form($form, &$form_state) {
+  $form['bv_schema_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Activate schema'),
+    '#description' => t('Select which node types that it should be possible to use schemas on.'),
+    '#options' => node_type_get_names(),
+    '#default_value' => variable_get('bv_schema_types', array()),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function bv_schema_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id, 'node_form') !== FALSE) {
+    $node = $form_state['node'];
+    $node_types = variable_get('bv_schema_types', array());
+    if (in_array($node->type, $node_types)) {
+      array_unshift($form['actions']['submit']['#submit'], 'bv_schema_node_form_submit');
+
+      $form['bv_schema'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('BV Schemas'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#group' => 'additional_settings',
+        '#attached' => array(
+          'js' => array(drupal_get_path('module', 'bv_schema') . '/bv_schema.js'),
+        ),
+        '#tree' => TRUE,
+      );
+      $form['bv_schema']['intro'] = array(
+        '#markup' => '<h3>' . t('Select the date you want to create a schema for') . '</h3>',
+      );
+      $form['bv_schema']['date'] = array(
+        '#type' => 'date_popup',
+        '#title' => t('Date'),
+        '#date_format' => 'Y-m-d',
+        '#datepicker_options' => array(
+          'minDate' => 1,
+          'beforeShowDay' => 'onlyAllowMondays',
+        ),
+      );
+
+      $form['bv_schema']['type'] = array(
+        '#type' => 'select',
+        '#title' => t('Type'),
+        '#options' => array(
+          'folke' => 'Folkebibliotek',
+          'forsk' => 'Forskningsbibliotek'
+        )
+      );
+
+      $form['bv_schema']['forsk'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Forskningsbibliotek',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+
+      $form['bv_schema']['forsk']['monday'][0] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 9-12'),
+      );
+      $form['bv_schema']['forsk']['monday'][1] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 12-14'),
+      );
+      $form['bv_schema']['forsk']['monday'][2] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 14-16'),
+      );
+
+      $form['bv_schema']['forsk']['tuesday'][0] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 9-12'),
+      );
+      $form['bv_schema']['forsk']['tuesday'][1] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 12-14'),
+      );
+      $form['bv_schema']['forsk']['tuesday'][2] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 14-16'),
+      );
+
+      $form['bv_schema']['forsk']['wednesday'][0] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 9-12'),
+      );
+      $form['bv_schema']['forsk']['wednesday'][1] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 12-14'),
+      );
+      $form['bv_schema']['forsk']['wednesday'][2] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 14-16'),
+      );
+
+      $form['bv_schema']['forsk']['thursday'][0] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 9-12'),
+      );
+      $form['bv_schema']['forsk']['thursday'][1] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 12-14'),
+      );
+      $form['bv_schema']['forsk']['thursday'][2] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 14-16'),
+      );
+
+      $form['bv_schema']['forsk']['friday'][0] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 9-11'),
+      );
+      $form['bv_schema']['forsk']['friday'][1] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 11-13'),
+      );
+      $form['bv_schema']['forsk']['friday'][2] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 13-15'),
+      );
+
+      $form['bv_schema']['folke'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Folkebibliotek',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+
+      $form['bv_schema']['folke']['monday']['monday_8_10'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 8-10'),
+      );
+      $form['bv_schema']['folke']['monday']['monday_10_13'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 10-13'),
+      );
+      $form['bv_schema']['folke']['monday']['monday_13_16'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 13-16'),
+      );
+      $form['bv_schema']['folke']['monday']['monday_16_19'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 16-19'),
+      );
+      $form['bv_schema']['folke']['monday']['monday_19_22'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Monday 19-22'),
+      );
+
+      $form['bv_schema']['folke']['tuesday']['tuesday_8_10'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 8-10'),
+      );
+      $form['bv_schema']['folke']['tuesday']['tuesday_10_13'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 10-13'),
+      );
+      $form['bv_schema']['folke']['tuesday']['tuesday_13_16'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 13-16'),
+      );
+      $form['bv_schema']['folke']['tuesday']['tuesday_16_19'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 16-19'),
+      );
+      $form['bv_schema']['folke']['tuesday']['tuesday_19_22'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Tuesday 19-22'),
+      );
+
+      $form['bv_schema']['folke']['wednesday']['wednesday_8_10'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 8-10'),
+      );
+      $form['bv_schema']['folke']['wednesday']['wednesday_10_13'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 10-13'),
+      );
+      $form['bv_schema']['folke']['wednesday']['wednesday_13_16'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 13-16'),
+      );
+      $form['bv_schema']['folke']['wednesday']['wednesday_16_19'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 16-19'),
+      );
+      $form['bv_schema']['folke']['wednesday']['wednesday_19_22'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Wednesday 19-22'),
+      );
+
+      $form['bv_schema']['folke']['thursday']['thursday_8_10'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 8-10'),
+      );
+      $form['bv_schema']['folke']['thursday']['thursday_10_13'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 10-13'),
+      );
+      $form['bv_schema']['folke']['thursday']['thursday_13_16'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 13-16'),
+      );
+      $form['bv_schema']['folke']['thursday']['thursday_16_19'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 16-19'),
+      );
+      $form['bv_schema']['folke']['thursday']['thursday_19_22'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Thursday 19-22'),
+      );
+
+      $form['bv_schema']['folke']['friday']['friday_8_10'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 8-10'),
+      );
+      $form['bv_schema']['folke']['friday']['friday_10_12'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 10-12'),
+      );
+      $form['bv_schema']['folke']['friday']['friday_12_15'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 12-15'),
+      );
+      $form['bv_schema']['folke']['friday']['friday_15_17'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 15-17'),
+      );
+      $form['bv_schema']['folke']['friday']['friday_17_20'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Friday 17-20'),
+      );
+
+      $form['bv_schema']['folke']['saturday']['saturday_8_12'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Saturday 8-12'),
+      );
+      $form['bv_schema']['folke']['saturday']['saturday_12_16'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Saturday 12-16'),
+      );
+
+      $form['bv_schema']['folke']['sunday']['sunday_14_18'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Sunday 14-18'),
+      );
+        $form['bv_schema']['folke']['sunday']['monday_18_22'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Sunday 18-22'),
+      );
+    }
+  }
+}
+
+/**
+ * Submit handler for node form.
+ */
+function bv_schema_node_form_submit($form, &$form_state) {
+  $v = $form_state['values']['bv_schema'];
+  if ($v['date']) {
+    $time = strtotime($v['date']);
+    if ($v['type'] == 'forsk') {
+      $header = array(
+        strtoupper(format_date($time, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 2, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 3, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 4, 'custom', 'D d.m.y')),
+      );
+      $rows = array();
+      $times = array(
+        '',
+        '',
+      );
+
+      $monday_times = array(
+        'SDUB:<br /> 9.30-12',
+        'SB:<br /> 12-15',
+      );
+
+
+      $tuesday_times = array(
+        'RUB:<br /> 9-12',
+        'AUB:<br /> 12-15',
+      );
+      $wedensday_times = array(
+        'CBSB:<br /> 9-12',
+        'SB:<br /> 13-15',
+      );
+
+      $thursday_times = array(
+        'CBSB:<br /> 9-11',
+        'VIA TEK:<br /> 13-15',
+      );
+
+      $friday_times = array(
+        'SDUB:<br /> 10-12',
+        'AUB:<br /> 13-15',
+      );
+
+      foreach ($times as $key => $time) {
+        $rows[] = array(
+          isset($monday_times[$key]) ? $monday_times[$key] . ' ' . $v['forsk']['monday'][$key] : '',
+          isset($tuesday_times[$key]) ? $tuesday_times[$key] . ' ' . $v['forsk']['tuesday'][$key] : '',
+          isset($wedensday_times[$key]) ? $wedensday_times[$key] . ' ' . $v['forsk']['wedensday'][$key] : '',
+          isset($thursday_times[$key]) ? $thursday_times[$key] . ' ' . $v['forsk']['thursday'][$key] : '',
+          isset($friday_times[$key]) ? $friday_times[$key] . ' ' . $v['forsk']['friday'][$key] : '',
+         );
+      }
+      $rows[] = $row;
+    }
+    else {
+      $header = array(
+        strtoupper(format_date($time, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 2, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 3, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 4, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 5, 'custom', 'D d.m.y')),
+        strtoupper(format_date($time + 86400 * 6, 'custom', 'D d.m.y')),
+      );
+
+      $weekday_times = array(
+        '08-10',
+        '10-13',
+        '13-16',
+        '16-19',
+        '19-22',
+      );
+      $friday_times = array(
+        '08-10',
+        '10-12',
+        '12-15',
+        '15-17',
+        '17-20',
+
+      );
+      $sat_times = array(
+        '08-12',
+        '12-16',
+      );
+      $sun_times = array(
+        '14-18',
+        '18-22',
+      );
+
+      foreach ($weekday_times as $key => $time) {
+        $rows[] = array(
+          $time . ': ' .  $v['folke']['monday'][$key],
+          $time . ': ' . $v['folke']['tuesday'][$key],
+          $time . ': ' . $v['folke']['wednesday'][$key],
+          $time . ': ' . $v['folke']['thursday'][$key],
+          isset($friday_times[$key]) ? $friday_times[$key] . ': ' . $v['folke']['friday'][$key] : '',
+          isset($sat_times[$key]) ? $sat_times[$key] . ': ' . $v['folke']['saturday'][$key] : '',
+          isset($sun_times[$key]) ? $sun_times[$key] . ': ' . $v['folke']['sunday'][$key] : '',
+        );
+      }
+    }
+
+    $table_def = array(
+      'header' => $header,
+      'rows' => $rows,
+      'attributes' => array(
+        'class' => array('bibvagt-schema'),
+      ),
+    );
+    $form_state['values']['body']['und'][0]['value'] = theme('table', $table_def);
+  }
+}

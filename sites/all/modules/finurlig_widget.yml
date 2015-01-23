@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:aakb/finurlig_widget.git'
+  revision: 3e846cac7d559a5ab1754a242d3c5e4d6092f74b

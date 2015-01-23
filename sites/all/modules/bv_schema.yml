@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/bv_schema.git'
+  revision: 67b9610f88a634a30a869020a0c623c5ceb5b8c1

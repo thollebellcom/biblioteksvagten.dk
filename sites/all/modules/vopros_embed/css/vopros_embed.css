@@ -1,0 +1,57 @@
+/**
+ * Styles for the questions form.
+ */
+
+#embedded-page-wrapper #page {
+  width: auto;
+  margin: 0;
+}
+
+#embedded-page-wrapper #main {
+  width: auto;
+  margin: 0;
+}
+
+#embedded-page-wrapper #content {
+  display: block;
+  float: none;
+  position: static;
+  margin: 1em;
+}
+
+#embedded-page-wrapper #footer {
+  width: auto;
+  min-width: 0;
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+  width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+@media all and (max-device-width: 500px) {
+  input[type='text'],
+  input[type='number'],
+  textarea,
+  label {
+    /* Try to disable field zoom. */
+    font-size:16px;
+  }
+
+  /* Add some finger margins on radio buttons. */
+  #embedded-page-wrapper .form-type-radio {
+    margin: 1em 0;
+  }
+}
+
+#embedded-page-wrapper table {
+  width: auto;
+}
+
+#embedded-page-wrapper td.hours {
+  text-align: right;
+}

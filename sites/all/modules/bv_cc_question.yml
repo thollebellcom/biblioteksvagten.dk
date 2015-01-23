@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/bv_cc_question.git'
+  revision: 5eec6475bd95eec14c6d591292b3371b3cecff54

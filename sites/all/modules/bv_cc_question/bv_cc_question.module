@@ -1,0 +1,173 @@
+<?php
+/**
+ * @file
+ * Code for the BV Call Center Questions feature.
+ */
+
+include_once 'bv_cc_question.features.inc';
+/**
+ * @file
+ * Code for the BV Call Center Question feature.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function bv_cc_question_entity_info() {
+  $return = array(
+    'bv_cc_question' => array(
+      'label' => t('BV Call Center Question'),
+      'controller class' => 'BVCallCenterQuestionEntityController',
+      'entity class' => 'BVCallCenterQuestion',
+      'base table' => 'bv_cc_question',
+      'fieldable' => TRUE,
+      'uri callback' => 'entity_class_uri',
+      'entity keys' => array(
+        'id' => 'cc_question_id',
+        'label' => 'title',
+      ),
+      'bundles' => array(
+        'bv_cc_question' => array(
+          'label' => t('BV Call Center Question'),
+          'admin' => array(
+            'path' => 'admin/vopros/cc-question',
+            'access arguments' => array('administer bv call center questions'),
+          ),
+        ),
+      ),
+      'load hook' => 'bv_cc_question_load',
+      'view modes' => array(
+        'administrator' => array(
+          'label' => t('Administrator'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'module' => 'bv_cc_question',
+      'access callback' => 'bv_cc_question_access',
+      // Handle the metadata.
+      'metadata controller class' => 'BVCallCenterQuestionMetadataController',
+      // Allow default views controller to create view data integration.
+      'views controller class' => 'BVCallCenterQuestionViewsController',
+      // Enable the entity API's admin UI.
+      'admin ui' => array(
+        'path' => 'admin/vopros/cc-question',
+        'file' => 'bv_cc_question.admin.inc',
+        'controller class' => 'BVCallCenterQuestionUIController',
+      ),
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function bv_cc_question_permission() {
+  $permissions = array(
+    'administer bv call center questions' => array(
+      'title' => t('Administer BV Call Center Questions'),
+      'restrict access' => TRUE,
+    ),
+    'access bv call center questions' => array(
+      'title' => t('Access lists of BV Call Center Questions, primarily for viewing and referencing'),
+    ),
+    'create bv call center questions' => array(
+      'title' => t('Create BV Call Center Questions'),
+    ),
+    'edit bv call center questions' => array(
+      'title' => t('Edit and delete BV Call Center Questions'),
+      'restrict access' => TRUE,
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Checks vendor category item access for various operations.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create' or
+ *   'delete'.
+ * @param $entity
+ *   Optionally a BV Call Center Question or BV Call Center Question detail entity to check access for.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the current user.
+ */
+function bv_cc_question_access($op, $entity = NULL, $account = NULL) {
+  global $user;
+  $account = isset($account) ? $account : clone($user);
+
+  // Grant access to any operation for any call center question for administrators.
+  if (user_access('administer bv call center questions', $account)) {
+    return TRUE;
+  }
+
+  if ($op == 'view') {
+    if (user_access('access bv call center questions', $account)) {
+      return TRUE;
+    }
+  }
+
+  if ($op == 'create' && user_access('create bv call center questions', $account)) {
+    return TRUE;
+  }
+
+  if ($op == 'update' || $op == 'delete') {
+    if (user_access('edit bv call center questions', $account)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Create a new BV Call Center Question object.
+ */
+function bv_cc_question_new($values = array()) {
+  return entity_create('bv_cc_question', $values);
+}
+
+/**
+ * Loads a BV Call Center Question by ID.
+ */
+function bv_cc_question_load($cc_question_id, $reset = FALSE) {
+  $cc_question = bv_cc_question_load_multiple(array($cc_question_id), array(), $reset);
+  return $cc_question ? reset($cc_question) : FALSE;
+}
+
+/**
+ * Loads multiple BV Call Center Questions by ID or based on a set of matching
+ * conditions.
+ *
+ * @see entity_load()
+ *
+ * @param $cc_question_ids
+ *   An array of BV Call Center Question IDs.
+ * @param $conditions
+ *   An array of conditions on the {bv_cc_question} table in the form
+ *     'field' => $value.
+ * @param $reset
+ *   Whether to reset the internal loading cache.
+ *
+ * @return
+ *   An array of BV Call Center Question objects indexed by cc_question_id.
+ */
+function bv_cc_question_load_multiple($cc_question_ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('bv_cc_question', $cc_question_ids, $conditions, $reset);
+}
+
+/**
+ * Utility function to get the answer types for call center questions
+ */
+function bv_cc_question_answer_types() {
+  $conf = variable_get('bv_cc_question_answer_types', "Problem løst\nVideresendt\nSpørger går selv videre");
+  $values = explode("\n", $conf);
+  $options = array();
+  foreach ($values as $value) {
+    $options[$value] = $value;
+  }
+  return $options;
+}

@@ -1,0 +1,62 @@
+<?php
+/**
+ * @file
+ * Code for the BV Vopros Services feature.
+ */
+
+include_once 'bv_vopros_services.features.inc';
+
+/**
+ * Implements hook_views_post_execute().
+ *
+ * Fix up URL on profile images.
+ */
+function bv_vopros_services_views_post_execute($view) {
+  // Fix public:// path to a external URL. services_views grabs the result so
+  // early that views formatters don't have a chance to do it.
+  if ($view->name == 'bv_vopros_services_users') {
+    foreach ($view->result as $key => $row) {
+      if (!empty($row->file_managed_field_data_field_vopros_user_image_uri)) {
+        $path = file_create_url($row->file_managed_field_data_field_vopros_user_image_uri);
+        $row->file_managed_field_data_field_vopros_user_image_uri = $path;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data().
+ *
+ * Views enables the timestamp from the session table. This is more accurate
+ * than using the timestamp in the user table, as the row in the session is
+ * deleted when the user logs out. So using this eliminates ghost users.
+ */
+function bv_vopros_services_views_data() {
+  $data['sessions']['table']['group']  = t('Session');
+
+  // Explain how this table joins to others.
+  $data['sessions']['table']['join'] = array(
+     // Directly links to users table.
+    'users' => array(
+      'left_field' => 'uid',
+      'field' => 'uid',
+    ),
+  );
+
+  $data['sessions']['timestamp'] = array(
+    'title' => t('Last access (from session)'),
+    'help' => t("The user's last access date."),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+
+  return $data;
+}

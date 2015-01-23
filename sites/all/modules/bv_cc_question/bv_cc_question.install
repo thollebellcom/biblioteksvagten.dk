@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Installation code.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function bv_cc_question_schema() {
+  $schema = array();
+
+  $schema['bv_cc_question'] = array(
+    'description' => 'The base table for BV Call Center Question entities.',
+    'fields' => array(
+      'cc_question_id' => array(
+        'description' => 'The primary identifier for a call center question.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'The title for the question and the entity label.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'library' => array(
+        'description' => 'The library of the user who answered the question.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'answer_type' => array(
+        'description' => 'The answer type for the call center question.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'note'  => array(
+        'description' => 'Notes about the call center question.',
+        'type' => 'text',
+        'size' => 'big',
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid of the user that created the question.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the call center question was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('cc_question_id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+      'answer_type' => array('answer_type'),
+      'library' => array('library'),
+    ),
+  );
+
+  return $schema;
+}
+

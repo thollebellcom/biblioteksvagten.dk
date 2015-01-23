@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/bv_vopros_services.git'
+  revision: 4a784f406421f54819cf19e01406f153b74449c1

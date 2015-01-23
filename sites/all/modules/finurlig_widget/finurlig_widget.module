@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * @file
+ * This module provides an configureable interface to finurligefakta.dk, which
+ * can be used to insert an widget on the site in the form of a block. The
+ * widget is implemented as JavaScript.
+ *
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function finurlig_widget_menu() {
+  return array(
+    'admin/config/services/fffwidget' => array(
+      'title' => 'Finurlig fakta',
+      'description' => 'Configure the "Firnulig fakta" widget.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('finurlig_widget_admin_form'),
+      'access arguments' => array('administer site configuration'),
+      'file' => 'includes/finurlig_widget.admin.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ * Defines a block used to display the interactive widget.
+ */
+function finurlig_widget_block_info() {
+  $blocks = array();
+
+  $blocks['fffWidget'] = array(
+    'info' => 'Finurlige fakta',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Defines the content of the block used to disaplay interactive widgets. It
+ * also adds JavaScript to load the widget to the page.
+ */
+function finurlig_widget_block_view($delta = '') {
+  switch ($delta) {
+    case 'fffWidget':
+      // Load widget configuration.
+      $conf = variable_get('fff_widget', array());
+      $type = isset($conf['type']) ? $conf['type'] : FALSE;
+
+      if ($type == 'interactive') {
+        $target = isset($conf['options']['target']) ? $conf['options']['target'] : 'firnulig-widget';
+        $style_type = isset($conf['style']['type']) ? $conf['style']['type'] : 'full';
+        $style_color = isset($conf['style']['color']) ? $conf['style']['color'] : 'default';
+        $reload = isset($conf['options']['reload']) ? $conf['options']['reload'] : TRUE;
+        $create = isset($conf['options']['create']) ? $conf['options']['create'] : FALSE;
+        $tracking = isset($conf['options']['tracking']) ? $conf['options']['tracking'] : TRUE;
+
+        $block = array(
+          'subject' => '<none>',
+          'content' => array(
+            '#markup' => '<div id="' . $target . '" class="finurlig-widget"></div>'),
+        );
+
+        // Add inline JavaScript to the page footer, which loades the widget into
+        // the block's div.
+        drupal_add_js("var fffWidgetConfig = [];
+                      fffWidgetConfig.push({
+                        'widget' : '" . $type . "',
+                        'target' : '#". $target . "',
+                        'style' : {
+                          'type' : '" . $style_type . "',
+                          'color' : '" . $style_color . "'
+                        },
+                        'button' : {
+                          'reload' : " . ($reload ? 'true' : 'false') . ",
+                          'create' : " . ($create ? 'true' : 'false') . ",
+                        },
+                        'tracking' : " . ($tracking ? 'true' : 'false') . "
+                      });
+
+                      (function() {
+                        var fff = document.createElement('script'); fff.type = 'text/javascript'; fff.async = true;
+                        fff.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'service.finurligefakta.dk/widgets/fff.widget.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fff, s);
+                      })();", 'inline', 'footer');
+        return $block;
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Inserts slide in widget code into the page, if the "slide in" type is
+ * selected.
+ */
+function finurlig_widget_init() {
+  $conf = variable_get('fff_widget', array());
+  $type = isset($conf['type']) ? $conf['type'] : FALSE;
+
+  if ($type == 'slidein') {
+    // Load configuration
+    $target = isset($conf['options']['target']) ? $conf['options']['target'] : 'firnulig-widget';
+    $style_type = isset($conf['style']['type']) ? $conf['style']['type'] : 'full';
+    $style_color = isset($conf['style']['color']) ? $conf['style']['color'] : 'default';
+    $reload = isset($conf['options']['reload']) ? $conf['options']['reload'] : TRUE;
+    $tracking = isset($conf['options']['tracking']) ? $conf['options']['tracking'] : TRUE;
+
+    // Add inline JavaScript to the page footer, which loades the widget.
+    drupal_add_js("var fffWidgetConfig = [];
+                      fffWidgetConfig.push({
+                        'widget' : 'slidein',
+                        'target' : '#". $target . "',
+                        'style' : {
+                          'type' : '" . $style_type . "',
+                          'color' : '" . $style_color . "'
+                        },
+                        'button' : {
+                          'reload' : " . ($reload ? 'true' : 'false') . "
+                        },
+                        'tracking' : " . ($tracking ? 'true' : 'false') . "
+                      });
+
+                      (function() {
+                        var fff = document.createElement('script'); fff.type = 'text/javascript'; fff.async = true;
+                        fff.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'service.finurligefakta.dk/widgets/fff.widget.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fff, s);
+                      })();", 'inline', 'footer');
+  }
+}

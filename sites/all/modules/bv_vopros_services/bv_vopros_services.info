@@ -1,0 +1,16 @@
+name = BV Vopros Services
+description = Services module for BV.
+core = 7.x
+package = Vopros
+php = 5.2.4
+version = 7.x-1.0
+project = bv_vopros_services
+dependencies[] = services
+dependencies[] = services_views
+dependencies[] = views
+features[ctools][] = services:services:3
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[services_endpoint][] = bv_vopros_services
+features[views_view][] = bv_vopros_services_public_help
+features[views_view][] = bv_vopros_services_users

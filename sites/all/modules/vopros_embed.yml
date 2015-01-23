@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/vopros_embed.git'
+  revision: f5ba091f06db9ff8bd2de42a625e165a52527199

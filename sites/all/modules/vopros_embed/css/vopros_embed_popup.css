@@ -1,0 +1,14 @@
+
+.mfp-iframe-holder .mfp-content {
+  height: 90%;
+  max-height: 850px;
+  min-height: 300px;
+
+  width: 90%;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.mfp-iframe-scaler iframe {
+  background-color: white;
+}

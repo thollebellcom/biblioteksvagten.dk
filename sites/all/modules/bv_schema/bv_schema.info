@@ -1,0 +1,5 @@
+name = BV Schema
+description = Handle creation of schemas
+package = Biblioteksvagten
+core = 7.x
+dependencies[] = date_popup

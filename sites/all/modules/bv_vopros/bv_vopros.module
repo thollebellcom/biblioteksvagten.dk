@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function bv_vopros_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "environment_indicator" && $api == "default_environment_indicator_environments") {
+    return array("version" => "1");
+  }
+}
+
+/**
+ * Implements hook_vopros_question_status_reasons_alter().
+ */
+function bv_vopros_vopros_question_status_reasons_alter(&$reasons) {
+  $reasons['asked for help'] = t('Asked for help');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function bv_vopros_permission() {
+  return array(
+    'bv can ask for help' =>  array(
+      'title' => t('Can ask for help for vopros question'),
+      'description' => t('The user is allowed to close questions with the ask for help status reason.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function bv_vopros_form_vopros_question_close_question_form_alter(&$form, &$form_state) {
+  if (user_access('bv can ask for help')) {
+    $form['reason']['#options']['asked for help'] = t('Asked for help');
+  }
+}

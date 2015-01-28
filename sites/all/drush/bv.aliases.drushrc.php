@@ -21,7 +21,7 @@ $aliases['adm'] = array(
   'root' => '/var/www/adm.biblioteksvagten.dk',
   'deployotron' => array(
     'branch' => 'master',
-    'dump-dir' => '/root/backup/prod',
+    'dump-dir' => '/root/backup/adm',
     // Updb clears the cache.
     'no-cc-all' => TRUE,
   ),

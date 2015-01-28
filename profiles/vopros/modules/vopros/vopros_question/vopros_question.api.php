@@ -27,9 +27,17 @@ function hook_vopros_question_status_reasons_alter(&$reasons) {
 }
 
 /**
- * Alter Quanda service options.
+ * Return question channels.
+ *
+ * @return array
+ *   Keys are channel identifiers, the value is an array of options:
+ *   'name':
+ *     Human readable name.
+ *   'manual':
+ *     When true, this channel can be used for manually created questions.
+ *     (optional)
  */
-function hook_vopros_question_qanda_serice_options_alter(&$options) {
+function hook_vopros_question_channels() {
 
 }
 

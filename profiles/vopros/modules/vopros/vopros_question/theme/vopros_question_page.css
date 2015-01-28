@@ -22,6 +22,10 @@
   font-weight: bold;
 }
 
+.question-channel-data.vopros-question-extra .value {
+  float: left;
+}
+
 .vopros-question-extra div.label {
   float: none;
 }
@@ -66,4 +70,3 @@ h3.question-user-data {
 .vopros-question .action .form-submit:active {
   background: #666;
 }
-

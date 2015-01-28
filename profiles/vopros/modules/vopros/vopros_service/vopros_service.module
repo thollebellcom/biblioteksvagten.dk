@@ -20,15 +20,10 @@ function vopros_service_entity_info() {
       'entity keys' => array(
         'id' => 'service_id',
         'revision' => 'revision_id',
-        'label' => 'label',
       ),
       'bundles' => array(
-        'vopros_email' => array(
+        'vopros_service' => array(
           'label' => t('Vopros Service'),
-          'admin' => array(
-            'path' => 'admin/vopros/config/service',
-            'access arguments' => array('administer vopros services'),
-          ),
         ),
       ),
       'load hook' => 'vopros_service_load',
@@ -42,19 +37,13 @@ function vopros_service_entity_info() {
       'access callback' => 'vopros_service_access',
       // Allow default views controller to create view data integration.
       'views controller class' => 'EntityDefaultViewsController',
-      // Enable the entity API's admin UI.
-      'admin ui' => array(
-        'path' => 'admin/vopros/services',
-        'file' => 'vopros_service.admin.inc',
-        'controller class' => 'VoprosServiceUIController',
-      ),
     ),
     'vopros_service_message' => array(
       'label' => t('Vopros Service Message'),
       'controller class' => 'VoprosServiceMessageEntityController',
       'entity class' => 'VoprosServiceMessage',
       'base table' => 'vopros_service_message',
-      // Vesioning doesn't make sense.
+      // Versioning doesn't make sense.
       'fieldable' => FALSE,
       'entity keys' => array(
         'id' => 'service_message_id',
@@ -377,6 +366,172 @@ function vopros_service_current($new = NULL) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add in configuration of service.
+ */
+function vopros_service_form_vopros_question_client_form_alter(&$form, &$form_state) {
+  $service = vopros_service_load_by_client_id($form['client']['#value']->client_id);
+  if (!$service) {
+    $service = vopros_service_new();
+  }
+
+  $form['vopros_service'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Service',
+    '#collapsible' => TRUE,
+    '#collapsed' => isset($service->is_new),
+    '#tree' => TRUE,
+    '#weight' => 50,
+  );
+
+  $form['vopros_service']['service'] = array(
+    '#type' => 'value',
+    '#value' => $service,
+  );
+
+  $form['vopros_service']['enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Enable service.',
+    '#default_value' => !isset($service->is_new),
+    '#description' => t('This allows for inter-Vopros communication with this client.'),
+  );
+
+  // #state array for enabling fields.
+  $enabled_state = array(
+    'enabled' => array(
+      'input[name="vopros_service[enabled]"]' => array('checked' => TRUE),
+    ),
+  );
+  $form['vopros_service']['url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL'),
+    '#description' => t('The base URL for vopros service.'),
+    '#default_value' => $service->url,
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => $enabled_state,
+  );
+
+  // Auth type is not configurable at the moment, when implemented, we need to
+  // refactor auth_key out of the service definition and let the authentication
+  // plugin deal with settings and form.
+  $form['vopros_service']['auth_type'] = array(
+    '#type' => 'value',
+    '#value' => 'shared_token',
+  );
+
+  $form['vopros_service']['auth_token'] = array(
+    '#prefix' => '<div class="auth-token">',
+    '#suffix' => '</div>',
+  );
+
+  $form['vopros_service']['auth_token']['auth_key'] = array(
+    '#prefix' => '<div id="auth-key">',
+    '#suffix' => '</div>',
+    '#type' => 'textfield',
+    '#title' => t('Auth key'),
+    '#description' => t("Shared token. Must be the same on both ends, and unique across all services. Use regenerate to generate a random token that's not already used."),
+    '#default_value' => $service->auth_key,
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => $enabled_state,
+  );
+
+  $form['vopros_service']['auth_token']['regenerate'] = array(
+    '#type' => 'button',
+    '#value' => t('Regenerate'),
+    '#ajax' => array(
+      'callback' => 'vopros_service_form_ajax',
+      'wrapper' => 'auth-key',
+      'method' => 'replace',
+      'effect' => 'fade',
+    ),
+    '#limit_validation_errors' => array(),
+    '#states' => $enabled_state,
+  );
+
+  $form['vopros_service']['allow_ingoing'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow incoming'),
+    '#default_value' => $service->allow_ingoing,
+    '#states' => $enabled_state,
+  );
+
+  $allow_outgoing_types = array();
+  if ($service->allow_outgoing_help) {
+    $allow_outgoing_types['help'] = 'help';
+  }
+  if ($service->allow_outgoing_turn_over) {
+    $allow_outgoing_types['turn_over'] = 'turn_over';
+  }
+  if ($service->allow_outgoing_turn_over_sms) {
+    $allow_outgoing_types['turn_over_sms'] = 'turn_over_sms';
+  }
+  $form['vopros_service']['allow_outgoing_type'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Outgoing service type'),
+    '#options' => array(
+      'help' => t('Ask for help'),
+      'turn_over' => t('Turn over questions'),
+      'turn_over_sms' => t('Turn over SMS questions'),
+    ),
+    '#default_value' => $allow_outgoing_types,
+    '#states' => $enabled_state,
+  );
+
+  $form['#validate'][] = 'vopros_service_form_vopros_question_client_form_validate';
+  $form['#submit'][] = 'vopros_service_form_vopros_question_client_form_submit';
+}
+
+/**
+ * Ajax callback.
+ *
+ * Generates a new service token.
+ */
+function vopros_service_form_ajax($form, &$form_state) {
+  // We're using drupal_get_token to get a random and very unlikely to collide,
+  // token. We don't need to validate it.
+  $form['vopros_service']['auth_token']['auth_key']['#value'] = drupal_get_token(REQUEST_TIME);
+  return $form['vopros_service']['auth_token']['auth_key'];
+}
+
+/**
+ * Validation handler.
+ */
+function vopros_service_form_vopros_question_client_form_validate($form, &$form_state) {
+  $values = $form_state['values']['vopros_service'];
+  if ($values['enabled']) {
+    if (!valid_url($values['url'], TRUE)) {
+      form_error($form['vopros_service']['url'], t('Invalid service URL.'));
+    }
+  }
+}
+
+/**
+ * Submit handler.
+ */
+function vopros_service_form_vopros_question_client_form_submit($form, &$form_state) {
+  $values = $form_state['values']['vopros_service'];
+  $service = $values['service'];
+
+  if ($values['enabled']) {
+    $service->client_id = $form_state['values']['client']->client_id;
+    $service->url = $values['url'];
+    $service->auth_key = $values['auth_token']['auth_key'];
+    $service->auth_type = $values['auth_type'];
+    $service->allow_ingoing = $values['allow_ingoing'];
+    $service->allow_outgoing_help = !empty($values['allow_outgoing_type']['help']);
+    $service->allow_outgoing_turn_over = !empty($values['allow_outgoing_type']['turn_over']);
+    $service->allow_outgoing_turn_over_sms = !empty($values['allow_outgoing_type']['turn_over_sms']);
+    $service->save();
+  }
+  elseif (!$values['enabled'] && !isset($service->is_new)) {
+    entity_delete($service->entityType(), $service->service_id);
+  }
+}
+
+/**
  * Implements hook_vopros_question_view_alter().
  */
 function vopros_service_vopros_question_view_alter(&$build, $entity_type) {
@@ -432,8 +587,6 @@ function vopros_service_vopros_question_activity_feed($question, &$feed) {
   if ($question->user_answer_preference == 'vopros_service') {
     $forwards = vopros_service_forward_load_by_uuid($question->uuid, array('direction' => 'incoming', 'type' => 'help'));
     if ($forwards) {
-      $forward = reset($forwards);
-
       $message_ids = db_select('vopros_service_message', 'q')
         ->fields('q', array('service_message_id'))
         ->condition('question_id', $question->question_id)
@@ -498,14 +651,14 @@ function vopros_service_form_vopros_question_handle_question_form_alter(&$form, 
   }
   elseif ($forwards[0]->direction == 'outgoing') {
     // Show a banner for outgoing questions.
-    $service = vopros_service_machine_name_load($forwards[0]->machine_name);
+    $client = vopros_question_client_load($forwards[0]->client_id);
     switch ($forwards[0]->type) {
       case 'help':
-        drupal_set_message(t("Asked for help at @service ", array('@service' => $service->label)), 'notice', FALSE);
+        drupal_set_message(t("Asked for help at @service ", array('@service' => $client->label)), 'notice', FALSE);
         break;
 
       case 'turn_over':
-        drupal_set_message(t("Handed over to @service ", array('@service' => $service->label)), 'notice', FALSE);
+        drupal_set_message(t("Handed over to @service ", array('@service' => $client->label)), 'notice', FALSE);
         break;
     }
   }
@@ -610,27 +763,11 @@ function vopros_service_load($service_id, $reset = FALSE) {
 }
 
 /**
- * Loads a vopros service by machine name.
+ * Loads a vopros service by client_id.
  */
-function vopros_service_machine_name_load($machine_name, $reset = FALSE) {
-  $services = vopros_service_load_multiple(FALSE, array('machine_name' => $machine_name), (bool) $reset);
+function vopros_service_load_by_client_id($client_id, $reset = FALSE) {
+  $services = vopros_service_load_multiple(FALSE, array('client_id' => $client_id), (bool) $reset);
   return $services ? reset($services) : FALSE;
-}
-
-/**
- * Loads forwards by UUID.
- */
-function vopros_service_forward_load_by_uuid($uuid, $conditions = array()) {
-  $query = db_select('vopros_service_question', 'v')
-    ->fields('v')
-    ->condition('uuid', $uuid);
-
-  foreach ($conditions as $name => $val) {
-    $query->condition($name, $val);
-  }
-
-  return $query->execute()
-    ->fetchAll();
 }
 
 /**
@@ -655,6 +792,43 @@ function vopros_service_load_multiple($service_ids = FALSE, $conditions = array(
 }
 
 /**
+ * Loads forwards by UUID.
+ */
+function vopros_service_forward_load_by_uuid($uuid, $conditions = array()) {
+  $query = db_select('vopros_service_question', 'v')
+    ->fields('v')
+    ->condition('uuid', $uuid);
+
+  foreach ($conditions as $name => $val) {
+    $query->condition($name, $val);
+  }
+
+  return $query->execute()
+    ->fetchAll();
+}
+
+function vopros_service_label($service) {
+  if (isset($service->client_id) && ($client = vopros_question_client_load($service->client_id))) {
+    return $client->label;
+  }
+
+  return '';
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ *
+ * Channel for incoming questions, regardless of their answer preference.
+ */
+function vopros_service_vopros_question_channels() {
+  return array(
+    'vopros_service' => array(
+      'name' => t('Vopros'),
+    ),
+  );
+}
+
+/**
  * Implements hook_vopros_question_user_answer_preference().
  *
  * We define a answer preference called vopros_service for questions that come
@@ -676,16 +850,6 @@ function vopros_service_vopros_question_status_reasons_alter(&$reasons) {
   $reasons['handed over to external service'] = t('Handed over to external service');
   $reasons['reactivated by external service'] = t('Reactivated by external service');
 
-}
-
-/**
- * Implements hook_vopros_question_qanda_serice_options().
- */
-function vopros_service_vopros_question_qanda_serice_options_alter(&$options) {
-  $services = vopros_service_load_multiple(FALSE, array('allow_ingoing' => 1));
-  foreach ($services as $service_id => $service) {
-    $options['vopros_service_' . $service_id] = $service->label();
-  }
 }
 
 /**
@@ -885,7 +1049,7 @@ function _vopros_service_error($new = NULL) {
 }
 
 /**
- * Notify user abuot question transfer.
+ * Notify user about question transfer.
  */
 function _vopros_service_question_takeover_notification($service, $question) {
   $token_objects = array(

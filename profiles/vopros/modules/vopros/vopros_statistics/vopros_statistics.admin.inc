@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Admin functions for Vopros statistics module.
+ */
+
+/**
  * Display statistics for a year
  */
 function vopros_statistics_year_view($year = NULL) {
@@ -258,58 +263,95 @@ function vopros_statistics_time_form_submit($form, &$form_state) {
 /**
  * Display statistics based on Q and A service names.
  */
-function vopros_statistics_qanda_service_name_view($start = NULL, $end = NULL) {
+function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
   if (!$end) {
     $end = REQUEST_TIME;
   }
   if (!$start) {
     $start = REQUEST_TIME - 86400 * 7;
   }
-  $qanda_service_names = _vopros_question_qanda_serice_options();
 
-  // Get the total questions for each Q and A service name.
-  $total_count = db_query("SELECT COUNT(*), qanda_service_name FROM {vopros_question}
-                           WHERE created < :end
-                           AND created > :start
-                           GROUP BY qanda_service_name", array(':end' => $end, ':start' => $start))->fetchAllKeyed(1, 0);
+  $clients = vopros_question_client_load_multiple();
+  $channels = vopros_question_channels();
 
-  $header = array(t('Q and A service name'), t('Total questions'));
-
-  // If we have editorial, get it for each editorial as well.
+  // We are using the 0 tid for totals, cross editorial.
+  $terms = array(0 => (object) array('name' => t('Total questions')));
   if (module_exists('vopros_editorial')) {
     $vocab = taxonomy_vocabulary_machine_name_load('vopros_editorial');
-    $terms = taxonomy_term_load_multiple(FALSE, array('vid' => $vocab->vid));
-    $editorials = array();
-    foreach ($terms as $tid => $term) {
-      $header[] = $term->name;
-      $editorials[$tid] = db_query("SELECT COUNT(*) as questions, q.qanda_service_name FROM {field_data_vopros_editorial} AS f
-                              INNER JOIN vopros_question AS q ON q.question_id = f.entity_id
-                              WHERE f.vopros_editorial_tid = :tid
-                              AND created < :end
-                              AND created > :start
-                              GROUP BY q.qanda_service_name", array(':tid' => $tid, ':end' => $end, ':start' => $start))->fetchAllKeyed(1, 0);
+    $terms += taxonomy_term_load_multiple(FALSE, array('vid' => $vocab->vid));
+  }
+
+  // Get counts by client, channel and tid.
+  $res = db_query("SELECT COUNT(*) AS count,
+                      q.client_id AS client_id,
+                      q.channel AS channel,
+                      f.vopros_editorial_tid AS tid
+                      FROM {vopros_question} AS q
+                      LEFT JOIN {field_data_vopros_editorial} AS f
+                      ON q.question_id = f.entity_id
+                      WHERE created < :end
+                      AND created > :start
+                      GROUP BY client_id, channel_id, tid
+                      ORDER BY client_id, channel_id, tid",
+  array(':end' => $end, ':start' => $start));
+
+  // Calculate totals and rearrange result for display.
+  $totals = array();
+  $column_totals = array();
+  foreach ($res as $row) {
+    // We handle the rows without a tid as tid 0. Means they're (mostly) not a
+    // special case.
+    $tid = $row->tid ? $row->tid : 0;
+    $client_name = check_plain(isset($clients[$row->client_id]) ? $clients[$row->client_id]->label : '<unknown>');
+    $channel_name = check_plain(isset($channels[$row->channel]) ? $channels[$row->channel]['name'] : '<unknown>');
+
+    $totals[$client_name]['totals'][$tid] += $row->count;
+    $totals[$client_name]['channels'][$channel_name][$tid] = $row->count;
+    // Also add non-zero to the zero (the totals column) tid.
+    if ($tid != 0) {
+      $totals[$client_name]['totals'][0] += $row->count;
+      $totals[$client_name]['channels'][$channel_name][0] += $row->count;
+    }
+
+    // Add everything to the column totals.
+
+    $column_totals[$tid] += $row->count;
+    // Again, add to the total column.
+    if ($tid != 0) {
+      $column_totals[0] += $row->count;
     }
   }
+
+  $totals['<em>' . t('Total') . '</em>']['totals'] = $column_totals;
+
+  $header = array(t('Client'));
+  foreach ($terms as $tid => $term) {
+    $header[] = $term->name;
+  }
+
   $rows = array();
-  foreach ($qanda_service_names as $key => $label) {
+  foreach ($totals as $name => $data) {
     $row = array(
-      $label,
-      isset($total_count[$key]) ? $total_count[$key] : 0,
+      $name,
     );
-    if (!empty($terms)) {
-      foreach ($terms as $tid => $term) {
-        if (isset($editorials[$tid][$key])) {
-          $row[] = $editorials[$tid][$key];
-        }
-        else {
-          $row[] = 0;
-        }
-      }
+    foreach ($terms as $tid => $term) {
+      $row[] = $data['totals'][$tid] + 0;
     }
     $rows[] = $row;
+    foreach ($data['channels'] as $channel => $chan_data) {
+      $row = array(
+        ' - ' . $channel,
+      );
+      foreach ($terms as $tid => $term) {
+        $row[] = $chan_data[$tid] + 0;
+      }
+      $rows[] = $row;
+
+    }
   }
+
   $build = array(
-    'form' => drupal_get_form('vopros_statistics_qanda_service_name_form', $start, $end),
+    'form' => drupal_get_form('vopros_statistics_client_channels_form', $start, $end),
     'table' => array(
       '#theme' => 'table',
       '#header' => $header,
@@ -322,7 +364,7 @@ function vopros_statistics_qanda_service_name_view($start = NULL, $end = NULL) {
 /**
  * Form for selecting the date range for the time statistics page.
  */
-function vopros_statistics_qanda_service_name_form($form, &$form_state, $start, $end) {
+function vopros_statistics_client_channels_form($form, &$form_state, $start, $end) {
   $form['start'] = array(
     '#type' => 'date_popup',
     '#title' => t('Start for time range'),
@@ -350,10 +392,10 @@ function vopros_statistics_qanda_service_name_form($form, &$form_state, $start, 
 }
 
 /**
- * Submit handler for vopros_statistics_time_form()
+ * Submit handler for vopros_statistics_client_channels_form()
  */
-function vopros_statistics_qanda_service_name_form_submit($form, &$form_state) {
+function vopros_statistics_client_channels_form_submit($form, &$form_state) {
   $start = strtotime($form_state['values']['start']);
   $end = strtotime($form_state['values']['end']);
-  $form_state['redirect'] = "admin/vopros/statistics/qanda_service_name/$start/$end";
+  $form_state['redirect'] = "admin/vopros/statistics/client_channels/$start/$end";
 }

@@ -1,5 +1,5 @@
 name = Vopros Service
-description = Defines other services that Vopros can connect to
+description = Connect Vopros to other Vopros instances.
 package = Vopros
 core = 7.x
 
@@ -13,8 +13,8 @@ dependencies[] = services
 dependencies[] = uuid
 dependencies[] = views
 dependencies[] = vopros_base
+dependencies[] = vopros_question
 
-files[] = vopros_service.admin.inc
 ; Entity controller include:
 files[] = includes/vopros_service.controller.inc
 files[] = includes/vopros_service.entity.inc

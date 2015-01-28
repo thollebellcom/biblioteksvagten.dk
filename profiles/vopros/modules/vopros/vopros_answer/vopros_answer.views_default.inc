@@ -37,14 +37,22 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'question_id' => 'question_id',
     'question_title' => 'question_title',
-    'qanda_service_name' => 'qanda_service_name',
+    'label' => 'label',
     'name' => 'name',
     'vopros_user_library' => 'vopros_user_library',
-    'revision_timestamp' => 'revision_timestamp',
+    'created' => 'created',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'question_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'question_title' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -52,7 +60,7 @@ function vopros_answer_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'qanda_service_name' => array(
+    'label' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -73,7 +81,7 @@ function vopros_answer_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'revision_timestamp' => array(
+    'created' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -106,6 +114,11 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['relationships']['profile']['table'] = 'users';
   $handler->display->display_options['relationships']['profile']['field'] = 'profile';
   $handler->display->display_options['relationships']['profile']['relationship'] = 'uid';
+  /* Relationship: Question: Question client */
+  $handler->display->display_options['relationships']['client_id']['id'] = 'client_id';
+  $handler->display->display_options['relationships']['client_id']['table'] = 'vopros_question';
+  $handler->display->display_options['relationships']['client_id']['field'] = 'client_id';
+  $handler->display->display_options['relationships']['client_id']['relationship'] = 'question_id';
   /* Field: Question: Question ID */
   $handler->display->display_options['fields']['question_id']['id'] = 'question_id';
   $handler->display->display_options['fields']['question_id']['table'] = 'vopros_question';
@@ -121,12 +134,18 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['fields']['question_title']['label'] = 'Question';
   $handler->display->display_options['fields']['question_title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['question_title']['alter']['path'] = 'admin/vopros/questions/[question_id]';
-  /* Field: Question: Qanda_service_name */
-  $handler->display->display_options['fields']['qanda_service_name']['id'] = 'qanda_service_name';
-  $handler->display->display_options['fields']['qanda_service_name']['table'] = 'vopros_question';
-  $handler->display->display_options['fields']['qanda_service_name']['field'] = 'qanda_service_name';
-  $handler->display->display_options['fields']['qanda_service_name']['relationship'] = 'question_id';
-  $handler->display->display_options['fields']['qanda_service_name']['label'] = 'Received from';
+  /* Field: Client: Label */
+  $handler->display->display_options['fields']['label']['id'] = 'label';
+  $handler->display->display_options['fields']['label']['table'] = 'vopros_question_client';
+  $handler->display->display_options['fields']['label']['field'] = 'label';
+  $handler->display->display_options['fields']['label']['relationship'] = 'client_id';
+  $handler->display->display_options['fields']['label']['label'] = 'Client';
+  $handler->display->display_options['fields']['label']['element_label_colon'] = FALSE;
+  /* Field: Question: Channel */
+  $handler->display->display_options['fields']['channel']['id'] = 'channel';
+  $handler->display->display_options['fields']['channel']['table'] = 'vopros_question';
+  $handler->display->display_options['fields']['channel']['field'] = 'channel';
+  $handler->display->display_options['fields']['channel']['relationship'] = 'question_id';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -151,22 +170,31 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['relationship'] = 'question_id';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Question: Qanda_service_name */
-  $handler->display->display_options['filters']['qanda_service_name']['id'] = 'qanda_service_name';
-  $handler->display->display_options['filters']['qanda_service_name']['table'] = 'vopros_question';
-  $handler->display->display_options['filters']['qanda_service_name']['field'] = 'qanda_service_name';
-  $handler->display->display_options['filters']['qanda_service_name']['relationship'] = 'question_id';
-  $handler->display->display_options['filters']['qanda_service_name']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['qanda_service_name']['expose']['operator_id'] = 'qanda_service_name_op';
-  $handler->display->display_options['filters']['qanda_service_name']['expose']['label'] = 'Received from';
-  $handler->display->display_options['filters']['qanda_service_name']['expose']['operator'] = 'qanda_service_name_op';
-  $handler->display->display_options['filters']['qanda_service_name']['expose']['identifier'] = 'qanda_service_name';
+  /* Filter criterion: Question: Question client */
+  $handler->display->display_options['filters']['client_id']['id'] = 'client_id';
+  $handler->display->display_options['filters']['client_id']['table'] = 'vopros_question';
+  $handler->display->display_options['filters']['client_id']['field'] = 'client_id';
+  $handler->display->display_options['filters']['client_id']['relationship'] = 'question_id';
+  $handler->display->display_options['filters']['client_id']['group'] = 1;
+  $handler->display->display_options['filters']['client_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['client_id']['expose']['operator_id'] = 'client_id_op';
+  $handler->display->display_options['filters']['client_id']['expose']['label'] = 'Question client';
+  $handler->display->display_options['filters']['client_id']['expose']['operator'] = 'client_id_op';
+  $handler->display->display_options['filters']['client_id']['expose']['identifier'] = 'client_id';
+  $handler->display->display_options['filters']['client_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+  );
   /* Filter criterion: User: Name */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'users';
   $handler->display->display_options['filters']['uid']['field'] = 'uid';
   $handler->display->display_options['filters']['uid']['relationship'] = 'uid';
   $handler->display->display_options['filters']['uid']['value'] = '';
+  $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['label'] = 'Answer creator';
@@ -177,6 +205,7 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['filters']['vopros_user_library_value']['table'] = 'field_data_vopros_user_library';
   $handler->display->display_options['filters']['vopros_user_library_value']['field'] = 'vopros_user_library_value';
   $handler->display->display_options['filters']['vopros_user_library_value']['relationship'] = 'profile';
+  $handler->display->display_options['filters']['vopros_user_library_value']['group'] = 1;
   $handler->display->display_options['filters']['vopros_user_library_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['vopros_user_library_value']['expose']['operator_id'] = 'vopros_user_library_value_op';
   $handler->display->display_options['filters']['vopros_user_library_value']['expose']['label'] = 'Library';
@@ -211,10 +240,12 @@ function vopros_answer_views_default_views() {
     t('question'),
     t('Answer creator'),
     t('Profile'),
+    t('Question client'),
     t('Question ID'),
     t('.'),
     t('Question'),
-    t('Received from'),
+    t('Client'),
+    t('Channel'),
     t('Bibliotek'),
     t('Question created'),
     t('Library'),
@@ -318,6 +349,17 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['fields']['question_title']['label'] = 'Title';
   $handler->display->display_options['fields']['question_title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['question_title']['alter']['path'] = 'admin/vopros/questions/[question_id]';
+  /* Field: Question: Question client */
+  $handler->display->display_options['fields']['client_id']['id'] = 'client_id';
+  $handler->display->display_options['fields']['client_id']['table'] = 'vopros_question';
+  $handler->display->display_options['fields']['client_id']['field'] = 'client_id';
+  $handler->display->display_options['fields']['client_id']['relationship'] = 'question_id';
+  $handler->display->display_options['fields']['client_id']['label'] = 'Modtaget fra';
+  /* Field: Question: Channel */
+  $handler->display->display_options['fields']['channel']['id'] = 'channel';
+  $handler->display->display_options['fields']['channel']['table'] = 'vopros_question';
+  $handler->display->display_options['fields']['channel']['field'] = 'channel';
+  $handler->display->display_options['fields']['channel']['relationship'] = 'question_id';
   /* Field: Question: Question_usage */
   $handler->display->display_options['fields']['question_usage']['id'] = 'question_usage';
   $handler->display->display_options['fields']['question_usage']['table'] = 'vopros_question';
@@ -392,6 +434,8 @@ function vopros_answer_views_default_views() {
     t('Question ID'),
     t('.'),
     t('Title'),
+    t('Modtaget fra'),
+    t('Channel'),
     t('Usage'),
     t('Status'),
     t('Deadline'),

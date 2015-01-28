@@ -9,13 +9,6 @@
  * Question settings form
  */
 function vopros_question_settings_form($form, &$form_state) {
-  $form['vopros_question_qanda_service_options'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Q and A service options'),
-    '#description' => t('Setup the possible Q and A service options used in question list filters. Enter options as key|name and one per new line.'),
-    '#default_value' => variable_get('vopros_question_qanda_service_options', ''),
-  );
-
   $form['vopros_question_usage_default'] = array(
     '#type' => 'select',
     '#title' => t('Default usage value'),
@@ -48,24 +41,6 @@ function vopros_question_settings_form($form, &$form_state) {
       '#default_value' => $default_value,
       '#description' => t('Enter values, one value per line in the format key|value'),
     );
-  }
-
-  if (module_exists('vopros_editorial')) {
-    $vocab = taxonomy_vocabulary_machine_name_load('vopros_editorial');
-    $terms = taxonomy_term_load_multiple(FALSE, array('vid' => $vocab->vid));
-    $options = array('' => t('No default value'));
-    foreach ($terms as $tid => $term) {
-      $options[$tid] = $term->name;
-    }
-    $form['vopros_question_default_sms_editoral'] = array(
-      '#type' => 'select',
-      '#title' => t('Default sms editorial'),
-      '#options' => $options,
-      '#default_value' => variable_get('vopros_question_default_sms_editoral', ''),
-    );
-  }
-  else {
-    variable_set('vopros_question_default_sms_editoral', '');
   }
 
   return system_settings_form($form);
@@ -192,21 +167,28 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
     '#default_value' => !empty($question->question_usage) ? $question->question_usage : variable_get('vopros_question_usage_default', ''),
   );
 
-  $qanda = isset($question->qanda_service_name) ? $question->qanda_service_name : '';
-  $qanda_options = _vopros_question_qanda_serice_options();
-  if ($qanda && !isset($qanda_options[$qanda])) {
-    $form['form']['qanda_service_name'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Q and A service'),
-      '#default_value' => $qanda,
-    );
+  $options = _vopros_question_client_options();
+  // If the current client_id isn't part of the options, add it in to allow for
+  // persisting the value.
+  if (!empty($question->client_id) && !isset($options[$question->client_id])) {
+    $options = array($question->client_id => $question->client_id) + $options;
   }
-  else {
-    $form['form']['qanda_service_name'] = array(
+
+  $form['form']['client_id'] = array(
+    '#type' => 'select',
+    '#title' => t('Client'),
+    '#options' => $options,
+    '#default_value' => $question->client_id,
+  );
+
+  // Only set channel for new questions.
+  // Channel id and data is never edited.
+  if (isset($question->is_new)) {
+    $form['form']['channel'] = array(
       '#type' => 'select',
-      '#title' => t('Q and A service'),
-      '#options' => _vopros_question_qanda_serice_options(),
-      '#default_value' => $qanda,
+      '#title' => t('Channel'),
+      '#options' => _vopros_question_manual_channels(),
+      '#default_value' => $question->channel,
     );
   }
 

@@ -418,6 +418,7 @@ function vopros_email_convert_to_question_form($form, &$form_state, $email) {
     'question_title' => $email->subject,
     'question_content' => $email->email_content,
     'user_email' => $email->email,
+    'channel' => 'mail'
   ));
 
   $form = vopros_question_question_form($form, $form_state, $question);
@@ -525,6 +526,7 @@ function vopros_email_transfer_form($form, &$form_state, $email) {
     'question_title' => $email->subject,
     'question_content' => $email->email_content,
     'user_email' => $email->email,
+    'channel' => 'mail',
   ));
 
   $form = vopros_question_question_form($form, $form_state, $question);

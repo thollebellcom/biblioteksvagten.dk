@@ -21,45 +21,93 @@ function vopros_question_init() {
  * Implements hook_entity_info().
  */
 function vopros_question_entity_info() {
-  $return = array(
-    'vopros_question' => array(
-      'label' => t('Question', array(), array('context' => 'a vopros question')),
-      'entity class' => 'VoprosQuestion',
-      'controller class' => 'VoprosQuestionEntityController',
-      'base table' => 'vopros_question',
-      'revision table' => 'vopros_question_revision',
-      'fieldable' => TRUE,
-      'uri callback' => 'vopros_question_uri',
-      'entity keys' => array(
-        'id' => 'question_id',
-        'revision' => 'revision_id',
-      ),
-      'bundles' => array(
-        'vopros_question' => array(
-          'label' => t('Question', array(), array('context' => 'a vopros question')),
-          'admin' => array(
-            'path' => 'admin/vopros/config/question',
-            'access arguments' => array('administer questions'),
-          ),
+  $return = array();
+
+  $return['vopros_question'] = array(
+    'label' => t('Question', array(), array('context' => 'a vopros question')),
+    'entity class' => 'VoprosQuestion',
+    'controller class' => 'VoprosQuestionEntityController',
+    'base table' => 'vopros_question',
+    'revision table' => 'vopros_question_revision',
+    'fieldable' => TRUE,
+    'uri callback' => 'vopros_question_uri',
+    'entity keys' => array(
+      'id' => 'question_id',
+      'revision' => 'revision_id',
+    ),
+    'bundles' => array(
+      'vopros_question' => array(
+        'label' => t('Question', array(), array('context' => 'a vopros question')),
+        'admin' => array(
+          'path' => 'admin/vopros/config/question',
+          'access arguments' => array('administer questions'),
         ),
       ),
-      'load hook' => 'vopros_question_load',
-      'view modes' => array(
-        'administrator' => array(
-          'label' => t('Administrator'),
-          'custom settings' => FALSE,
-        ),
-        'public' => array(
-          'label' => t('Public'),
-          'custom settings' => FALSE,
-        ),
-        'teaser' => array(
-          'label' => t('Teaser'),
-          'custom settings' => FALSE,
+    ),
+    'load hook' => 'vopros_question_load',
+    'view modes' => array(
+      'administrator' => array(
+        'label' => t('Administrator'),
+        'custom settings' => FALSE,
+      ),
+      'public' => array(
+        'label' => t('Public'),
+        'custom settings' => FALSE,
+      ),
+      'teaser' => array(
+        'label' => t('Teaser'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'access callback' => 'vopros_question_access',
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+
+  $return['vopros_question_client'] = array(
+    'label' => t('Client', array(), array('context' => 'a vopros question')),
+    'entity class' => 'VoprosQuestionClient',
+    'controller class' => 'VoprosAPIEntityController',
+    'base table' => 'vopros_question_client',
+    'revision table' => 'vopros_question_client_revision',
+    'fieldable' => TRUE,
+    'uri callback' => 'vopros_question_client_uri',
+    'entity keys' => array(
+      'id' => 'client_id',
+      'revision' => 'revision_id',
+      'label' => 'label',
+    ),
+    'bundles' => array(
+      'vopros_question_client' => array(
+        'label' => t('Client', array(), array('context' => 'a vopros question')),
+        'admin' => array(
+          'path' => 'admin/vopros/config/client',
+          'access arguments' => array('administer questions'),
         ),
       ),
-      'access callback' => 'vopros_question_access',
-      'views controller class' => 'EntityDefaultViewsController',
+    ),
+    'load hook' => 'vopros_question_client_load',
+    'view modes' => array(
+      'default' => array(
+        'label' => t('Default'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    // We need to define module so VoprosClientUIController can find the include
+    // file, but when we do that entity_entity_property_info() checks the module
+    // for a hook_entity_property_info() and assuems that it will supply the
+    // entity properties. As we only implement hook_entity_property_info() to
+    // adjust a few properties to the vopros_question entity, this results in no
+    // properties for vopros_question_client. So we set the 'metadata controller
+    // class' explicitly to the default.
+    'module' => 'vopros_question',
+    'metadata controller class' => 'EntityDefaultMetadataController',
+    'access callback' => 'vopros_question_client_access',
+    'views controller class' => 'EntityDefaultViewsController',
+    // Enable the entity API's admin UI.
+    'admin ui' => array(
+      'path' => 'admin/vopros/clients',
+      'file' => 'includes/vopros_question_client.admin.inc',
+      'controller class' => 'VoprosClientUIController',
     ),
   );
 
@@ -94,25 +142,30 @@ function vopros_question_field_extra_fields() {
         'description' => t('The usage of the question'),
         'weight' => -3,
       ),
-      'qanda_service_name' => array(
-        'label' => t('Q and A service'),
-        'description' => t('The service that has sent the question'),
+      'client_id' => array(
+        'label' => t('Client'),
+        'description' => t('The client that submitted the question'),
         'weight' => -2,
+      ),
+      'channel' => array(
+        'label' => t('Channel'),
+        'description' => t('The the channel that the client used'),
+        'weight' => -1,
       ),
       'question_note' => array(
         'label' => t('Question note'),
         'description' => t('Internal note regarding the question'),
-        'weight' => -1,
+        'weight' => 0,
       ),
       'ask' => array(
         'label' => t('User data'),
         'description' => t('Data about the user asking the question'),
-        'weight' => -0,
+        'weight' => 1,
       ),
       'log' => array(
         'label' => t('Internal log'),
         'description' => t('Internal log about the question itself.'),
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'display' => array(
@@ -141,34 +194,39 @@ function vopros_question_field_extra_fields() {
         'description' => t('The deadline for the question'),
         'weight' => -5,
       ),
+      'client' => array(
+        'label' => t('Client'),
+        'description' => t('The client that submitted the question'),
+        'weight' => -4,
+      ),
+      'channel' => array(
+        'label' => t('Channel'),
+        'description' => t('The the channel that the client used'),
+        'weight' => -3,
+      ),
       'question_usage' => array(
         'label' => t('Usage'),
         'description' => t('The usage of the question'),
-        'weight' => -4,
+        'weight' => -2,
       ),
       'user_answer_preference' => array(
         'label' => t('Prefered answer method'),
-        'weight' => -3,
-      ),
-      'qanda_service_name' => array(
-        'label' => t('Q and A service'),
-        'description' => t('The service that has sent the question'),
-        'weight' => -2,
+        'weight' => -1,
       ),
       'question_note' => array(
         'label' => t('Question note'),
         'description' => t('Internal note regarding the question'),
-        'weight' => -1,
+        'weight' => 0,
       ),
       'ask' => array(
         'label' => t('User data'),
         'description' => t('Data about the user asking the question'),
-        'weight' => 0,
+        'weight' => 1,
       ),
       'log' => array(
         'label' => t('Internal log'),
         'description' => t('Internal log about the question itself.'),
-        'weight' => 1,
+        'weight' => 2,
       ),
       'buttons' => array(
         'label' => t('Buttons'),
@@ -212,137 +270,178 @@ function vopros_question_enable() {
   vopros_question_configure_question();
 }
 
-
 /**
  * Implementation of hook_menu().
  */
 function vopros_question_menu() {
-  return array(
-    'admin/vopros/config/question' => array(
-      'title' => 'Question settings',
-      'description' => 'Configure general question settings, fields, and displays.',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_settings_form'),
-      'access arguments' => array('administer questions'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/config/question/settings' => array(
-      'title' => 'Settings',
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => -10,
-    ),
-    'admin/vopros/questions/add' => array(
-      'title' => 'Add a question',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_question_form', NULL),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('create'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/add-with-answer' => array(
-      'title' => 'Add a question with an answer',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_question_form', NULL, TRUE),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('create'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question' => array(
-      'title callback' => 'vopros_question_title',
-      'title arguments' => array(3),
-      'page callback' => 'vopros_question_page_view',
-      'page arguments' => array(3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('view'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question/view' => array(
-      'title' => 'View',
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => -10,
-    ),
-    'admin/vopros/questions/%vopros_question/admin-edit' => array(
-      'title' => 'Admin edit',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_question_form', 3),
-      'access arguments' => array('administer questions'),
-      'file' => 'includes/vopros_question.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-    ),
-    'admin/vopros/questions/%vopros_question/edit' => array(
-      'title' => 'Edit question',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_question_frontend_form', 3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('update'),
-      'file' => 'includes/vopros_question.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-    ),
-    'admin/vopros/questions/%vopros_question/revisions' => array(
-      'title' => 'Revisions',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_revisions_form', 3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('revision'),
-      'file' => 'includes/vopros_question.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-    ),
-    'admin/vopros/questions/%vopros_question/revisions/view' => array(
-      'title' => 'Diff',
-      'page callback' => 'vopros_question_diffs_show',
-      'page arguments' => array(3, 6, 7),
-      'type' => MENU_LOCAL_TASK,
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('revision'),
-      'tab_parent' => 'admin/vopros/questions/%/revisions',
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question/revisions/%vopros_question_revision/revert' => array(
-      'title' => 'Revert revision',
-      'page callback' => 'vopros_question_revision_revert',
-      'page arguments' => array(3, 5),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('revision'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question/close' => array(
-      'title' => 'Close',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_close_question_form', 3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('update'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question/notify' => array(
-      'title' => 'Notify user',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_question_notify_user_form', 3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('update'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'admin/vopros/questions/%vopros_question/release' => array(
-      'title' => 'Release question',
-      'page callback' => 'vopros_question_release_question',
-      'page arguments' => array(3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('update'),
-      'file' => 'includes/vopros_question.admin.inc',
-    ),
-    'vopros/question/create/service' => array(
-      'page callback' => 'vopros_question_create_service',
-      'access arguments' => array('create question via web service'),
-      'file' => 'includes/vopros_question.pages.inc',
-    ),
-    'vopros/question/create/sms' => array(
-      'page callback' => 'vopros_question_create_sms',
-      'access arguments' => array('create question via sms service'),
-      'file' => 'includes/vopros_question.pages.inc',
-    ),
+  $items = array();
+
+  // Question client settings page.
+  $items['admin/vopros/config/client'] = array(
+    'title' => 'Client settings',
+    'description' => 'Configure general settings for clients, fields, and displays.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_client_settings_form'),
+    'access arguments' => array('administer questions'),
+    'file' => 'includes/vopros_question_client.admin.inc',
   );
+
+  $items['admin/vopros/config/client/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // QandA migrate page.
+  $items['admin/vopros/config/client/migrate'] = array(
+    'title' => 'QandA migrate',
+    'description' => 'Migrate QandA to clients.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_client_migrate_form'),
+    'access arguments' => array('administer questions'),
+    'file' => 'includes/vopros_question_client.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  // Question settings page.
+  $items['admin/vopros/config/question'] = array(
+    'title' => 'Question settings',
+    'description' => 'Configure general question settings, fields, and displays.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_settings_form'),
+    'access arguments' => array('administer questions'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/config/question/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Question adding and display pages.
+  $items['admin/vopros/questions/add'] = array(
+    'title' => 'Add a question',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_question_form', NULL),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('create'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/add-with-answer'] = array(
+    'title' => 'Add a question with an answer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_question_form', NULL, TRUE),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('create'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question'] = array(
+    'title callback' => 'vopros_question_title',
+    'title arguments' => array(3),
+    'page callback' => 'vopros_question_page_view',
+    'page arguments' => array(3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('view'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Question editing pages.
+  $items['admin/vopros/questions/%vopros_question/admin-edit'] = array(
+    'title' => 'Admin edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_question_form', 3),
+    'access arguments' => array('administer questions'),
+    'file' => 'includes/vopros_question.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/vopros/questions/%vopros_question/edit'] = array(
+    'title' => 'Edit question',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_question_frontend_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('update'),
+    'file' => 'includes/vopros_question.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/vopros/questions/%vopros_question/revisions'] = array(
+    'title' => 'Revisions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_revisions_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('revision'),
+    'file' => 'includes/vopros_question.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/vopros/questions/%vopros_question/revisions/view'] = array(
+    'title' => 'Diff',
+    'page callback' => 'vopros_question_diffs_show',
+    'page arguments' => array(3, 6, 7),
+    'type' => MENU_LOCAL_TASK,
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('revision'),
+    'tab_parent' => 'admin/vopros/questions/%/revisions',
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/revisions/%vopros_question_revision/revert'] = array(
+    'title' => 'Revert revision',
+    'page callback' => 'vopros_question_revision_revert',
+    'page arguments' => array(3, 5),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('revision'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/close'] = array(
+    'title' => 'Close',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_close_question_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('update'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/notify'] = array(
+    'title' => 'Notify user',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_question_notify_user_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('notify'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/release'] = array(
+    'title' => 'Release question',
+    'page callback' => 'vopros_question_release_question',
+    'page arguments' => array(3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('update'),
+    'file' => 'includes/vopros_question.admin.inc',
+  );
+
+  // Create question from service.
+  $items['vopros/question/create/service'] = array(
+    'page callback' => 'vopros_question_create_service',
+    'access arguments' => array('create question via web service'),
+    'file' => 'includes/vopros_question.pages.inc',
+  );
+
+  return $items;
 }
 
 /**
@@ -376,9 +475,6 @@ function vopros_question_permission() {
     'create question via web service' => array(
       'title' => t('Create question via web service'),
     ),
-    'create question via sms service' => array(
-      'title' => t('Create question via SMS service'),
-    ),
     'administer questions' => array(
       'title' => t('Administer questions'),
       'restrict access' => TRUE,
@@ -397,6 +493,9 @@ function vopros_question_permission() {
     ),
     'access and use revisions for questions' => array(
       'title' => t('Access and use revisions'),
+    ),
+    'notify user on question' => array(
+      'title' => t('Assign a user a question or notify them about it'),
     ),
   );
 
@@ -417,8 +516,6 @@ function vopros_question_mail($key, &$message, $params) {
   }
 }
 
-
-
 /**
  * Checks question access for various operations.
  *
@@ -437,31 +534,34 @@ function vopros_question_access($op, $question = NULL, $account = NULL) {
     return TRUE;
   }
 
-  // Grant view access to users with the administrative access questions permission
-  // or to a user's own questions with the view own questions permission.
-  if ($op == 'view') {
-    if (user_access('access questions', $account)) {
-      return TRUE;
-    }
-  }
+  switch ($op) {
+    case 'view':
+      // Grant view access to users with the administrative access questions
+      // permission or to a user's own questions with the view own questions
+      // permission.
+      return user_access('access questions', $account);
 
-  if ($op == 'create' && user_access('create questions', $account)) {
-    return TRUE;
-  }
+    case 'create':
+      return user_access('create questions', $account);
 
-  if (($op == 'update' || $op == 'delete') && user_access('edit any question', $account)) {
-    return TRUE;
-  }
+    case 'update':
+    case 'delete':
+      return user_access('edit any question', $account);
 
-  if ($op == 'revision' && user_access('access and use revisions for questions', $account)) {
-    return TRUE;
-  }
+    case 'revision':
+      return user_access('access and use revisions for questions', $account);
 
-  if ($op == 'contact' && user_access('contact user about question')) {
-    if ($question && $question->question_status == 'assigned' && $question->uid != $account->uid) {
-      return FALSE;
-    }
-    return TRUE;
+    case 'notify':
+      return user_access('notify user on question', $account);
+
+    case 'contact':
+      if (user_access('contact user about question')) {
+        if ($question && $question->question_status == 'assigned' && $question->uid != $account->uid) {
+          return FALSE;
+        }
+        return TRUE;
+      }
+      break;
   }
 
   return FALSE;
@@ -574,6 +674,78 @@ function vopros_question_load_multiple($question_ids = FALSE, $conditions = arra
 }
 
 /**
+ * Checks client access for various operations.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create',
+ *   'delete' or 'revision'.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the current user.
+ */
+function vopros_question_client_access($op, $question = NULL, $account = NULL) {
+  global $user;
+  $account = isset($account) ? $account : clone($user);
+
+  // Grant access to any operation for any client for administrators.
+  if (user_access('administer questions', $account)) {
+    return TRUE;
+  }
+
+  // Grant view access to users with the administrative access questions permission
+  // or to a user's own questions with the view own questions permission.
+  if ($op == 'view') {
+    if (user_access('access questions', $account)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Loads client by ID.
+ */
+function vopros_question_client_load($client_id, $revision_id = NULL, $reset = FALSE) {
+  $conditions = array();
+  if ($revision_id) {
+    $conditions['revision_id'] = $revision_id;
+  }
+  $clients = vopros_question_client_load_multiple(array($client_id), $conditions, $reset);
+  return $clients ? reset($clients) : FALSE;
+}
+
+/**
+ * Loads multiple clients by ID or based on a set of matching conditions.
+ *
+ * @see entity_load()
+ *
+ * @param $client_ids
+ *   An array of client IDs.
+ * @param $conditions
+ *   An array of conditions on the {vopros_question_client} table in the form
+ *     'field' => $value.
+ * @param $reset
+ *   Whether to reset the internal question loading cache.
+ *
+ * @return
+ *   An array of client objects indexed by client_id.
+ */
+function vopros_question_client_load_multiple($client_ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('vopros_question_client', $client_ids, $conditions, $reset);
+}
+
+/**
+ * Loads a client by agency.
+ */
+function vopros_question_client_load_by_agency($agency, $reset = FALSE) {
+  $conditions = array(
+    'agency' => $agency,
+  );
+  $clients = vopros_question_client_load_multiple(FALSE, $conditions, $reset);
+  return $clients ? reset($clients) : FALSE;
+}
+
+/**
  * Implement hook_form_alter().
  */
 function vopros_question_form_alter(&$form, &$form_state, $form_id) {
@@ -639,6 +811,18 @@ function vopros_question_entity_property_info_alter(&$info) {
 }
 
 /**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_question_vopros_question_channels() {
+  return array(
+    'telephone' => array(
+      'name' => t('Telephone'),
+      'manual' => TRUE,
+    ),
+  );
+}
+
+/**
  * Implements hook_views_data_alter().
  */
 function vopros_question_views_data_alter(&$data) {
@@ -670,6 +854,15 @@ function vopros_question_views_data_alter(&$data) {
     ),
   );
 
+  $data['vopros_question']['client_id']['title'] = 'Question client';
+  $data['vopros_question']['client_id']['filter']['handler'] = 'vopros_question_client_views_handler_filter_in_operator';
+  $data['vopros_question']['client_id']['relationship'] = array(
+    'handler' => 'views_handler_relationship',
+    'base' => 'vopros_question_client',
+    'field' => 'client_id',
+    'label' => 'Question client',
+  );
+
   $data['vopros_question']['revision_id']['relationship'] = array(
     'handler' => 'views_handler_relationship',
     'base' => 'vopros_question_revision',
@@ -689,9 +882,9 @@ function vopros_question_views_data_alter(&$data) {
 
   // Add custom handlers for select fields.
   $data['vopros_question']['user_age']['field']['handler'] =
-  $data['vopros_question']['qanda_service_name']['field']['handler'] =
   $data['vopros_question']['question_status']['field']['handler'] =
   $data['vopros_question']['user_answer_preference']['field']['handler'] =
+  $data['vopros_question']['client_id']['field']['handler'] =
   $data['vopros_question']['question_usage']['field']['handler'] = 'vopros_question_handler_field_vopros_question';
   $data['vopros_question']['question_deadline_timestamp']['field']['handler'] = 'vopros_question_handler_field_date';
 
@@ -700,8 +893,6 @@ function vopros_question_views_data_alter(&$data) {
 
   $data['vopros_question']['question_status']['argument']['handler'] =
   $data['vopros_question']['question_status']['filter']['handler'] = 'vopros_question_status_views_handler_filter_in_operator';
-
-  $data['vopros_question']['qanda_service_name']['filter']['handler'] = 'vopros_question_qanda_service_name_views_handler_filter_in_operator';
 
   $data['vopros_question']['user_answer_preference']['filter']['handler'] = 'vopros_question_user_answer_preference_views_handler_filter';
 
@@ -871,13 +1062,19 @@ function vopros_question_build_content($question, $view_mode = 'administrator', 
     '#question' => $question,
     '#view_mode' => $view_mode,
   );
-  $question->content['user_answer_preference'] = array(
-    '#theme' => 'vopros_question_user_answer_preference',
+  $question->content['client'] = array(
+    '#theme' => 'vopros_client',
+    '#question' => $question,
+    '#client' => vopros_question_client_load($question->client_id),
+    '#view_mode' => $view_mode,
+  );
+  $question->content['channel'] = array(
+    '#theme' => 'vopros_channel',
     '#question' => $question,
     '#view_mode' => $view_mode,
   );
-  $question->content['qanda_service_name'] = array(
-    '#theme' => 'vopros_question_qanda_service',
+  $question->content['user_answer_preference'] = array(
+    '#theme' => 'vopros_question_user_answer_preference',
     '#question' => $question,
     '#view_mode' => $view_mode,
   );
@@ -959,7 +1156,6 @@ function vopros_question_vopros_question_user_answer_preference() {
   );
 }
 
-
 /**
  * Utility function to get the question usage options
  */
@@ -1037,18 +1233,99 @@ function _vopros_question_status_reason() {
 }
 
 /**
- * Get the possible Q and A service name as a option array.
+ * Get the possible clients as an options array.
  */
-function _vopros_question_qanda_serice_options() {
-  $options = array();
-  foreach (explode("\n", variable_get('vopros_question_qanda_service_options', '')) as $option_text) {
-    $option = explode('|', $option_text);
-    if (count($option) == 2) {
-      $options[$option[0]] = $option[1];
+function _vopros_question_client_options() {
+  return db_select('vopros_question_client', 'vqc')
+    ->fields('vqc', array('client_id', 'label'))
+    ->execute()
+    ->fetchAllKeyed();
+}
+
+/**
+ * Get manual channels as an option array.
+ */
+function _vopros_question_manual_channels() {
+  $manual_channels = array();
+  foreach (vopros_question_channels() as $name => $channel) {
+    if (!empty($channel['name']) && isset($channel['manual']) && $channel['manual']) {
+      $manual_channels[$name] = $channel['name'];
     }
   }
-  drupal_alter('vopros_question_qanda_serice_options', $options);
-  return $options;
+
+  return $manual_channels;
+}
+
+/**
+ * Get known channels.
+ */
+function vopros_question_channels() {
+  $channels = &drupal_static(__FUNCTION__, NULL);
+  if (is_null($channels)) {
+    $channels = module_invoke_all('vopros_question_channels');
+  }
+
+  return $channels;
+}
+
+/**
+ * Get a channel definition.
+ */
+function vopros_question_channel($name) {
+  $channels = vopros_question_channels();
+  return isset($channels[$name]) ? $channels[$name] : FALSE;
+}
+
+/**
+ * Get QandA service mapping.
+ *
+ * Returns the mapping of old QandA service names and agency_id to the new
+ * client and channel system.
+ *
+ * @return array
+ *   The mapping in form of 'qanda_service_name|agency_id' => array(). Each
+ *   value array has a client and channel key.
+ */
+function _vopros_question_qanda_mapping() {
+  $mapping = &drupal_static(__FILE__, NULL);
+  if (is_null($mapping)) {
+    $mapping = _vopros_question_parse_qanda_mapping(variable_get('vopros_question_qanda_mapping', ''));
+  }
+
+  return $mapping;
+}
+
+/**
+ * Parses QandA service mapping spec.
+ *
+ * @param string $mapping_string
+ *   The textual representation.
+ * @param bool $strict
+ *   Whether to fail on unparsable lines.
+ *
+ * @return array
+ *   The mapping in form of 'qanda_service_name|agency_id' => array(). Each
+ *   value array has a client and channel key.
+ */
+function _vopros_question_parse_qanda_mapping($mapping_string, $strict = FALSE) {
+  $mapping = array();
+  foreach (explode("\n", $mapping_string) as $line) {
+    $parts = explode('->', $line);
+    if (count($parts) == 2) {
+      $tmp = explode('|', trim($parts[1]));
+      $client = array(
+        'client' => $tmp[0],
+        'channel' => isset($tmp[1]) ? $tmp[1] : '',
+      );
+      $mapping[trim($parts[0])] = $client;
+    }
+    else {
+      if (trim($line) && $strict) {
+        return FALSE;
+      }
+    }
+  }
+  return $mapping;
 }
 
 /**
@@ -1088,6 +1365,16 @@ function vopros_question_theme() {
       'file' => 'vopros_question.theme.inc',
       'path' => $path,
     ),
+    'vopros_client' => array(
+      'render element' => 'question',
+      'file' => 'vopros_question.theme.inc',
+      'path' => $path,
+    ),
+    'vopros_channel' => array(
+      'render element' => 'question',
+      'file' => 'vopros_question.theme.inc',
+      'path' => $path,
+    ),
     'vopros_question_user_data' => array(
       'render element' => 'question',
       'file' => 'vopros_question.theme.inc',
@@ -1104,11 +1391,6 @@ function vopros_question_theme() {
       'path' => $path,
     ),
     'vopros_question_log' => array(
-      'render element' => 'question',
-      'file' => 'vopros_question.theme.inc',
-      'path' => $path,
-    ),
-    'vopros_question_qanda_service' => array(
       'render element' => 'question',
       'file' => 'vopros_question.theme.inc',
       'path' => $path,
@@ -1179,6 +1461,7 @@ function vopros_question_handle_question_form($form, &$form_state, $question) {
       '#value' => t('Notify librarian'),
       '#submit' => array('vopros_question_handle_question_form_notify_submit'),
       '#weight' => 3,
+      '#access' => user_access('notify user on question'),
     );
   }
   $form['actions']['edit'] = array(

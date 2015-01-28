@@ -47,15 +47,11 @@ function _vopros_service_resource_retrieve($type, $data) {
   }
   $question->question_usage = $data['question_usage'];
 
-  $question->qanda_service_name = 'vopros_service_' . $service->service_id;
-
-  // Handle message from upstream.
-  if (!empty($data['message'])) {
-    $question->question_content .= "\n\n-- " . t('Message from forwarding service') . "--\n\n" . $data['message'];
-  }
+  $question->client_id = $service->client_id;
+  $question->channel = 'vopros_service';
 
   if ($type == 'help') {
-    $question->user_name = t('Request for assistance from @service', array('@service' => $service->label));
+    $question->user_name = t('Request for assistance from @service', array('@service' => vopros_service_label($service)));
     // Set answer preference so messages will be returned to the other Vopros.
     $question->user_answer_preference = 'vopros_service';
   }
@@ -85,7 +81,13 @@ function _vopros_service_resource_retrieve($type, $data) {
     if (!empty($data['user_library'])) {
       $question->user_library = $data['user_library'];
     }
+    $local_answer_preference = _vopros_question_user_answer_preference();
+    // This won't do ever.
+    unset($local_answer_preference['vopros_service']);
     if (!empty($data['user_answer_preference'])) {
+      if (!isset($local_answer_preference[$data['user_answer_preference']])) {
+        services_error('Invalid user_answer_preference.', 422);
+      }
       $question->user_answer_preference = $data['user_answer_preference'];
     }
 
@@ -117,13 +119,27 @@ function _vopros_service_resource_retrieve($type, $data) {
   $question->vopros_service = $service;
 
   // First save question.
-  if (entity_save('vopros_question', $question) === FALSE) {
+  if (!$question->save()) {
     services_error('Error while saving question.', 500);
   }
+
+  // Handle message from upstream.
+  if (!empty($data['message'])) {
+    $message = t('Message from forwarding service') . ":\n\n" . $data['message'];
+
+    // Save as an log entry.
+    $values = array(
+      'question_id' => $question->question_id,
+      'log_content' => $message,
+    );
+    $log = vopros_log_new($values);
+    vopros_log_save($log);
+  }
+
   // Then note that it is an external question.
   db_insert('vopros_service_question')
     ->fields(array(
-        'machine_name' => $service->machine_name,
+        'client_id' => $service->client_id,
         'direction' => 'incoming',
         'type' => $type,
         'uuid' => $question->uuid,
@@ -144,7 +160,7 @@ function _vopros_service_resource_send_answer($uuid, $from, $message, $answer = 
   // Ensure that the question is transfered tranferred from us.
   $type = db_select('vopros_service_question', 'v')
     ->fields('v', array('type'))
-    ->condition('machine_name', $service->machine_name)
+    ->condition('client_id', $service->client_id)
     ->condition('direction', 'outgoing')
     ->condition('uuid', $uuid)
     ->execute()
@@ -161,7 +177,7 @@ function _vopros_service_resource_send_answer($uuid, $from, $message, $answer = 
   if ($question) {
     $message = entity_create('vopros_service_message', array(
         'question_id' => $question->question_id,
-        'service_machine_name' => $service->machine_name,
+        'client_id' => $service->client_id,
         'message_type' => 'incoming',
         'message_content' => $message,
         'message_from' => $from,
@@ -186,7 +202,7 @@ function _vopros_service_resource_send_message($uuid, $from, $message) {
   // Ensure that the question is transfered to us.
   $type = db_select('vopros_service_question', 'v')
     ->fields('v', array('type'))
-    ->condition('machine_name', $service->machine_name)
+    ->condition('client_id', $service->client_id)
     ->condition('direction', 'incoming')
     ->condition('uuid', $uuid)
     ->execute()
@@ -203,7 +219,7 @@ function _vopros_service_resource_send_message($uuid, $from, $message) {
   if ($question) {
     $message = entity_create('vopros_service_message', array(
         'question_id' => $question->question_id,
-        'service_machine_name' => $service->machine_name,
+        'client_id' => $service->client_id,
         'message_type' => 'incoming',
         'message_content' => $message,
         'message_from' => $from,

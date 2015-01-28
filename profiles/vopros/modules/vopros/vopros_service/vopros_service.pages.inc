@@ -42,20 +42,14 @@ function vopros_service_forward_form($form, &$form_state, $question) {
     '#view_mode' => 'full',
   );
 
-  $options = array(
-    'help' => t('Ask for help'),
-  );
-  if ($question->user_answer_preference == 'sms') {
-    $options['turn_over_sms'] = t('Turn over the question');
-  }
-  else {
-    $options['turn_over'] = t('Turn over the question');
-  }
   // @todo Really, we should filter out types without any services.
   $form['form']['send_type'] = array(
     '#type' => 'radios',
     '#title' => t('Way of sending'),
-    '#options' => $options,
+    '#options' => array(
+      'help' => t('Ask for help'),
+      'turn_over' => t('Turn over the question'),
+    ),
     '#required' => TRUE,
     '#ajax' => array(
       'callback' => 'vopros_service_forward_form_ajax',
@@ -74,10 +68,13 @@ function vopros_service_forward_form($form, &$form_state, $question) {
   }
   $query = db_select('vopros_service', 'v')
     ->fields('v')
+    ->where($where);
+  $alias = $query->innerJoin('vopros_question_client', 'c', 'v.client_id = %alias.client_id');
+  $query->fields($alias, array('label'))
     ->where($where)
-    ->orderBy('label');
+    ->orderBy($alias . '.label');
 
-  $form_state['services'] = $query->execute()->fetchAllAssoc('machine_name');
+  $form_state['services'] = $query->execute()->fetchAllAssoc('service_id');
 
   /*
    * Show the selector initially with all possible options, so core validation
@@ -137,7 +134,7 @@ function _vopros_service_forward_form_options($services, $type) {
   $options = array();
   foreach ($services as $service) {
     if (!empty($service->{$type}) && $service->{$type}) {
-      $options[$service->machine_name] = $service->label;
+      $options[$service->service_id] = $service->label;
     }
   }
 
@@ -176,14 +173,14 @@ function vopros_service_forward_form_forward_validate($form, &$form_state) {
     return;
   }
   $question = $form_state['question'];
-  $service_name = $form_state['values']['service'];
-  $form_state['selected_service'] = $form_state['services'][$service_name];
+  $service_id = $form_state['values']['service'];
+  $form_state['selected_service'] = $form_state['services'][$service_id];
   $message = $form_state['values']['message'];
   if (_vopros_service_forward_question($form_state['selected_service'], $form_state['values']['send_type'], $question, $message)) {
     // Note that the question was forwarded.
     db_insert('vopros_service_question')
       ->fields(array(
-          'machine_name' => $form_state['selected_service']->machine_name,
+          'client_id' => $form_state['selected_service']->client_id,
           'direction' => 'outgoing',
           'type' => $form_state['values']['send_type'],
           'uuid' => $question->uuid,
@@ -191,12 +188,12 @@ function vopros_service_forward_form_forward_validate($form, &$form_state) {
     ->execute();
 
     // Close question if it was handed over.
-    if ($form_state['selected_service']->allow_outgoing_turn_over) {
-      $question->question_status = 'closed';
-      $question->question_status_reason = 'handed over to external service';
-      entity_save('vopros_question', $question);
-      $form_state['redirect'] = 'admin/vopros/questions';
+    if ($form_state['values']['send_type'] == 'turn_over') {
+      $question->question_status = 'answered';
     }
+    $question->question_status_reason = 'handed over to external service';
+    entity_save('vopros_question', $question);
+    $form_state['redirect'] = 'admin/vopros/questions';
   }
   else {
     // Assignment on purpose.

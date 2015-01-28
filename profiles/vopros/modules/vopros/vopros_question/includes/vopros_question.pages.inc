@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @ file
+ * @file
  * Public page callback functions.
  */
 
@@ -16,11 +16,11 @@ function vopros_question_create_service() {
   $post_data = array();
   // Reformat all the post data to not use CamelCase.
   foreach ($_POST as $key => $value) {
-    $post_data[strtolower(preg_replace('/(?<=\\w)(?=[A-Z])/',"_$1", $key))] = $value;
+    $post_data[strtolower(preg_replace('/(?<=\\w)(?=[A-Z])/', "_$1", $key))] = $value;
   }
   $properties = $question_wrapper->getPropertyInfo();
-  // Populate the question with the needed info
-  foreach ($properties as $property => $info) {
+  // Populate the question with the needed info.
+  foreach (array_keys($properties) as $property) {
     if (isset($post_data[$property])) {
       $question->{$property} = $post_data[$property];
     }
@@ -36,6 +36,21 @@ function vopros_question_create_service() {
       $question_wrapper->vopros_question_attachment[0] = $file_data;
     }
   }
+
+  // Map qanda and agency to client and channel.
+  $mappings = _vopros_question_qanda_mapping();
+  $full_key = $question->qanda_service_name . '|' . $question->agency;
+  // Fall back to mapping with empty agency.
+  $qanda_key = $question->qanda_service_name . '|';
+  if (($mapping = $mappings[$full_key]) || ($mapping = $mappings[$qanda_key])) {
+    if ($mapping['client']) {
+      $question->client_id = $mapping['client'];
+    }
+    if ($mapping['channel']) {
+      $question->channel = $mapping['channel'];
+    }
+  }
+
   if (module_exists('vopros_editorial') && !empty($_POST['vopros_editorial'])) {
     unset($question->vopros_editorial);
     $vocab = taxonomy_vocabulary_machine_name_load('vopros_editorial');
@@ -46,59 +61,24 @@ function vopros_question_create_service() {
     }
   }
   if (!empty($post_data)) {
-  $validation = vopros_question_validate_data($question);
+    $validation = vopros_question_validate_data($question);
     if ($validation['status'] == 'valid') {
       $question_wrapper->save();
       print 'Question created';
-      exit();
+      return;
     }
     drupal_add_http_header('Status', '400');
     $errors = array();
     foreach ($validation['errors'] as $value) {
       $errors[] = $value[0];
     }
-    watchdog('vopros_question', 'Could not create vopros question, invalid data for: %fields. Validation object: %validation, POST data: %post', array('%fields' => implode(', ', $errors), '%validation' => print_r($validation, TRUE), '%post' => print_r($_POST, TRUE)), WATCHDOG_ERROR);
+    $message = 'Could not create vopros question, invalid data for: %fields. Validation object: %validation, POST data: %post';
+    $args = array(
+      '%fields' => implode(', ', $errors),
+      '%validation' => print_r($validation, TRUE),
+      '%post' => print_r($_POST, TRUE),
+    );
+    watchdog('vopros_question', $message, $args, WATCHDOG_ERROR);
   }
   print 'Question not created';
-  exit();
-}
-
-
-/**
- * Page callback to create questions.
- *
- * Used by SMS service to create questions
- */
-function vopros_question_create_sms() {
-  $default_values = array(
-    'user_answer_preference' => 'sms',
-    'agency_id' => 'SMS1919',
-  );
-
-  $question = vopros_question_new($default_values);
-  $message = isset($_GET['msg']) ? iconv('CP1252', 'UTF-8', $_GET['msg']) : '';
-  $phone = isset($_GET['origin']) ? $_GET['origin'] : '';
-  if ($message && $phone) {
-    $words = explode(' ', $message);
-    $keyword = array_shift($words);
-    $question->qanda_service_name = 'sms';
-    $question->question_content = implode(' ', $words);
-    $question->user_mobile_phone = $phone;
-    $question->question_deadline = 2;
-    if (module_exists('vopros_editorial') && $tid = variable_get('vopros_question_default_sms_editoral', '')) {
-      $question_wrapper = entity_metadata_wrapper('vopros_question', $question);
-      $question_wrapper->vopros_editorial = $tid;
-    }
-    if (!trim($question->question_content)) {
-      $question->question_content = t('Empty question - no content delivered from SMS service.');
-    }
-    $question->save();
-  }
-  $output =
-'<?xml version="1.0" encoding="iso-8859-1"?>
-  <action>
-    <type>terminate</type>
-  </action>';
-  print $output;
-  exit();
 }

@@ -278,6 +278,16 @@ function vopros_email_vopros_question_user_answer_preference() {
   );
 }
 
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_email_vopros_question_channels() {
+  return array(
+    'mail' => array(
+      'name' => t('E-mail'),
+    ),
+  );
+}
 
 /**
  * Checks email access for various operations.

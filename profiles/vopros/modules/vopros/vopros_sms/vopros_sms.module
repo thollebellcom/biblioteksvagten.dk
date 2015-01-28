@@ -63,61 +63,76 @@ function vopros_sms_init() {
  * Implementation of hook_menu().
  */
 function vopros_sms_menu() {
-  return array(
-    'admin/vopros/config/sms' => array(
-      'title' => 'SMS settings',
-      'description' => 'Configure general sms settings, fields, and displays.',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_sms_settings_form'),
-      'access arguments' => array('administer SMSes'),
-      'file' => 'includes/vopros_sms.admin.inc',
-    ),
-    'admin/vopros/config/sms/settings' => array(
-      'title' => 'Settings',
-      'type' => MENU_DEFAULT_LOCAL_TASK,
-      'weight' => -10,
-    ),
-    'admin/vopros/answers/%vopros_answer/new-sms' => array(
-      'title' => 'Answer question',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_sms_form', 3, vopros_sms_new()),
-      'access callback' => 'vopros_answer_access',
-      'access arguments' => array(3),
-      'file' => 'includes/vopros_sms.admin.inc',
-    ),
-    'admin/vopros/sms/%vopros_sms' => array(
-      'title callback' => 'vopros_sms_title',
-      'title arguments' => array(3),
-       'page callback' => 'vopros_sms_page_view',
-       'page arguments' => array(3),
-       'access callback' => 'vopros_sms_access',
-       'access arguments' => array('view'),
-       'file' => 'includes/vopros_sms.admin.inc',
-    ),
-    'admin/vopros/sms/%vopros_sms/view' => array(
-      'title' => 'View',
-       'type' => MENU_DEFAULT_LOCAL_TASK,
-       'weight' => -10,
-    ),
-    'admin/vopros/sms/%vopros_sms/edit' => array(
-      'title' => 'Edit',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_sms_form', 3),
-      'access callback' => 'vopros_sms_access',
-      'access arguments' => array('edit'),
-      'file' => 'includes/vopros_sms.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-    ),
-    'admin/vopros/questions/%vopros_question/sms' => array(
-      'title' => 'Contact user',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('vopros_sms_question_contact_form', 3),
-      'access callback' => 'vopros_question_access',
-      'access arguments' => array('contact', 3),
-      'file' => 'includes/vopros_sms.admin.inc',
-    ),
+  $items = array();
+
+  $items['admin/vopros/config/sms'] = array(
+    'title' => 'SMS settings',
+    'description' => 'Configure general sms settings, fields, and displays.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_sms_settings_form'),
+    'access arguments' => array('administer SMSes'),
+    'file' => 'includes/vopros_sms.admin.inc',
   );
+
+  $items['admin/vopros/config/sms/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/vopros/answers/%vopros_answer/new-sms'] = array(
+    'title' => 'Answer question',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_sms_form', 3, vopros_sms_new()),
+    'access callback' => 'vopros_answer_access',
+    'access arguments' => array(3),
+    'file' => 'includes/vopros_sms.admin.inc',
+  );
+
+  $items['admin/vopros/sms/%vopros_sms'] = array(
+    'title callback' => 'vopros_sms_title',
+    'title arguments' => array(3),
+    'page callback' => 'vopros_sms_page_view',
+    'page arguments' => array(3),
+    'access callback' => 'vopros_sms_access',
+    'access arguments' => array('view'),
+    'file' => 'includes/vopros_sms.admin.inc',
+  );
+
+  $items['admin/vopros/sms/%vopros_sms/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/vopros/sms/%vopros_sms/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_sms_form', 3),
+    'access callback' => 'vopros_sms_access',
+    'access arguments' => array('edit'),
+    'file' => 'includes/vopros_sms.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  $items['admin/vopros/questions/%vopros_question/sms'] = array(
+    'title' => 'Contact user',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_sms_question_contact_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('contact', 3),
+    'file' => 'includes/vopros_sms.admin.inc',
+  );
+
+  // Create question from SMS.
+  $items['vopros/question/create/sms'] = array(
+    'page callback' => 'vopros_sms_create_sms',
+    'access arguments' => array('create question via sms service'),
+    'file' => 'includes/vopros_sms.pages.inc',
+  );
+
+  return $items;
 }
 
 /**
@@ -232,6 +247,9 @@ function vopros_sms_permission() {
     'create SMSes' => array(
       'title' => t('Create SMSes'),
     ),
+    'create question via sms service' => array(
+      'title' => t('Create question via SMS service'),
+    ),
     'edit any sms' => array(
       'title' => t('Edit any sms'),
       'restrict access' => TRUE,
@@ -253,6 +271,17 @@ function vopros_sms_permission() {
 function vopros_sms_vopros_question_user_answer_preference() {
   return array(
     'sms' => t('SMS'),
+  );
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_sms_vopros_question_channels() {
+  return array(
+    'sms' => array(
+      'name' => t('SMS'),
+    ),
   );
 }
 

@@ -4,6 +4,9 @@
  * Implements hook_schema().
  */
 function vopros_service_schema() {
+  // Ensure that uuid.install is loaded for uuid_schema_field_definition().
+  module_load_install('uuid');
+
   $schema = array();
 
   $schema['vopros_service'] = array(
@@ -15,17 +18,12 @@ function vopros_service_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'machine_name' => array(
-        'description' => 'The internal machine name of a vopros service.',
-        'type' => 'varchar',
-        'length' => '255',
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
-      ),
-      'label' => array(
-        'description' => 'The human readable name for a vopros service.',
-        'type' => 'varchar',
-        'length' => '255',
-        'not null' => TRUE,
+        'default' => 0,
       ),
       'url' => array(
         'description' => 'The url of the service, used for posting messages to it.',
@@ -96,7 +94,7 @@ function vopros_service_schema() {
     'primary key' => array('service_id'),
     'unique keys' => array(
       'revision_id' => array('revision_id'),
-      'machine_name' => array('machine_name'),
+      'client_id' => array('client_id'),
     ),
     'foreign keys' => array(
       'current_revision' => array(
@@ -128,17 +126,12 @@ function vopros_service_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'machine_name' => array(
-        'description' => 'The internal machine name of a vopros service.',
-        'type' => 'varchar',
-        'length' => '255',
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
-      ),
-      'label' => array(
-        'description' => 'The human readable name for a vopros service.',
-        'type' => 'varchar',
-        'length' => '255',
-        'not null' => TRUE,
+        'default' => 0,
       ),
       'url' => array(
         'description' => 'The url of the service, used for posting messages to it.',
@@ -212,11 +205,12 @@ function vopros_service_schema() {
   $schema['vopros_service_question'] = array(
     'description' => 'Table for tracking questions forwarded or accepted from others.',
     'fields' => array(
-      'machine_name' => array(
-        'description' => 'The machine name of the service used.',
-        'type' => 'varchar',
-        'length' => '255',
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
+        'default' => 0,
       ),
       'direction' => array(
         'description' => 'The direction of the forward, "incoming" or "outgoing"',
@@ -232,9 +226,9 @@ function vopros_service_schema() {
       ),
       'uuid' => uuid_schema_field_definition(),
     ),
-    'primary key' => array('uuid', 'type', 'machine_name'),
+    'primary key' => array('uuid', 'type', 'client_id'),
     'indexes' => array(
-      'machine_name' => array('machine_name'),
+      'client_id' => array('client_id'),
     ),
   );
 
@@ -256,11 +250,12 @@ function vopros_service_schema() {
         'type' => 'int',
         'not null' => TRUE,
       ),
-      'service_machine_name' => array(
-        'description' => 'The machine name of the service used.',
-        'type' => 'varchar',
-        'length' => '255',
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
+        'default' => 0,
       ),
       'message_type' => array(
         'description' => 'Message type, "incoming" or "outgoing".',
@@ -300,7 +295,7 @@ function vopros_service_schema() {
     'primary key' => array('service_message_id'),
     'indexes' => array(
       'question_id' => array('question_id'),
-      'service_machine_name' => array('service_machine_name'),
+      'client_id' => array('client_id'),
     ),
   );
 
@@ -325,4 +320,50 @@ function vopros_service_update_7001() {
       'not null' => TRUE,
       'default' => 0,
     ));
+}
+
+/**
+ * Change for new client system.
+ */
+function vopros_service_update_7002() {
+  db_drop_field('vopros_service', 'machine_name');
+  db_drop_field('vopros_service', 'label');
+  db_add_field('vopros_service', 'client_id', array(
+      'description' => 'The client site.',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+  db_add_unique_key('vopros_service', 'client_id', array('client_id'));
+
+  db_drop_field('vopros_service_revision', 'machine_name');
+  db_drop_field('vopros_service_revision', 'label');
+  db_add_field('vopros_service_revision', 'client_id', array(
+      'description' => 'The client site.',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+
+  db_drop_field('vopros_service_question', 'machine_name');
+  db_add_field('vopros_service_question', 'client_id', array(
+      'description' => 'The client site.',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+  db_add_unique_key('vopros_service_question', 'client_id', array('client_id'));
+
+  db_drop_field('vopros_service_message', 'service_machine_name');
+  db_add_field('vopros_service_message', 'client_id', array(
+      'description' => 'The client site.',
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+    ));
+  db_add_unique_key('vopros_service_message', 'client_id', array('client_id'));
 }

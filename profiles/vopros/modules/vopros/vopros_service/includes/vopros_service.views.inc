@@ -11,6 +11,7 @@
  * Implements hook_views_data().
  */
 function vopros_service_views_data() {
+
   $data['vopros_service_question']['table'] = array(
     'name' => 'vopros_service_question',
     'group' => 'Vopros Service forwarded questions.',
@@ -22,26 +23,76 @@ function vopros_service_views_data() {
         // 'type' => 'INNER',
       ),
       'vopros_service' => array(
-        'left_field' => 'machine_name',
-        'field' => 'machine_name',
+        'left_field' => 'client_id',
+        'field' => 'client_id',
         // 'type' => 'INNER',
       ),
     ),
   );
 
-  $data['vopros_service_question']['machine_name'] = array(
-    'title' => t('Service machine name'),
-    'help' => t('Machine name of the service this question has been forwarded from/to.'),
+  $data['vopros_service']['client_id'] = array(
+    'title' => t('Client ID'),
+    'help' => t('Client ID of this service.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE, // This is use by the table display plugin.
+    ),
+    'relationship' => array(
+      'base' => 'vopros_question_client',
+      'base field' => 'client_id',
+      'field' => 'client_id',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Service client'),
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  $data['vopros_service_question']['client_id'] = array(
+    'title' => t('Client forwarded to'),
+    'help' => t('Client of the service this question has been forwarded from/to.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE, // This is use by the table display plugin.
+    ),
+    'relationship' => array(
+      'base' => 'vopros_question_client',
+      'base field' => 'client_id',
+      'field' => 'client_id',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Client forwarded to'),
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  $data['vopros_service_question']['service_id'] = array(
+    'title' => t('Service forwarded to'),
+    'help' => t('Service this question has been forwarded from/to.'),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE, // This is use by the table display plugin.
     ),
     'relationship' => array(
       'base' => 'vopros_service',
-      'base field' => 'machine_name',
-      'field' => 'machine_name',
+      'base field' => 'client_id',
+      'field' => 'client_id',
       'handler' => 'views_handler_relationship',
-      'label' => t('Service'),
+      'label' => t('Service forwarded to'),
     ),
     'sort' => array(
       'handler' => 'views_handler_sort',

@@ -169,3 +169,25 @@ function vopros_sms_schema() {
 
   return $schema;
 }
+
+/**
+ * Move create SMS permission to SMS module.
+ */
+function vopros_sms_update_7101() {
+  db_update('role_permission')
+    ->fields(array('module' => 'vopros_sms'))
+    ->condition('permission', 'create question via sms service')
+    ->execute();
+}
+
+/**
+ * Move SMS default editorial variable to SMS module.
+ */
+function vopros_sms_update_7102() {
+  $editorial = variable_get('vopros_question_default_sms_editoral', '');
+  if (!empty($editorial)) {
+    variable_set('vopros_sms_default_sms_editoral', $editorial);
+  }
+
+  variable_del('vopros_question_default_sms_editoral');
+}

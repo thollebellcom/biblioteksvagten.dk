@@ -37,7 +37,7 @@ function vopros_service_message_form_validate($form, &$form_state) {
     form_error($form, t('Could not load question.'));
   }
 
-  $form_state['service'] = vopros_service_machine_name_load($forward->machine_name);
+  $form_state['service'] = vopros_service_load_by_client_id($forward->client_id);
   if (!$form_state['service']) {
     form_error($form, t('Could not load service.'));
   }
@@ -60,7 +60,7 @@ function vopros_service_message_form_submit($form, &$form_state) {
   if (_vopros_service_send_message($form_state['service'], $form_state['question'], $data)) {
     $question_message = entity_create('vopros_service_message', array(
         'question_id' => $form_state['question']->question_id,
-        'service_machine_name' => $form_state['service']->machine_name,
+        'client_id' => $form_state['service']->client_id,
         'message_type' => 'outgoing',
         'message_content' => $form_state['values']['message'],
         'message_from' => $name,
@@ -135,7 +135,8 @@ function vopros_service_message_back_form_validate($form, &$form_state) {
   }
   else {
     $forward = reset($forwards);
-    $form_state['service'] = vopros_service_machine_name_load($forward->machine_name);
+    // @todo
+    $form_state['service'] = vopros_service_load_by_client_id($forward->client_id);
     if (!$form_state['service']) {
       form_error($form, t('Could not load service.'));
     }
@@ -156,7 +157,7 @@ function vopros_service_message_back_form_submit($form, &$form_state) {
   if (_vopros_service_send_answer($form_state['service'], $form_state['question'], $data)) {
     $question_message = entity_create('vopros_service_message', array(
         'question_id' => $form_state['question']->question_id,
-        'service_machine_name' => $form_state['service']->machine_name,
+        'client_id' => $form_state['service']->client_id,
         'message_type' => 'outgoing',
         'message_content' => $form_state['values']['message'],
         'message_from' => $name,
@@ -247,7 +248,8 @@ function vopros_service_message_answer_form_validate($form, &$form_state) {
   }
   else {
     $forward = reset($forwards);
-    $form_state['service'] = vopros_service_machine_name_load($forward->machine_name);
+    // @todo
+    $form_state['service'] = vopros_service_load_by_client_id($forward->client_id);
     if (!$form_state['service']) {
       form_error($form, t('Could not load service.'));
     }
@@ -269,7 +271,7 @@ function vopros_service_message_answer_form_submit($form, &$form_state) {
   if (_vopros_service_send_answer($form_state['service'], $form_state['question'], $data)) {
     $question_message = entity_create('vopros_service_message', array(
         'question_id' => $form_state['question']->question_id,
-        'service_machine_name' => $form_state['service']->machine_name,
+        'client_id' => $form_state['service']->client_id,
         'message_type' => 'outgoing',
         'message_content' => $form_state['values']['message'],
         'message_answer' => trim($form_state['values']['answer']),

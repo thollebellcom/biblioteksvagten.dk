@@ -11,4 +11,4 @@ files[] = includes/fivestar_views_handler_filter_in_operator.inc
 ; Information added by drush on 2015-01-28
 version = "b38930ff1890f88c63f293bae65b3c6913b6c1e6"
 project = "fivestar"
-datestamp = "1422439677"
+datestamp = "1422440718"

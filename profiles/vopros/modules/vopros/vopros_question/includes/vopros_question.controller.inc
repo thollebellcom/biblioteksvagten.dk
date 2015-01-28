@@ -20,18 +20,28 @@ class VoprosQuestionEntityController extends VoprosAPIEntityController {
       // Set the deadline to x hours from creation.
       $question->question_deadline_timestamp = 3600 * $question->question_deadline + $created;
     }
-    parent::save($question, $transaction);
+    return parent::save($question, $transaction);
   }
 
 
   public function validateData($question) {
     $errors = array();
-    if (!isset($question->qanda_service_name) || empty($question->qanda_service_name)) {
-      $errors[] = array('qanda_service_name', t('@name is required', array('@name' => t('Q and A service'))));
+    // For the moment just check that client_id/channel is valid if given. Later
+    // we might require them.
+    if ($question->client_id && !vopros_question_client_load($question->client_id)) {
+      $errors[] = array(
+        'client_id',
+        t('Unknown @name @id', array('@name' => t('Client id'), '@id' => $question->client_id)),
+      );
     }
-    if (!isset($question->agency_id) || empty($question->agency_id)) {
-      $errors[] = array('agency_id', t('@name is required', array('@name' => t('Agency id'))));
+
+    if ($question->channel && !vopros_question_channel($question->channel)) {
+      $errors[] = array(
+        'channel',
+        t('Unknown @name @id', array('@name' => t('Channel'), '@id' => $question->channel)),
+      );
     }
+
     if (!isset($question->question_content) || empty($question->question_content)) {
       $errors[] = array('question_content', t('@name is required', array('@name' => t('Question content'))));
     }

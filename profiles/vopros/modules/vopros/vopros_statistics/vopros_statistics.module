@@ -1,9 +1,15 @@
 <?php
+/**
+ * @file
+ * Vopros statistics module.
+ */
 
 /**
  * Implements hook_menu().
  */
 function vopros_statistics_menu() {
+  $items = array();
+
   $items['admin/vopros/statistics'] = array(
     'title' => 'Statistics',
     'description' => 'Display statistics about vopros questions and answers',
@@ -16,7 +22,6 @@ function vopros_statistics_menu() {
     'title' => 'Year',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-
 
   $min_created = db_query("SELECT MIN(created) FROM {vopros_question}")->fetchField();
 
@@ -50,9 +55,9 @@ function vopros_statistics_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/vopros/statistics/qanda_service_name'] = array(
-    'title' => 'Q and A service name',
-    'page callback' => 'vopros_statistics_qanda_service_name_view',
+  $items['admin/vopros/statistics/client_channels'] = array(
+    'title' => 'Clients & channels',
+    'page callback' => 'vopros_statistics_client_channels_view',
     'access arguments' => array('access vopros statistics'),
     'file' => 'vopros_statistics.admin.inc',
     'type' => MENU_LOCAL_TASK,
@@ -66,10 +71,9 @@ function vopros_statistics_menu() {
  */
 function vopros_statistics_permission() {
   return array(
-    'access vopros statistics' =>  array(
+    'access vopros statistics' => array(
       'title' => t('Access statistics'),
       'description' => '',
     ),
   );
 }
-

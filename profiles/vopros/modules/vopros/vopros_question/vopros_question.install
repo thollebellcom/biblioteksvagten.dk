@@ -71,18 +71,46 @@ function vopros_question_schema() {
       ),
       // Info about the origin of the question
       'qanda_service_name' => array(
-        'description' => 'The service that brought us the question.',
+        'description' => 'The service that brought us the question. (deprecated)',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
         'default' => '',
       ),
       'agency_id' => array(
-        'description' => 'The agency/portal that sent the question.',
+        'description' => 'The agency/portal that sent the question. (deprecated)',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
         'default' => '',
+      ),
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'channel' => array(
+        'description' => 'The channel used to ask the question.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'channel_id' => array(
+        'description' => 'The sub-id of the channel used to ask the question .',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'channel_data' => array(
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized array of additional channel data.',
       ),
       'referenced_by' => array(
         'description' => 'Referenced from.',
@@ -166,6 +194,8 @@ function vopros_question_schema() {
       'question_status' => array('question_status'),
       'question_usage' => array('question_usage'),
       'qanda_service_name' => array('qanda_service_name'),
+      'client_id' => array('client_id'),
+      'channel' => array('channel'),
       'created' => array('created'),
       'changed' => array('changed'),
     ),
@@ -248,18 +278,46 @@ function vopros_question_schema() {
       ),
       // Info about the origin of the question
       'qanda_service_name' => array(
-        'description' => 'The service that brought us the question.',
+        'description' => 'The service that brought us the question. (deprecated)',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
         'default' => '',
       ),
       'agency_id' => array(
-        'description' => 'The agency/portal that sent the question.',
+        'description' => 'The agency/portal that sent the question. (deprecated)',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
         'default' => '',
+      ),
+      'client_id' => array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'channel' => array(
+        'description' => 'The channel used to ask the question.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'channel_id' => array(
+        'description' => 'The sub-id of the channel used to ask the question .',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'channel_data' => array(
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized array of additional channel data.',
       ),
       'referenced_by' => array(
         'description' => 'Referenced from.',
@@ -340,12 +398,127 @@ function vopros_question_schema() {
       'question_status' => array('question_status'),
       'question_usage' => array('question_usage'),
       'qanda_service_name' => array('qanda_service_name'),
+      'client_id' => array('client_id'),
+      'channel' => array('channel'),
       'revision_timestamp' => array('revision_timestamp'),
     ),
     'foreign keys' => array(
       'question' => array(
         'table' => 'vopros_question',
         'columns'=> array('question_id' => 'question_id'),
+      ),
+    ),
+  );
+
+  $schema['vopros_question_client'] = array(
+    'description' => 'The base table for clients of the service.',
+    'fields' => array(
+      'client_id' => array(
+        'description' => 'The primary identifier for a client.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'agency' => array(
+        'description' => 'The machine name for this client.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'revision_id' => array(
+        'description' => 'The current {vopros_question_client_revision}.revision_id version identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'label' => array(
+        'description' => 'Client name, the label of the entity.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the question was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the question was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ),
+    'primary key' => array('client_id'),
+    'unique keys' => array(
+      'agency' => array('agency'),
+      'revision_id' => array('revision_id'),
+    ),
+    'indexes' => array(
+      'created' => array('created'),
+      'changed' => array('changed'),
+    ),
+    'foreign keys' => array(
+      'current_revision' => array(
+        'table' => 'vopros_question_revision',
+        'columns' => array('revision_id' => 'revision_id'),
+      ),
+    ),
+  );
+
+  $schema['vopros_question_client_revision'] = array(
+    'description' => 'Saves information about each saved revision of a {vopros_question_client}.',
+    'fields' => array(
+      'revision_id' => array(
+        'description' => 'The primary identifier for this revision.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'client_id' => array(
+        'description' => 'The {vopros_question_client}.client_id of the client this revision belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'agency' => array(
+        'description' => 'The machine name for this client.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'Client name, the label of the entity.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'log' => array(
+        'description' => 'The log entry explaining the changes in this version.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'revision_timestamp' => array(
+        'description' => 'The Unix timestamp when this revision was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ),
+    'primary key' => array('revision_id'),
+    'indexes' => array(
+      'revision_timestamp' => array('revision_timestamp'),
+    ),
+    'foreign keys' => array(
+      'question' => array(
+        'table' => 'vopros_question',
+        'columns' => array('client_id' => 'client_id'),
       ),
     ),
   );
@@ -441,4 +614,197 @@ function vopros_question_update_7004(&$sandbox) {
  */
 function vopros_question_update_7005() {
   module_enable(array('better_exposed_filters'));
+}
+
+/**
+ * Create tables for clients.
+ */
+function vopros_question_update_7006() {
+  $schema = array();
+
+  $schema['vopros_question_client'] = array(
+    'description' => 'The base table for clients of the service.',
+    'fields' => array(
+      'client_id' => array(
+        'description' => 'The primary identifier for a client.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'agency' => array(
+        'description' => 'The machine name for this client.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'revision_id' => array(
+        'description' => 'The current {vopros_question_client_revision}.revision_id version identifier.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'label' => array(
+        'description' => 'Client name, the label of the entity.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the question was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The Unix timestamp when the question was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ),
+    'primary key' => array('client_id'),
+    'unique keys' => array(
+      'agency' => array('agency'),
+      'revision_id' => array('revision_id'),
+    ),
+    'indexes' => array(
+      'created' => array('created'),
+      'changed' => array('changed'),
+    ),
+    'foreign keys' => array(
+      'current_revision' => array(
+        'table' => 'vopros_question_revision',
+        'columns' => array('revision_id' => 'revision_id'),
+      ),
+    ),
+  );
+
+  $schema['vopros_question_client_revision'] = array(
+    'description' => 'Saves information about each saved revision of a {vopros_question_client}.',
+    'fields' => array(
+      'revision_id' => array(
+        'description' => 'The primary identifier for this revision.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'client_id' => array(
+        'description' => 'The {vopros_question_client}.client_id of the client this revision belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'agency' => array(
+        'description' => 'The machine name for this client.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'Client name, the label of the entity.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'log' => array(
+        'description' => 'The log entry explaining the changes in this version.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
+      'revision_timestamp' => array(
+        'description' => 'The Unix timestamp when this revision was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ),
+    'primary key' => array('revision_id'),
+    'indexes' => array(
+      'revision_timestamp' => array('revision_timestamp'),
+    ),
+    'foreign keys' => array(
+      'question' => array(
+        'table' => 'vopros_question',
+        'columns' => array('client_id' => 'client_id'),
+      ),
+    ),
+  );
+
+  foreach ($schema as $name => $def) {
+    db_create_table($name, $def);
+  }
+}
+
+/**
+ * Add new qanda_service replacing fields.
+ */
+function vopros_question_update_7007() {
+  $fields = array(
+    'client_id' => array(
+      array(
+        'description' => 'The client site.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      array(
+        'indexes' => array(
+          'client_id' => array('client_id'),
+        ),
+      ),
+    ),
+    'channel' => array(
+      array(
+        'description' => 'The channel used to ask the question.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      array(
+        'indexes' => array(
+          'channel' => array('channel'),
+        ),
+      ),
+    ),
+    'channel_id' => array(
+      array(
+        'description' => 'The sub-id of the channel used to ask the question .',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      array(),
+    ),
+    'channel_data' => array(
+      array(
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized array of additional channel data.',
+      ),
+      array(),
+    ),
+  );
+  $tables = array('vopros_question', 'vopros_question_revision');
+  foreach ($tables as $table) {
+    foreach ($fields as $name => $def) {
+      db_add_field($table, $name, $def[0], $def[1]);
+    }
+  }
+}
+
+/**
+ * Remove the vopros_question_qanda_service_options variable.
+ */
+function vopros_question_update_7008() {
+  variable_del('vopros_question_qanda_service_options');
 }

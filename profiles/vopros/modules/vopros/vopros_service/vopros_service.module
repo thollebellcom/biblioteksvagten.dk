@@ -1,0 +1,937 @@
+<?php
+
+/**
+ * @file
+ * Module for transfering questions in Vopros.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function vopros_service_entity_info() {
+  $return = array(
+    'vopros_service' => array(
+      'label' => t('Vopros Service'),
+      'controller class' => 'VoprosServiceEntityController',
+      'entity class' => 'VoprosService',
+      'base table' => 'vopros_service',
+      'revision table' => 'vopros_service_revision',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'service_id',
+        'revision' => 'revision_id',
+        'label' => 'label',
+      ),
+      'bundles' => array(
+        'vopros_email' => array(
+          'label' => t('Vopros Service'),
+          'admin' => array(
+            'path' => 'admin/vopros/config/service',
+            'access arguments' => array('administer vopros services'),
+          ),
+        ),
+      ),
+      'load hook' => 'vopros_service_load',
+      'view modes' => array(
+        'administrator' => array(
+          'label' => t('Administrator'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'module' => 'vopros_service',
+      'access callback' => 'vopros_service_access',
+      // Allow default views controller to create view data integration.
+      'views controller class' => 'EntityDefaultViewsController',
+      // Enable the entity API's admin UI.
+      'admin ui' => array(
+        'path' => 'admin/vopros/services',
+        'file' => 'vopros_service.admin.inc',
+        'controller class' => 'VoprosServiceUIController',
+      ),
+    ),
+    'vopros_service_message' => array(
+      'label' => t('Vopros Service Message'),
+      'controller class' => 'VoprosServiceMessageEntityController',
+      'entity class' => 'VoprosServiceMessage',
+      'base table' => 'vopros_service_message',
+      // Vesioning doesn't make sense.
+      'fieldable' => FALSE,
+      'entity keys' => array(
+        'id' => 'service_message_id',
+      ),
+      'load hook' => 'vopros_service_message_load',
+      'view modes' => array(
+        'administrator' => array(
+          'label' => t('Administrator'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'module' => 'vopros_service',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function vopros_service_permission() {
+  $permissions = array(
+    'administer vopros services' => array(
+      'title' => t('Administer vopros services'),
+      'restrict access' => TRUE,
+    ),
+    'access vopros services' => array(
+      'title' => t('Access lists of vopros services, primarily for viewing and referencing'),
+    ),
+    'create vopros services' => array(
+      'title' => t('Create vopros services'),
+    ),
+    'edit vopros services' => array(
+      'title' => t('Edit and delete vopros services'),
+      'restrict access' => TRUE,
+    ),
+    'forward vopros questions' => array(
+      'title' => t('Forward questions'),
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Imlements hook_vievs_api().
+ */
+function vopros_service_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'vopros_service') . '/includes',
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function vopros_service_menu() {
+  $items['admin/vopros/questions/%vopros_question/forward'] = array(
+    'title' => 'Forward question',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_service_forward_form', 3),
+    'access callback' => 'vopros_service_forward_question_access',
+    'access arguments' => array(3),
+    'file' => 'vopros_service.pages.inc',
+  );
+
+  $items['admin/vopros/questions/%vopros_question/vopros_service_message'] = array(
+    'title' => 'Contact user',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_service_message_back_form', 3),
+    'access callback' => 'vopros_question_access',
+    'access arguments' => array('contact', 3),
+    'file' => 'vopros_service.form.inc',
+  );
+
+  $items['admin/vopros/answers/%vopros_answer/vopros_service_answer'] = array(
+    'title' => 'Answer question',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_service_message_answer_form', 3),
+    'access callback' => 'vopros_answer_access',
+    'access arguments' => array('update', 3),
+    'file' => 'vopros_service.form.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function vopros_service_theme() {
+  $path = drupal_get_path('module', 'vopros_service') . '/theme';
+  return array(
+    'vopros_service_message' => array(
+      'render element' => 'elements',
+      'template' => 'vopros_service_message',
+      'path' => $path,
+    ),
+  );
+}
+
+/**
+ * Access callback.
+ *
+ * Checks that the question is in the right state and the user has permission to
+ * forward it.
+ */
+function vopros_service_forward_question_access($question = NULL, $account = NULL) {
+  global $user;
+  $account = isset($account) ? $account : $user;
+
+  // Grant access to any operation for any question for administrators.
+  if (user_access('administer questions', $account)) {
+    return TRUE;
+  }
+
+  if (user_access('forward vopros questions')) {
+    if ($question && $question->question_status == 'assigned' && $question->uid != $account->uid) {
+      return FALSE;
+    }
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function vopros_service_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "services" && $api == "services") {
+    return array("version" => "3");
+  }
+}
+
+/**
+ * Implements hook_services_resources().
+ */
+function vopros_service_services_resources() {
+  return array(
+    'question' => array(
+      'operations' => array(
+        'create' => array(
+          'vopros_direction' => 'incoming',
+          'help' => 'Create a new question transfer.',
+          'file' => array(
+            'type' => 'inc',
+            'module' => 'vopros_service',
+            'name' => 'resources/vopros_transfer',
+          ),
+          'callback' => '_vopros_service_resource_retrieve',
+          'access callback' => 'vopros_service_resource_access',
+          'args' => array(
+            array(
+              'name' => 'type',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'Type of question "help" or "turn_over".',
+            ),
+            array(
+              'name' => 'question',
+              'optional' => FALSE,
+              'source' => 'data',
+              'type' => 'array',
+              'description' => 'The question to create.',
+            ),
+          ),
+        ),
+      ),
+      'targeted_actions' => array(
+        'send_answer' => array(
+          'vopros_direction' => 'outgoing',
+          'help' => 'Send an answer or message to the questioner.',
+          'file' => array(
+            'type' => 'inc',
+            'module' => 'vopros_service',
+            'name' => 'resources/vopros_transfer',
+          ),
+          'callback' => '_vopros_service_resource_send_answer',
+          'access callback' => 'vopros_service_resource_access',
+          'args' => array(
+            array(
+              'name' => 'uuid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'UUID of the original question.',
+            ),
+            array(
+              'name' => 'from',
+              'optional' => FALSE,
+              'source' => array('data' => 'from'),
+              'type' => 'string',
+              'description' => 'Message from.',
+            ),
+            array(
+              'name' => 'message',
+              'optional' => FALSE,
+              'source' => array('data' => 'message'),
+              'type' => 'string',
+              'description' => 'Message text.',
+            ),
+            array(
+              'name' => 'answer',
+              'optional' => TRUE,
+              'source' => array('data' => 'answer'),
+              'type' => 'string',
+              'description' => 'Answer text, optional.',
+            ),
+          ),
+        ),
+        'send_message' => array(
+          'vopros_direction' => 'outgoing',
+          'help' => 'Send a message to the helper.',
+          'file' => array(
+            'type' => 'inc',
+            'module' => 'vopros_service',
+            'name' => 'resources/vopros_transfer',
+          ),
+          'callback' => '_vopros_service_resource_send_message',
+          'access callback' => 'vopros_service_resource_access',
+          'args' => array(
+            array(
+              'name' => 'uuid',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'UUID of the original question.',
+            ),
+            array(
+              'name' => 'from',
+              'optional' => FALSE,
+              'source' => array('data' => 'from'),
+              'type' => 'string',
+              'description' => 'Message from.',
+            ),
+            array(
+              'name' => 'message',
+              'optional' => FALSE,
+              'source' => array('data' => 'message'),
+              'type' => 'string',
+              'description' => 'Message text.',
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Access check for resource.
+ *
+ * @todo Currently allows all access, that wont do for production.
+ */
+function vopros_service_resource_access() {
+  return TRUE;
+}
+
+/**
+ * Implementation of hook_services_authentication_info().
+ */
+function vopros_service_services_authentication_info() {
+  return array(
+    'title'             => t('Vopros service authentication'),
+    'description'       => t("Use Vopros service authentication."),
+    'authenticate_call' => '_vopros_service_authenticate_call',
+  );
+}
+
+/**
+ * Services authentication callback.
+ *
+ * Checks the request token and sets the current definition if found.
+ */
+function _vopros_service_authenticate_call($module, $controller, $args) {
+  if ($module != 'vopros_service') {
+    return;
+  }
+  $headers = getallheaders();
+  if (empty($headers['X-Vopros-Shared-Token'])) {
+    return 'Missing auth token.';
+  }
+  // Find service definition.
+  $service_id = db_select('vopros_service', 'v')
+    ->fields('v', array('service_id'))
+    ->condition('auth_key', $headers['X-Vopros-Shared-Token'])
+    ->execute()
+    ->fetchField();
+  if (empty($service_id)) {
+    return "Unknown auth token.";
+  }
+  $service = vopros_service_load($service_id);
+
+  if ($controller['vopros_direction'] == 'incoming') {
+    if (!$service->allow_ingoing) {
+      return "Incoming not allowed.";
+    }
+  }
+  else {
+    // Outgoing always allowed.
+  }
+
+  vopros_service_current($service);
+}
+
+/**
+ * Returns the current service definition.
+ */
+function vopros_service_current($new = NULL) {
+  $current = &drupal_static(__FUNCTION__, NULL);
+  if ($new) {
+    $current = $new;
+  }
+
+  return $current;
+}
+
+/**
+ * Implements hook_vopros_question_view_alter().
+ */
+function vopros_service_vopros_question_view_alter(&$build, $entity_type) {
+  $question = $build['#question'];
+
+  // Show messages for outgoing help forwards. Incoming are handled by
+  // vopros_service_vopros_question_activity_feed().
+  $forwards = vopros_service_forward_load_by_uuid($question->uuid, array('direction' => 'outgoing', 'type' => 'help'));
+
+  if ($forwards) {
+    $forward = reset($forwards);
+    $build['#attached']['css'][] = drupal_get_path('module', 'vopros_service') . '/css/vopros_service.admin.css';
+
+    $message_ids = db_select('vopros_service_message', 'q')
+      ->fields('q', array('service_message_id'))
+      ->condition('question_id', $question->question_id)
+      ->orderBy('created')
+      ->execute()
+      ->fetchCol();
+    $messages = entity_load('vopros_service_message', $message_ids);
+
+    $messages_build = array(
+      '#type' => 'fieldset',
+      '#title' => t('Service messages'),
+      '#weight' => 10,
+      '#attributes' => array(
+        'class' => array('question-messages'),
+      ),
+    );
+    if ($messages) {
+      $messages_build['questions'] = entity_view('vopros_service_message', $messages, $build['#view_mode']);
+    }
+    else {
+      $messages_build['questions'] = array(
+        '#markup' => t('No messages'),
+      );
+    }
+
+    module_load_include('inc', 'vopros_service', 'vopros_service.form');
+    $messages_build['new_message'] = drupal_get_form('vopros_service_message_form', $forward);
+
+    // Add to right column.
+    $build['right']['question_messages'] = $messages_build;
+  }
+}
+
+/**
+ * Implements hook_vopros_question_activity_feed().
+ *
+ * Adds messages to feed, if the question is an incoming help qestion.
+ */
+function vopros_service_vopros_question_activity_feed($question, &$feed) {
+  if ($question->user_answer_preference == 'vopros_service') {
+    $forwards = vopros_service_forward_load_by_uuid($question->uuid, array('direction' => 'incoming', 'type' => 'help'));
+    if ($forwards) {
+      $forward = reset($forwards);
+
+      $message_ids = db_select('vopros_service_message', 'q')
+        ->fields('q', array('service_message_id'))
+        ->condition('question_id', $question->question_id)
+        ->orderBy('created')
+        ->execute()
+        ->fetchCol();
+
+      $messages = entity_load('vopros_service_message', $message_ids);
+
+      $messages_build = array(
+        '#prefix' => '<div class=question-messages>',
+        '#suffix' => '</div>',
+      );
+      if ($messages) {
+        $feed['#attached']['css'][] = drupal_get_path('module', 'vopros_service') . '/css/vopros_service.admin.css';
+        $messages_build['questions'] = entity_view('vopros_service_message', $messages, 'question-list');
+        $feed['question-messages'] = $messages_build;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add forward button to unforwarded questions, and hook into the "contact user"
+ * button for incoming questions.
+ */
+function vopros_service_form_vopros_question_handle_question_form_alter(&$form, $form_state) {
+  $question = $form['question']['#value'];
+
+  // Check that question is forwarded.
+  $forwards = vopros_service_forward_load_by_uuid($question->uuid);
+
+  // For now we only allow forwarding when the question when the question isn't
+  // already forwarded. This might be changed later.
+  if (empty($forwards)) {
+    $forward = TRUE;
+    // If the question was received on SMS, we'll need to check that there's at
+    // least one help or SMS enabled turnover service.
+    if ($question->user_answer_preference == 'sms') {
+      $query = db_select('vopros_service', 'v')
+        ->fields('v')
+        ->where('v.allow_outgoing_help = 1 OR v.allow_outgoing_turn_over_sms = 1')
+        ->countQuery();
+      if ($query->execute()->fetchField() < 1) {
+        $forward = FALSE;
+      }
+    }
+    if ($forward) {
+      $form['actions']['forward'] = array(
+        '#type' => 'submit',
+        '#value' => t('Forward question'),
+        '#weight' => 1,
+        '#submit' => array('vopros_service_question_view_form_submit'),
+      );
+    }
+  }
+  elseif ($question->user_answer_preference == 'vopros_service') {
+    // Hook into the contact user button.
+    $form['actions']['contact']['#submit'][] = 'vopros_service_form_vopros_question_contact_user_submit';
+  }
+  elseif ($forwards[0]->direction == 'outgoing') {
+    // Show a banner for outgoing questions.
+    $service = vopros_service_machine_name_load($forwards[0]->machine_name);
+    switch ($forwards[0]->type) {
+      case 'help':
+        drupal_set_message(t("Asked for help at @service ", array('@service' => $service->label)), 'notice', FALSE);
+        break;
+
+      case 'turn_over':
+        drupal_set_message(t("Handed over to @service ", array('@service' => $service->label)), 'notice', FALSE);
+        break;
+    }
+  }
+}
+
+/**
+ * Submit handler for the "contact user" button.
+ *
+ * Redirects to the back message form.
+ */
+function vopros_service_form_vopros_question_contact_user_submit($form, &$form_state) {
+  $form_state['redirect'] = 'admin/vopros/questions/' . $form_state['values']['question']->question_id . '/vopros_service_message';
+}
+
+/**
+ * Submit handler for the forward button.
+ *
+ * Redirects to the forward form.
+ */
+function vopros_service_question_view_form_submit($form, &$form_state) {
+  $question = $form['question']['#value'];
+  $url = entity_uri('vopros_question', $question);
+  $url['path'] .= '/forward';
+  $form_state['redirect'] = array($url['path'] , $url['options']);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Hooks into the "save and send" button.
+ */
+function vopros_service_form_vopros_answer_form_alter(&$form, &$form_state) {
+  if ($form['question']['#value']->user_answer_preference == 'vopros_service') {
+    $form['form']['save_submit']['#submit'][] = 'vopros_service_form_vopros_answer_form_submit';
+    $form['action']['save_submit']['#submit'][] = 'vopros_service_form_vopros_answer_form_submit';
+  }
+}
+
+/**
+ * Additional submit button for the "save and send" button.
+ *
+ * Redirects to the send answer page.
+ */
+function vopros_service_form_vopros_answer_form_submit(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/vopros/answers/' . $form_state['answer']->answer_id . '/vopros_service_answer';
+}
+
+/**
+ * Checks email access for various operations.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create' or
+ *   'delete'.
+ * @param $service
+ *   Optionally a vopros service to check access for.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the current user.
+ */
+function vopros_service_access($op, $service = NULL, $account = NULL) {
+  global $user;
+  $account = isset($account) ? $account : clone($user);
+
+  // Grant access to any operation for any vopros service for administrators.
+  if (user_access('administer vopros services', $account)) {
+    return TRUE;
+  }
+
+  // Grant view access to users with the administrative access orders permission
+  // or to a user's own orders with the view own orders permission.
+  if ($op == 'view') {
+    if (user_access('access vopros services', $account)) {
+      return TRUE;
+    }
+  }
+
+  if ($op == 'create' && user_access('create vopros services', $account)) {
+    return TRUE;
+  }
+
+  if ($op == 'update' || $op == 'delete') {
+    if (user_access('edit vopros services', $account)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Create a new vopros service object.
+ */
+function vopros_service_new($values = array()) {
+  return entity_create('vopros_service', $values);
+}
+
+/**
+ * Loads a vopros service by ID.
+ */
+function vopros_service_load($service_id, $reset = FALSE) {
+  $services = vopros_service_load_multiple(array($service_id), array(), $reset);
+  return $services ? reset($services) : FALSE;
+}
+
+/**
+ * Loads a vopros service by machine name.
+ */
+function vopros_service_machine_name_load($machine_name, $reset = FALSE) {
+  $services = vopros_service_load_multiple(FALSE, array('machine_name' => $machine_name), (bool) $reset);
+  return $services ? reset($services) : FALSE;
+}
+
+/**
+ * Loads forwards by UUID.
+ */
+function vopros_service_forward_load_by_uuid($uuid, $conditions = array()) {
+  $query = db_select('vopros_service_question', 'v')
+    ->fields('v')
+    ->condition('uuid', $uuid);
+
+  foreach ($conditions as $name => $val) {
+    $query->condition($name, $val);
+  }
+
+  return $query->execute()
+    ->fetchAll();
+}
+
+/**
+ * Loads multiple vopros services by ID or based on a set of matching
+ * conditions.
+ *
+ * @see entity_load()
+ *
+ * @param $service_ids
+ *   An array of service IDs.
+ * @param $conditions
+ *   An array of conditions on the {vopros_service} table in the form
+ *     'field' => $value.
+ * @param $reset
+ *   Whether to reset the internal email loading cache.
+ *
+ * @return
+ *   An array of email objects indexed by email_id.
+ */
+function vopros_service_load_multiple($service_ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('vopros_service', $service_ids, $conditions, $reset);
+}
+
+/**
+ * Implements hook_vopros_question_user_answer_preference().
+ *
+ * We define a answer preference called vopros_service for questions that come
+ * from anothe Vopros.
+ */
+function vopros_service_vopros_question_user_answer_preference() {
+  return array(
+    'vopros_service' => t('Vopros Service'),
+  );
+}
+
+/**
+ * Implements hook_vopros_question_status_reasons_alter().
+ *
+ * Add status reasons for handing over question (closed) and reactivated by
+ * message (active).
+ */
+function vopros_service_vopros_question_status_reasons_alter(&$reasons) {
+  $reasons['handed over to external service'] = t('Handed over to external service');
+  $reasons['reactivated by external service'] = t('Reactivated by external service');
+
+}
+
+/**
+ * Implements hook_vopros_question_qanda_serice_options().
+ */
+function vopros_service_vopros_question_qanda_serice_options_alter(&$options) {
+  $services = vopros_service_load_multiple(FALSE, array('allow_ingoing' => 1));
+  foreach ($services as $service_id => $service) {
+    $options['vopros_service_' . $service_id] = $service->label();
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add a template for our turn_over mail notification.
+ */
+function vopros_service_form_vopros_email_settings_form_alter(&$form, &$form_state) {
+  $form['vopros_service'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Service takeover'),
+    '#description' => t('Mail sendt when a question is forwarded from another Vopros installation.'),
+  );
+
+  $form['vopros_service']['vopros_service_take_over_question_subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Take over mail subject'),
+    '#description' => t('Subject of mail sendt to user when reciving forwarded question.'),
+    '#default_value' => variable_get('vopros_service_take_over_question_subject', ''),
+  );
+
+  $form['vopros_service']['vopros_service_take_over_question_body'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Take over mail body'),
+    '#description' => t('Main message.'),
+    '#default_value' => variable_get('vopros_service_take_over_question_body', ''),
+  );
+
+  $form['vopros_service']['tokens'] = array(
+    '#markup' => theme('token_tree', array(
+                 'token_types' => array('vopros_question', 'vopros_service'),
+                 'global_types' => FALSE,
+               )),
+    '#weight' => 2,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add a template for our turn_over sms notification.
+ */
+function vopros_service_form_vopros_sms_settings_form_alter(&$form, &$form_state) {
+  $form['vopros_service'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Service takeover'),
+    '#description' => t('SMS sendt when a question is forwarded from another Vopros installation.'),
+  );
+
+  $form['vopros_service']['vopros_service_take_over_question_sms'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Take over message'),
+    '#description' => t('Macro used when taking over a question.'),
+    '#default_value' => variable_get('vopros_service_take_over_question_sms', ''),
+  );
+
+  $form['vopros_service']['tokens'] = array(
+    '#markup' => theme('token_tree', array(
+                 'token_types' => array('vopros_question', 'vopros_service'),
+                 'global_types' => FALSE,
+               )),
+    '#weight' => 2,
+  );
+}
+
+/**
+ * Forward a question to another Vopros installation.
+ *
+ * @param VoprosService $service
+ *   The service definition.
+ * @param string $type
+ *   The type of the forward, 'help' or 'turn_over'.
+ * @param VoprosQuestion $question
+ *   The question to forward.
+ * @param string $message
+ *   A message for the receiver.
+ *
+ * @return bool
+ *   Whether the question was successfully submitted.
+ */
+function _vopros_service_forward_question($service, $type, $question, $message) {
+  // Prepare data. Basic data.
+  $data = array(
+    'uuid' => $question->uuid,
+    'question_title' => $question->question_title,
+    'question_content' => $question->question_content,
+    'question_deadline' => $question->question_deadline,
+    'question_deadline_timestamp' => $question->question_deadline_timestamp,
+    'question_usage' => $question->question_usage,
+    'message' => $message,
+  );
+
+  if ($type != 'help') {
+    // Add in user data.
+    $data['user_name'] = $question->user_name;
+    $data['user_email'] = $question->user_email;
+    $data['user_postal_code'] = $question->user_postal_code;
+    $data['user_mobile_phone'] = $question->user_mobile_phone;
+    $data['user_age'] = $question->user_age;
+    $data['user_gender'] = $question->user_gender;
+    $data['user_field_of_study'] = $question->user_field_of_study;
+    $data['user_library'] = $question->user_library;
+    $data['user_answer_preference'] = $question->user_answer_preference;
+
+    $data['vopros_question_attachment'] = array();
+    $wrapper = entity_metadata_wrapper('vopros_question', $question);
+    foreach ($wrapper->vopros_question_attachment->value() as $file) {
+      $data['vopros_question_attachment'][] = array(
+        'name' => $file['filename'],
+        'data' => base64_encode(file_get_contents($file['uri'])),
+      );
+    }
+  }
+
+  return _vopros_service_do_request($service, '/question/' . $type, 'POST', $data);
+}
+
+/**
+ * Send a question message to another Vopros installation.
+ *
+ * @param VoprosService $service
+ *   The service to send to.
+ * @param VoprosQuestion $question
+ *   The question to send a message on.
+ * @param array $message
+ *   The message to send. Must contain:
+ *   - from: The name of the sender.
+ *   - message: The message body.
+ */
+function _vopros_service_send_message($service, $question, $message) {
+  return _vopros_service_do_request($service, '/question/' . $question->uuid . '/send_message', 'POST', $message);
+}
+
+/**
+ * Send a question answer/back message to another Vopros installation.
+ *
+ * @param VoprosService $service
+ *   The service to send to.
+ * @param VoprosQuestion $question
+ *   The question to send a message on.
+ * @param array $answer
+ *   The answer to send. Contain:
+ *   - from: The name of the sender.
+ *   - message: The message body.
+ *   - answer: Answer text (optional).
+ */
+function _vopros_service_send_answer($service, $question, $answer) {
+  return _vopros_service_do_request($service, '/question/' . $question->uuid . '/send_answer', 'POST', $answer);
+}
+
+/**
+ * Internal helper function for doing the service call.
+ */
+function _vopros_service_do_request($service, $path, $method, $data) {
+  $url = trim($service->url, '/') . $path;
+  $options = array(
+    'method' => $method,
+    'headers' => array(
+      'Content-Type' => 'application/json',
+      'X-Vopros-Shared-Token'  => $service->auth_key,
+    ),
+    'data' => drupal_json_encode($data),
+  );
+
+  $res = drupal_http_request($url, $options);
+
+  if ($res->code == 200) {
+    return TRUE;
+  }
+  else {
+    if (!empty($res->data)) {
+      $error = drupal_json_decode($res->data);
+      if (!empty($error[0])) {
+        _vopros_service_error($error[0]);
+      }
+      else {
+        _vopros_service_error($res->data);
+      }
+    }
+    else {
+      _vopros_service_error($res->error);
+    }
+    return FALSE;
+  }
+}
+
+
+/**
+ * Returns the last error from service call.
+ */
+function _vopros_service_error($new = NULL) {
+  $error = &drupal_static(__FILE__, NULL);
+  if ($new) {
+    $error = $new;
+  }
+  return $error;
+}
+
+/**
+ * Notify user abuot question transfer.
+ */
+function _vopros_service_question_takeover_notification($service, $question) {
+  $token_objects = array(
+    'vopros_question' => $question,
+    'vopros_service' => $service,
+  );
+  switch ($question->user_answer_preference) {
+    case 'mail':
+      // Don't bother if the email address doesn't validate.
+      if (valid_email_address($question->user_email)) {
+        $subject = variable_get('vopros_service_take_over_question_subject', '');
+        $subject = token_replace($subject, $token_objects, array('sanitize' => FALSE));
+
+        $body = variable_get('vopros_service_take_over_question_body', '');
+        $body = token_replace($body, $token_objects, array('sanitize' => FALSE));
+
+        $email = vopros_email_new(array(
+                   'question_id' => $question->question_id,
+                   'uid' => $GLOBALS['user']->uid,
+                   'email_content' => $body,
+                   'subject' => $subject,
+                   'email' => $question->user_email,
+                 ));
+        vopros_email_save($email);
+        if ($email->status != 'sent') {
+          vopros_email_send($email);
+          $email->status = 'sent';
+          vopros_email_save($email);
+        }
+      }
+      break;
+
+    case 'sms':
+      if (!empty($question->user_mobile_phone)) {
+        $body = variable_get('vopros_service_take_over_question_sms', '');
+        $body = token_replace($body, $token_objects, array('sanitize' => FALSE));
+
+        $sms = vopros_sms_new(array(
+                   'question_id' => $question->question_id,
+                   'uid' => $GLOBALS['user']->uid,
+                   'content' => $body,
+                   'phone_number' => $question->user_mobile_phone,
+                 ));
+        vopros_sms_save($sms);
+        vopros_sms_send($sms);
+      }
+      break;
+  }
+}

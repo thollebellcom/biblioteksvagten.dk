@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'http://git.drupal.org/sandbox/googletorp/1255156.git'
+  revision: b38930ff1890f88c63f293bae65b3c6913b6c1e6

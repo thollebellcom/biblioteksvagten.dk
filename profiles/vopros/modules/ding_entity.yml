@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:ding2/ding_entity.git'
+  revision: 4a1315835617e8a4684727b4be2b29ef5c0e6977

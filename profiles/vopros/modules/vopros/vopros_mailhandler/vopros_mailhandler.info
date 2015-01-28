@@ -1,0 +1,12 @@
+name = Vopros mail handler
+description = Handles parcing of mails to create entities of them.
+core = 7.x
+package = Vopros
+dependencies[] = feeds
+dependencies[] = mailhandler
+dependencies[] = vopros_base
+dependencies[] = vopros_email
+dependencies[] = vopros_question
+features[ctools][] = feeds:feeds_importer_default:1
+features[features_api][] = api:2
+features[feeds_importer][] = vopros_mailhandler

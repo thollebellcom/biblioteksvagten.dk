@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'http://git.drupal.org/project/services_views.git'
+  revision: 1d584a0f283240d0596a20e705f5572245c7b014

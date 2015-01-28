@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:DBCDK/Vopros-opensearch-admin.git'
+  revision: 1b49a53b5ae6a58736b39aab69eab796c6744459

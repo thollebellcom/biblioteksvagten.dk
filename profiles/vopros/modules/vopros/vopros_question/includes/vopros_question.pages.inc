@@ -44,7 +44,8 @@ function vopros_question_create_service() {
   $qanda_key = $question->qanda_service_name . '|';
   if (($mapping = $mappings[$full_key]) || ($mapping = $mappings[$qanda_key])) {
     if ($mapping['client']) {
-      $question->client_id = $mapping['client'];
+      $client = vopros_question_client_load_by_agency($mapping['client']);
+      $question->client_id = $client->client_id;
     }
     if ($mapping['channel']) {
       $question->channel = $mapping['channel'];

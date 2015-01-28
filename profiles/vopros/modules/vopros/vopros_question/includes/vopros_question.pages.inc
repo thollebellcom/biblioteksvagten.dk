@@ -61,6 +61,12 @@ function vopros_question_create_service() {
       $question_wrapper->vopros_editorial = $term;
     }
   }
+
+  // We can't have an empty answer preference.
+  if (empty($question->user_answer_preference)) {
+    $question->user_answer_preference = 'mail';
+  }
+
   if (!empty($post_data)) {
     $validation = vopros_question_validate_data($question);
     if ($validation['status'] == 'valid') {

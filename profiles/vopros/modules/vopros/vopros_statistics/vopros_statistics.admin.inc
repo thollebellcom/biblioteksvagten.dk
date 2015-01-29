@@ -291,8 +291,8 @@ function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
                       ON q.question_id = f.entity_id
                       WHERE created < :end
                       AND created > :start
-                      GROUP BY client_id, channel_id, tid
-                      ORDER BY client_id, channel_id, tid",
+                      GROUP BY client_id, channel, tid
+                      ORDER BY client_id, channel, tid",
   array(':end' => $end, ':start' => $start));
 
   // Calculate totals and rearrange result for display.

@@ -110,8 +110,9 @@ function vopros_question_client_settings_form_validate($form, &$form_state) {
 function vopros_question_client_migrate_form($form, &$form_state) {
   // Get a count of un-migrated questions.
   $count = db_select('vopros_question', 'vq')
-    ->condition('client_id', 0)
-    ->condition('channel', '')
+    ->condition(db_or()
+      ->condition('client_id', 0)
+      ->condition('channel', ''))
     ->countQuery()
     ->execute()
     ->fetchField();
@@ -192,8 +193,10 @@ function vopros_question_client_migrate_batch_operation($per_run, $number, &$con
 
   $questions = db_select('vopros_question', 'vq')
     ->fields('vq', array('question_id', 'qanda_service_name', 'agency_id'))
-    ->condition('client_id', 0)
-    ->condition('channel', '')
+    ->condition(db_or()
+      ->condition('client_id', 0)
+      ->condition('channel', '')
+    )
     ->condition('question_id', $context['sandbox']['last'], '>')
     ->range(0, $per_run)
     ->execute();

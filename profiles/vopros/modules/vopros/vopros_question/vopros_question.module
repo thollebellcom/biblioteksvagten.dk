@@ -1148,6 +1148,18 @@ function _vopros_question_user_answer_preference() {
 }
 
 /**
+ * Returns the suitable answer methods when creating question
+ * manually.
+ *
+ * @todo bit of a wart.
+ */
+function _vopros_question_create_user_answer_preference() {
+  $methods = _vopros_question_user_answer_preference();
+  unset($methods['chat'], $methods['vopros_service']);
+  return $methods;
+}
+
+/**
  * Implements hook_vopros_question_user_answer_preference().
  */
 function vopros_question_vopros_question_user_answer_preference() {

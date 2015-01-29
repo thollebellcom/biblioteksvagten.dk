@@ -257,7 +257,7 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
   $form['form']['ask']['user_answer_preference'] = array(
     '#type' => 'select',
     '#title' => t('How to recieve answer'),
-    '#options' => _vopros_question_user_answer_preference(),
+    '#options' => _vopros_question_create_user_answer_preference(),
     '#default_value' => !empty($question->user_answer_preference) ? $question->user_answer_preference : '',
   );
 

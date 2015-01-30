@@ -93,9 +93,19 @@ function bv_cc_question_menu_local_tasks_alter(&$data, $router_item, $root_path)
   if ($root_path == 'admin/vopros/cc-question/views') {
     $item = menu_get_item('admin/vopros/cc-question/add');
     if ($item['access']) {
+      // For some odd reason 'title' is empty after clearing cache, so
+      // we build the link by hand rather than just pass $item on.
       $data['actions']['output'][] = array(
         '#theme' => 'menu_local_action',
-        '#link' => $item,
+        '#link' => array(
+          'title' => t('Add callcenter question'),
+          'href' => $item['href'],
+          'localized_options' => array(
+            'attributes' => array(
+              'title' => t('Add callcenter question'),
+            ),
+          ),
+        ),
       );
     }
   }

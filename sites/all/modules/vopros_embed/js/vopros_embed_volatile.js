@@ -68,12 +68,12 @@
     isTop = window === window.top;
     if (isTop) {
       // We're our own client.
-      client = volatile.client();
+      var client = volatile.client();
 
       // Listen for messages from other frames to set volatility.
       $(window).bind('message', function (e) {
         var data = e.originalEvent.data;
-        if (typeof data.type === 'undefined' || data.message !== 'vopros_embed_volatile') {
+        if (typeof data.type === 'undefined' || data.type !== 'vopros_embed_volatile') {
           return;
         }
         client.message = data.message;
@@ -98,7 +98,7 @@
    * Update volatility info in a possible parent frame.
    */
   volatile.upstream = function () {
-    if (isTop)  {
+    if (!isTop)  {
       var messages = [];
       for (var index = 0; index < clients.length; ++index) {
         if (clients[index].is()) {
@@ -111,7 +111,8 @@
         type: 'vopros_embed_volatile',
         state: false,
         message: ""
-      }
+      };
+
       if (messages.length > 0) {
         message.message = messages.join("\n\n");
         message.state = true;

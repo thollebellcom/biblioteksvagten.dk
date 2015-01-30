@@ -16,6 +16,14 @@ function bv_vopros_drush_sql_sync_sanitize($site) {
   $sanitize_query = "UPDATE variable SET value='" . serialize("http://opensearchadmin.addi.dk/next_2.0/") . "' WHERE name = 'osa_addi_soap_url';";
   drush_sql_register_post_sync_op('opensearch_url', dt('Set opensearch URL'), $sanitize_query);
 
+  // Fix nodejs host.
+  $sanitize_query = "UPDATE variable SET value='" . serialize("localhost") . "' WHERE name = 'nodejs_server_host';";
+  drush_sql_register_post_sync_op('nodesj_host', dt('Set nodejs host to localhost'), $sanitize_query);
+
+  // Fix nodejs scheme.
+  $sanitize_query = "UPDATE variable SET value='" . serialize("http") . "' WHERE name = 'nodejs_server_scheme';";
+  drush_sql_register_post_sync_op('nodesj_scheme', dt('Set nodejs scheme to http'), $sanitize_query);
+
   // Fix mailhandler mailbox email.
   $boxes = drush_db_select('mailhandler_mailbox', array(
              'mid',

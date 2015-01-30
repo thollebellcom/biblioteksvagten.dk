@@ -91,7 +91,7 @@ function bv_cc_question_form_submit($form, &$form_state) {
   $cc_question->note = $v['note'];
   $cc_question->save();
 
-  $form_state['redirect'] = 'admin/vopros/cc-question/new';
+  $form_state['redirect'] = 'admin/vopros/cc-question/views';
 }
 
 /**
@@ -100,4 +100,3 @@ function bv_cc_question_form_submit($form, &$form_state) {
 function bv_cc_question_form_submit_delete(&$form, &$form_state) {
   $form_state['redirect'] = 'admin/vopros/cc-question/manage/' . $form_state['bv_cc_question']->cc_question_id . '/delete';
 }
-

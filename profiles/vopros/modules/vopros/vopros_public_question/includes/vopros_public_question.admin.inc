@@ -8,6 +8,35 @@
  * General settings form.
  */
 function vopros_public_question_settings_form($form, &$form_state) {
+
+  $form['vopros_public_question_source'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Source'),
+    '#default_value' => variable_get('vopros_public_question_source', variable_get('osa_addi_source', '')),
+    '#description' => t('Publisher name used on published questions.'),
+  );
+
+  $form['vopros_public_question_mail'] = array(
+    '#type' => 'textfield',
+    '#title' => t('E-mail'),
+    '#default_value' => variable_get('vopros_public_question_mail', ''),
+    '#description' => t('Email that should get the results of processing at DBC.'),
+  );
+
+  $form['vopros_public_question_o_option'] = array(
+    '#type' => 'textfield',
+    '#title' => t('-o'),
+    '#default_value' => variable_get('vopros_public_question_o_option', ''),
+    '#description' => t('Value for the -o option of the transfer file.'),
+  );
+
+  $form['vopros_public_question_ftp'] = array(
+    '#type' => 'textfield',
+    '#title' => t('FTP'),
+    '#default_value' => variable_get('vopros_public_question_ftp', ''),
+    '#description' => t('FTP to use in the format <user>:<pass>@<host>. If empty the generated files will be output to the page instead.'),
+  );
+
   $options = array('plain_text' => t('Plain text'));
 
   $results = db_select('filter_format', 'f')
@@ -209,33 +238,12 @@ function vopros_public_question_form_update_submit(&$form, &$form_state) {
   foreach ($public_question_wrapper->vopros_public_question_subject->value() as $term) {
     $public_question->subject[] = $term->name;
   }
-  // The below code works, but the service that is integrates to, doesn't, so
-  // we use a workaround. Instead of updating the question, we delete it and republish it.
-  /**$result = osa_addi_create_object($public_question, $public_question->uuid, array(), 'updateObjectRequest');
-  if ($result['status'] == 'object_updated') {
-    drupal_set_message(t("Question/answer has been saved and made public"));
-    $form_state['redirect'] = 'admin/vopros/questions/list';
-  }
-  elseif ($result['status'] == 'error_fetching_object_record') {
-    if (vopros_public_question_publish_question($public_question)) {
-      drupal_set_message(t("Question/answer was deleted and has been recreated"));
-    }
-    else {
-      $form_state['redirect'] = 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit';
-      drupal_set_message(t('Could not update question at service.'), 'error');
-    }
-  }
-  else {
-    $form_state['redirect'] = 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit';
-    drupal_set_message(t('Could not update question at service.'), 'error');
-  }*/
-  osa_addi_create_object($public_question, $public_question->uuid, array(), 'deleteObjectRequest');
-  if (vopros_public_question_publish_question($public_question)) {
+  if (vopros_public_question_update_question($public_question)) {
     drupal_set_message(t('Question/answer has been updated in external data store, !link', array('!link' => l(t('see public question'), 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit'))));
     $form_state['redirect'] = 'admin/vopros/questions/list';
   }
   else {
-    drupal_set_message(t('Could not create question at service, but question was deleted.'), 'error');
+    drupal_set_message(t('Could not update question at service.'), 'error');
   }
 }
 
@@ -246,7 +254,7 @@ function vopros_public_question_form_update_submit(&$form, &$form_state) {
 function vopros_public_question_form_delete_submit(&$form, &$form_state) {
   $public_question = $form_state['public_question'];
   // Delete the question in the data store.
-  $result = osa_addi_create_object($public_question, $public_question->uuid, array(), 'deleteObjectRequest');
+  $result = vopros_public_question_delete_question($public_question);
   if ($result['status'] == 'error_fetching_object_record') {
     drupal_set_message(t('Could not find question - is already deleted'), 'error');
   }

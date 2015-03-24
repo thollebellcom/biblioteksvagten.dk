@@ -7,7 +7,6 @@ configure = admin/vopros/config/public-question
 
 dependencies[] = vopros_base
 dependencies[] = vopros_question
-dependencies[] = osa_addi
 
 ; Entity includes:
 files[] = includes/vopros_public_question.controller.inc

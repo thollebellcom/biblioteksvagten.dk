@@ -84,11 +84,6 @@ projects[votingapi][version] = 2.10
 
 ; Ting module
 
-projects[osa_addi][subdir] = contrib
-projects[osa_addi][type] = module
-projects[osa_addi][download][type] = git
-projects[osa_addi][download][url] = https://github.com/DBCDK/Vopros-opensearch-admin.git
-
 projects[ting][type] = "module"
 projects[ting][download][type] = "git"
 projects[ting][download][url] = "https://github.com/ding2/ting.git"

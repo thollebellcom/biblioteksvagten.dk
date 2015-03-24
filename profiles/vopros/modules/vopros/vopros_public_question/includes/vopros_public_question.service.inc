@@ -118,10 +118,13 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
   $dkabm_record->appendChild($doc->createElement('ac:identifier', $object->uuid . '|' . $agency));
   $dkabm_record->appendChild($doc->createElement('dc:date', date('Y', $object->created)));
 
+  // Add record to the container.
+  $container->appendChild($dkabm_record);
+
   $activity = $doc->createElement('ac:activity');
-  $action = $doc->createElement('ac:action', $actions[$action]);
-  $action->setAttribute('xsi:type', "ac:TypeOfActivity");
-  $activity->appendChild($action);
+  $action_elem = $doc->createElement('ac:action', $actions[$action]);
+  $action_elem->setAttribute('xsi:type', "ac:TypeOfActivity");
+  $activity->appendChild($action_elem);
   $dkabm_record->appendChild($activity);
 
   // The rest is not needed for delete requests.
@@ -140,8 +143,6 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
     $dkabm_record->appendChild($doc->createElement('dcterms:created', date('c', $object->created)));
     $dkabm_record->appendChild($doc->createElement('dcterms:modified', date('c', $object->changed)));
 
-    // Add record to the container.
-    $container->appendChild($dkabm_record);
 
     // Create the docbook:article
     $docbook_article = $doc->createElement('docbook:article');

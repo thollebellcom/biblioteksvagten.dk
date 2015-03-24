@@ -254,20 +254,14 @@ function vopros_public_question_form_update_submit(&$form, &$form_state) {
 function vopros_public_question_form_delete_submit(&$form, &$form_state) {
   $public_question = $form_state['public_question'];
   // Delete the question in the data store.
-  $result = vopros_public_question_delete_question($public_question);
-  if ($result['status'] == 'error_fetching_object_record') {
-    drupal_set_message(t('Could not find question - is already deleted'), 'error');
-  }
-  elseif ($result['status'] == 'object_deleted') {
-    drupal_set_message(t('Public question delete from data store'), 'warning');
-  }
-  else {
+  if (!vopros_public_question_delete_question($public_question)) {
     drupal_set_message(t('Unknown error - could not delete question'), 'error');
     watchdog(
-    'vopros_public_question',
+      'vopros_public_question',
       'Error when trying to delete public question from data store: @error',
       array('@error' => $result['status']),
-      WATCHDOG_ERROR
+      WATCHDOG_ERROR,
+      l(t('link'), 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit')
     );
     return;
   }

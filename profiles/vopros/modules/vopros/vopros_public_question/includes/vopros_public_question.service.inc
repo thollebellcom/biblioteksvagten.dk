@@ -55,7 +55,7 @@ function _vopros_public_question_publish_questions($actions) {
 
   foreach ($actions as $action => $public_questions) {
     foreach ($public_questions as $public_question) {
-      _vopros_public_question_request_object($public_question, $doc, $collection, $source, $agency, $action);
+      _vopros_public_question_request_object($public_question, $doc, $collection, $source, $action);
     }
   }
 
@@ -99,7 +99,7 @@ function _vopros_public_question_publish_questions($actions) {
 /**
  * Generate the XML for a public question.
  */
-function _vopros_public_question_request_object($object, $doc, $collection, $source, $agency, $action = 'create') {
+function _vopros_public_question_request_object($object, $doc, $collection, $source, $action = 'create') {
   $actions = array(
     'create' => 'created',
     'update' => 'modified',
@@ -115,7 +115,7 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
   // Create the record.
   $dkabm_record = $doc->createElement('dkabm:record');
   // Add values to the record.
-  $dkabm_record->appendChild($doc->createElement('ac:identifier', $object->uuid . '|' . $agency));
+  $dkabm_record->appendChild($doc->createElement('ac:identifier', $object->uuid));
   $dkabm_record->appendChild($doc->createElement('dc:date', date('Y', $object->created)));
 
   // Add record to the container.

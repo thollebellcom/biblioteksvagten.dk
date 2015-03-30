@@ -143,7 +143,6 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
     $dkabm_record->appendChild($doc->createElement('dcterms:created', date('c', $object->created)));
     $dkabm_record->appendChild($doc->createElement('dcterms:modified', date('c', $object->changed)));
 
-
     // Create the docbook:article
     $docbook_article = $doc->createElement('docbook:article');
     $docbook_article->appendChild($doc->createElement('docbook:title', str_replace('&', '&amp;', $object->title)));

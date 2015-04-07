@@ -34,7 +34,7 @@ function vopros_public_question_settings_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('FTP'),
     '#default_value' => variable_get('vopros_public_question_ftp', ''),
-    '#description' => t('FTP to use in the format <user>:<pass>@<host>. If empty the generated files will be output to the page instead.'),
+    '#description' => t('FTP to use in the format <em>[user]:[pass]@[host]</em>. If empty the generated files will be output to the page instead.'),
   );
 
   $options = array('plain_text' => t('Plain text'));

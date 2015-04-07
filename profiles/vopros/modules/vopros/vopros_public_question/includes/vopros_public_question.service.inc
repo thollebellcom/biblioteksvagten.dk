@@ -82,7 +82,7 @@ function _vopros_public_question_publish_questions($actions) {
                          )));
   }
   else {
-    $ftp = rtrim($ftp, '/') . '/';
+    $ftp = 'ftp://' . rtrim($ftp, '/') . '/';
     if (file_put_contents($ftp . $xml_filename, $xml) === FALSE) {
       drupal_set_message(t('Could not upload XML file.'), 'error');
       return FALSE;

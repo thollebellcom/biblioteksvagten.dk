@@ -134,8 +134,10 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
     $dc_identifier->setAttribute('xsi:type', "dcterms:URI");
     $dkabm_record->appendChild($dc_identifier);
     $dkabm_record->appendChild($doc->createElement('dc:title', str_replace('&', '&amp;', $object->title)));
-    foreach ($object->subject as $subject) {
-      $dkabm_record->appendChild($doc->createElement('dc:subject', str_replace('&', '&amp;', $subject)));
+    if (is_array($object->subject)) {
+      foreach ($object->subject as $subject) {
+        $dkabm_record->appendChild($doc->createElement('dc:subject', str_replace('&', '&amp;', $subject)));
+      }
     }
     $dkabm_record->appendChild($doc->createElement('dc:description', str_replace('&', '&amp;', $object->description)));
     $dc_type = $doc->createElement('dc:type', 'Spørgsmål og svar');

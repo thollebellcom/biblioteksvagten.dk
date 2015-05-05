@@ -137,6 +137,14 @@ function vopros_email_menu() {
       'access arguments' => array('contact', 3),
       'file' => 'includes/vopros_email.admin.inc',
     ),
+    'admin/vopros/questions/%vopros_question/bounce/%' => array(
+      'title' => 'Send mail to channel source',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('vopros_email_question_bounce_form', 3, 5),
+      'access callback' => 'vopros_question_access',
+      'access arguments' => array('contact', 3),
+      'file' => 'includes/vopros_email.admin.inc',
+    ),
     'admin/vopros/emails/%vopros_email/transfer' => array(
       'title' => 'Transfer email',
       'page callback' => 'drupal_get_form',
@@ -399,7 +407,6 @@ function vopros_email_delete($email_id) {
  *    Which template to use for the email (not used atm)
  */
 function vopros_email_send($email, $template = 'default') {
-  $email_wrapper = entity_metadata_wrapper('vopros_email', $email);
   $params = array(
     'template' => $template,
     'email' => $email,

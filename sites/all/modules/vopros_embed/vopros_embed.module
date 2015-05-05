@@ -125,7 +125,7 @@ function vopros_embed_vopros_question_channels() {
 /**
  * Channel data render callback.
  */
-function vopros_embed_channel_data_render($data) {
+function vopros_embed_channel_data_render($data, $question) {
   $output = array();
   if ($data['from_url']) {
     $url = $data['from_url'];
@@ -133,7 +133,7 @@ function vopros_embed_channel_data_render($data) {
   }
   if ($data['site_email']) {
     $mail = $data['site_email'];
-    $output[] = t('Site email: ') . l($mail, 'mailto:' . $mail, array('external' => TRUE));
+    $output[] = t('Site email: ') . l($mail, 'mailto:' . $mail, array('external' => TRUE)) . ' ' . l(t('Forward to local contact'), 'admin/vopros/questions/' . $question->question_id . '/bounce/' . $mail, array('query' => drupal_get_destination()));
   }
 
   return implode('<br />', $output);

@@ -73,6 +73,11 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
     ),
   );
 
+  $question_channel_data = array(
+    $question_build['client'],
+    $question_build['channel'],
+  );
+
   $form['form']['question_intro'] = array(
     '#markup' => render($question_intro),
   );
@@ -108,6 +113,17 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
 
   $form['form']['question_data']['content'] = array(
     '#markup' => render($question_data),
+  );
+
+  $form['form']['question_channel_data'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Channel data'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['form']['question_channel_data']['content'] = array(
+    '#markup' => render($question_channel_data),
   );
 
   $form['form']['question_user_data'] = array(

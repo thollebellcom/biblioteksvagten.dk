@@ -1289,6 +1289,34 @@ function vopros_question_channel($name) {
 }
 
 /**
+ * Render channel data.
+ *
+ * @param object $question
+ *   Question to render channel data for.
+ *
+ * @return null|string
+ *   The rendered data or NULL if empty.
+ */
+function vopros_question_channel_data_render($question) {
+  if (empty($question->channel_data)) {
+    return NULL;
+  }
+
+  $channel = vopros_question_channel($question->channel);
+
+  if (isset($channel['data render']) && function_exists($channel['data render'])) {
+    $function = $channel['data render'];
+    $rendered = $function($question->channel_data, $question);
+  }
+  else {
+    // Fall back to var_export.
+    $rendered = var_export($question->channel_data, TRUE);
+  }
+
+  return $rendered;
+}
+
+/**
  * Get QandA service mapping.
  *
  * Returns the mapping of old QandA service names and agency_id to the new

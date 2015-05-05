@@ -132,15 +132,7 @@ function theme_vopros_channel($variables) {
     $output .= '</div>';
   }
 
-  if (!empty($question->channel_data)) {
-    if (isset($channel['data render']) && function_exists($channel['data render'])) {
-      $function = $channel['data render'];
-      $rendered = $function($question->channel_data);
-    }
-    else {
-      // Fall back to var_export.
-      $rendered = var_export($question->channel_data, TRUE);
-    }
+  if ($rendered = vopros_question_channel_data_render($question)) {
     $output .= '<div class="question-channel-data vopros-question-extra">';
     $output .= '<span class="label">' . t('Channel data:') .  '</span>';
     $output .= '<div class="value">' . $rendered . '</div>';

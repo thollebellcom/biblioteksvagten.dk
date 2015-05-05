@@ -77,6 +77,34 @@ function vopros_email_settings_form($form, &$form_state) {
     '#weight' => 2,
   );
 
+  $form['bounce'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Forward to local contact'),
+    '#description' => t('Setup mail sent to local contact.'),
+    '#weight' => 10,
+  );
+
+  $form['bounce']['vopros_email_subject_macro_bounce'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject.'),
+    '#default_value' => variable_get('vopros_email_subject_macro_bounce', ''),
+  );
+
+  $form['bounce']['vopros_email_macro_bounce'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Mail body.'),
+    '#default_value' => variable_get('vopros_email_macro_bounce', ''),
+  );
+  $form['bounce']['tokens'] = array(
+    '#markup' => theme('token_tree', array(
+                 'token_types' => array('vopros_question'),
+                 'global_types' => FALSE,
+               )),
+    '#weight' => 2,
+  );
+
   return system_settings_form($form);
 }
 
@@ -228,7 +256,7 @@ function vopros_email_form_submit(&$form, &$form_state) {
 }
 
 /**
- * Form for answering a question.
+ * Form for contacting the asking user via email.
  */
 function vopros_email_question_contact_form($form, &$form_state, $question) {
   $form['action'] = array(
@@ -560,4 +588,108 @@ function vopros_email_transfer_form_submit(&$form, &$form_state) {
   $question->save();
   $email->question_id = $question->question_id;
   vopros_email_save($email);
+}
+
+/**
+ * Form for sending a question to the channel source.
+ */
+function vopros_email_question_bounce_form($form, &$form_state, $question, $mail) {
+  $form['action'] = array(
+    '#prefix' => '<div class="action">',
+    '#suffix' => '</div>',
+  );
+  $form['action']['send_mail'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send mail'),
+  );
+
+  $form['question'] = array(
+    '#value' => $question,
+    '#type' => 'value',
+  );
+
+  $form['form'] = array(
+    '#prefix' => '<div class="form">',
+    '#suffix' => '</div>',
+  );
+
+  $form['form']['email'] = array(
+    '#title' => t('To'),
+    '#type' => 'textfield',
+    '#default_value' => $mail,
+    '#required' => TRUE,
+  );
+
+  $subject = variable_get('vopros_email_subject_macro_bounce', '');
+  $subject = token_replace($subject, array('vopros_question' => $question), array('sanitize' => FALSE));
+
+  $form['form']['subject'] = array(
+    '#title' => t('Subject'),
+    '#type' => 'textfield',
+    '#default_value' => $subject,
+    '#required' => TRUE,
+  );
+
+  $content = variable_get('vopros_email_macro_bounce', '');
+  $content = token_replace($content, array('vopros_question' => $question), array('sanitize' => FALSE));
+
+  $form['form']['email_content'] = array(
+    '#title' => t('Email content'),
+    '#type' => 'textarea',
+    '#default_value' => $content,
+    '#required' => TRUE,
+  );
+
+  $form['form']['send_mail'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send mail'),
+    '#attributes' => array('class' => array('primary-action')),
+  );
+
+  $form['form']['cancel'] = array(
+    '#type' => 'markup',
+    '#markup' => l(t('Cancel'), 'admin/vopros/questions/' . $question->question_id),
+  );
+
+  return $form;
+}
+
+/**
+ * Validate handler for vopros_email_question_bounce_form().
+ */
+function vopros_email_question_bounce_form_validate(&$form, &$form_state) {
+  $mail = $form_state['values']['email'];
+  if (!valid_email_address($mail)) {
+    form_set_error('email', t('The email address %mail is not valid.', array('%mail' => $mail)));
+  }
+}
+
+/**
+ * Validate handler for vopros_email_question_bounce_form().
+ */
+function vopros_email_question_bounce_form_submit(&$form, &$form_state) {
+  $values = $form_state['values'];
+  $question = $values['question'];
+  $email = vopros_email_new(array(
+             'question_id' => $question->question_id,
+             'uid' => $GLOBALS['user']->uid,
+             'email_content' => $values['email_content'],
+             'subject' => $values['subject'],
+             'email' => $values['email'],
+           ));
+  vopros_email_save($email);
+  if ($email->status != 'sent') {
+    vopros_email_send($email);
+    $email->status = 'sent';
+    vopros_email_save($email);
+  }
+
+  drupal_set_message(t('The e-mail has been sent to @receiver and the question !question is marked as closed without answer (@status_reason).',
+      array(
+        '@receiver' => $email->email,
+        '!question' => '<em>' . l($question->question_title, 'admin/vopros/questions/' . $question->question_id) . '</em>',
+        '@status_reason' => $form['form']['reason']['#options'][$values['reason']],
+      )
+    ));
+  $form_state['redirect'] = 'admin/vopros/question/' . $question->question_id;
 }

@@ -191,6 +191,22 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
       '#default_value' => $question->channel,
     );
   }
+  else {
+    $channels = vopros_question_channels();
+    $form['form']['channel'] = array(
+      '#type' => 'item',
+      '#title' => t('Channel'),
+      '#markup' => check_plain($channels[$question->channel]['name']),
+    );
+  }
+
+  if ($rendered = vopros_question_channel_data_render($question)) {
+    $form['form']['channel_data'] = array(
+      '#type' => 'item',
+      '#title' => t('Channel data'),
+      '#markup' => $rendered,
+    );
+  }
 
   $form['form']['question_note'] = array(
     '#type' => 'textarea',

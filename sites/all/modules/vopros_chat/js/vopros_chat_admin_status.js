@@ -7,6 +7,8 @@
 /* global jQuery, document */
 
 (function ($) {
+  var pulsing = false;
+
   $(document).ready(function() {
     $('.toolbar-shortcuts ul').once('vopros-chat-admin-status', function() {
       $(this).append(Drupal.theme('voprosChatAdminStatus', {queue: 0}));
@@ -50,7 +52,18 @@
    */
   Drupal.Nodejs.callbacks.voprosChatAdminStatus = {
     callback: function (message) {
-      $('.vopros-chat-admin-status-text').text(Drupal.t('In queue: @queue', {'@queue': message.queue}));
+      $.getJSON(Drupal.settings.vopros_chat.status_path, function (data) {
+        $('.vopros-chat-admin-status-text').text(Drupal.t('In queue: @queue', {'@queue': data}));
+        var link = $('.vopros-chat-admin-status a');
+        if (data > 0 && !pulsing) {
+          pulsing = true;
+          link.pulse({'background-color': 'rgb(200,200,200)'}, {pulses: -1, duration: 1000});
+        }
+        else if (data == 0 && pulsing) {
+          link.pulse('destroy');
+          pulsing = false;
+        }
+      });
     }
   };
 

@@ -130,7 +130,7 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
   // The rest is not needed for delete requests.
   if ($action != 'delete') {
     $dkabm_record->appendChild($doc->createElement('ac:source', $source));
-    $dc_identifier = $doc->createElement('dc:identifier', "http://biblioteksvagten.dk/single_question.asp?quid=" . $object->uuid);
+    $dc_identifier = $doc->createElement('dc:identifier', "http://biblioteksvagten.dk/single_question.asp?quid=" . $object->uuid . '|' . $agency);
     $dc_identifier->setAttribute('xsi:type', "dcterms:URI");
     $dkabm_record->appendChild($dc_identifier);
     $dkabm_record->appendChild($doc->createElement('dc:title', str_replace('&', '&amp;', $object->title)));
@@ -139,7 +139,7 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
         $dkabm_record->appendChild($doc->createElement('dc:subject', str_replace('&', '&amp;', $subject)));
       }
     }
-    $dkabm_record->appendChild($doc->createElement('dc:description', str_replace('&', '&amp;', $object->description)));
+    $dkabm_record->appendChild($doc->createElement('dc:description', str_replace('&', '&amp;', $object->question_content . $object->answer_content)));
     $dc_type = $doc->createElement('dc:type', 'Spørgsmål og svar');
     $dc_type->setAttribute('xsi:type', 'dkdcplus:BibDK-Type');
     $dkabm_record->appendChild($dc_type);

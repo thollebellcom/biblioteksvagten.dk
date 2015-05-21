@@ -450,6 +450,10 @@ function vopros_email_mail($key, &$message, $params) {
         $message['subject'] .= ' [#' . $email->question_id . ']';
       }
 
+      if ($email->reply_to) {
+        $message['headers']['Reply-To'] = $email->reply_to;
+      }
+
       $body  = "\n--$trenner\n";
       $body .= "Content-Type: text/plain; charset=UTF-8; format=flowed;"."\n\n"; // sets the mime type
       $body .= $email->email_content . "\n"; // Message goes here

@@ -676,6 +676,7 @@ function vopros_email_question_bounce_form_submit(&$form, &$form_state) {
              'email_content' => $values['email_content'],
              'subject' => $values['subject'],
              'email' => $values['email'],
+             'reply_to' => $question->user_email,
            ));
   vopros_email_save($email);
   if ($email->status != 'sent') {

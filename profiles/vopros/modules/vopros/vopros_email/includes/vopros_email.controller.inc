@@ -15,6 +15,7 @@ class VoprosEmailEntityController extends VoprosAPIEntityController {
       'email' => '',
       'email_content' => '',
       'subject' => '',
+      'reply_to' => '',
       'type' => '',
       'created' => '',
       'changed' => '',

@@ -57,6 +57,13 @@ function vopros_email_schema() {
         'length' => '255',
         'not null' => TRUE,
       ),
+      'reply_to' => array(
+        'description' => 'Reply to of the mail.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => '255',
+      ),
       'type' => array(
         'description' => 'The type of mail, outgoing/ingoing',
         'type' => 'varchar',
@@ -165,6 +172,13 @@ function vopros_email_schema() {
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
+      ),
+      'reply_to' => array(
+        'description' => 'Reply to of the mail.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => '255',
       ),
       'status' => array(
         'description' => 'The status of the email.',
@@ -325,4 +339,24 @@ function vopros_email_update_7001(&$sandbox) {
     'unsigned' => TRUE,
     'default' => 0,
   ));
+}
+
+/**
+ * Add reply_to field.
+ */
+function vopros_email_update_7002(&$sandbox) {
+  db_add_field('vopros_email', 'reply_to', array(
+      'description' => 'Reply to of the mail.',
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'default' => '',
+      'length' => '255',
+    ));
+  db_add_field('vopros_email_revision', 'reply_to', array(
+      'description' => 'Reply to of the mail.',
+      'type' => 'varchar',
+      'not null' => TRUE,
+      'default' => '',
+      'length' => '255',
+    ));
 }

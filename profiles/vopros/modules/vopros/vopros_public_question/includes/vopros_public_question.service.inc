@@ -51,6 +51,9 @@ function _vopros_public_question_publish_questions($actions) {
 
   $doc = new DOMDocument('1.0', 'UTF-8');
   $collection = $doc->createElementNS('http://biblstandard.dk/abm/namespace/dkabm/', 'collection');
+  foreach ($namespaces as $id => $url) {
+    $collection->setAttribute('xmlns:' . $id, $url);
+  }
   $doc->appendChild($collection);
 
   foreach ($actions as $action => $public_questions) {

@@ -31,12 +31,49 @@ function vopros_public_question_delete_question($public_question) {
  */
 function _vopros_public_question_publish_questions($actions) {
   $agency  = variable_get('ting_agency', '');
-  $source = variable_get('vopros_public_question_source', variable_get('osa_addi_source', ''));
-  $o_option = variable_get('vopros_public_question_o_option', '');
-  $mail = variable_get('vopros_public_question_mail', '');
   $ftp = variable_get('vopros_public_question_ftp', '');
 
   $file_base = $agency . '.' . REQUEST_TIME;
+  $transfer_filename = $file_base . '.trans';
+  $xml_filename = $file_base . '.xml';
+
+  $xml = _vopros_public_question_generate_xml($actions);
+  $transfer = _vopros_public_question_generate_transfer($xml_filename);
+
+  if (empty($ftp)) {
+    // This makes things easier to debug.
+    drupal_set_message(t("<pre>Transfer file @filename: \n@content</pre>",
+                         array(
+                           '@filename' => $transfer_filename,
+                           '@content' => $transfer,
+                         )));
+    drupal_set_message(t("<pre>XML file @filename: \n@content</pre>",
+                         array(
+                           '@filename' => $xml_filename,
+                           '@content' => $xml,
+                         )));
+  }
+  else {
+    $ftp = 'ftp://' . rtrim($ftp, '/') . '/';
+    if (file_put_contents($ftp . $xml_filename, $xml) === FALSE) {
+      drupal_set_message(t('Could not upload XML file.'), 'error');
+      return FALSE;
+    }
+    if (file_put_contents($ftp . $transfer_filename, $transfer) === FALSE) {
+      drupal_set_message(t('Could not upload trans file.'), 'error');
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+/**
+ * Generate xml file.
+ */
+function _vopros_public_question_generate_xml($actions) {
+  $agency  = variable_get('ting_agency', '');
+  $source = variable_get('vopros_public_question_source', variable_get('osa_addi_source', ''));
 
   // Prepare XML.
   $namespaces = array(
@@ -65,38 +102,27 @@ function _vopros_public_question_publish_questions($actions) {
   $doc->formatOutput = TRUE;
   $xml = $doc->saveXml();
 
-  // Prepare transfer file.
-  $transfer = "b=databroendpr2,f=$file_base.xml,t=xml,o=$o_option,c=utf8,m=$mail\n";
+  return $xml;
+}
+
+/**
+ * Generate transfer file.
+ */
+function _vopros_public_question_generate_transfer($files) {
+  if (!is_array($files)) {
+    $files = array($files);
+  }
+
+  $mail = variable_get('vopros_public_question_mail', '');
+  $o_option = variable_get('vopros_public_question_o_option', '');
+
+  $transfer = "";
+  foreach ($files as $file) {
+    $transfer .= "b=databroendpr2,f=$file,t=xml,o=$o_option,c=utf8,m=$mail\n";
+  }
   $transfer .= "slut\n";
 
-  $transfer_filename = $file_base . '.trans';
-  $xml_filename = $file_base . '.xml';
-  if (empty($ftp)) {
-    // This makes things easier to debug.
-    drupal_set_message(t("<pre>Transfer file @filename: \n@content</pre>",
-                         array(
-                           '@filename' => $transfer_filename,
-                           '@content' => $transfer,
-                         )));
-    drupal_set_message(t("<pre>XML file @filename: \n@content</pre>",
-                         array(
-                           '@filename' => $xml_filename,
-                           '@content' => $xml,
-                         )));
-  }
-  else {
-    $ftp = 'ftp://' . rtrim($ftp, '/') . '/';
-    if (file_put_contents($ftp . $xml_filename, $xml) === FALSE) {
-      drupal_set_message(t('Could not upload XML file.'), 'error');
-      return FALSE;
-    }
-    if (file_put_contents($ftp . $transfer_filename, $transfer) === FALSE) {
-      drupal_set_message(t('Could not upload trans file.'), 'error');
-      return FALSE;
-    }
-  }
-
-  return TRUE;
+  return $transfer;
 }
 
 /**

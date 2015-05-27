@@ -42,7 +42,7 @@ function drush_vopros_public_question_push_all() {
   $action = drush_get_option('update', FALSE) ? 'update' : 'create';
   // We process the questions in batches.
   $batch = array();
-  $batch_size = (int) drush_get_option('batch', 100);
+  $batch_size = (int) drush_get_option('batch', 5000);
   if (!$batch_size) {
     return drush_set_error('Invalid batch size.');
   }
@@ -74,7 +74,7 @@ function drush_vopros_public_question_push_all() {
   }
 
   $transfer = _vopros_public_question_generate_transfer($files);
-  $transfer_filename = $file_base . '.transfer';
+  $transfer_filename = $file_base . '.trans';
   // Save transfer file to temp dir for debugging.
   file_put_contents($tempdir . $transfer_filename, $transfer);
 

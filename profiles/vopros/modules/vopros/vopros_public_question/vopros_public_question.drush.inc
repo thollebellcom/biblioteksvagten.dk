@@ -16,6 +16,7 @@ function vopros_public_question_drush_command() {
       'limit' => 'Only process this many public questions',
       'batch' => 'Size of batch',
       'update' => 'Update questions instead of creating them',
+      'delete' => 'Delete questions instead of creating them',
       'no-ftp' => "Don't actually FTP files. Useful with --no-cleanup.",
       'no-cleanup' => "Don't remove generated files in /tmp/. Useful for debugging.",
     ),
@@ -40,6 +41,9 @@ function drush_vopros_public_question_push_all() {
   drush_print(dt('Processing @count public questions.', array('@count' => $total)));
 
   $action = drush_get_option('update', FALSE) ? 'update' : 'create';
+  if (drush_get_option('delete', FALSE)) {
+    $action = 'delete';
+  }
   // We process the questions in batches.
   $batch = array();
   $batch_size = (int) drush_get_option('batch', 5000);

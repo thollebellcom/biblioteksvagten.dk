@@ -163,11 +163,12 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
     $dc_identifier->setAttribute('xsi:type', "dcterms:URI");
     $dkabm_record->appendChild($dc_identifier);
     $dkabm_record->appendChild($doc->createElement('dc:title', str_replace('&', '&amp;', $object->title)));
-    if (is_array($object->subject)) {
-      foreach ($object->subject as $subject) {
-        $dkabm_record->appendChild($doc->createElement('dc:subject', str_replace('&', '&amp;', $subject)));
-      }
+
+    $wrapper = entity_metadata_wrapper('vopros_public_question', $object);
+    foreach ($wrapper->vopros_public_question_subject->value() as $term) {
+      $dkabm_record->appendChild($doc->createElement('dc:subject', str_replace('&', '&amp;', $term->name)));
     }
+
     $dkabm_record->appendChild($doc->createElement('dc:description', str_replace('&', '&amp;', $object->question_content . $object->answer_content)));
     $dc_type = $doc->createElement('dc:type', 'Spørgsmål og svar');
     $dc_type->setAttribute('xsi:type', 'dkdcplus:BibDK-Type');

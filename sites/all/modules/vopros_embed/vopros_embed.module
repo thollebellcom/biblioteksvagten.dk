@@ -133,7 +133,9 @@ function vopros_embed_channel_data_render($data, $question) {
   }
   if ($data['site_email']) {
     $mail = $data['site_email'];
-    $output[] = t('Site email: ') . l($mail, 'mailto:' . $mail, array('external' => TRUE)) . ' - <b>' . l(t('Forward to local contact'), 'admin/vopros/questions/' . $question->question_id . '/bounce/' . $mail, array('query' => drupal_get_destination())) . '</b>';
+    $path = 'admin/vopros/questions/' . $question->question_id . '/bounce/' .
+          $mail;
+    $output[] = '<b>' . l(t('Forward to @address', array('@address' => $mail)), $path, array('query' => drupal_get_destination())) . '</b>';
   }
 
   return implode('<br />', $output);

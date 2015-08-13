@@ -12,6 +12,10 @@
   position: fixed;
   bottom: 0;
   right: 25%;
+  /*
+   * Leave room for the standard Ding cookie control widget.
+   */
+  margin-left: 62px;
 }
 
 .ask-vopros-tab a:link,

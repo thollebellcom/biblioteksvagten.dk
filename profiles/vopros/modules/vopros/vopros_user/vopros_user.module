@@ -4,6 +4,8 @@
  * Code for the Vopros user feature.
  */
 
+define('VOPROS_USER_DEFAULT_URL', 'http://openagency.addi.dk/2.0/');
+
 include_once 'vopros_user.features.inc';
 
 /**
@@ -42,6 +44,34 @@ function vopros_user_field_views_data_alter(&$data, $field, $module) {
  * Settings form for the vopros_user module.
  */
 function vopros_user_settings_form($form, &$form_state) {
+  $form['vopros_user_service_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Service URL'),
+    '#description' => t('URL of the OpenAgency service.'),
+    '#default_value' => variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL),
+  );
+
+  $form['vopros_user_service_group'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Service group'),
+    '#description' => t('Group used for authentication.'),
+    '#default_value' => variable_get('vopros_user_service_group', ''),
+  );
+
+  $form['vopros_user_service_user'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Service user'),
+    '#description' => t('User used for authentication.'),
+    '#default_value' => variable_get('vopros_user_service_user', ''),
+  );
+
+  $form['vopros_user_service_password'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Service password'),
+    '#description' => t('Password used for authentication.'),
+    '#default_value' => variable_get('vopros_user_service_password', ''),
+  );
+
   $form['vopros_user_included_libraries'] = array(
     '#type' => 'textarea',
     '#title' => t('Included libraries'),
@@ -63,8 +93,15 @@ function vopros_user_get_libraries() {
     $libraries = array();
     $library_types = array('Folkebibliotek', 'Forskningsbibliotek');
     foreach ($library_types as $library_type) {
-      $client = new NanoSOAPClient('http://openagency.addi.dk/2.0/', array('namespaces' => array('' => 'http://oss.dbc.dk/ns/openagency')));
-      $params = array('libraryType' => $library_type);
+      $client = new NanoSOAPClient(variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL), array('namespaces' => array('' => 'http://oss.dbc.dk/ns/openagency')));
+      $params = array(
+        'libraryType' => $library_type,
+        'authentication' => array(
+          'groupIdAut' => variable_get('vopros_user_service_group', ''),
+          'userIdAut' => variable_get('vopros_user_service_user', ''),
+          'passwordAut' => variable_get('vopros_user_service_password', ''),
+        ),
+      );
       $xml = $client->call('nameListRequest', $params);
       $result = DOMDocument::loadXML($xml);
       foreach ($result->getElementsByTagName('agency') as $agency) {

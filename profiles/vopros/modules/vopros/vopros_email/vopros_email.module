@@ -454,10 +454,14 @@ function vopros_email_mail($key, &$message, $params) {
         $message['headers']['Reply-To'] = $email->reply_to;
       }
 
-      $body  = "\n--$trenner\n";
-      $body .= "Content-Type: text/plain; charset=UTF-8; format=flowed;"."\n\n"; // sets the mime type
-      $body .= $email->email_content . "\n"; // Message goes here
-      $body .= "\n\n";
+      $body = "This is a MIME encoded email, plase use a compatible mail program.\n";
+      $body  .= "\n--$trenner\n";
+      // We're base64 encoding the body to ensure that some old 7bit MTA doesn't
+      // munge the UTF-8.
+      $body .= "Content-Type: text/plain; charset=UTF-8\n" .
+            "Content-Transfer-Encoding: base64\n\n";
+
+      $body .= base64_encode($email->email_content) . "\n";
       $body .= "\n\n";
 
       $email_wrapper = entity_metadata_wrapper('vopros_email', $email);

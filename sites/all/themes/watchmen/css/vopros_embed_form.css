@@ -201,16 +201,17 @@ body.vopros-embed .chat-status-message .fa-exclamation-triangle {
   color: #01c676;
 }
 
-body.vopros-embed .form-item-question-deadline  .form-item input {
+body.vopros-embed .form-item-question-deadline  .form-item input,
+body.vopros-embed .form-type-checkbox input {
   display: none;
 }
 
-body.vopros-embed .form-item-question-deadline .form-item label:before {
+body.vopros-embed .form-item-question-deadline .form-item label:before,
+body.vopros-embed .form-type-checkbox label:before {
   color: #01c676;
   padding-right: 10px;
   /* Copied directly from FontAwesomes CSS. */
   font-family: 'FontAwesome';
-  content: "\f10c";
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -222,9 +223,24 @@ body.vopros-embed .form-item-question-deadline .form-item label:before {
   font-size: 1.33333333em;
   line-height: 0.75em;
   vertical-align: -15%;
+  /* And .fa-fw. */
+  /* width: 1.28571429em; */
+  /* text-align: center; */
 
+}
+
+body.vopros-embed .form-item-question-deadline .form-item label:before {
+  content: "\f10c";
 }
 
 body.vopros-embed .form-item-question-deadline .form-item.checked label:before {
   content: "\f111";
+}
+
+body.vopros-embed .form-type-checkbox label:before {
+  content: "\f0c8";
+}
+
+body.vopros-embed .form-type-checkbox.checked label:before {
+  content: "\f14a";
 }

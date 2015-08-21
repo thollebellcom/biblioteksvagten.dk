@@ -137,20 +137,34 @@ EOF;
     '#weight' => -20,
   );
 
-  $deadline_options = _vopros_question_deadline();
-  $form['question_deadline'] = array(
-    '#type' => 'radios',
-    '#title' => t('When do you need the answer?'),
-    '#required' => TRUE,
-    '#options' => $deadline_options,
-    '#default_value' => -1,
-    '#weight' => -10,
-    '#states' => array(
-      'invisible' => array(
-        'input[name=user_answer_preference]' => array('value' => 'chat'),
+  $show_deadline = array_filter(variable_get('vopros_embed_show_deadline', array('mail', 'sms')));
+  if ($show_deadline) {
+    $values = array();
+    foreach ($show_deadline as $option) {
+      $values[] = array('value' => $option);
+    }
+    $deadline_options = _vopros_question_deadline();
+    $form['question_deadline'] = array(
+      '#type' => 'radios',
+      '#title' => t('When do you need the answer?'),
+      '#required' => TRUE,
+      '#options' => $deadline_options,
+      '#default_value' => -1,
+      '#weight' => -10,
+      '#states' => array(
+        'visible' => array(
+          'input[name=user_answer_preference]' => $values,
+        ),
       ),
-    ),
-  );
+    );
+  }
+  else {
+    $form['question_deadline'] = array(
+      '#type' => 'value',
+      '#value' => -1,
+      '#weight' => -10,
+    );
+  }
 
   $form['client_id'] = array(
     '#type' => 'value',
@@ -172,24 +186,10 @@ EOF;
     '#value' => $popup,
   );
 
-  $form['form']['question_usage'] = array(
+  $form['question_usage'] = array(
     '#type' => 'value',
     '#value' => variable_get('vopros_question_usage_default', ''),
   );
-
-  if (module_exists('vopros_editorial')) {
-    // We have to call field_attach_form, else it wont copy over the values to
-    // the entity in field_attach_submit().
-    field_attach_form('vopros_question', $question, $form, $form_state, NULL, array('field_name' => 'vopros_editorial'));
-
-    // Hardcoded.
-    $form['vopros_editorial']['und']['#type'] = 'value';
-    $form['vopros_editorial']['und']['#value'] = 2;
-  }
-
-  // Remove the pre_render callback that field_attach_form added. We don't want
-  // it to reorder the form elements.
-  unset($form['#pre_render']);
 
   $form['submit'] = array(
     '#type' => 'submit',
@@ -245,10 +245,6 @@ function vopros_embed_question_validate($form, &$form_state) {
   if ($form_state['values']['user_answer_preference'] != 'sms') {
     form_set_value($form['user_mobile_phone'], '', $form_state);
   }
-
-  // Validate fields.
-  $question = $form_state['values']['question'];
-  field_attach_validate('vopros_question', $question, $form, $form_state);
 }
 
 /**
@@ -270,8 +266,6 @@ function vopros_embed_question_submit($form, &$form_state) {
     'from_url' => $form_state['values']['from_url'],
     'site_email' => $form_state['values']['agency_mail'],
   );
-
-  field_attach_submit('vopros_question', $question, $form, $form_state);
 
   // Save question.
   $question->save();

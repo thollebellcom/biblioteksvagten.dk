@@ -37,3 +37,42 @@ function bv_vopros_form_vopros_question_close_question_form_alter(&$form, &$form
     $form['reason']['#options']['asked for help'] = t('Asked for help');
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter() for vopros_embed_question().
+ */
+function bv_vopros_form_vopros_embed_question_alter(&$form, &$form_state) {
+  if (module_exists('vopros_editorial')) {
+    $form['bv_article'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('The question concerns an article.'),
+      '#weight' => -9,
+    );
+
+    $form['bv_education'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('The answer is to be used in higher education.'),
+      '#weight' => -8,
+    );
+
+    // Prepend our submit handler so we can mess with $form_state['values']
+    // before the form submit handler gets at it.
+    array_unshift($form['#submit'], 'bv_vopros_vopros_embed_question_submit');
+  }
+}
+
+/**
+ * Form submission handler.
+ */
+function bv_vopros_vopros_embed_question_submit(&$form, &$form_state) {
+  $question = $form_state['values']['question'];
+  $question_wrapper = entity_metadata_wrapper('vopros_question', $question);
+
+  // Default to "Folkebibliotek".
+  $question_wrapper->vopros_editorial->set(2);
+  if ($form_state['values']['bv_article'] ||
+    $form_state['values']['bv_education']) {
+    // Override to "Forskningsbibliotek".
+    $question_wrapper->vopros_editorial->set(1);
+  }
+}

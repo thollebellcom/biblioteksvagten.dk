@@ -29,6 +29,18 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#description' => t('Title of the tab used on client sites.. Use <em>@site_name</em> to insert the site title.'),
   );
 
+  $form['appearance']['vopros_embed_show_deadline'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Show deadline for'),
+    '#options' => _vopros_embed_answer_preferences(),
+    // Defaults to the same as the previous (unconfigurable) versions.
+    '#default_value' => variable_get('vopros_embed_show_deadline', array(
+                        'mail' => 'mail',
+                        'sms' => 'sms',
+                      )),
+    '#description' => t('Show deadline options for these answer methods.'),
+  );
+
   $form['embed'] = array(
     '#type' => 'fieldset',
     '#title' => t('Embed code'),

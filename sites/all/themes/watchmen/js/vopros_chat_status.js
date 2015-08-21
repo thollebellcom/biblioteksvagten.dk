@@ -38,4 +38,20 @@
     }
   };
 
+  /**
+   * Change handler for checkboxes to add classes for styling.
+   */
+  Drupal.behaviors.watchmenCheckboxes = {
+    attach: function (context, settings) {
+      var change_handler = function () {
+        $(this).closest('.form-item').toggleClass('checked', this.checked);
+        // var checkboxes = $('#vopros-embed-question .form-checkbox');
+        // checkboxes.find('input[type=radio]:checked').closest('.form-item').addClass('checked');
+      };
+      $('#vopros-embed-question input:checkbox').change(change_handler);
+      // Trigger default state.
+      change_handler();
+    }
+  };
+
 })(jQuery);

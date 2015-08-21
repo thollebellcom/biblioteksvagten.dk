@@ -95,12 +95,12 @@ function vopros_user_get_libraries() {
     foreach ($library_types as $library_type) {
       $client = new NanoSOAPClient(variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL), array('namespaces' => array('' => 'http://oss.dbc.dk/ns/openagency')));
       $params = array(
-        'libraryType' => $library_type,
         'authentication' => array(
           'groupIdAut' => variable_get('vopros_user_service_group', ''),
-          'userIdAut' => variable_get('vopros_user_service_user', ''),
           'passwordAut' => variable_get('vopros_user_service_password', ''),
+          'userIdAut' => variable_get('vopros_user_service_user', ''),
         ),
+        'libraryType' => $library_type,
       );
       $xml = $client->call('nameListRequest', $params);
       $result = DOMDocument::loadXML($xml);

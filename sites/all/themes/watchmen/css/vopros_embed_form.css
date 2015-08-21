@@ -28,7 +28,13 @@ body.vopros-embed .header {
 
 body.vopros-embed h1#page-title {
   font-size: 1.5em;
-  padding: 7px 0;
+  padding: 57px 0 7px;
+}
+
+@media all AND (min-width: 550px) {
+  body.vopros-embed h1#page-title {
+    padding-top: 7px;
+  }
 }
 
 @media all AND (min-width: 500px) {

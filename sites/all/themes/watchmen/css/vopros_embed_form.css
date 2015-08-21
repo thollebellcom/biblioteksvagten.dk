@@ -229,10 +229,6 @@ body.vopros-embed .form-type-checkbox label:before {
   font-size: 1.33333333em;
   line-height: 0.75em;
   vertical-align: -15%;
-  /* And .fa-fw. */
-  /* width: 1.28571429em; */
-  /* text-align: center; */
-
 }
 
 body.vopros-embed .form-item-question-deadline .form-item label:before {
@@ -244,9 +240,14 @@ body.vopros-embed .form-item-question-deadline .form-item.checked label:before {
 }
 
 body.vopros-embed .form-type-checkbox label:before {
-  content: "\f0c8";
+  content: "\f096";
+  /*
+   * This and the checked icon is slightly different sizes. Fix it to this to
+   *  avoid having the following text move.
+   */
+  width: 0.8em;
 }
 
 body.vopros-embed .form-type-checkbox.checked label:before {
-  content: "\f14a";
+  content: "\f046";
 }

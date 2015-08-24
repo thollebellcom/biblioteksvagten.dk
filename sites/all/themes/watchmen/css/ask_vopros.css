@@ -18,6 +18,28 @@
   margin-left: 62px;
 }
 
+.ask-vopros-tab.minimized {
+  right: 0;
+  border-top-right-radius: 0;
+}
+
+.ask-vopros-tab.minimized .ask-vopros-text,
+.ask-vopros-tab.minimized .ask-vopros-minimize {
+  display: none;
+}
+
+.ask-vopros-tab .ask-vopros-icon,
+.ask-vopros-tab .ask-vopros-minimize {
+  display: table-cell;
+  padding: 0 8px;
+  vertical-align: middle;
+  height: 35px;
+}
+
+.ask-vopros-tab .ask-vopros-icon img {
+  height: 26px;
+}
+
 .ask-vopros-tab a:link,
 .ask-vopros-tab a:hover,
 .ask-vopros-tab a:visited,
@@ -27,13 +49,14 @@
   display: table-cell;
   vertical-align: middle;
   height: 35px;
-  padding: 0 20px;
+  padding: 0 2px;
   text-decoration: none;
 }
 
-.ask-vopros-tab .fa-angle-right {
-  display: table-cell;
+.ask-vopros-tab .ask-vopros-minimize {
   background-color: #01a863;
-  vertical-align: middle;
-  font-weight: bold;
+}
+
+.ask-vopros-tab .ask-vopros-minimize:before {
+  font-size: 1.2em;
 }

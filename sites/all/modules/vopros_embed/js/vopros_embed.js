@@ -52,6 +52,16 @@
     // Replace tab placeholders with our own rendering.
     $('.ask-vopros-tab, .ask-vopros-tab-placeholder').each(function () {
       var tab = $(settings.tab).addClass('ask-vopros-tab');
+
+      // Add minimizing code
+      $('.ask-vopros-minimize', tab).click(function () {
+        tab.addClass('minimized');
+      });
+
+      $('.ask-vopros-icon', tab).click(function () {
+        tab.removeClass('minimized');
+      });
+
       $(this).replaceWith(tab);
     });
 

@@ -31,3 +31,13 @@ function watchmen_vopros_embed_tab_style_alter(&$path) {
   $path[] = '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css';
   $path[] = url(drupal_get_path('theme', 'watchmen') . '/css/ask_vopros.css', array('absolute' => TRUE));
 }
+
+/**
+ * Themplate preprocess function.
+ *
+ * Add path to the logo.
+ */
+function watchmen_preprocess_vopros_embed_tab(&$variables) {
+  $variables['logo_path'] = url(path_to_theme() . '/images/logo_light.png',
+                            array('absolute' => TRUE));
+}

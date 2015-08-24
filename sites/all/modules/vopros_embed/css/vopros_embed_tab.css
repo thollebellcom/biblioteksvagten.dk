@@ -34,3 +34,13 @@
 .ask-vopros-tab a:active {
   color: white;
 }
+
+.ask-vopros-tab.minimized {
+  right: 0;
+  border-top-right-radius: 0;
+}
+
+.ask-vopros-tab.minimized .ask-vopros-text,
+.ask-vopros-tab.minimized .ask-vopros-minimize {
+  display: none;
+}

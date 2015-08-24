@@ -6,5 +6,7 @@
  */
 ?>
 <div>
-<a href='<?php print $url; ?>'><?php print $title; ?></a><i class="fa fa-2x fa-fw fa-angle-right"></i>
+  <span class="ask-vopros-icon"><img src="<?php print $logo_path; ?>"/></span>
+  <span class="ask-vopros-text"><a href='<?php print $url; ?>'><?php print $title; ?></a></span>
+  <span class="ask-vopros-minimize fa fa-fw fa-times-circle"></span>
 </div>

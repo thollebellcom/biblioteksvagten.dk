@@ -40,24 +40,31 @@ function bv_vopros_form_vopros_question_close_question_form_alter(&$form, &$form
 
 /**
  * Implements hook_form_FORM_ID_alter() for vopros_embed_question().
+ *
+ * Add in some extra checkboxes that lets us determine which editorial to give
+ * the question.
  */
 function bv_vopros_form_vopros_embed_question_alter(&$form, &$form_state) {
-  if (module_exists('vopros_editorial')) {
-    $form['bv_article'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('The question concerns an article.'),
-      '#weight' => -9,
-    );
+  // If question isn't set, vopros_embed is displaying an error message, so
+  // don't add the checkboxes.
+  if (isset($form['question'])) {
+    if (module_exists('vopros_editorial')) {
+      $form['bv_article'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('The question concerns an article.'),
+        '#weight' => -9,
+      );
 
-    $form['bv_education'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('The answer is to be used in higher education.'),
-      '#weight' => -8,
-    );
+      $form['bv_education'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('The answer is to be used in higher education.'),
+        '#weight' => -8,
+      );
 
-    // Prepend our submit handler so we can mess with $form_state['values']
-    // before the form submit handler gets at it.
-    array_unshift($form['#submit'], 'bv_vopros_vopros_embed_question_submit');
+      // Prepend our submit handler so we can mess with $form_state['values']
+      // before the form submit handler gets at it.
+      array_unshift($form['#submit'], 'bv_vopros_vopros_embed_question_submit');
+    }
   }
 }
 

@@ -6,8 +6,8 @@
   font-weight: bold;
   font-size: 16px;
 
-  display: table;
   cursor: pointer;
+  height: 35px;
 
   position: fixed;
   bottom: 0;
@@ -28,35 +28,33 @@
   display: none;
 }
 
-.ask-vopros-tab .ask-vopros-icon,
-.ask-vopros-tab .ask-vopros-minimize {
-  display: table-cell;
-  padding: 0 8px;
-  vertical-align: middle;
-  height: 35px;
-}
-
 .ask-vopros-tab .ask-vopros-icon img {
   height: 26px;
+  padding: 5px 8px 0;
+  vertical-align: top;
 }
 
 .ask-vopros-tab a:link,
 .ask-vopros-tab a:hover,
 .ask-vopros-tab a:visited,
+.ask-vopros-tab a:active,
 .ask-vopros-tab a:active {
-  line-height: 1.5;
+  outline: none;
+  line-height: 35px;
   color: white;
-  display: table-cell;
-  vertical-align: middle;
-  height: 35px;
-  padding: 0 2px;
+  padding-right: 6px;
   text-decoration: none;
 }
 
 .ask-vopros-tab .ask-vopros-minimize {
   background-color: #01a863;
+  display: block;
+  float: right;
+  height: 100%;
+  padding: 0 8px;
 }
 
-.ask-vopros-tab .ask-vopros-minimize:before {
+.ask-vopros-tab .ask-vopros-minimize .fa {
   font-size: 1.2em;
+  line-height: 35px;
 }

@@ -32,7 +32,7 @@ $aliases['vopros'] = array(
   'uri' => 'vopros.biblioteksvagten.dk',
   'root' => '/var/www/vopros.biblioteksvagten.dk',
   'deployotron' => array(
-    'branch' => 'master',
+    'branch' => 'develop',
     'no-dump' => TRUE,
     // Updb clears the cache.
     'no-cc-all' => TRUE,
@@ -44,7 +44,7 @@ $aliases['dev'] = array(
   'uri' => 'dev.biblioteksvagten.dk',
   'root' => '/var/www/dev.biblioteksvagten.dk',
   'deployotron' => array(
-    'branch' => 'master',
+    'branch' => 'develop',
     'no-dump' => TRUE,
     // Updb clears the cache.
     'no-cc-all' => TRUE,

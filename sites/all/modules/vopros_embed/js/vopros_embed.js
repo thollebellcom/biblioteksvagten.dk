@@ -53,13 +53,22 @@
     $('.ask-vopros-tab, .ask-vopros-tab-placeholder').each(function () {
       var tab = $(settings.tab).addClass('ask-vopros-tab');
 
+      // Check if the cookie exists for default state.
+      if (document.cookie.match(/(?:^|.*;\s*)vopros_embed_minimized\s*=/)) {
+        tab.addClass('minimized');
+      }
+
       // Add minimizing code
       $('.ask-vopros-minimize', tab).click(function () {
         tab.addClass('minimized');
+        // Set cookie.
+        document.cookie = 'vopros_embed_minimized=y; expires=Fri, 31 Dec 9999 23:59:59 GMT';
       });
 
       $('.ask-vopros-icon', tab).click(function () {
         tab.removeClass('minimized');
+        // Unset cookie.
+        document.cookie = 'vopros_embed_minimized=y; expires=Thu, 01 Jan 1970 00:00:00 GMT';
       });
 
       $(this).replaceWith(tab);

@@ -17,10 +17,20 @@ function vopros_embed_question($form, &$form_state) {
   $client = vopros_question_client_load_by_agency($agency_id);
   // We can't work without an agency.
   if (empty($client)) {
-    $form['error'] = array(
-      '#markup' => t('Whoops, widget not configured properly. Please contact the site and tell them about this.'),
-    );
-
+    if (empty($agency_id)) {
+      $form['error'] = array(
+        '#markup' => t('Whoops, widget not configured properly. Please contact the site and tell them about this.'),
+      );
+    }
+    else {
+      $form['error'] = array(
+        '#markup' => t('@site_name has yet to approve questions from this site. Please contact @site_mail with the acency code "@agency_id".', array(
+                     '@site_name' => variable_get('site_name', 'Vopros'),
+                     '@site_mail' => variable_get('site_mail', '<unknown>'),
+                     '@agency_id' => $agency_id,
+                   )),
+      );
+    }
     return $form;
   }
 

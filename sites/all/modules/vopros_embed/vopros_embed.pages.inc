@@ -24,7 +24,7 @@ function vopros_embed_question($form, &$form_state) {
     }
     else {
       $form['error'] = array(
-        '#markup' => t('@site_name has yet to approve questions from this site. Please contact @site_mail with the acency code "@agency_id".', array(
+        '#markup' => t('@site_name has yet to approve questions from this site. Please contact @site_mail with the agency code "@agency_id".', array(
                      '@site_name' => variable_get('site_name', 'Vopros'),
                      '@site_mail' => variable_get('site_mail', '<unknown>'),
                      '@agency_id' => $agency_id,

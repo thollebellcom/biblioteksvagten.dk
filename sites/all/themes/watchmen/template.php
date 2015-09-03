@@ -12,7 +12,9 @@ function watchmen_form_vopros_embed_question_alter(&$form, $form_state) {
   drupal_add_css('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', array('type' => 'external'));
 
   // Add angle icon to answer preference items.
-  if (isset($form['user_answer_preference'])) {
+  // Checking for an array because of weird warning on prod.
+  if (isset($form['user_answer_preference']) &&
+    is_array($form['user_answer_preference']['#options'])) {
     // Hide the answer preference label visually.
     $form['user_answer_preference']['#title_display'] = 'invisible';
 

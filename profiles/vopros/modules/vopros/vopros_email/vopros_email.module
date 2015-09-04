@@ -461,7 +461,7 @@ function vopros_email_mail($key, &$message, $params) {
       $body .= "Content-Type: text/plain; charset=UTF-8\n" .
             "Content-Transfer-Encoding: base64\n\n";
 
-      $body .= base64_encode($email->email_content) . "\n";
+      $body .= chunk_split(base64_encode($email->email_content)) . "\n";
       $body .= "\n\n";
 
       $email_wrapper = entity_metadata_wrapper('vopros_email', $email);

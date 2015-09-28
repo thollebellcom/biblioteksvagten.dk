@@ -27,7 +27,7 @@ projects[features][subdir] = contrib
 projects[features][version] = 2.0
 
 projects[feeds][subdir] = contrib
-projects[feeds][version] = 2.0-alpha7
+projects[feeds][version] = 2.0-beta1
 
 projects[fivestar][subdir] = contrib
 projects[fivestar][download][type] = git

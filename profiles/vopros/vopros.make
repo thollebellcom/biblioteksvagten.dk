@@ -12,7 +12,7 @@ projects[ctools][subdir] = contrib
 projects[ctools][version] = 1.9
 
 projects[date][subdir] = contrib
-projects[date][version] = 2.6
+projects[date][version] = 2.9
 
 projects[diff][subdir] = contrib
 projects[diff][version] = 3.2

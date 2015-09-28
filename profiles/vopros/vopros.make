@@ -64,11 +64,8 @@ projects[search_api_solr][version] = 1.2
 projects[services][subdir] = contrib
 projects[services][version] = 3.12
 
-; Need the latest version to have fields working
 projects[services_views][subdir] = contrib
-projects[services_views][download][type] = git
-projects[services_views][download][url] = http://git.drupal.org/project/services_views.git
-projects[services_views][download][revision] = 1d584a0f283240d0596a20e705f5572245c7b014
+projects[services_views][version] = 1.1
 
 projects[token][subdir] = contrib
 projects[token][version] = 1.4

@@ -18,7 +18,7 @@ projects[diff][subdir] = contrib
 projects[diff][version] = 3.2
 
 projects[entity][subdir] = contrib
-projects[entity][version] = 1.4
+projects[entity][version] = 1.6
 
 projects[facetapi][subdir] = contrib
 projects[facetapi][version] = 1.2

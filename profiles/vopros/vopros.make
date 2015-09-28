@@ -77,7 +77,7 @@ projects[uuid][subdir] = contrib
 projects[uuid][version] = 1.0-alpha5
 
 projects[views][subdir] = contrib
-projects[views][version] = 3.7
+projects[views][version] = 3.11
 
 projects[votingapi][subdir] = contrib
 projects[votingapi][version] = 2.10

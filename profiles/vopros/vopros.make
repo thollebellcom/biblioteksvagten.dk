@@ -62,7 +62,7 @@ projects[search_api_solr][subdir] = contrib
 projects[search_api_solr][version] = 1.2
 
 projects[services][subdir] = contrib
-projects[services][version] = 3.7
+projects[services][version] = 3.12
 
 ; Need the latest version to have fields working
 projects[services_views][subdir] = contrib

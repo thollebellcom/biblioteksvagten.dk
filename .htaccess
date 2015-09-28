@@ -141,6 +141,3 @@ DirectoryIndex index.php index.html index.htm
     </FilesMatch>
   </IfModule>
 </IfModule>
-redirect /node/3 /admin/vopros/questions/list?question_status=open&vopros_editorial_tid[value]=2&question_usage=All&subject_catagory_tid[value]=&order=created&sort=desc
-redirect /node/4 /admin/vopros/questions/list?question_status=open&vopros_editorial_tid[value]=1&question_usage=All&subject_catagory_tid[value]=&order=created&sort=desc
-redirect /node/139 /admin/vopros/statistics

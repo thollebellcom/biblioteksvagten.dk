@@ -53,7 +53,7 @@ projects[profile2][subdir] = contrib
 projects[profile2][version] = 1.3
 
 projects[rules][subdir] = contrib
-projects[rules][version] = 2.6
+projects[rules][version] = 2.9
 
 projects[search_api][subdir] = contrib
 projects[search_api][version] = 1.8

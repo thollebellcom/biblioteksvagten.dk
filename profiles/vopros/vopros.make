@@ -56,7 +56,7 @@ projects[rules][subdir] = contrib
 projects[rules][version] = 2.9
 
 projects[search_api][subdir] = contrib
-projects[search_api][version] = 1.8
+projects[search_api][version] = 1.16
 
 projects[search_api_solr][subdir] = contrib
 projects[search_api_solr][version] = 1.2

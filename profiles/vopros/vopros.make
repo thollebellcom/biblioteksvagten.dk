@@ -41,7 +41,7 @@ projects[libraries][subdir] = contrib
 projects[libraries][version] = 2.2
 
 projects[link][subdir] = contrib
-projects[link][version] = 1.1
+projects[link][version] = 1.3
 
 projects[mailhandler][subdir] = contrib
 projects[mailhandler][version] = 2.9

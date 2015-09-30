@@ -5,10 +5,3 @@ version = VERSION
 core = 7.x
 dependencies[] = nodejs
 dependencies[] = trigger
-
-; Information added by Drupal.org packaging script on 2014-06-03
-version = "7.x-1.8"
-core = "7.x"
-project = "nodejs"
-datestamp = "1401817728"
-

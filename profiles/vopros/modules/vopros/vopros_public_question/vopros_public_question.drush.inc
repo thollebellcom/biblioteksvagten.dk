@@ -57,7 +57,7 @@ function drush_vopros_public_question_push_all() {
     drush_register_file_for_deletion($tempdir);
   }
   $files = array();
-  $agency  = variable_get('ting_agency', '');
+  $agency  = _vopros_public_question_agency_id();
   $file_base = $agency . '.' . REQUEST_TIME;
   $file_counter = 1;
 

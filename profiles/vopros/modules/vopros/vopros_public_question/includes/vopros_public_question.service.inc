@@ -30,7 +30,7 @@ function vopros_public_question_delete_question($public_question) {
  * Handle talking to the Well.
  */
 function _vopros_public_question_publish_questions($actions) {
-  $agency  = variable_get('ting_agency', '');
+  $agency  = _vopros_public_question_agency_id();
   $ftp = variable_get('vopros_public_question_ftp', '');
 
   $file_base = $agency . '.' . REQUEST_TIME;
@@ -72,7 +72,7 @@ function _vopros_public_question_publish_questions($actions) {
  * Generate xml file.
  */
 function _vopros_public_question_generate_xml($actions) {
-  $agency  = variable_get('ting_agency', '');
+  $agency  = _vopros_public_question_agency_id();
   $source = variable_get('vopros_public_question_source', variable_get('osa_addi_source', ''));
 
   // Prepare XML.

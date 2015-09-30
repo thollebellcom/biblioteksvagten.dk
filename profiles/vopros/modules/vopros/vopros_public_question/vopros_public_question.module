@@ -425,3 +425,12 @@ function vopros_public_question_theme() {
     ),
   );
 }
+
+/**
+ * Get agency id.
+ *
+ * Returns agency id, falling back to ting_agency, if configured.
+ */
+function _vopros_public_question_agency_id() {
+  return variable_get('vopros_public_question_agency_id', variable_get('ting_agency', NULL));
+}

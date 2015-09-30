@@ -77,7 +77,7 @@ projects[views][subdir] = contrib
 projects[views][version] = 3.11
 
 projects[votingapi][subdir] = contrib
-projects[votingapi][version] = 2.10
+projects[votingapi][version] = 2.12
 
 ; Ting module
 

@@ -30,9 +30,11 @@ projects[feeds][subdir] = contrib
 projects[feeds][version] = 2.0-beta1
 
 projects[fivestar][subdir] = contrib
-projects[fivestar][download][type] = git
-projects[fivestar][download][url] = http://git.drupal.org/sandbox/googletorp/1255156.git
-projects[fivestar][download][revision] = b38930ff1890f88c63f293bae65b3c6913b6c1e6
+projects[fivestar][version] = 2.1
+; Better views filter.
+; https://www.drupal.org/node/1255160#comment-10392031
+projects[fivestar][patches][] = https://www.drupal.org/files/issues/add_better_views-1255160-29.patch
+6
 
 projects[job_scheduler][subdir] = contrib
 projects[job_scheduler][version] = 2.0-alpha3

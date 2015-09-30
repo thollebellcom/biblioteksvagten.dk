@@ -1,0 +1,9 @@
+patches:
+  -
+    patch: 'https://www.drupal.org/files/issues/add_better_views-1255160-29.patch'
+    home: 'https://www.drupal.org/node/1255160#comment-10392031'
+    reason: 'Better views filter widget.'
+project:
+  type: git
+  origin: 'ssh://git@git.drupal.org/project/fivestar'
+  revision: 0bde51edc93f5667b7b0ce4a5908161a67e3d501

@@ -79,13 +79,6 @@ projects[views][version] = 3.11
 projects[votingapi][subdir] = contrib
 projects[votingapi][version] = 2.12
 
-; Ting module
-
-projects[ting][type] = "module"
-projects[ting][download][type] = "git"
-projects[ting][download][url] = "https://github.com/ding2/ting.git"
-projects[ting][download][tag] = "7.x-0.11"
-
 ; Our own module collection
 projects[vopros_modules][type] = module
 projects[vopros_modules][download][type] = git

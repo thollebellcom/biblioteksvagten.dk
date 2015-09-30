@@ -68,7 +68,7 @@ projects[services_views][subdir] = contrib
 projects[services_views][version] = 1.1
 
 projects[token][subdir] = contrib
-projects[token][version] = 1.4
+projects[token][version] = 1.6
 
 projects[uuid][subdir] = contrib
 projects[uuid][version] = 1.0-alpha5

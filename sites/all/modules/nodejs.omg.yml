@@ -2,8 +2,3 @@ project:
   type: git
   origin: 'ssh://git@git.drupal.org/project/nodejs'
   revision: fd69ec70501bfb0400841e133db92d9da12810fc
-patches:
-  -
-    patch: 'https://www.drupal.org/files/issues/socket_sessionid_has-2288625-6.patch'
-    home: 'https://www.drupal.org/node/2288625#comment-10411765'
-    reason: 'Missed a usage of sessionid.'

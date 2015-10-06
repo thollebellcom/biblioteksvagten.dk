@@ -9,6 +9,13 @@
  */
 function vopros_public_question_settings_form($form, &$form_state) {
 
+  $form['vopros_public_question_agency_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Agency ID'),
+    '#default_value' => _vopros_public_question_agency_id(),
+    '#description' => t('Agency ID used on published questions.'),
+  );
+
   $form['vopros_public_question_source'] = array(
     '#type' => 'textfield',
     '#title' => t('Source'),

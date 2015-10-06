@@ -4,11 +4,6 @@ package = Voting
 core = 7.x
 dependencies[] = votingapi
 configure = admin/config/content/fivestar
-files[] = fivestar.test
-
+files[] = test/fivestar.base.test
+files[] = test/fivestar.field.test
 files[] = includes/fivestar_views_handler_filter_in_operator.inc
-
-; Information added by drush on 2015-01-28
-version = "b38930ff1890f88c63f293bae65b3c6913b6c1e6"
-project = "fivestar"
-datestamp = "1422440718"

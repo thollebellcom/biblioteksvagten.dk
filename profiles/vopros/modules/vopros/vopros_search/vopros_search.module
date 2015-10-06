@@ -21,19 +21,17 @@ function vopros_search_views_data_alter(&$data) {
   if (!empty($data['search_api_index_vopros_answer_question']['question_question_status']['field']['handler'])) {
     $data['search_api_index_vopros_answer_question']['question_question_status']['field']['handler'] = 'VoprosSeachSearchApiViewsHandlerField';
   }
+
   if (!empty($data['search_api_index_vopros_answer_question']['question_question_status_reason']['field']['handler'])) {
     $data['search_api_index_vopros_answer_question']['question_question_status_reason']['field']['handler'] = 'VoprosSeachSearchApiViewsHandlerField';
   }
+
   if (!empty($data['search_api_index_vopros_answer_question']['question_created']['field'])) {
     $data['search_api_index_vopros_answer_question']['question_created']['field']['handler'] = 'entity_views_handler_field_date';
   }
+
   if (!empty($data['search_api_index_vopros_answer_question']['user']['filter'])) {
-    $data['search_api_index_vopros_answer_question']['user']['filter']['handler'] = 'SearchApiViewsHandlerFilterOptions';
-    $profiles = profile2_load_multiple(FALSE, array('type' => 'vopros_user_librarian'));
-    $options = vopros_user_get_librarians();
-    // Sort the options.
-    asort($options);
-    $data['search_api_index_vopros_answer_question']['user']['filter']['options'] = $options;
+    $data['search_api_index_vopros_answer_question']['user']['filter']['handler'] = 'VoprosSeachSearchApiViewsHandlerFilterUser';
   }
 }
 

@@ -22,7 +22,8 @@
  *   - description: A translated string to be shown to administrators when
  *     selecting a service class. Should contain all peculiarities of the
  *     service class, like field type support, supported features (like facets),
- *     the "direct" parse mode and other specific things to keep in mind.
+ *     the "direct" parse mode and other specific things to keep in mind. The
+ *     text can contain HTML.
  *   - class: The service class, which has to implement the
  *     SearchApiServiceInterface interface.
  *
@@ -192,6 +193,8 @@ function hook_search_api_data_type_info_alter(array &$infos) {
 }
 
 /**
+ * Define available data alterations.
+ *
  * Registers one or more callbacks that can be called at index time to add
  * additional data to the indexed items (e.g. comments or attachments to nodes),
  * alter the data in other forms or remove items from the array.
@@ -227,6 +230,21 @@ function hook_search_api_alter_callback_info() {
 }
 
 /**
+ * Alter the available data alterations.
+ *
+ * @param array $callbacks
+ *   The callback information to be altered, keyed by callback IDs.
+ *
+ * @see hook_search_api_alter_callback_info()
+ */
+function hook_search_api_alter_callback_info_alter(array &$callbacks) {
+  if (!empty($callbacks['example_random_alter'])) {
+    $callbacks['example_random_alter']['name'] = t('Even more random alteration');
+    $callbacks['example_random_alter']['class'] = 'ExampleUltraRandomAlter';
+  }
+}
+
+/**
  * Registers one or more processors. These are classes implementing the
  * SearchApiProcessorInterface interface which can be used at index and search
  * time to pre-process item data or the search query, and at search time to
@@ -259,6 +277,20 @@ function hook_search_api_processor_info() {
   );
 
   return $callbacks;
+}
+
+/**
+ * Alter the available processors.
+ *
+ * @param array $processors
+ *   The processor information to be altered, keyed by processor IDs.
+ *
+ * @see hook_search_api_processor_info()
+ */
+function hook_search_api_processor_info_alter(array &$processors) {
+  if (!empty($processors['example_processor'])) {
+    $processors['example_processor']['weight'] = -20;
+  }
 }
 
 /**
@@ -303,13 +335,33 @@ function hook_search_api_items_indexed(SearchApiIndex $index, array $item_ids) {
  * Lets modules alter a search query before executing it.
  *
  * @param SearchApiQueryInterface $query
- *   The SearchApiQueryInterface object representing the search query.
+ *   The search query being executed.
  */
 function hook_search_api_query_alter(SearchApiQueryInterface $query) {
   // Exclude entities with ID 0. (Assume the ID field is always indexed.)
   if ($query->getIndex()->getEntityType()) {
     $info = entity_get_info($query->getIndex()->getEntityType());
-    $query->condition($info['entity keys']['id'], 0, '!=');
+    $query->condition($info['entity keys']['id'], 0, '<>');
+  }
+}
+
+/**
+ * Alter the search results before they are returned.
+ *
+ * @param array $results
+ *   The results returned by the server, which may be altered. The data
+ *   structure is the same as returned by SearchApiQueryInterface::execute().
+ * @param SearchApiQueryInterface $query
+ *   The search query that was executed.
+ */
+function hook_search_api_results_alter(array &$results, SearchApiQueryInterface $query) {
+  if ($query->getOption('search id') == 'search_api_views:my_search_view:page') {
+    // Log the number of results.
+    $vars = array(
+      '@keys' => $query->getOriginalKeys(),
+      '@num' => $results['result count'],
+    );
+    watchdog('my_module', 'Search view with query "@keys" had @num results.', $vars, WATCHDOG_DEBUG);
   }
 }
 

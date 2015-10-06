@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:DBCDK/Vopros-base.git'
+  revision: 7e0e543b743525e2538883c8ca64be94ffd5b658

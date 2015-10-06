@@ -32,7 +32,7 @@ class VoprosMailhandlerProcessor extends FeedsProcessor {
       'status' => 'sent',
     ));
     return $email;
-    
+
   }
 
   /**
@@ -47,7 +47,7 @@ class VoprosMailhandlerProcessor extends FeedsProcessor {
    *   A new entity object.
    */
   protected function entityLoad(FeedsSource $source, $entity_id) {
-    
+
   }
 
   /**
@@ -57,7 +57,7 @@ class VoprosMailhandlerProcessor extends FeedsProcessor {
    *   If validation fails.
    */
   protected function entityValidate($entity) {
-    
+
   }
 
   /**
@@ -77,20 +77,21 @@ class VoprosMailhandlerProcessor extends FeedsProcessor {
    *   Array of unique identity ids to be deleted.
    */
   protected function entityDeleteMultiple($entity_ids) {
-    
+
   }
 
   public function getMappingTargets() {
     $targets = parent::getMappingTargets();
     $properties = entity_get_property_info('vopros_email');
     $properties = $properties['properties'];
+
     foreach ($properties as $key => $property) {
       $properties[$key]['name'] = $property['label'];
     }
     $targets += $properties;
-    // Let other modules expose mapping targets.
-    self::loadMappers();
-    feeds_alter('feeds_processor_targets', $targets, 'vopros_email', 'vopros_email');
+
+    $this->getHookTargets($targets);
+
     return $targets;
   }
 

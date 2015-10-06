@@ -12,3 +12,4 @@ dependencies[] = search_api_views
 
 ; Views handlers includes
 files[] = includes/views/handlers/vopros_seach_search_api_views_handler_field.inc
+files[] = includes/views/handlers/vopros_seach_search_api_views_handler_filter_user.inc

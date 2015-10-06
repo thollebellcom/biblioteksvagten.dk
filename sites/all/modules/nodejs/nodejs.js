@@ -20,7 +20,7 @@ Drupal.behaviors.nodejs = {
 Drupal.Nodejs.runCallbacks = function (message) {
   // It's possible that this message originated from an ajax request from the
   // client associated with this socket.
-  if (message.clientSocketId == Drupal.Nodejs.socket.id) {
+  if (message.clientSocketId == Drupal.Nodejs.socket.sessionid) {
     return;
   }
   if (message.callback) {
@@ -88,6 +88,9 @@ Drupal.Nodejs.connect = function () {
      return false;
   }
   Drupal.Nodejs.socket = io.connect(url, {'connect timeout': Drupal.settings.nodejs.connectTimeout});
+  // The sessionid we used to use was removed in a recent version of
+  // socket.io, so we'll generate one for the moment being.
+  Drupal.Nodejs.socket.sessionid = Math.floor(Math.random() * 10000000000000001);
   Drupal.Nodejs.socket.on('connect', function() {
     Drupal.Nodejs.sendAuthMessage();
     Drupal.Nodejs.runSetupHandlers('connect');
@@ -96,10 +99,10 @@ Drupal.Nodejs.connect = function () {
       // send sessionId for AJAX requests so we can exclude the current browser
       // window from resulting notifications. We do this so that modules can hook
       // in to other modules ajax requests without having to patch them.
-      Drupal.ajax.prototype.nodejsOriginalBeforeSerialize = Drupal.ajax.prototype.beforeSerialize;
+      Drupal.Nodejs.originalBeforeSerialize = Drupal.ajax.prototype.beforeSerialize;
       Drupal.ajax.prototype.beforeSerialize = function(element_settings, options) {
-        options.data['nodejs_client_socket_id'] = Drupal.Nodejs.socket.socket.sessionid;
-        return this.nodejsOriginalBeforeSerialize(element_settings, options);
+        options.data['nodejs_client_socket_id'] = Drupal.Nodejs.socket.sessionid;
+        return Drupal.Nodejs.originalBeforeSerialize(element_settings, options);
       };
     }
   });

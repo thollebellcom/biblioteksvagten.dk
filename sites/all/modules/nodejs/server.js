@@ -134,16 +134,6 @@ var channelIsClientWritable = function (channel) {
 }
 
 /**
- * Check if the given socket is in the given channel.
- */
-var clientIsInChannel = function (socket, channel) {
-  if (!channels.hasOwnProperty(channel)) {
-    return false;
-  }
-  return channels[channel].sessionIds[socket.id];
-}
-
-/**
  * Returns the backend url.
  */
 var getBackendUrl = function () {
@@ -1055,10 +1045,13 @@ var setContentToken = function (request, response) {
  * Setup a sockets{}.connection with uid, channels etc.
  */
 var setupClientConnection = function (sessionId, authData, contentTokens) {
+  console.log(sockets);
   if (!sockets[sessionId]) {
     console.log("Client socket '" + sessionId + "' went away.");
+    //console.log(authData);
     return;
   }
+  console.log("Still there " + sessionId);
   sockets[sessionId].authToken = authData.authToken;
   sockets[sessionId].uid = authData.uid;
   for (var i in authData.channels) {
@@ -1187,15 +1180,11 @@ io.on('connection', function(socket) {
         console.log('Received message from client ' + socket.id);
       }
 
-      // If this message is destined for a channel, check two things:
-      // - that this channel is allowed to get messages directly from clients
-      // - that the sending socket is already in this channel (that is, the
-      // backend has sent this channel in this user's allowed list).
-      // Do not let extensions using this feature accidentally allow sending
-      // of messages to any socket on any channel.
+      // If this message is destined for a channel, check that writing to
+      // channels from client sockets is allowed.
       if (message.hasOwnProperty('channel')) {
-        if (channelIsClientWritable(message.channel) && clientIsInChannel(socket, message.channel)) {
-          process.emit('client-to-channel-message', socket.id, message);
+        if (settings.clientsCanWriteToChannels || channelIsClientWritable(message.channel)) {
+          process.emit('client-message', socket.id, message);
         }
         else if (settings.debug) {
           console.log('Received unauthorised message from client: cannot write to channel ' + socket.id);
@@ -1205,7 +1194,7 @@ io.on('connection', function(socket) {
       // No channel, so this message is destined for one or more clients. Check
       // that this is allowed in the server configuration.
       else if (settings.clientsCanWriteToClients) {
-        process.emit('client-to-client-message', socket.id, message);
+        process.emit('client-message', socket.id, message);
       }
       else if (settings.debug) {
         console.log('Received unauthorised message from client: cannot write to client ' + socket.id);

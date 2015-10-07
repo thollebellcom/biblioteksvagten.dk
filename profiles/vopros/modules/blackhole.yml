@@ -1,4 +1,0 @@
-project:
-  type: git
-  origin: 'git@github.com:xendk/blackhole.git'
-  revision: 076c3060e3a420e56338f8717148cdd184332720

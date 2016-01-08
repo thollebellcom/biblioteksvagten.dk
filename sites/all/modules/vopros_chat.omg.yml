@@ -1,4 +1,4 @@
 project:
   type: git
   origin: 'git@github.com:reload/vopros_chat.git'
-  revision: 5738723318d40ea2e5f35b5b062be952d1d579b4
+  revision: 3285b58ade48e0e91a09a94ba86a044564b69708

@@ -146,7 +146,7 @@ function _fivestar_field_helper($entity_type, $entity, $field, $instance, $langc
     else {
       $rating = (isset($items[$delta]['rating'])) ? $items[$delta]['rating'] : 0;
     }
-    $target = _fivestar_field_target($entity, $field, $instance, $item, $langcode);
+    $target = _fivestar_field_target($entity, $field, $instance, $item, $langcode);    
     if (!empty($target)) {
       if ($entity_type == 'comment' && $op == 'delete') {
         $target['vote_source'] = $entity->hostname;

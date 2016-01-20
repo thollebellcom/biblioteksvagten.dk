@@ -243,6 +243,9 @@ function vopros_public_question_form_update_submit(&$form, &$form_state) {
   if (vopros_public_question_update_question($public_question)) {
     drupal_set_message(t('Question/answer has been updated in external data store, !link', array('!link' => l(t('see public question'), 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit'))));
     $form_state['redirect'] = 'admin/vopros/questions/list';
+
+    $public_question->status = 1;
+    $public_question->save();
   }
   else {
     drupal_set_message(t('Could not update question at service.'), 'error');

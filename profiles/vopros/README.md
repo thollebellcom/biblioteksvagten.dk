@@ -7,11 +7,11 @@ context. Created in cooperation with [DBC][] and [Biblioteksvagten][]
 Building
 --------
 
-You will need [drush make][] to build this install profile.
+You will need [Drush][] to build this install profile.
 
 To build a full site, run:
 
-   drush make https://raw.github.com/DBCDK/Vopros-install/master/build_vopros.make /path/to/build/to
+   drush make https://raw.githubusercontent.com/vopros-dk/vopros/master/build_vopros.make /path/to/build/to
 
 To build an install profile without Drupal core, run:
 
@@ -70,7 +70,7 @@ additional and optional features.
   By default questions and answers are not public available. You can
   however with the public question module publish questions to make
   them public available. Right now published questions are created in
-  the [data well][], a DBC powered project for storing data.
+  the data well, a DBC powered project for storing data.
 
 * Search
   
@@ -82,9 +82,6 @@ additional and optional features.
   called "answer and question".
 
 [Drupal]: http://drupal.org/
-[drush make]: http://drupal.org/project/drush_make
+[Drush]: https://github.com/drush-ops/drush
 [DBC]: http://dbc.dk
 [Biblioteksvagten]: http://biblioteksvagten.dk
-[data well]: http://www.dbc.dk/produkter/alfabetisk-oversigt-over-alle-produkter/databrond
-
-

@@ -30,8 +30,7 @@ projects[fivestar][subdir] = contrib
 projects[fivestar][version] = 2.1
 ; Better views filter.
 ; https://www.drupal.org/node/1255160#comment-10392031
-projects[fivestar][patches][] = https://www.drupal.org/files/issues/add_better_views-1255160-29.patch
-6
+projects[fivestar][patch][] = https://www.drupal.org/files/issues/add_better_views-1255160-35.patch
 
 projects[job_scheduler][subdir] = contrib
 projects[job_scheduler][version] = 2.0-alpha3
@@ -77,12 +76,6 @@ projects[views][version] = 3.11
 
 projects[votingapi][subdir] = contrib
 projects[votingapi][version] = 2.12
-
-; Our own module collection
-projects[vopros_modules][type] = module
-projects[vopros_modules][download][type] = git
-projects[vopros_modules][download][url] = "https://github.com/DBCDK/Vopros-base.git"
-projects[vopros_modules][directory_name] = vopros
 
 ; Libraries
 libraries[search_api_solr_php_client][download][type] = get

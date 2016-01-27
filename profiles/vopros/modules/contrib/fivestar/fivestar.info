@@ -4,6 +4,13 @@ package = Voting
 core = 7.x
 dependencies[] = votingapi
 configure = admin/config/content/fivestar
+files[] = includes/fivestar_views_handler_filter_in_operator.inc
 files[] = test/fivestar.base.test
 files[] = test/fivestar.field.test
-files[] = includes/fivestar_views_handler_filter_in_operator.inc
+
+; Information added by Drupal.org packaging script on 2014-03-17
+version = "7.x-2.1"
+core = "7.x"
+project = "fivestar"
+datestamp = "1395087839"
+

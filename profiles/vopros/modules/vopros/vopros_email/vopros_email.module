@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Provides mail handling for Vopros.
  */
 
 /**
@@ -45,7 +46,7 @@ function vopros_email_entity_info() {
 }
 
 /**
- * Implementation of hook_init().
+ * Implements hook_init().
  */
 function vopros_email_init() {
   drupal_add_css(drupal_get_path('module', 'vopros_email') . '/theme/vopros_email.base.css');
@@ -61,9 +62,8 @@ function vopros_email_enable() {
   vopros_email_configure_email();
 }
 
-
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function vopros_email_menu() {
   return array(
@@ -157,7 +157,7 @@ function vopros_email_menu() {
 }
 
 /**
- * Title callback for emails
+ * Title callback for emails.
  */
 function vopros_email_title($email) {
   return isset($email->subject) && !empty($email->subject) ? $email->subject : t('New email');
@@ -169,7 +169,7 @@ function vopros_email_title($email) {
 function vopros_email_entity_property_info() {
   $info = array();
 
-  // Add meta-data about the basic commerce_line_item properties.
+  // Add meta-data about question and answer properties.
   $properties = &$info['vopros_email']['properties'];
 
   $properties['answer'] = array(
@@ -304,7 +304,7 @@ function vopros_email_vopros_question_channels() {
  *   The operation being performed. One of 'view', 'update', 'create' or
  *   'delete'.
  * @param $email
- *   Optionally an anwer to check access for.
+ *   Optionally an email to check access for.
  *    - Required for checking edit and delete access.
  * @param $account
  *   The user to check for. Leave it to NULL to check for the current user.
@@ -348,7 +348,7 @@ function vopros_email_access($op, $email = NULL, $account = NULL) {
 }
 
 /**
- * Create a new email object
+ * Create a new email object.
  */
 function vopros_email_new($values = array()) {
   $default_values = array(
@@ -365,7 +365,7 @@ function vopros_email_new($values = array()) {
 }
 
 /**
- * Save a email
+ * Save a email.
  *
  * @param $email
  *    The email object
@@ -475,7 +475,8 @@ function vopros_email_mail($key, &$message, $params) {
         $filedata = file_get_contents(drupal_realpath($fv['uri']));
         $filename = $fv['filename'];
         $filemime = $fv['filemime'];
-        $body .= "--$trenner"."\n"; // Mark the start of a new mime.
+        // Mark the start of a new mime.
+        $body .= "--$trenner\n";
         $body .= "Content-Type:$filemime; name='$filename'\n";
         $body .= "Content-Disposition: attachment; filename=$filename\n";
         $body .= "Content-Transfer-Encoding: base64\n\n";
@@ -490,12 +491,18 @@ function vopros_email_mail($key, &$message, $params) {
     case 'forward_email':
       $email = $params['email'];
       $message['headers']['Reply-To'] = $email->email;
-      $message['subject'] = t('[@site] FWD: @subject', array('@site' => variable_get('site_name', 'Vopros'), '@subject' => $email->subject));
+      $message['subject'] = t('[@site] FWD: @subject', array(
+        '@site' => variable_get('site_name', 'Vopros'),
+        '@subject' => $email->subject,
+      ));
       if ($params['message']) {
         $message['body'][] = $params['message'];
       }
 
-      $message['body'][] = t('------ Forwarded by @user fra @site ------', array('@site' => variable_get('site_name', 'Vopros'), '@user' => (!empty($params['user']) ? $params['user'] : 'unknown')));
+      $message['body'][] = t('------ Forwarded by @user fra @site ------', array(
+        '@site' => variable_get('site_name', 'Vopros'),
+        '@user' => (!empty($params['user']) ? $params['user'] : 'unknown'),
+      ));
 
       $message['body'][] = '';
       $message['body'][] = $email->email_content;
@@ -504,7 +511,7 @@ function vopros_email_mail($key, &$message, $params) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function vopros_email_form_vopros_answer_form_alter(&$form, &$form_state) {
   // Hook into the form, if user wants an sms sent.
@@ -514,12 +521,15 @@ function vopros_email_form_vopros_answer_form_alter(&$form, &$form_state) {
   }
 }
 
+/**
+ * Submit handler.
+ */
 function vopros_email_form_vopros_answer_form_submit(&$form, &$form_state) {
   $form_state['redirect'] = 'admin/vopros/answers/' . $form_state['answer']->answer_id . '/new-email';
 }
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function vopros_email_form_vopros_question_handle_question_form_alter(&$form, &$form_state) {
   if ($form['question']['#value']->user_answer_preference == 'mail') {
@@ -535,7 +545,7 @@ function vopros_email_form_vopros_question_contact_user_submit(&$form, &$form_st
 }
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function vopros_email_form_vopros_question_question_frontend_form_alter(&$form, &$form_state) {
   if ($form['question']['#value']->user_answer_preference == 'mail') {
@@ -595,7 +605,8 @@ function vopros_email_build_content($email, $view_mode = 'administrator', $langc
   );
   field_attach_prepare_view('vopros_email', array($email->email_id => $email), $view_mode);
   entity_prepare_view('vopros_email', array($email->email_id => $email));
-  // Add extra fields
+
+  // Add extra fields.
   $email->content['header']['to'] = array(
     '#theme' => 'vopros_email_to_email',
     '#email' => $email,
@@ -633,7 +644,7 @@ function vopros_email_build_content($email, $view_mode = 'administrator', $langc
     'js' => array(drupal_get_path('module', 'vopros_email') . '/js/vopros_email.question_feed.js'),
   );
 
-  // Add fields
+  // Add fields.
   field_attach_prepare_view('vopros_email', array($email->email_id => $email), $view_mode, $langcode);
   $email->content['body'][] = field_attach_view('vopros_email', $email, $view_mode, $langcode);
 
@@ -733,7 +744,7 @@ function vopros_email_theme() {
       'render element' => 'element',
       'file' => 'vopros_email.theme.inc',
       'path' => $path,
-    )
+    ),
   );
 }
 
@@ -754,7 +765,7 @@ function vopros_email_vopros_question_activity_feed($question, &$feed) {
       //$email->content['body'][] = array('#markup' => '<iframe style="border: 2px solid red;" width="500px" height="300px" src="' . url('vopros/feedback/' . $email_id . '/' . md5($email_id . variable_get('vopros_feedback_secret', ''))) . '"></iframe>');
     }
     $feed['email_' . $email_id] = $email->content;
-    $feed['email_' . $email_id]['#weight'] = - ($email->created - 1);
+    $feed['email_' . $email_id]['#weight'] = -($email->created - 1);
   }
   $transfers = db_select('vopros_email_transfers', 't')
     ->fields('t')
@@ -767,7 +778,7 @@ function vopros_email_vopros_question_activity_feed($question, &$feed) {
     $email->transfer_uid = $transfer->uid;
     vopros_email_build_content($email, 'question_list');
     $feed['email_transfer_' . $transfer->email_transfer_id] = array(
-      '#weight' => - ($transfer->transfer_time - 1),
+      '#weight' => -($transfer->transfer_time - 1),
       'email_content' => $email->content,
       'transfer_status' => array(
         '#transfer' => $transfer,
@@ -775,24 +786,6 @@ function vopros_email_vopros_question_activity_feed($question, &$feed) {
       ),
     );
   }
-}
-
-
-/**
- * Implements hook_vopros_install_tasks().
- */
-function vopros_email_vopros_install_tasks() {
-  module_load_include('inc', 'vopros_email', 'includes/vopros_email.admin');
-  return array(
-    'vopros_email' => array(
-      'display_name' => t('Vopros email settings'),
-      'display' => TRUE,
-      'type' => 'form',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-      'function' => 'vopros_email_settings_form',
-      'file' => drupal_get_path('module', 'vopros_email') . '/includes/vopros_email.admin.inc',
-    )
-  );
 }
 
 /**
@@ -812,7 +805,7 @@ function vopros_email_configure_email() {
   $type = 'vopros_email';
   $bundle = 'vopros_email';
 
-  // Create a taxonomy term reference field
+  // Create a taxonomy term reference field.
   $field_name = 'vopros_email_attachment';
   $field = field_info_field($field_name);
   $instance = field_info_instance($type, $field_name, $bundle);
@@ -861,4 +854,87 @@ function vopros_email_configure_email() {
     );
     field_create_instance($instance);
   }
+}
+
+/**
+ * Returns default email macros.
+ */
+function _vopros_email_default_macro($type, $name) {
+  static $macros = array(
+    'need_more_info' => array(
+      'subject' => 'Supplerende spørgsmål fra [site:name]',
+      'body' => 'Kære [vopros_question:user-name]
+
+Herning Bibliotekerne har modtaget dit spørgsmål, men har brug for følgende supplerende oplysninger for at kunne svar dig bedst muligt:
+
+
+
+Med venlig hilsen
+[site:name]
+
+Du har spurgt om følgende:
+[vopros_question:question-content]',
+    ),
+    'no_time_for_deadline' => array(
+      'subject' => 'Interessefrist er overskredet',
+      'body' => 'Kære  [vopros_question:user-name]
+Det har desværre ikke været muligt at få besvaret dit spørgsmål inden for den interessefrist, du angiver. Såfremt du alligevel er interesseret i et svar, bedes du henvende dig igen.
+
+Med venlig hilsen
+[site:name]
+
+Du har spurgt om følgende:
+[vopros_question:question-content]',
+    ),
+    'message_for_user' => array(
+      'subject' => 'Besked fra [site:name]',
+      'body' => 'Kære  [vopros_question:user-name]
+
+
+
+Med venlig hilsen
+[site:name]
+
+Du har spurgt om følgende
+[vopros_question:question-content]',
+    ),
+    'answered_question' => array(
+      'subject' => 'Svar fra [site:name]',
+      'body' => 'Kære  [vopros_question:user-name]
+
+Du har spurgt [site:name] om:
+
+[vopros_question:question-content]
+
+Vores svar er:
+
+[vopros_answer:answer-content]
+
+Med venlig hilsen
+[vopros_answer:user:profile-vopros-user-librarian:vopros-user-first-name] [vopros_answer:user:profile-vopros-user-librarian:vopros-user-last-name]
+[site:name]',
+    ),
+  );
+
+  if (!empty($macros[$name][$type])) {
+    return $macros[$name][$type];
+  }
+
+  return '';
+}
+
+/**
+ * Get the subject macro for the given name.
+ */
+function _vopros_email_subject_macro($name) {
+  $key = 'vopros_email_subject_macro_' . $name;
+  return variable_get($key, _vopros_email_default_macro('subject', $name));
+}
+
+/**
+ * Get the body macro for the given name.
+ */
+function _vopros_email_body_macro($name) {
+  $key = 'vopros_email_macro_' . $name;
+  return variable_get($key, _vopros_email_default_macro('body', $name));
 }

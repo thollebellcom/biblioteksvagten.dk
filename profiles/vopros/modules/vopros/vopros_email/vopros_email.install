@@ -360,3 +360,17 @@ function vopros_email_update_7002(&$sandbox) {
       'length' => '255',
     ));
 }
+
+/**
+ * Rename question answered email macro variables.
+ */
+function vopros_email_update_7101() {
+  if ($value = variable_get('vopros_email_answered_question_subject_macro', FALSE)) {
+    variable_set('vopros_email_subject_macro_answered_question', $value);
+    variable_del('vopros_email_answered_question_subject_macro');
+  }
+  if ($value = variable_get('vopros_email_answered_question_macro', FALSE)) {
+    variable_set('vopros_email_macro_answered_question', $value);
+    variable_del('vopros_email_answered_question_macro');
+  }
+}

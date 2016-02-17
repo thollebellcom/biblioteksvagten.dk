@@ -1,4 +1,4 @@
 project:
   type: git
   origin: 'git@github.com:vopros-dk/vopros.git'
-  revision: 9170e9834a7a6ede02fa831e8d6bf45c4bf92eac
+  revision: afa84d5abb5aac806091ea4ba7fd9be5c0fc760e

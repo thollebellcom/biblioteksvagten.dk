@@ -1,5 +1,5 @@
-name = "Vopros Install profile"
-description = "Installation profile for Vopros, a library-centered
+name = "Vopros"
+description = "Install Vopros, a library-centered
 question and answer service."
 core = "7.x"
 
@@ -44,5 +44,3 @@ dependencies[] = vopros_log
 dependencies[] = vopros_question
 dependencies[] = vopros_sms
 dependencies[] = vopros_user
-
-files[] = vopros_install.profile

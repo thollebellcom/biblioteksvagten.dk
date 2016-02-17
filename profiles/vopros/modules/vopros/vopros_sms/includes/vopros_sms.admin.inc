@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @ file
- * Admin forms and callback functions.
+ * @file
+ * Administrative forms and callback functions.
  */
 
 /**
- * Answer settings form
+ * Answer settings form.
  */
 function vopros_sms_settings_form($form, &$form_state) {
   $form['vopros_sms_default_client_id'] = array(
@@ -145,7 +145,7 @@ function vopros_sms_push_sender_validate(&$form, &$form_state) {
 }
 
 /**
- * Answer form
+ * Answer form.
  */
 function vopros_sms_form($form, &$form_state, $answer, $sms) {
   if (empty($answer) && isset($sms->answer_id)) {
@@ -183,13 +183,13 @@ function vopros_sms_form($form, &$form_state, $answer, $sms) {
   );
 
   $form['form']['phone_number'] = array(
-     '#title' => t('To'),
-     '#type' => 'textfield',
-     '#default_value' => $answer_wrapper->question->user_mobile_phone->value(),
-     '#required' => TRUE,
-   );
+    '#title' => t('To'),
+    '#type' => 'textfield',
+    '#default_value' => $answer_wrapper->question->user_mobile_phone->value(),
+    '#required' => TRUE,
+  );
 
-  $content =  token_replace(variable_get('vopros_sms_answered_question_macro', ''), array(
+  $content = token_replace(variable_get('vopros_sms_answered_question_macro', ''), array(
      'vopros_answer' => $answer,
      'vopros_question' => $answer_wrapper->question->value(),
    ), array('sanitize' => FALSE));
@@ -210,7 +210,7 @@ function vopros_sms_form($form, &$form_state, $answer, $sms) {
   );
 
   $form['form']['content_wrapper']['chars'] = array(
-    '#markup' => '<div id="sms-counter">' . t('SMS counter:'). ' <span class="counter">' . strlen($content) . '/' . $sms_count . '</span></div>',
+    '#markup' => '<div id="sms-counter">' . t('SMS counter:') . ' <span class="counter">' . strlen($content) . '/' . $sms_count . '</span></div>',
   );
 
   $form['form']['content_wrapper']['content'] = array(
@@ -222,7 +222,7 @@ function vopros_sms_form($form, &$form_state, $answer, $sms) {
   );
 
   $form['form']['buttons'] = array(
-    '#weight' => 100
+    '#weight' => 100,
   );
 
   $form['form']['buttons']['send'] = array(
@@ -248,7 +248,7 @@ function vopros_sms_form_add_js(&$form, &$form_state) {
 }
 
 /**
- * Submit handler for saving questions
+ * Submit handler for saving questions.
  */
 function vopros_sms_form_submit(&$form, &$form_state) {
   $sms = $form_state['values']['sms'];
@@ -266,7 +266,10 @@ function vopros_sms_form_submit(&$form, &$form_state) {
   $question->question_status = 'answered';
   $question->question_status_reason = '';
   $question->save();
-  drupal_set_message(t('The answer has been sent to @receiver and the question !question is marked as answered.', array('@receiver' => $sms->phone_number, '!question' => '<em>' . l($sms_wrapper->question->question_title->value(), 'admin/vopros/questions/' . $sms_wrapper->question->question_id->value()) . '</em>')));
+  drupal_set_message(t('The answer has been sent to @receiver and the question !question is marked as answered.', array(
+    '@receiver' => $sms->phone_number,
+    '!question' => '<em>' . l($sms_wrapper->question->question_title->value(), 'admin/vopros/questions/' . $sms_wrapper->question->question_id->value()) . '</em>',
+  )));
   $form_state['redirect'] = 'admin/vopros/questions/';
 }
 
@@ -304,7 +307,7 @@ function vopros_sms_question_contact_form($form, &$form_state, $question) {
   );
 
   $form['content_wrapper']['chars'] = array(
-    '#markup' => '<div id="sms-counter">' . t('SMS counter:'). ' <span class="counter">' . 0 . '/' . 1 . '</span></div>',
+    '#markup' => '<div id="sms-counter">' . t('SMS counter:') . ' <span class="counter">' . 0 . '/' . 1 . '</span></div>',
   );
 
   $form['content_wrapper']['content'] = array(

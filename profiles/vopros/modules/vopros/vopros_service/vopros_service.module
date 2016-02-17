@@ -5,6 +5,19 @@
  * Module for transfering questions in Vopros.
  */
 
+define('VOPROS_SERVICE_TAKEOVER_MACRO_SUBJECT', 'Vi har modtaget dit spørgsmål');
+define('VOPROS_SERVICE_TAKEOVER_MACRO_BODY', 'Kære [vopros_question:user-name]
+Dit spørgsmål er videresendt til os fra en anden spørgetjeneste
+
+Vi vender tilbage med et svar hurtigst muligt
+
+Med venlig hilsen
+[site:name]
+
+Du har spurgt om:
+[vopros_question:question-content]
+');
+
 /**
  * Implements hook_entity_info().
  */
@@ -868,14 +881,14 @@ function vopros_service_form_vopros_email_settings_form_alter(&$form, &$form_sta
     '#type' => 'textfield',
     '#title' => t('Take over mail subject'),
     '#description' => t('Subject of mail sendt to user when reciving forwarded question.'),
-    '#default_value' => variable_get('vopros_service_take_over_question_subject', ''),
+    '#default_value' => variable_get('vopros_service_take_over_question_subject', VOPROS_SERVICE_TAKEOVER_MACRO_SUBJECT),
   );
 
   $form['vopros_service']['vopros_service_take_over_question_body'] = array(
     '#type' => 'textarea',
     '#title' => t('Take over mail body'),
     '#description' => t('Main message.'),
-    '#default_value' => variable_get('vopros_service_take_over_question_body', ''),
+    '#default_value' => variable_get('vopros_service_take_over_question_body', VOPROS_SERVICE_TAKEOVER_MACRO_BODY),
   );
 
   $form['vopros_service']['tokens'] = array(
@@ -1060,10 +1073,10 @@ function _vopros_service_question_takeover_notification($service, $question) {
     case 'mail':
       // Don't bother if the email address doesn't validate.
       if (valid_email_address($question->user_email)) {
-        $subject = variable_get('vopros_service_take_over_question_subject', '');
+        $subject = variable_get('vopros_service_take_over_question_subject', VOPROS_SERVICE_TAKEOVER_MACRO_SUBJECT);
         $subject = token_replace($subject, $token_objects, array('sanitize' => FALSE));
 
-        $body = variable_get('vopros_service_take_over_question_body', '');
+        $body = variable_get('vopros_service_take_over_question_body', VOPROS_SERVICE_TAKEOVER_MACRO_BODY);
         $body = token_replace($body, $token_objects, array('sanitize' => FALSE));
 
         $email = vopros_email_new(array(

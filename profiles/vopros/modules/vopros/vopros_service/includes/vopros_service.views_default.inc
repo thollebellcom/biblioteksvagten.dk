@@ -122,33 +122,33 @@ function vopros_service_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Sidefod: Spørgsmål: Views Count */
+  /* Footer: Spørgsmål: Visningsantal */
   $handler->display->display_options['footer']['views_count']['id'] = 'views_count';
   $handler->display->display_options['footer']['views_count']['table'] = 'vopros_question';
   $handler->display->display_options['footer']['views_count']['field'] = 'views_count';
-  /* Forbindelse: Spørgsmål: Kommentar */
+  /* Relationship: Broken/missing handler */
   $handler->display->display_options['relationships']['feedback_question_id']['id'] = 'feedback_question_id';
   $handler->display->display_options['relationships']['feedback_question_id']['table'] = 'vopros_question';
   $handler->display->display_options['relationships']['feedback_question_id']['field'] = 'feedback_question_id';
   $handler->display->display_options['relationships']['feedback_question_id']['label'] = 'spørgsmål';
-  /* Forbindelse: Vopros Service forwarded questions.: Client forwarded to */
+  /* Relationship: Vopros Service forwarded questions.: Client forwarded to */
   $handler->display->display_options['relationships']['client_id_1']['id'] = 'client_id_1';
   $handler->display->display_options['relationships']['client_id_1']['table'] = 'vopros_service_question';
   $handler->display->display_options['relationships']['client_id_1']['field'] = 'client_id';
   $handler->display->display_options['relationships']['client_id_1']['label'] = 'Client';
-  /* Felt: Spørgsmål: Spørgsmål ID */
+  /* Field: Spørgsmål: Spørgsmål ID */
   $handler->display->display_options['fields']['question_id']['id'] = 'question_id';
   $handler->display->display_options['fields']['question_id']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_id']['field'] = 'question_id';
   $handler->display->display_options['fields']['question_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['question_id']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['question_id']['separator'] = '';
-  /* Felt: Spørgsmål: Question_status_reason */
+  /* Field: Spørgsmål: Question_status_reason */
   $handler->display->display_options['fields']['question_status_reason']['id'] = 'question_status_reason';
   $handler->display->display_options['fields']['question_status_reason']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_status_reason']['field'] = 'question_status_reason';
   $handler->display->display_options['fields']['question_status_reason']['exclude'] = TRUE;
-  /* Felt: Spørgsmål: Question_title */
+  /* Field: Spørgsmål: Question_title */
   $handler->display->display_options['fields']['question_title']['id'] = 'question_title';
   $handler->display->display_options['fields']['question_title']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_title']['field'] = 'question_title';
@@ -156,46 +156,46 @@ function vopros_service_views_default_views() {
   $handler->display->display_options['fields']['question_title']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['question_title']['alter']['path'] = 'admin/vopros/questions/[question_id]';
   $handler->display->display_options['fields']['question_title']['hide_alter_empty'] = FALSE;
-  /* Felt: Spørgsmål: Question client */
+  /* Field: Spørgsmål: Question client */
   $handler->display->display_options['fields']['client_id']['id'] = 'client_id';
   $handler->display->display_options['fields']['client_id']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['client_id']['field'] = 'client_id';
   $handler->display->display_options['fields']['client_id']['label'] = 'Received from';
   $handler->display->display_options['fields']['client_id']['element_label_colon'] = FALSE;
-  /* Felt: Spørgsmål: Question_status */
+  /* Field: Spørgsmål: Question_status */
   $handler->display->display_options['fields']['question_status']['id'] = 'question_status';
   $handler->display->display_options['fields']['question_status']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_status']['field'] = 'question_status';
   $handler->display->display_options['fields']['question_status']['label'] = 'Status';
   $handler->display->display_options['fields']['question_status']['hide_alter_empty'] = FALSE;
-  /* Felt: Spørgsmål: Question_deadline_timestamp */
+  /* Field: Spørgsmål: Question_deadline_timestamp */
   $handler->display->display_options['fields']['question_deadline_timestamp']['id'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_deadline_timestamp']['field'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['label'] = 'Deadline';
   $handler->display->display_options['fields']['question_deadline_timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['question_deadline_timestamp']['date_format'] = 'vopros_question_deadline';
-  /* Felt: Spørgsmål: Changed */
+  /* Field: Spørgsmål: Changed */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
   $handler->display->display_options['fields']['changed']['label'] = 'Updated';
   $handler->display->display_options['fields']['changed']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['changed']['date_format'] = 'short';
-  /* Felt: Spørgsmål: Created */
+  /* Field: Spørgsmål: Created */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = 'Oprettet';
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  /* Felt: Client: Etiket */
+  /* Field: Client: Label */
   $handler->display->display_options['fields']['label']['id'] = 'label';
   $handler->display->display_options['fields']['label']['table'] = 'vopros_question_client';
   $handler->display->display_options['fields']['label']['field'] = 'label';
   $handler->display->display_options['fields']['label']['relationship'] = 'client_id_1';
   $handler->display->display_options['fields']['label']['label'] = 'Forwarded to';
-  /* Filterkriterie: Spørgsmål: Question_status */
+  /* Filter criterion: Spørgsmål: Question_status */
   $handler->display->display_options['filters']['question_status']['id'] = 'question_status';
   $handler->display->display_options['filters']['question_status']['table'] = 'vopros_question';
   $handler->display->display_options['filters']['question_status']['field'] = 'question_status';
@@ -213,18 +213,7 @@ function vopros_service_views_default_views() {
   $handler->display->display_options['filters']['question_status']['expose']['operator'] = 'question_status_op';
   $handler->display->display_options['filters']['question_status']['expose']['identifier'] = 'question_status';
   $handler->display->display_options['filters']['question_status']['expose']['remember'] = TRUE;
-  /* Filterkriterie: Spørgsmål: Redaktion (vopros_editorial) */
-  $handler->display->display_options['filters']['vopros_editorial_tid']['id'] = 'vopros_editorial_tid';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['table'] = 'field_data_vopros_editorial';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['field'] = 'vopros_editorial_tid';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['group'] = 1;
-  $handler->display->display_options['filters']['vopros_editorial_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['vopros_editorial_tid']['expose']['operator_id'] = 'vopros_editorial_tid_op';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['expose']['label'] = 'with the editorial';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['expose']['operator'] = 'vopros_editorial_tid_op';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['expose']['identifier'] = 'vopros_editorial_tid';
-  $handler->display->display_options['filters']['vopros_editorial_tid']['expose']['remember'] = TRUE;
-  /* Filterkriterie: Spørgsmål: Question client */
+  /* Filter criterion: Spørgsmål: Question client */
   $handler->display->display_options['filters']['client_id']['id'] = 'client_id';
   $handler->display->display_options['filters']['client_id']['table'] = 'vopros_question';
   $handler->display->display_options['filters']['client_id']['field'] = 'client_id';
@@ -241,7 +230,7 @@ function vopros_service_views_default_views() {
     4 => 0,
     5 => 0,
   );
-  /* Filterkriterie: Vopros Service forwarded questions.: Direction of forward */
+  /* Filter criterion: Vopros Service forwarded questions.: Direction of forward */
   $handler->display->display_options['filters']['direction']['id'] = 'direction';
   $handler->display->display_options['filters']['direction']['table'] = 'vopros_service_question';
   $handler->display->display_options['filters']['direction']['field'] = 'direction';
@@ -258,7 +247,7 @@ function vopros_service_views_default_views() {
     4 => 0,
     5 => 0,
   );
-  /* Filterkriterie: Vopros Service forwarded questions.: Type of forward */
+  /* Filter criterion: Vopros Service forwarded questions.: Type of forward */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'vopros_service_question';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -323,12 +312,10 @@ function vopros_service_views_default_views() {
     t('Updated'),
     t('Oprettet'),
     t('Forwarded to'),
-    t('with the editorial'),
     t('Direction of forward'),
     t('Type of forward'),
     t('List'),
   );
-
   $export['vopros_service_forwarded_question_list'] = $view;
 
   return $export;

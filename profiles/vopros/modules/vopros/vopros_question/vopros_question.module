@@ -779,11 +779,11 @@ function vopros_question_user_login_submit(&$form, &$form_state) {
 function vopros_question_entity_property_info() {
   $info = array();
 
-  // Add meta-data about the basic commerce_line_item properties.
+  // Add meta-data about the basic question properties.
   $properties = &$info['vopros_question']['properties'];
 
   $properties['user'] = array(
-    'label' => t('Question answere'),
+    'label' => t('Question answerer'),
     'type' => 'user',
     'description' => t('The uid of the user answering the question.'),
     'getter callback' => 'vopros_base_get_properties',
@@ -808,6 +808,32 @@ function vopros_question_entity_property_info() {
 function vopros_question_entity_property_info_alter(&$info) {
   // Need to clear the question cache when the question_id is altered.
   $info['vopros_question']['properties']['uid']['clear'] = array('user');
+
+  // The enitity module has populated properties by looking at the schema.
+  // Improve on it guesses at field types.
+  $properties = &$info['vopros_question']['properties'];
+  $properties['question_deadline_timestamp'] = array(
+    'label' => t("Deadline"),
+    'type' => 'date',
+    'schema field' => 'question_deadline_timestamp',
+    'description' => t("The deadline for answering the question."),
+  );
+
+  $properties['created'] = array(
+    'label' => t("Date asked"),
+    'type' => 'date',
+    'description' => t("The date the question was submitted."),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer nodes',
+    'schema field' => 'created',
+  );
+
+  $properties['changed'] = array(
+    'label' => t("Date changed"),
+    'type' => 'date',
+    'schema field' => 'changed',
+    'description' => t("The date the question was most recently updated."),
+  );
 }
 
 /**
@@ -869,16 +895,6 @@ function vopros_question_views_data_alter(&$data) {
     'field' => 'revision_id',
     'label' => 'Question revision',
   );
-
-  // Set timestamps as dates.
-  $data['vopros_question']['created']['field']['handler'] =
-  $data['vopros_question']['changed']['field']['handler']  = 'views_handler_field_date';
-  $data['vopros_question']['created']['sort']['handler'] =
-  $data['vopros_question']['changed']['sort']['handler'] =
-  $data['vopros_question']['question_deadline_timestamp']['sort']['handler'] = 'views_handler_sort_date';
-  $data['vopros_question']['created']['filter']['handler'] =
-  $data['vopros_question']['changed']['filter']['handler'] =
-  $data['vopros_question']['question_deadline_timestamp']['filter']['handler'] = 'views_handler_filter_date';
 
   // Add custom handlers for select fields.
   $data['vopros_question']['user_age']['field']['handler'] =

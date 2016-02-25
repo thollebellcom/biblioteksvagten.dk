@@ -50,6 +50,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Agency id'),
     '#input' => FALSE,
+    '#value' => '',
     '#description' => t('The agency id of the site, DK-<num> for libraries, custom string for others.'),
   );
 
@@ -57,6 +58,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Local email'),
     '#input' => FALSE,
+    '#value' => '',
     '#description' => t('The email address to direct local inquiries to.'),
   );
 
@@ -65,6 +67,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#title' => t('Default answer method'),
     '#options' => _vopros_embed_answer_preferences(),
     '#input' => FALSE,
+    '#value' => '',
     '#description' => t('Which answer method should be initially selected?'),
   );
 
@@ -72,6 +75,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Create tab'),
     '#input' => FALSE,
+    '#value' => '',
     '#description' => t('Automatically create tab.'),
   );
 
@@ -89,6 +93,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Code'),
     '#input' => FALSE,
+    '#value' => '',
     '#attached' => array(
       'js' => array(
         drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed.admin.js',

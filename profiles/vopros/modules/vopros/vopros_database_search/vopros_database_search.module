@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Vopros database search feature.
+ */
+
+include_once 'vopros_database_search.features.inc';

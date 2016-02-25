@@ -1,13 +1,13 @@
 name = Vopros Public Questions
 description = Defines the public question entity and associated features.
-package = Vopros
 core = 7.x
-
-configure = admin/vopros/config/public-question
-
+package = Vopros
+dependencies[] = views
 dependencies[] = vopros_base
 dependencies[] = vopros_question
-
-; Entity includes:
+configure = admin/vopros/config/public-question
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = vopros_question_published_list
 files[] = includes/vopros_public_question.controller.inc
 files[] = includes/vopros_public_question.entity.inc

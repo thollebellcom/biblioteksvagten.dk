@@ -10,7 +10,8 @@
 function vopros_user_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-field_vopros_user_description'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-field_vopros_user_description'
   $field_instances['profile2-vopros_user_librarian-field_vopros_user_description'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -44,7 +45,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-field_vopros_user_expertise'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-field_vopros_user_expertise'
   $field_instances['profile2-vopros_user_librarian-field_vopros_user_expertise'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -78,7 +80,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-field_vopros_user_image'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-field_vopros_user_image'
   $field_instances['profile2-vopros_user_librarian-field_vopros_user_image'] = array(
     'bundle' => 'vopros_user_librarian',
     'deleted' => 0,
@@ -122,7 +125,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-vopros_user_first_name'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-vopros_user_first_name'
   $field_instances['profile2-vopros_user_librarian-vopros_user_first_name'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -156,7 +160,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-vopros_user_last_name'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-vopros_user_last_name'
   $field_instances['profile2-vopros_user_librarian-vopros_user_last_name'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -190,7 +195,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-vopros_user_library'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-vopros_user_library'
   $field_instances['profile2-vopros_user_librarian-vopros_user_library'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -255,7 +261,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-vopros_user_phone_number'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-vopros_user_phone_number'
   $field_instances['profile2-vopros_user_librarian-vopros_user_phone_number'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -289,7 +296,8 @@ function vopros_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-vopros_user_librarian-vopros_user_shortcuts'
+  // Exported field_instance:
+  // 'profile2-vopros_user_librarian-vopros_user_shortcuts'
   $field_instances['profile2-vopros_user_librarian-vopros_user_shortcuts'] = array(
     'bundle' => 'vopros_user_librarian',
     'default_value' => NULL,
@@ -308,6 +316,7 @@ function vopros_user_field_default_field_instances() {
     'label' => 'Shortcut links',
     'required' => 0,
     'settings' => array(
+      'absolute_url' => 1,
       'attributes' => array(
         'class' => '',
         'configurable_title' => 0,
@@ -320,6 +329,7 @@ function vopros_user_field_default_field_instances() {
       ),
       'enable_tokens' => 1,
       'title' => 'optional',
+      'title_label_use_field_label' => FALSE,
       'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,

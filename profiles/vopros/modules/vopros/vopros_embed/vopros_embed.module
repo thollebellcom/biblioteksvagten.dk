@@ -258,7 +258,8 @@ function template_process_embedded_html(&$variables) {
  * @see embedded-page.tpl.php
  */
 function template_preprocess_embedded_page(&$variables) {
-  // Move some variables to the top level for themer convenience and template cleanliness.
+  // Move some variables to the top level for themer convenience and template
+  // cleanliness.
   $variables['show_messages'] = $variables['page']['#show_messages'];
 
   foreach (array('content' => 'content', 'footer' => 'footer') as $region_key => $region_name) {
@@ -269,6 +270,7 @@ function template_preprocess_embedded_page(&$variables) {
 
 
   // Prep the logo for the template.
+  $variables['logo'] = NULL;
   $logo = variable_get('vopros_embed_logo', '');
   if (!empty($logo)) {
     $variables['logo'] = theme(
@@ -276,7 +278,7 @@ function template_preprocess_embedded_page(&$variables) {
         'path' => image_style_url(
           'medium',
           $logo
-        )
+        ),
       )
     );
   }

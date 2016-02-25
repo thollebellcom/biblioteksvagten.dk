@@ -1,7 +1,8 @@
 name = "Vopros"
-description = "Install Vopros, a library-centered
-question and answer service."
+distribution_name = "Vopros"
+description = "Install Vopros, a library-centered question and answer service."
 core = "7.x"
+exclusive = TRUE
 
 ; Core
 dependencies[] = block
@@ -18,10 +19,8 @@ dependencies[] = list
 dependencies[] = menu
 dependencies[] = number
 dependencies[] = options
-dependencies[] = overlay
 dependencies[] = path
 dependencies[] = taxonomy
-dependencies[] = search
 dependencies[] = shortcut
 dependencies[] = toolbar
 
@@ -39,8 +38,10 @@ dependencies[] = views_ui
 ; Vopros modules
 dependencies[] = vopros_answer
 dependencies[] = vopros_base
+dependencies[] = vopros_embed
 dependencies[] = vopros_email
 dependencies[] = vopros_log
 dependencies[] = vopros_question
 dependencies[] = vopros_sms
+dependencies[] = vopros_statistics
 dependencies[] = vopros_user

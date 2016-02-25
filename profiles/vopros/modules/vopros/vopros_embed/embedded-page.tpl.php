@@ -11,7 +11,7 @@
 
     <div id="content">
       <div class="header">
-        <?php if($logo): ?>
+        <?php if ($logo): ?>
         <!-- Logo -->
           <?php print $logo ?>
         <?php endif; ?>
@@ -23,11 +23,6 @@
           <?php endif; ?>
         <?php print render($title_suffix); ?>
       </div> <!-- /.header -->
-
-      <?php if ($tabs): ?>
-      <!-- Tabs -->
-        <div class="tabs"><?php print render($tabs); ?></div>
-      <?php endif; ?>
 
       <!-- Messages -->
       <?php print $messages; ?>

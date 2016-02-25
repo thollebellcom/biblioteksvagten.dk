@@ -64,7 +64,7 @@ function vopros_answer_entity_info() {
 function vopros_answer_entity_property_info() {
   $info = array();
 
-  // Add meta-data about the basic commerce_line_item properties.
+  // Add meta-data about the basic answer properties.
   $properties = &$info['vopros_answer']['properties'];
 
   $properties['question'] = array(
@@ -91,21 +91,41 @@ function vopros_answer_entity_property_info() {
 }
 
 /**
- * Implements hook_enable().
- */
-function vopros_answer_enable() {
-  // When the module is enabled, we need to make sure that the
-  // menu is buildt correctly with the entity info.
-  menu_rebuild();
-}
-
-/**
  * Implements hook_entity_property_info_alter().
  */
 function vopros_answer_entity_property_info_alter(&$info) {
   // Need to clear the question cache when the question_id is altered.
   $info['vopros_answer']['properties']['question_id']['clear'] = array('question');
   $info['vopros_answer']['properties']['uid']['clear'] = array('user');
+
+  // The enitity module has populated properties by looking at the schema.
+  // Improve on it guesses at field types.
+  $properties = &$info['vopros_answer']['properties'];
+
+  $properties['created'] = array(
+    'label' => t("Date asked"),
+    'type' => 'date',
+    'description' => t("The date the question was submitted."),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer nodes',
+    'schema field' => 'created',
+  );
+
+  $properties['changed'] = array(
+    'label' => t("Date changed"),
+    'type' => 'date',
+    'schema field' => 'changed',
+    'description' => t("The date the question was most recently updated."),
+  );
+}
+
+/**
+ * Implements hook_enable().
+ */
+function vopros_answer_enable() {
+  // When the module is enabled, we need to make sure that the
+  // menu is buildt correctly with the entity info.
+  menu_rebuild();
 }
 
 /**
@@ -185,16 +205,6 @@ function vopros_answer_views_data_alter(&$data) {
       'handler' => 'vopros_answer_area_views_count',
     ),
   );
-
-  // Set timestamps as dates.
-  $data['vopros_answer']['created']['field']['handler'] =
-  $data['vopros_answer']['changed']['field']['handler']  = 'views_handler_field_date';
-  $data['vopros_answer']['created']['sort']['handler'] =
-  $data['vopros_answer']['changed']['sort']['handler'] =
-  $data['vopros_answer']['question_deadline_timestamp']['sort']['handler'] = 'views_handler_sort_date';
-  $data['vopros_answer']['created']['filter']['handler'] =
-  $data['vopros_answer']['changed']['filter']['handler'] =
-  $data['vopros_answer']['question_deadline_timestamp']['filter']['handler'] = 'views_handler_filter_date';
 
   // Add revision table.
   $data['vopros_answer_revision'] = $data['vopros_answer'];

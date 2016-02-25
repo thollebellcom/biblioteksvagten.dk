@@ -4,6 +4,8 @@
  * @file
  */
 
+include_once('vopros_public_question.features.inc');
+
 module_load_include('inc', 'vopros_public_question', 'includes/vopros_public_question.service');
 
 /**

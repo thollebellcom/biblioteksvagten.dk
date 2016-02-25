@@ -17,14 +17,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_vopros_user_description',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -46,14 +38,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_vopros_user_expertise',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -81,14 +65,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_vopros_user_image',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -112,14 +88,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_first_name',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -142,14 +110,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_last_name',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -172,7 +132,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_library',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -196,14 +155,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_notes',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -225,14 +176,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_phone_number',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -255,7 +198,6 @@ function vopros_user_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'vopros_user_shortcuts',
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',

@@ -5,6 +5,8 @@
  * Vopros SMS module.
  */
 
+define('VOPROS_SMS_ANSWERED_QUESTION_MACRO', "[vopros_answer:answer-content]\n Mvh.[site:name]");
+
 /**
  * Implements hook_entity_info().
  */

@@ -439,6 +439,33 @@ function vopros_feedback_vopros_question_activity_feed($question, &$feed) {
 }
 
 /**
+ * Implements hook_views_default_views_alter().
+ *
+ * Add relationship to feedback.
+ */
+function vopros_feedback_views_default_views_alter(&$views) {
+  $relationship = array(
+    'id' => 'feedback_question_id',
+    'table' => 'vopros_question',
+    'field' => 'feedback_question_id',
+  );
+
+  $rel_views = array(
+    'vopros_question_list',
+    'vopros_question_list_admin',
+    'vopros_question_published_list',
+  );
+
+  foreach ($rel_views as $view) {
+    if (isset($views[$view])) {
+      $display_options = &$views[$view]->display['default']->display_options;
+      $display_options['relationships']['feedback_question_id'] = $relationship;
+    }
+  }
+}
+
+
+/**
  * Implements hook_views_data_alter().
  */
 function vopros_feedback_views_data_alter(&$data) {

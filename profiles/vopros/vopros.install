@@ -84,4 +84,31 @@ function vopros_install() {
     ->execute();
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
+
+  // Create a default role for site administrators, with all available
+  // permissions assigned. Lifted from standard profile
+  $admin_role = new stdClass();
+  $admin_role->name = 'administrator';
+  $admin_role->weight = 50;
+  user_role_save($admin_role);
+  user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
+  // Set this as the administrator role.
+  variable_set('user_admin_role', $admin_role->rid);
+
+  // Assign user 1 the "administrator" role.
+  db_insert('users_roles')
+    ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
+    ->execute();
+
+  // Create a role for question answering staff.
+  $staff_role = new stdClass();
+  $staff_role->name = 'staff';
+  $staff_role->weight = 2;
+  user_role_save($staff_role);
+  variable_set('vopros_user_staff_role', $staff_role->rid);
+
+  // Set date formats.
+  variable_set('date_format_long', 'l, F j, Y - H:i');
+  variable_set('date_format_medium', 'D, Y-m-d H:i');
+  variable_set('date_format_short', 'd/m/Y - H:i');
 }

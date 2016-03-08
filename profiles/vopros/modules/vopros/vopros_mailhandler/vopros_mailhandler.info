@@ -4,6 +4,7 @@ core = 7.x
 package = Vopros
 dependencies[] = feeds
 dependencies[] = mailhandler
+dependencies[] = mailhandler_php_imap
 dependencies[] = vopros_base
 dependencies[] = vopros_email
 dependencies[] = vopros_question

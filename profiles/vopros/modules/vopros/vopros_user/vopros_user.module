@@ -14,9 +14,35 @@ include_once 'vopros_user.features.inc';
 function vopros_user_menu() {
   $items['admin/vopros/config/user'] = array(
     'title' => 'User settings',
+    'description' => 'Configure Vopros user and role settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('vopros_user_settings_form'),
     'access arguments' => array('administer vopros'),
+    'file' => 'vopros_user.admin.inc',
+  );
+
+  $items['admin/vopros/config/user/settings'] = array(
+    'title' => 'User settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/vopros/config/user/roles'] = array(
+    'title' => 'Role settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_user_role_settings_form'),
+    'access arguments' => array('administer vopros'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'vopros_user.admin.inc',
+  );
+
+  $items['admin/vopros/config/user/roles/rebuild'] = array(
+    'title' => 'Rebuild permissions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_user_role_settings_rebuild_form'),
+    'access arguments' => array('administer vopros'),
+    'type' => MENU_CALLBACK,
+    'file' => 'vopros_user.admin.inc',
   );
 
   return $items;
@@ -41,47 +67,13 @@ function vopros_user_field_views_data_alter(&$data, $field, $module) {
 }
 
 /**
- * Settings form for the vopros_user module.
+ * Return list of libraries.
+ *
+ * Suitable for #options.
+ *
+ * @return array
+ *   Name of libraries indexed by library id.
  */
-function vopros_user_settings_form($form, &$form_state) {
-  $form['vopros_user_service_url'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Service URL'),
-    '#description' => t('URL of the OpenAgency service.'),
-    '#default_value' => variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL),
-  );
-
-  $form['vopros_user_service_group'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Service group'),
-    '#description' => t('Group used for authentication.'),
-    '#default_value' => variable_get('vopros_user_service_group', ''),
-  );
-
-  $form['vopros_user_service_user'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Service user'),
-    '#description' => t('User used for authentication.'),
-    '#default_value' => variable_get('vopros_user_service_user', ''),
-  );
-
-  $form['vopros_user_service_password'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Service password'),
-    '#description' => t('Password used for authentication.'),
-    '#default_value' => variable_get('vopros_user_service_password', ''),
-  );
-
-  $form['vopros_user_included_libraries'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Included libraries'),
-    '#description' => t('Enter the library ids you want to include to the library list, seperate by space and leave empty to include all.'),
-    '#default_value' => variable_get('vopros_user_included_libraries', ''),
-  );
-
-  return system_settings_form($form);
-}
-
 function vopros_user_get_libraries() {
   $cache = cache_get('vopros_user_libraries', 'cache_field');
   // Return cache if possible.
@@ -89,38 +81,60 @@ function vopros_user_get_libraries() {
     $libraries = $cache->data;
   }
   else {
-    // Get the libraries from openagency service if no cache was found.
-    $libraries = array();
-    $library_types = array('Folkebibliotek', 'Forskningsbibliotek');
-    foreach ($library_types as $library_type) {
-      $client = new NanoSOAPClient(variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL), array('namespaces' => array('' => 'http://oss.dbc.dk/ns/openagency')));
-      $params = array(
-        'authentication' => array(
-          'groupIdAut' => variable_get('vopros_user_service_group', ''),
-          'passwordAut' => variable_get('vopros_user_service_password', ''),
-          'userIdAut' => variable_get('vopros_user_service_user', ''),
-        ),
-        'libraryType' => $library_type,
-      );
-      $xml = $client->call('nameListRequest', $params);
-      $result = DOMDocument::loadXML($xml);
-      foreach ($result->getElementsByTagName('agency') as $agency) {
-        $libraries[$agency->getElementsByTagName('agencyId')->item(0)->nodeValue] = $agency->getElementsByTagName('agencyName')->item(0)->nodeValue;
+    if ($preset_libraries = variable_get('vopros_user_libraries', '')) {
+      $libraries = array();
+      foreach (explode("\n", $preset_libraries) as $line) {
+        list($id, $name) = explode('|', $line);
+        if ($id && $name) {
+          $libraries[trim($id)] = trim($name);
+        }
       }
     }
+    else {
+      // Get the libraries from openagency service if no cache was found.
+      $libraries = _vopros_user_get_libraries_from_service();
+    }
     asort($libraries);
+    $include_libraries = variable_get('vopros_user_included_libraries', '');
+    if ($include_libraries) {
+      $include_libraries = explode(' ', $include_libraries);
+      $libraries = array_intersect_key($libraries, array_flip(array_values($include_libraries)));
+    }
+
     cache_set('vopros_user_libraries', $libraries, 'cache_field', REQUEST_TIME + 86400);
   }
-  $include_libraries = variable_get('vopros_user_included_libraries', '');
-  if ($include_libraries) {
-    $include_libraries_list = explode(' ', $include_libraries);
-    return array_intersect_key($libraries, array_flip(array_values($include_libraries_list)));
-  }
+
   return $libraries;
 }
 
 /**
- * Implementation of hook_default_profile2_type().
+ * Get library listing from openagency service.
+ */
+function _vopros_user_get_libraries_from_service() {
+  $libraries = array();
+  $library_types = array('Folkebibliotek', 'Forskningsbibliotek');
+  foreach ($library_types as $library_type) {
+    $client = new NanoSOAPClient(variable_get('vopros_user_service_url', VOPROS_USER_DEFAULT_URL), array('namespaces' => array('' => 'http://oss.dbc.dk/ns/openagency')));
+    $params = array(
+      'authentication' => array(
+        'groupIdAut' => variable_get('vopros_user_service_group', ''),
+        'passwordAut' => variable_get('vopros_user_service_password', ''),
+        'userIdAut' => variable_get('vopros_user_service_user', ''),
+      ),
+      'libraryType' => $library_type,
+    );
+    $xml = $client->call('nameListRequest', $params);
+    $result = DOMDocument::loadXML($xml);
+    foreach ($result->getElementsByTagName('agency') as $agency) {
+      $libraries[$agency->getElementsByTagName('agencyId')->item(0)->nodeValue] = $agency->getElementsByTagName('agencyName')->item(0)->nodeValue;
+    }
+  }
+
+  return $libraries;
+}
+
+/**
+ * Implements hook_default_profile2_type().
  */
 function vopros_user_default_profile2_type() {
   $items = array();
@@ -140,16 +154,31 @@ function vopros_user_default_profile2_type() {
  */
 function vopros_user_permission() {
   return array(
-    'edit own shortcut links' =>  array(
+    'edit own shortcut links' => array(
       'title' => t('Edit own shortcut links'),
       'description' => t('Edit own shortcut links on user profile.'),
     ),
-    'edit any shortcut links' =>  array(
+    'edit any shortcut links' => array(
       'title' => t('Edit any shortcut links'),
       'description' => t('Edit any shortcut links on user profile.'),
     ),
   );
 }
+
+/**
+ * Implements hook_vopros_extra_permissions().
+ */
+function vopros_user_vopros_extra_permissions() {
+  return array(
+    'staff' => array(
+      'access user profiles',
+      'edit own vopros_user_librarian profile',
+      'view any vopros_user_librarian profile',
+      'view own vopros_user_librarian profile',
+    ),
+  );
+}
+
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -163,7 +192,7 @@ function vopros_user_form_user_profile_form_alter(&$form, &$form_state) {
 }
 
 /**
- * Get a full for a user, or fall back to using username.
+ * Get a full name for a user, or fall back to using username.
  */
 function vopros_user_name($account = NULL) {
   global $user;
@@ -205,4 +234,52 @@ function vopros_user_get_librarians() {
     $options[$profile->uid] = vopros_user_profile_user_name($profile);
   }
   return $options;
+}
+
+/**
+ * Update user permissions.
+ */
+function vopros_user_update_permissions() {
+  // Ensure that admin_role has all permissions, as core doesn't.
+  $rid = variable_get('user_admin_role', 0);
+  if ($rid) {
+    $permissions = module_invoke_all('permission');
+    $permissions = array_keys($permissions);
+
+    if (!empty($permissions)) {
+      user_role_grant_permissions($rid, $permissions);
+    }
+  }
+
+  $rid = variable_get('vopros_user_staff_role', 0);
+  if ($rid) {
+    $permissions = array();
+    // Grant Vopros permissions.
+    $all_permissions = module_invoke_all('permission');
+    foreach ($all_permissions as $name => $permission) {
+      // We're only concerned about adding permissions.
+      if (isset($permission['vopros roles']) && in_array('staff', $permission['vopros roles'])) {
+        $permissions[] = $name;
+      }
+    }
+
+    // Grant extra non-Vopros permissions.
+    $extra_permissions = module_invoke_all('vopros_extra_permissions');
+    if (isset($extra_permissions['staff'])) {
+      $permissions = array_merge($permissions, $extra_permissions['staff']);
+    }
+
+    if (!empty($permissions)) {
+      user_role_grant_permissions($rid, $permissions);
+    }
+  }
+}
+
+/**
+ * Implements hook_flush_caches().
+ *
+ * Update permissions on cache clear.
+ */
+function vopros_user_flush_caches() {
+  vopros_user_update_permissions();
 }

@@ -25,8 +25,8 @@ class views_plugin_display_page extends views_plugin_display {
       'contains' => array(
         'type' => array('default' => 'none'),
         // Do not translate menu and title as menu system will.
-        'title' => array('default' => '', 'translatable' => FALSE),
-        'description' => array('default' => '', 'translatable' => FALSE),
+        'title' => array('default' => '', 'translatable' => TRUE),
+        'description' => array('default' => '', 'translatable' => TRUE),
         'weight' => array('default' => 0),
         'name' => array('default' => variable_get('menu_default_node_menu', 'navigation')),
         'context' => array('default' => ''),

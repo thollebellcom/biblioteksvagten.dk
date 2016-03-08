@@ -1,0 +1,119 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:32+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.module:56
+msgid ""
+"An automatically created search index required to be able to use the search "
+"page create by Vopros search."
+msgstr ""
+"Et automatisk genereret søgeindeks, som er nødvendigt for at kunne bruge "
+"søgesiden til Vopros søgning."
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Vopros Search"
+msgstr "Vopros søgning"
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Defines the search pages and performs integration with search API"
+msgstr "Definerer søgeside og integrerer med søge API"
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:142
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:143
+msgid "Search"
+msgstr "Søg"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:144
+msgid "more"
+msgstr "mere"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:145
+msgid "Apply"
+msgstr "Anvend"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:146
+msgid "Reset"
+msgstr "Nulstil"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:147
+msgid "Sort by"
+msgstr "Sorter efter"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:148
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:149
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:150
+msgid "Items per page"
+msgstr "Poster pr side"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:151
+msgid "- All -"
+msgstr "- Alle -"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:152
+msgid "Offset"
+msgstr "Offset"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:153
+msgid "« first"
+msgstr "« første"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:154
+msgid "‹ previous"
+msgstr "‹ forrige"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:155
+msgid "next ›"
+msgstr "næste ›"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:156
+msgid "last »"
+msgstr "sidste »"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:157
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:158
+msgid "Asked"
+msgstr "Spurgt"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:159
+msgid "Status"
+msgstr "Status"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:160
+msgid "[question_question_status] ([question_question_status_reason])"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:161
+msgid "Editorial"
+msgstr "Redaktion"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:162
+msgid "Last edited by"
+msgstr "Sidst redigeret af"
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:163
+msgid "Page"
+msgstr "Side"

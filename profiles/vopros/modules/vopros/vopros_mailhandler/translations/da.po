@@ -1,0 +1,48 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:31+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.module:16
+msgid ""
+"No mailboxes configured for automatic mail import. Please <a href=@url>add a "
+"mailbox</a>."
+msgstr ""
+"Der er ingen e-mail konto konfigureret til e-mail import. Der skal <a "
+"href=@url>konfigureres en konto</a> før Vopros kan modtage spørgsmål per "
+"mail."
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.info:0
+msgid "Vopros mail handler"
+msgstr "Vorpso mailhåndtering"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.info:0
+msgid "Handles parcing of mails to create entities of them."
+msgstr "Tager sig af konvertering af emails til entiteter."
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:16
+msgid "No settings available"
+msgstr "Ingen indstillinger tilgængelige"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:28
+msgid "Question id from subject code"
+msgstr "Spørgsmåls-ID fra emnefeltet (kode)"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:29
+msgid "The question id gotten from a code in the subject"
+msgstr "Spørgsmåls-ID hentet fra en kode i emnefeltet"
+
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerProcessor.inc:100
+msgid "Emails"
+msgstr "Emails"

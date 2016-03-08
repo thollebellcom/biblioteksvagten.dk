@@ -1,0 +1,442 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:31+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:224;417
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:225
+msgid "Answer overview"
+msgstr "Oversigt over svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:226;419
+msgid "more"
+msgstr "mere"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:227;420
+msgid "Apply"
+msgstr "Anvend"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:228;421
+msgid "Reset"
+msgstr "Nulstil"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:229;422
+msgid "Sort by"
+msgstr "Sorter efter"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:230;423
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:231;424
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:232;425
+msgid "Items per page"
+msgstr "Poster pr side"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:233;426
+msgid "- All -"
+msgstr "- Alle -"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:234;427
+msgid "Offset"
+msgstr "Offset"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:235;428
+msgid "« first"
+msgstr "« første"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:236;429
+msgid "‹ previous"
+msgstr "‹ forrige"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:237;430
+msgid "next ›"
+msgstr "næste ›"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:238;431
+msgid "last »"
+msgstr "sidste »"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:239
+msgid "Answer revisions"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:240;432
+msgid "question"
+msgstr "spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:241
+msgid "Answer creator"
+msgstr "Svar oprettet af"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:242
+msgid "Profile"
+msgstr "Profil"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:243
+msgid "Question client"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:244;433
+msgid "Question ID"
+msgstr "Spørgsmåls-ID"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:245;434
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:246
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:72
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:36
+msgctxt "a vopros answer"
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:247
+msgid "Client"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:248;437
+msgid "Channel"
+msgstr "Kanal"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:249
+msgid "Bibliotek"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:250
+msgid "Question created"
+msgstr "Spørgsmål er oprettet"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:251
+msgid "Library"
+msgstr "Bibliotek"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:252;444
+msgid "Page"
+msgstr "Side"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:418
+msgid "Your questions"
+msgstr "Dine spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:435
+msgid "Title"
+msgstr "Titel"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:436
+msgid "Modtaget fra"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:438
+msgid "Usage"
+msgstr "Brug"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:439
+msgid "Status"
+msgstr "Status"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:440
+msgid "Deadline"
+msgstr "Tidsfrist"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:441
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:107
+msgid "Date asked"
+msgstr "Dato oprettet"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:442
+msgid "Release question"
+msgstr "Frigiv spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:443
+msgid "All"
+msgstr "Alle"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:22
+msgctxt "a vopros answer"
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:97
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.theme.inc:34
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:23
+msgctxt "a vopros answer"
+msgid "Answers"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.theme.inc:50
+msgid "Answers"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:46
+msgid "Administrator"
+msgstr "Administrator"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:50
+msgid "Public"
+msgstr "Offentlig"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:74
+msgid "The unique ID of the question the answer belongs to."
+msgstr "Unik ID på det spørgsmål som svaret hører til."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:82
+msgid "Answer owner"
+msgstr "Svarejer"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:84
+msgid "The uid of the user creating the answer."
+msgstr "Unik ID på brugeren der laver svaret."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:109
+msgid "The date the question was submitted."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:116
+msgid "Date changed"
+msgstr "Dato ændret"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:119
+msgid "The date the question was most recently updated."
+msgstr "Datoen hvor spørgsmålet senest blev opdateret."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:150
+msgid "User given feedback"
+msgstr "Brugerfeedback"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:195
+msgid "Own questions"
+msgstr "Egne spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:196
+msgid "Display a table with a users own questions."
+msgstr "Vis en tabel med brugerens egne spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:203
+msgid "Views Count"
+msgstr "Visningsantal"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:204
+msgid "Display the number of results for the view."
+msgstr "Vis antallet af resultater for visningen"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:221
+msgid "Answer revision creator"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:233
+msgid "Revision timestamp"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:320
+msgid "Administer answers"
+msgstr "Administrer svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:325
+msgid "Access lists of answers, primarily for viewing and referencing"
+msgstr "Tilgå liste over svar, primært for at se og referere til"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:329
+msgid "Create answers"
+msgstr "Lav svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:333
+msgid "Edit any answer"
+msgstr "Rediger hvilket som helst svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:338
+msgid "Edit own answers"
+msgstr "Rediger egne svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:342
+msgid "View own answers"
+msgstr "Se egne svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:346
+msgid "Access and use revisions"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:493
+msgid "Answers:"
+msgstr "Svar:"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:516
+msgid "See more"
+msgstr "Se mere ..."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:537;587;266
+msgid "Answer question"
+msgstr "Svar på spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:540;590;274
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.theme.inc:38;46
+msgid "Edit answer"
+msgstr "Rediger svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:559
+msgid "Save and answer"
+msgstr "Gem og svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:608
+msgid "You can't answer the question, the question is already being answered"
+msgstr "Du kan ikke svare på spørgsmålet, det er allerede besvaret"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:618
+msgid "The question been locked for you, while you are answering it."
+msgstr "Spørgsmålet er låst til dig, mens du besvarer det."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:253
+msgid "Answer settings"
+msgstr "Svarindstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:254
+msgid "Configure general answer settings, fields, and displays."
+msgstr "Konfigurer generelle svarindstillinger, felter og visninger."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:261
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:284
+msgid "Revisions"
+msgstr "Revisioner"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:294
+msgid "Diff"
+msgstr "Forskel"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:304
+msgid "Revert revision"
+msgstr "Gå tilbage til forrige revision"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.info:0
+msgid "Vopros Answers"
+msgstr "Vopros svar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.info:0
+msgid "Defines the Answer entity and associated features."
+msgstr "Definer svarentiteten og tilhørende features."
+
+#: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:46;180
+msgid "Save telephone answer"
+msgstr "Gem telefonsvar"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:46;180
+msgid "Save and send"
+msgstr "Gem og send"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:109
+msgid "Question data"
+msgstr "Spørgsmålsdata"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:120
+msgid "Channel data"
+msgstr "Kanaldata"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:131
+msgid "User data"
+msgstr "Brugerdata"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:142
+msgid "Question history"
+msgstr "Spørgsmålets historik"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:166
+msgid "Save"
+msgstr "Gem"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:173
+msgid "Save and release"
+msgstr "Gem og frigiv"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:188
+msgid "Release"
+msgstr "Frigiv"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:202
+msgid "Answer field is required"
+msgstr "Svar er obligatorisk"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:221
+msgid "Answer saved"
+msgstr "Svaret er gemt"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:231
+msgid "The question has been unlocked for others to answer."
+msgstr "Spørgsmålet er nu låst op så andre kan svare."
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:271
+msgid "Answer saved and question released for others to answer."
+msgstr "Svaret er gemt og spørgsmålet er frigivet, så andre kan besvare det"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:297
+msgid "Answer saved and is ready to be submited to the user."
+msgstr "Besvarelsen er gemt og klar til at blive sendt til brugeren."
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:323;331;384;388
+msgid "!date by !username"
+msgstr "!date for !username"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:336
+msgid "revert"
+msgstr "fortryd"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:358
+msgid "Show diff"
+msgstr "Vis forskel"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:416
+msgid "next diff >"
+msgstr "næste forskel"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:422
+msgid "< previous diff"
+msgstr "< forrige forskel"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:459
+msgid "Current revision:"
+msgstr "Aktuel revision:"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:462
+msgid "Revision of !new_date:"
+msgstr "Revision af !new_date:"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:561
+msgid "Changes to %name"
+msgstr "Ændringer til %name"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:571
+msgid "No visible changes"
+msgstr "Ingen synlige ændringer"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/views/handlers/vopros_answer_area_own_questions.inc:28
+msgid "Your active questions"
+msgstr "Dine aktive spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_answer/includes/views/handlers/vopros_answer_area_views_count.inc:20
+msgid "Number of questions: @count"
+msgstr "Antal spørgsmål: @count"

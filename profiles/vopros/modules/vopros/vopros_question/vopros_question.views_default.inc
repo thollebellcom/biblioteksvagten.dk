@@ -163,21 +163,20 @@ function vopros_question_views_default_views() {
   $handler->display->display_options['fields']['question_status']['field'] = 'question_status';
   $handler->display->display_options['fields']['question_status']['label'] = 'Status';
   $handler->display->display_options['fields']['question_status']['hide_alter_empty'] = FALSE;
-  /* Field: Question: Question_deadline_timestamp */
+  /* Field: Question: Deadline */
   $handler->display->display_options['fields']['question_deadline_timestamp']['id'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_deadline_timestamp']['field'] = 'question_deadline_timestamp';
-  $handler->display->display_options['fields']['question_deadline_timestamp']['label'] = 'Deadline';
   $handler->display->display_options['fields']['question_deadline_timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['question_deadline_timestamp']['date_format'] = 'vopros_question_deadline';
-  /* Field: Question: Changed */
+  /* Field: Question: Date changed */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
   $handler->display->display_options['fields']['changed']['label'] = 'Updated';
   $handler->display->display_options['fields']['changed']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['changed']['date_format'] = 'short';
-  /* Field: Question: Created */
+  /* Field: Question: Date asked */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
@@ -589,7 +588,7 @@ function vopros_question_views_default_views() {
     t('Status'),
     t('Deadline'),
     t('Updated'),
-    t('Created'),
+    t('Date asked'),
     t('Svartype'),
     t('User_answer_preference'),
     t('List'),
@@ -733,21 +732,20 @@ function vopros_question_views_default_views() {
   $handler->display->display_options['fields']['question_status']['field'] = 'question_status';
   $handler->display->display_options['fields']['question_status']['label'] = 'Status';
   $handler->display->display_options['fields']['question_status']['hide_alter_empty'] = FALSE;
-  /* Field: Question: Question_deadline_timestamp */
+  /* Field: Question: Deadline */
   $handler->display->display_options['fields']['question_deadline_timestamp']['id'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_deadline_timestamp']['field'] = 'question_deadline_timestamp';
-  $handler->display->display_options['fields']['question_deadline_timestamp']['label'] = 'Deadline';
   $handler->display->display_options['fields']['question_deadline_timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['question_deadline_timestamp']['date_format'] = 'vopros_question_deadline';
-  /* Field: Question: Changed */
+  /* Field: Question: Date changed */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
   $handler->display->display_options['fields']['changed']['label'] = 'Updated';
   $handler->display->display_options['fields']['changed']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['changed']['date_format'] = 'short';
-  /* Field: Question: Created */
+  /* Field: Question: Date asked */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
@@ -1134,21 +1132,20 @@ function vopros_question_views_default_views() {
   $handler->display->display_options['fields']['name']['relationship'] = 'uid';
   $handler->display->display_options['fields']['name']['label'] = 'Question assignee';
   $handler->display->display_options['fields']['name']['hide_alter_empty'] = FALSE;
-  /* Field: Question: Question_deadline_timestamp */
+  /* Field: Question: Deadline */
   $handler->display->display_options['fields']['question_deadline_timestamp']['id'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_deadline_timestamp']['field'] = 'question_deadline_timestamp';
-  $handler->display->display_options['fields']['question_deadline_timestamp']['label'] = 'Deadline';
   $handler->display->display_options['fields']['question_deadline_timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['question_deadline_timestamp']['date_format'] = 'vopros_question_deadline';
-  /* Field: Question: Changed */
+  /* Field: Question: Date changed */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
   $handler->display->display_options['fields']['changed']['label'] = 'Updated';
   $handler->display->display_options['fields']['changed']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['changed']['date_format'] = 'short';
-  /* Field: Question: Created */
+  /* Field: Question: Date asked */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
@@ -1267,7 +1264,7 @@ function vopros_question_views_default_views() {
     t('Status'),
     t('Deadline'),
     t('Updated'),
-    t('Created'),
+    t('Date asked'),
     t('Question assignee'),
     t('Admin'),
     t('Anvend'),
@@ -1278,7 +1275,9 @@ function vopros_question_views_default_views() {
     t('user'),
     t('Channel'),
     t('Svartype'),
+    t('Admin list'),
     t('Asked for help'),
+    t('Asked for help list'),
   );
   $export['vopros_question_list_admin'] = $view;
 

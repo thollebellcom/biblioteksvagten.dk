@@ -316,6 +316,8 @@ function vopros_user_views_default_views() {
     t('Page'),
     t('more'),
     t('Rolle'),
+    t('Users'),
+    t('View the list of users.'),
   );
   $export['vopros_user_list'] = $view;
 

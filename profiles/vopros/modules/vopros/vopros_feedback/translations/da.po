@@ -1,0 +1,326 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:31+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:13
+msgid "MD5 Secret"
+msgstr "MD5 Hemmelighed"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:14
+msgid "Used for creating a validation hash used as access control."
+msgstr "Brugt til at generere en valid hash til brug for adgangskontrol."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:20
+msgid "Intro text"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:21
+msgid "Setup intro text on feedback page when feedback has been saved."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:44
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.pages.inc:43
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:474
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:687
+#: profiles/vopros/modules/vopros/vopros_feedback/theme/vopros_feedback.theme.inc:13
+msgid "Feedback"
+msgstr "Vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:13;25
+msgctxt "a vopros feedback"
+msgid "Feedback"
+msgstr "Vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:50
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.pages.inc:49
+msgid "Save feedback"
+msgstr "Gem vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:55
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.pages.inc:54
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:113
+msgid "Give feedback"
+msgstr "Giv vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.admin.inc:81
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.pages.inc:100
+msgid "Your feedback has been received. Thank you."
+msgstr "Vi har modtaget din vurdering. Tak skal du have."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.pages.inc:71
+msgid "Edit feedback"
+msgstr "Redigér vurdering og kommentar"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:14
+msgctxt "a vopros feedback"
+msgid "Feedbacks"
+msgstr "Vurderinger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:35
+msgid "Administrator"
+msgstr "Administrator"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:129
+msgid "Administer Feedback"
+msgstr "Administrer vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:133
+msgid "Access lists of feedback, primarily for viewing and referencing"
+msgstr "Liste over vurderinger, primært til visning og reference"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:136;73
+msgid "Create feedback"
+msgstr "Opret vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:139
+msgid "Edit any feedback"
+msgstr "Rediger vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:143
+msgid "Edit own feedback"
+msgstr "Rediger egen vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:146
+msgid "View own feedback"
+msgstr "Se egen vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:149
+msgid "View agency feedback"
+msgstr "Se biblioteks vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:270;277
+msgid "Feedback content"
+msgstr "Indhold i vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:271;278
+msgid "The actual feedback"
+msgstr "Selve vurderingen"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:344
+msgid "Notification, a answer has received feedback"
+msgstr "Notifikation, et svar har modtaget en vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:345
+msgid "The answer for the question: @title  has received feedback link: !url"
+msgstr "Svaret på spørgsmålet: @title har modtaget denne vurdering: !url"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:402
+msgid "Rating"
+msgstr "Rating"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:436
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:689
+msgid "User feedback"
+msgstr "Brugervurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:475
+msgid "Latest feedback created for question"
+msgstr "Seneste vurdering af spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:496
+msgid "User given feedback"
+msgstr "Brugerfeedback"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:539;553
+msgid "Feedback url"
+msgstr "Link til vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:540;556
+msgid "The feedback url used in emails."
+msgstr "Link til vurdering anvendt i emails."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:543;559
+msgid "Feedback token"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:544;562
+msgid "The feedback token used in emails."
+msgstr "Link til vurdering anvendt i emails."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:60
+msgid "Feedback settings"
+msgstr "Vurderingsindstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:61
+msgid "Configure general feedback settings, fields, and displays."
+msgstr "Konfigurer generelle vurderingsindstillinger, felter og visning."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:68
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:90
+msgid "View"
+msgstr "Se"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:95
+msgid "Edit"
+msgstr "Rediger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.info:0
+msgid "Vopros Feedback"
+msgstr "Vopros Vurdering"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.info:0
+msgid ""
+"Defines the Feedback entity and associated features, used for allowing users "
+"to provide feedback."
+msgstr ""
+"Definerer vurderingsentiteten og tilhørende features. Anvendes til at lade "
+"brugerne give vurderinger."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:665
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:666
+msgid "All Feedback"
+msgstr "Alle vurderinger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:667
+msgid "mere"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:668
+msgid "Apply"
+msgstr "Anvend"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:669
+msgid "Nulstil"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:670
+msgid "Sorter efter"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:671
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:672
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:673
+msgid "Poster pr side"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:674
+msgid "- Alle -"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:675
+msgid "Offset"
+msgstr "Offset"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:676
+msgid "« first"
+msgstr "« første"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:677
+msgid "‹ previous"
+msgstr "‹ forrige"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:678
+msgid "next ›"
+msgstr "næste ›"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:679
+msgid "last »"
+msgstr "sidste »"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:680
+msgid "email"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:681
+msgid "spørgsmål"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:682
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:683
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:684
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:685
+msgid "See answer sent to user"
+msgstr "Se svar sendt til brugeren"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:686
+msgid "Vurdering"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:688
+msgid "User rating"
+msgstr "Brugerrating"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:690
+msgid "more"
+msgstr "mere"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:691
+msgid "answer"
+msgstr "svar"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:692
+msgid "user"
+msgstr "bruger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:693
+msgid "Profile"
+msgstr "Profil"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:694
+msgid "Name"
+msgstr "Navn"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:695
+msgid "Uid"
+msgstr "Uid"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:696
+msgid "Agency feedback"
+msgstr "Feedback på bibliotekets svar"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:697
+msgid "bruger"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:698
+msgid "All feedbacks"
+msgstr "Alle vurderinger"
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:699
+msgid "Profil"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:700
+msgid "Navn"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:701
+msgid ","
+msgstr ","
+
+#: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:702
+msgid "Bibliotek "
+msgstr ""

@@ -1,0 +1,126 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  profiles/vopros/modules/vopros/vopros_search/vopros_search.module: n/a
+#  profiles/vopros/modules/vopros/vopros_search/vopros_search.info: n/a
+#  profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-03-08 09:32+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.module:56
+msgid "An automatically created search index required to be able to use the search page create by Vopros search."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Vopros Search"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Defines the search pages and performs integration with search API"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/vopros_search.info:0
+msgid "Vopros"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:142
+msgid "Master"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:143
+msgid "Search"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:144
+msgid "more"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:145
+msgid "Apply"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:146
+msgid "Reset"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:147
+msgid "Sort by"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:148
+msgid "Asc"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:149
+msgid "Desc"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:150
+msgid "Items per page"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:151
+msgid "- All -"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:152
+msgid "Offset"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:153
+msgid "« first"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:154
+msgid "‹ previous"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:155
+msgid "next ›"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:156
+msgid "last »"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:157
+msgid "."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:158
+msgid "Asked"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:159
+msgid "Status"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:160
+msgid "[question_question_status] ([question_question_status_reason])"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:161
+msgid "Editorial"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:162
+msgid "Last edited by"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_search/includes/views/vopros_search.views_default.inc:163
+msgid "Page"
+msgstr ""
+

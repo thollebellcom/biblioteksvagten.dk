@@ -3,8 +3,16 @@
 /**
  * @file
  *
- * Vopros install profile. Uses Profiler.
+ * Vopros install profile.
  */
+
+function vopros_profile_details() {
+  return array(
+    'name' => 'Vopros',
+    'description' => 'Install Vopros, a library-centered question and answer service.',
+    'language' => 'da',
+  );
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -21,15 +29,11 @@ function vopros_form_install_configure_form_alter(&$form, $form_state) {
  * Replace locale selection with our own.
  */
 function vopros_install_tasks_alter(&$tasks, $install_state) {
-  $tasks['install_select_locale']['function'] = '_vopros_locale_selection';
+  // Hide hardcoded steps.
+  $tasks['install_select_profile']['display'] = FALSE;
+  $tasks['install_select_locale']['display'] = FALSE;
 }
 
-/**
- * Set language to danish.
- */
-function _vopros_locale_selection(&$install_state) {
-  $install_state['parameters']['locale'] = 'da';
-}
 /**
  * Implements hook_install_tasks().
  *
@@ -83,7 +87,9 @@ function vopros_install_tasks($install_state) {
  */
 function vopros_module_selection_form($form, &$form_state) {
   $modules = array(
+    'vopros_mailhandler' => st('Get questions from an email account.'),
     'vopros_database_search' => st('Questions and answer search'),
+    'vopros_service' => st('Transfer questions to/from another Vopros site.'),
   );
 
   $form['modules'] = array(
@@ -98,7 +104,9 @@ function vopros_module_selection_form($form, &$form_state) {
     '#type' => 'checkboxes',
     '#options' => $modules,
     '#default_value' => array(
+      'vopros_mailhandler',
       'vopros_database_search',
+      'vopros_service',
     ),
   );
 
@@ -187,6 +195,12 @@ function vopros_module_list_as_operations($module_list) {
  */
 function _vopros_enable_module($module, $module_name, &$context) {
   module_enable(array($module), FALSE);
+  if ($module == 'mailhandler') {
+    // Swallow messages from mailhandler. It shows messages about no enabled
+    // fetcher modules if none was enabled together with it, and a hint to
+    // create a new fetcher. Looks stupid in the installer.
+    drupal_get_messages();
+  }
   $context['message'] = st('Installed %module module.', array('%module' => $module_name));
 }
 

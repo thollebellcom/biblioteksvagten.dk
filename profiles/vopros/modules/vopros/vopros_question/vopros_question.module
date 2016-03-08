@@ -25,6 +25,7 @@ function vopros_question_entity_info() {
 
   $return['vopros_question'] = array(
     'label' => t('Question', array(), array('context' => 'a vopros question')),
+    'plural label' => t('Questions', array(), array('context' => 'a vopros question')),
     'entity class' => 'VoprosQuestion',
     'controller class' => 'VoprosQuestionEntityController',
     'base table' => 'vopros_question',
@@ -65,6 +66,7 @@ function vopros_question_entity_info() {
 
   $return['vopros_question_client'] = array(
     'label' => t('Client', array(), array('context' => 'a vopros question')),
+    'plural label' => t('Clients', array(), array('context' => 'a vopros question')),
     'entity class' => 'VoprosQuestionClient',
     'controller class' => 'VoprosAPIEntityController',
     'base table' => 'vopros_question_client',
@@ -439,6 +441,7 @@ function vopros_question_menu() {
     'page callback' => 'vopros_question_create_service',
     'access arguments' => array('create question via web service'),
     'file' => 'includes/vopros_question.pages.inc',
+    'type' => MENU_CALLBACK,
   );
 
   return $items;
@@ -481,21 +484,26 @@ function vopros_question_permission() {
     ),
     'access questions' => array(
       'title' => t('Access lists of questions, primarily for viewing and referencing'),
+      'vopros roles' => array('staff'),
     ),
     'create questions' => array(
       'title' => t('Create questions'),
+      'vopros roles' => array('staff'),
     ),
     'edit any question' => array(
       'title' => t('Edit any question'),
+      'vopros roles' => array('staff'),
     ),
     'contact user about question' => array(
       'title' => t('Contact user about question'),
+      'vopros roles' => array('staff'),
     ),
     'access and use revisions for questions' => array(
       'title' => t('Access and use revisions'),
     ),
     'notify user on question' => array(
       'title' => t('Assign a user a question or notify them about it'),
+      'vopros roles' => array('staff'),
     ),
   );
 

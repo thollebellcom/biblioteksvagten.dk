@@ -12,6 +12,7 @@ function vopros_email_entity_info() {
   $return = array(
     'vopros_email' => array(
       'label' => t('Email', array(), array('context' => 'a vopros email')),
+      'plural label' => t('Emails', array(), array('context' => 'a vopros email')),
       'controller class' => 'VoprosEmailEntityController',
       'entity class' => 'VoprosEmail',
       'base table' => 'vopros_email',
@@ -255,22 +256,28 @@ function vopros_email_permission() {
     'administer emails' => array(
       'title' => t('Administer emails'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'access emails' => array(
       'title' => t('Access lists of emails, primarily for viewing and referencing'),
+      'vopros roles' => array('staff'),
     ),
     'create emails' => array(
       'title' => t('Create emails'),
+      'vopros roles' => array('staff'),
     ),
     'edit any email' => array(
       'title' => t('Edit any email'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'edit own emails' => array(
       'title' => t('Edit own emails'),
+      'vopros roles' => array('staff'),
     ),
     'view own emails' => array(
       'title' => t('View own emails'),
+      'vopros roles' => array('staff'),
     ),
   );
 

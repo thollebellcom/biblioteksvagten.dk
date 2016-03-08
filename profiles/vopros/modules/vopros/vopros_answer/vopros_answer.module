@@ -20,6 +20,7 @@ function vopros_answer_entity_info() {
   $return = array(
     'vopros_answer' => array(
       'label' => t('Answer', array(), array('context' => 'a vopros answer')),
+      'plural label' => t('Answers', array(), array('context' => 'a vopros answer')),
       'controller class' => 'VoprosAnswerEntityController',
       'entity class' => 'VoprosAnswer',
       'base table' => 'vopros_answer',
@@ -318,22 +319,28 @@ function vopros_answer_permission() {
     'administer answers' => array(
       'title' => t('Administer answers'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'access answers' => array(
       'title' => t('Access lists of answers, primarily for viewing and referencing'),
+      'vopros roles' => array('staff'),
     ),
     'create answers' => array(
       'title' => t('Create answers'),
+      'vopros roles' => array('staff'),
     ),
     'edit any answer' => array(
       'title' => t('Edit any answer'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'edit own answers' => array(
       'title' => t('Edit own answers'),
+      'vopros roles' => array('staff'),
     ),
     'view own answers' => array(
       'title' => t('View own answers'),
+      'vopros roles' => array('staff'),
     ),
     'access and use revisions for answers' => array(
       'title' => t('Access and use revisions'),

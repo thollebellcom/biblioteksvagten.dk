@@ -1,0 +1,283 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:32+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:16;28
+msgctxt "a vopros sms"
+msgid "SMS"
+msgstr "SMS"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:147;266;276
+msgid "SMS"
+msgstr "SMS"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:17
+msgctxt "a vopros sms"
+msgid "SMSes"
+msgstr "SMSer"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:38
+msgid "Administrator"
+msgstr "Administrator"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:160
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:162
+msgid "The unique ID of answer the sms belongs to."
+msgstr "Unikt ID på det svar som sms'en hører til"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:170
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:172
+msgid "The unique ID of the question the answer belongs to."
+msgstr "Unik ID på det spørgsmål som svaret hører til."
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:229
+msgid "Administer SMSes"
+msgstr "Administrer sms"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:234
+msgid "Access lists of SMSes, primarily for viewing and referencing"
+msgstr "Tilgå liste over sms'er, primært til visning og reference"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:238
+msgid "Create SMSes"
+msgstr "Opret sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:241
+msgid "Create question via SMS service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:244
+msgid "Edit any sms"
+msgstr "Rediger sms"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:249
+msgid "Edit own SMSes"
+msgstr "Rediger egne sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:253
+msgid "View own SMSes"
+msgstr "Se egne sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:73
+msgid "SMS settings"
+msgstr "Sms-indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:74
+msgid "Configure general sms settings, fields, and displays."
+msgstr "Konfigurer generelle sms-indstillinger, felter og visning"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:82
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:88
+msgid "Answer question"
+msgstr "Svar på spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:107
+msgid "View"
+msgstr "Se"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:113
+msgid "Edit"
+msgstr "Rediger"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:124
+msgid "Contact user"
+msgstr "Kontakt spørger"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Vopros SMS"
+msgstr "Vopros sms"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Defines the SMS entity and associated features."
+msgstr "Definerer smsentiteten og tilhørende features."
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:14
+msgid "Client"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:17
+msgid "The client which SMS questions is assigned to."
+msgstr "Den klient SMS-spørgsmål bliver tildelt"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:22
+msgid "SMS gateway"
+msgstr "Sms gateway"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:23
+msgid "Setup the SMS gateway used for sending out SMSes to users."
+msgstr "Opsætning af sms gateway til afsending af sms'er til brugerne."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:28
+msgid "SMS send API url"
+msgstr "Sms API URL (afsending)"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:29
+msgid "The API url to use for sending SMSes."
+msgstr "API URL til afsending af sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:35
+msgid "SMS send user name"
+msgstr "Sms afsendernavn"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:36
+msgid "The user name to use as authentication when sending SMSes"
+msgstr "Det navn der skal bruges til autentifikation ved afsendelse af sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:42
+msgid "SMS send password"
+msgstr "Sms password (afsendelse)"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:43
+msgid "The user name to use as authentication when sending SMSes."
+msgstr "Det navn der skal bruges til autentifikation ved afsendelse af sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:50
+msgid "Password"
+msgstr "Adgangskode"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:56
+msgid "SMS send short code"
+msgstr "Sms kort kode (afsendelse)"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:57
+msgid "The short code used when sending SMSes"
+msgstr "Den korte kode der bruges ved afsendelse af sms'er"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:63
+msgid "SMS send sender"
+msgstr "Sms-afsender"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:64
+msgid "Used as the sender of the SMSes, 11 alphanumeric chars allowed"
+msgstr "Bruges som afsender af sms'er (11 alfanumriske tegn er tilladt)"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:73
+msgid "No default value"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:79
+msgid "Default SMS editorial"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:86
+msgid ""
+"Below you can define default texts used for different situations when "
+"sending a SMS to the user. This could be a SMS containing the answer, or "
+"when the need to contact the user arises, fx to ask for more info. It is "
+"possible to use Drupal tokens to create dynamic macros containing question/"
+"answer or user data. See below under each category for a list of available "
+"tokens and their meaning."
+msgstr ""
+"Her kan du definere standardtekster til forskellige situtationer, hvor der "
+"skal sendes sms til brugeren. Dette kan fx være en sms med svaret, eller "
+"hvis der er behov for at kontakte brugeren, fx for at bede om mere "
+"information. Det er muligt at bruge særlige tokens (Drupal tokens) til at "
+"generere dynamiske makroer der indeholder spørgsmål/svar-data og/eller "
+"brugerdata. Neden under hver kategory findes en liste over tilgængelige "
+"tokens og deres betydning."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:93
+msgid "Contact user SMS macros"
+msgstr "Kontakt bruger sms-makroer"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:101
+msgid "Macro used when contacting a user."
+msgstr "Makro der anvendes ved kontakt af bruger."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:116
+msgid "SMS macros"
+msgstr "Sms-makroer"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:117
+msgid "Create macros inserted when sending a sms."
+msgstr "Opret makroer der indsættes ved afsendelse af sms."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:122
+msgid "Answered question"
+msgstr "Besvarede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:123
+msgid "Macro used when answering a question."
+msgstr "Makro til brug ved besvarelse af spørgsmål."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:143
+msgid "Only alphanumeric chars (letters and numbers) allowed"
+msgstr "Kun alfanummerigkse tegn (bogstaver og tal) er tilladt"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:164;230
+msgid "Send"
+msgstr "Send"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:186;293
+msgid "To"
+msgstr "Til"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:209;218
+msgid "Content"
+msgstr "Indhold"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:213;310
+msgid "SMS counter:"
+msgstr "Sms-tæller"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:219
+msgid "The main content of the sms."
+msgstr "Indholdet i sms'en"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:236
+msgid "Edit answer"
+msgstr "Rediger svar"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:269
+msgid ""
+"The answer has been sent to @receiver and the question !question is marked "
+"as answered."
+msgstr ""
+"Emailen er sendt til @receiver og spørgsmålet !question er markeret som "
+"besvaret."
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:284
+msgid "Send SMS"
+msgstr "Send sms"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:301
+msgid "Answer type"
+msgstr "Svartype"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:314
+msgid "SMS body"
+msgstr "Sms indhold"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:362
+msgid ""
+"The SMS has been sent to @receiver and the question is closed until the user "
+"provides feedback"
+msgstr ""
+"Sms'en er sendt til @receiver og spørgsmålet er lukket indtil brugeren "
+"kommer med feeback"
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.pages.inc:35
+msgid "Empty question - no content delivered from SMS service."
+msgstr ""
+"Spørgsmålet er tomt - der blev ikke medsendt noget indhold fra SMS-tjenesten"

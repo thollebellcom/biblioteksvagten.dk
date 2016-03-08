@@ -157,14 +157,14 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['fields']['vopros_user_library']['table'] = 'field_data_vopros_user_library';
   $handler->display->display_options['fields']['vopros_user_library']['field'] = 'vopros_user_library';
   $handler->display->display_options['fields']['vopros_user_library']['relationship'] = 'profile';
-  /* Field: Question: Created */
+  /* Field: Question: Date asked */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['relationship'] = 'question_id';
   $handler->display->display_options['fields']['created']['label'] = 'Question created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  /* Sort criterion: Question: Created */
+  /* Sort criterion: Question: Date asked */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'vopros_question';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
@@ -372,14 +372,13 @@ function vopros_answer_views_default_views() {
   $handler->display->display_options['fields']['question_status']['field'] = 'question_status';
   $handler->display->display_options['fields']['question_status']['relationship'] = 'question_id';
   $handler->display->display_options['fields']['question_status']['label'] = 'Status';
-  /* Field: Question: Question_deadline_timestamp */
+  /* Field: Question: Deadline */
   $handler->display->display_options['fields']['question_deadline_timestamp']['id'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['question_deadline_timestamp']['field'] = 'question_deadline_timestamp';
   $handler->display->display_options['fields']['question_deadline_timestamp']['relationship'] = 'question_id';
-  $handler->display->display_options['fields']['question_deadline_timestamp']['label'] = 'Deadline';
   $handler->display->display_options['fields']['question_deadline_timestamp']['date_format'] = 'vopros_question_deadline';
-  /* Field: Question: Created */
+  /* Field: Question: Date asked */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'vopros_question';
   $handler->display->display_options['fields']['created']['field'] = 'created';
@@ -439,7 +438,7 @@ function vopros_answer_views_default_views() {
     t('Usage'),
     t('Status'),
     t('Deadline'),
-    t('Created'),
+    t('Date asked'),
     t('Release question'),
     t('All'),
     t('Page'),

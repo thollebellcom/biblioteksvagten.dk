@@ -1,0 +1,220 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:31+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:15
+msgid "Appearance"
+msgstr "Udseende"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:20
+msgid "Title"
+msgstr "Titel"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:22
+msgid ""
+"Main title of the page. Use <em>@site_name</em> to insert the site title."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:27
+msgid "Tab title"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:29
+msgid ""
+"Title of the tab used on client sites.. Use <em>@site_name</em> to insert "
+"the site title."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:34
+msgid "Show deadline for"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:41
+msgid "Show deadline options for these answer methods."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:46
+msgid "Embed code"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:51
+msgid "Agency id"
+msgstr "Institutions-ID"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:54
+msgid ""
+"The agency id of the site, DK-<num> for libraries, custom string for others."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:59
+msgid "Local email"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:62
+msgid "The email address to direct local inquiries to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:67
+msgid "Default answer method"
+msgstr "Foretrukket svarmetode"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:71
+msgid "Which answer method should be initially selected?"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:76
+msgid "Create tab"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:79
+msgid "Automatically create tab."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:94
+msgid "Code"
+msgstr "Kode"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:112
+msgid ""
+"Copy this code to the site. The script element can be moved to the HEAD "
+"section of the page."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:22
+msgid ""
+"Whoops, widget not configured properly. Please contact the site and tell "
+"them about this."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:27
+msgid ""
+"@site_name has yet to approve questions from this site. Please contact "
+"@site_mail with the agency code \"@agency_id\"."
+msgstr ""
+"@site_name har endnu ikke godkendt spørgsmål fra dette site. Kontakt "
+"venligst bibcaa@herning.dk og oplys biblioteksnavn og agency code "
+"\"@agency_id\"."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:69
+msgid "How to receive answer"
+msgstr "Kontaktform"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:80
+msgid "What's your question?"
+msgstr "Hvad vil du spørge om?"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:93
+msgid "What's your name?"
+msgstr "Dit navn"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:101
+msgid "Enter your e-mail address"
+msgstr "Din e-mailadresse"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:122
+msgid "Enter your cell number"
+msgstr "Dit mobilnummer"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:137
+msgid "What's your zip code?"
+msgstr "Dit postnummer"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:159
+msgid "When do you need the answer?"
+msgstr "Hvornår skal du senest have svar?"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:206
+msgid "Submit question"
+msgstr "Send spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:219
+msgid "Start chat"
+msgstr "Start chat"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:237
+msgid "E-mail required."
+msgstr "Email påkrævet."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:240
+msgid "E-mail invalid."
+msgstr "Email ugyldig."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:246
+msgid "Mobile phone number required."
+msgstr "Telefonnummer er påkrævet."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:308
+msgid "Your question has been submitted."
+msgstr "Dit spørgsmål er sendt til biblioteksvagten."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:314
+msgid "Close window"
+msgstr "Luk vindue"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:322
+msgid "Return"
+msgstr "Tilbage"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:385
+msgid "Are you sure you want to close?"
+msgstr "Er du sikker på at du vil lukke chatten?"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:70
+msgid "Administer embed settings"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:118
+msgid "Webform"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:122
+msgid "Chat"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:135
+msgid "From page: "
+msgstr "Sendt fra: "
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:141
+msgid "Forward to @address"
+msgstr "Videresend spørgsmål til @address "
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:13
+msgid "Ask question"
+msgstr "Stil spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:24
+msgid "Question submitted"
+msgstr "Spørgsmål sendt"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:41
+msgid "Embed settings"
+msgstr "Embed-spørgeboks-indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:42
+msgid "Configure embed settings."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:50
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.info:0
+msgid "Vopros Embed"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.info:0
+msgid "Provide embedable question forms for other sites."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.info:0
+msgid "Vopros"
+msgstr "Vopros"

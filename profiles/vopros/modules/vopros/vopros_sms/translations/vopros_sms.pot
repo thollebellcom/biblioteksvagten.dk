@@ -1,0 +1,273 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module: n/a
+#  profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info: n/a
+#  profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc: n/a
+#  profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.pages.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-03-08 09:32+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:16;28
+msgctxt "a vopros sms"
+msgid "SMS"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:147;266;276
+msgid "SMS"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:17
+msgctxt "a vopros sms"
+msgid "SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:38
+msgid "Administrator"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:160
+msgid "Answer"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:162
+msgid "The unique ID of answer the sms belongs to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:170
+msgid "Question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:172
+msgid "The unique ID of the question the answer belongs to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:229
+msgid "Administer SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:234
+msgid "Access lists of SMSes, primarily for viewing and referencing"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:238
+msgid "Create SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:241
+msgid "Create question via SMS service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:244
+msgid "Edit any sms"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:249
+msgid "Edit own SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:253
+msgid "View own SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:73
+msgid "SMS settings"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:74
+msgid "Configure general sms settings, fields, and displays."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:82
+msgid "Settings"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:88
+msgid "Answer question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:107
+msgid "View"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:113
+msgid "Edit"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:124
+msgid "Contact user"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Vopros SMS"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Defines the SMS entity and associated features."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.info:0
+msgid "Vopros"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:14
+msgid "Client"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:17
+msgid "The client which SMS questions is assigned to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:22
+msgid "SMS gateway"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:23
+msgid "Setup the SMS gateway used for sending out SMSes to users."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:28
+msgid "SMS send API url"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:29
+msgid "The API url to use for sending SMSes."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:35
+msgid "SMS send user name"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:36
+msgid "The user name to use as authentication when sending SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:42
+msgid "SMS send password"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:43
+msgid "The user name to use as authentication when sending SMSes."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:50
+msgid "Password"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:56
+msgid "SMS send short code"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:57
+msgid "The short code used when sending SMSes"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:63
+msgid "SMS send sender"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:64
+msgid "Used as the sender of the SMSes, 11 alphanumeric chars allowed"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:73
+msgid "No default value"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:79
+msgid "Default SMS editorial"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:86
+msgid "Below you can define default texts used for different situations when sending a SMS to the user. This could be a SMS containing the answer, or when the need to contact the user arises, fx to ask for more info. It is possible to use Drupal tokens to create dynamic macros containing question/answer or user data. See below under each category for a list of available tokens and their meaning."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:93
+msgid "Contact user SMS macros"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:101
+msgid "Macro used when contacting a user."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:116
+msgid "SMS macros"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:117
+msgid "Create macros inserted when sending a sms."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:122
+msgid "Answered question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:123
+msgid "Macro used when answering a question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:143
+msgid "Only alphanumeric chars (letters and numbers) allowed"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:164;230
+msgid "Send"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:186;293
+msgid "To"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:209;218
+msgid "Content"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:213;310
+msgid "SMS counter:"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:219
+msgid "The main content of the sms."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:236
+msgid "Edit answer"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:269
+msgid "The answer has been sent to @receiver and the question !question is marked as answered."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:284
+msgid "Send SMS"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:301
+msgid "Answer type"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:314
+msgid "SMS body"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.admin.inc:362
+msgid "The SMS has been sent to @receiver and the question is closed until the user provides feedback"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_sms/includes/vopros_sms.pages.inc:35
+msgid "Empty question - no content delivered from SMS service."
+msgstr ""
+

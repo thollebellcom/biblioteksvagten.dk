@@ -22,6 +22,7 @@ function vopros_public_question_entity_info() {
   $return = array(
     'vopros_public_question' => array(
       'label' => t('Public question', array(), array('context' => 'a vopros question')),
+      'plural label' => t('Public questions', array(), array('context' => 'a vopros question')),
       'entity class' => 'VoprosPublicQuestion',
       'controller class' => 'VoprosPublicQuestionEntityController',
       'base table' => 'vopros_public_question',

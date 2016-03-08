@@ -10,7 +10,8 @@
 function vopros_feedback_entity_info() {
   $return = array(
     'vopros_feedback' => array(
-      'label' => t('feedback', array(), array('context' => 'a vopros feedback')),
+      'label' => t('Feedback', array(), array('context' => 'a vopros feedback')),
+      'plural label' => t('Feedbacks', array(), array('context' => 'a vopros feedback')),
       'controller class' => 'VoprosFeedbackEntityController',
       'entity class' => 'VoprosFeedback',
       'base table' => 'vopros_feedback',

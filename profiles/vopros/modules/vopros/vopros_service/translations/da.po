@@ -1,0 +1,505 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-08 09:32+0100\n"
+"PO-Revision-Date: 2016-03-08 10:14+0100\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:17
+msgid "New message"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:37
+msgid "Could not load question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:42;141;254
+msgid "Could not load service."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:70;167
+msgid "Message sent."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:75;173;295
+msgid "Could not send message to service, it said: @message"
+msgstr "Kunne ikke sende besked til service, den sagde: @message"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:78;176;298
+msgid "Could not send message to service."
+msgstr "Kunne ikke sende besked til service."
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:103
+msgid "Send message"
+msgstr "Send besked"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:112
+msgid "Message"
+msgstr "Meddelelse"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:122
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:120
+msgid "Cancel"
+msgstr "Annuller"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:134;247
+msgid "Could not find any incoming forwards on question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:195
+msgid "Send"
+msgstr "Send"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:206
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service_message.controller.inc:43
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:207
+msgid "The answer text."
+msgstr "Svarindhold."
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:215
+msgid "Message attached to answer"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:216
+msgid ""
+"This is visible to the librarian forwarding the message, but not the asking "
+"user."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:229
+msgid "Edit answer"
+msgstr "Rediger svar"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:243
+msgid "Could not find question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:282
+msgid "Answer sent."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:323
+msgid "Use answer"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:30
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:48
+msgid "Way of sending"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:50
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:490
+msgid "Ask for help"
+msgstr "Bed om hjælp"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:51
+msgid "Turn over the question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:92
+msgid "Service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:101
+msgid "Message to service"
+msgstr "Besked til service"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:108
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:657;122
+msgid "Forward question"
+msgstr "Vidresend spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:155
+msgid "No services configured for this way of sending."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:201
+msgid "Could not forward question to service, it said: @message"
+msgstr "Kunne ikke vidresende spørgsmål til service, den sage: @message"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:204
+msgid "Could not forward question to service."
+msgstr "Kunne ikke vidresende spørgsmål til service"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:221
+msgid "The question \"@title\" has been handed over to an external service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:27;40;854
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.info:0
+msgid "Vopros Service"
+msgstr "Vopros service"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:28
+msgid "Vopros Services"
+msgstr "Vopros services"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:46;69
+msgid "Administrator"
+msgstr "Administrator"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:56
+msgid "Vopros Service Message"
+msgstr "Vopres service besked"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:57
+msgid "Vopros Service Messages"
+msgstr "Vopros service beskeder"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:86
+msgid "Administer vopros services"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:90
+msgid "Access lists of vopros services, primarily for viewing and referencing"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:93
+msgid "Create vopros services"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:96
+msgid "Edit and delete vopros services"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:100
+msgid "Forward questions"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:329
+msgid "Vopros service authentication"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:330
+msgid "Use Vopros service authentication."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:412
+msgid "This allows for inter-Vopros communication with this client."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:423
+msgid "URL"
+msgstr "URL"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:424
+msgid "The base URL for vopros service."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:448
+msgid "Auth key"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:449
+msgid ""
+"Shared token. Must be the same on both ends, and unique across all services. "
+"Use regenerate to generate a random token that's not already used."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:458
+msgid "Regenerate"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:471
+msgid "Allow incoming"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:488
+msgid "Outgoing service type"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:491
+msgid "Turn over questions"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:492
+msgid "Turn over SMS questions"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:521
+msgid "Invalid service URL."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:573
+msgid "Service messages"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:584
+msgid "No messages"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:672
+msgid "Asked for help at @service "
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:676
+msgid "Handed over to @service "
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:841
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:865
+msgid "Handed over to external service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:866
+msgid "Reactivated by external service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:878;913
+msgid "Service takeover"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:879
+msgid ""
+"Mail sendt when a question is forwarded from another Vopros installation."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:884
+msgid "Take over mail subject"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:885
+msgid "Subject of mail sendt to user when reciving forwarded question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:891
+msgid "Take over mail body"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:892
+msgid "Main message."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:914
+msgid ""
+"SMS sendt when a question is forwarded from another Vopros installation."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:919
+msgid "Take over message"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:920
+msgid "Macro used when taking over a question."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:131
+msgid "Contact user"
+msgstr "Kontakt spørger"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:140
+msgid "Answer question"
+msgstr "Svar på spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_service/vopros_service.info:0
+msgid "Connect Vopros to other Vopros instances."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:34
+msgid "Client ID"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:35
+msgid "Client ID of this service."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:45
+msgid "Service client"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:59;70
+msgid "Client forwarded to"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:60
+msgid "Client of the service this question has been forwarded from/to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:84;95
+msgid "Service forwarded to"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:85
+msgid "Service this question has been forwarded from/to."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:109
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:315
+msgid "Direction of forward"
+msgstr "Retning"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:110
+msgid "Whether this forward is incoming or outgoing."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:127
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:316
+msgid "Type of forward"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views.inc:128
+msgid "Whether this forward is help or turn_over."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:288
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:289
+msgid "Forwarded questions list"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:290
+msgid "mere"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:291
+msgid "Anvend"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:292
+msgid "Nulstil"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:293
+msgid "Sorter efter"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:294
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:295
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:296
+msgid "Poster pr side"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:297
+msgid "- Alle -"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:298
+msgid "Forskydning"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:299
+msgid "« første"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:300
+msgid "‹ forrige"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:301
+msgid "næste ›"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:302
+msgid "sidste »"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:303
+msgid "spørgsmål"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:304
+msgid "Client"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:305
+msgid "Spørgsmål ID"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:306
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:307
+msgid "Question_status_reason"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:308
+msgid "Title"
+msgstr "Titel"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:309
+msgid "Received from"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:310
+msgid "Status"
+msgstr "Status"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:311
+msgid "Deadline"
+msgstr "Tidsfrist"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:312
+msgid "Updated"
+msgstr "Opdateret"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:313
+msgid "Oprettet"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:314
+msgid "Forwarded to"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:317
+msgid "List"
+msgstr "Vis"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_direction_views_handler_filter_in_operator.inc:16
+msgid "Direction"
+msgstr "Retning"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_direction_views_handler_filter_in_operator.inc:18
+msgid "Incoming"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_direction_views_handler_filter_in_operator.inc:19
+msgid "Outgoing"
+msgstr "Ud"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_type_views_handler_filter_in_operator.inc:16
+msgid "Type"
+msgstr "Type"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_type_views_handler_filter_in_operator.inc:18
+msgid "Help"
+msgstr "Hjælp"
+
+#: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_type_views_handler_filter_in_operator.inc:19
+msgid "Turn over"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/resources/vopros_transfer.inc:54
+msgid "Request for assistance from @service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/resources/vopros_transfer.inc:128
+msgid "Message from forwarding service"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_service/theme/vopros_service_message.tpl.php:14
+msgid "From:"
+msgstr "Fra:"

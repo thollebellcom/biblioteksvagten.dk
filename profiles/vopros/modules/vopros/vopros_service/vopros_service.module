@@ -25,6 +25,7 @@ function vopros_service_entity_info() {
   $return = array(
     'vopros_service' => array(
       'label' => t('Vopros Service'),
+      'plural label' => t('Vopros Services'),
       'controller class' => 'VoprosServiceEntityController',
       'entity class' => 'VoprosService',
       'base table' => 'vopros_service',
@@ -53,6 +54,7 @@ function vopros_service_entity_info() {
     ),
     'vopros_service_message' => array(
       'label' => t('Vopros Service Message'),
+      'plural label' => t('Vopros Service Messages'),
       'controller class' => 'VoprosServiceMessageEntityController',
       'entity class' => 'VoprosServiceMessage',
       'base table' => 'vopros_service_message',

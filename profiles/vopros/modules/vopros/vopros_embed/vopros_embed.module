@@ -17,6 +17,7 @@ function vopros_embed_menu() {
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'delivery callback' => 'vopros_embed_deliver_html_page',
+    'type' => MENU_CALLBACK,
   );
 
   $items['embed/ask-question/submitted'] = array(
@@ -25,12 +26,14 @@ function vopros_embed_menu() {
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'delivery callback' => 'vopros_embed_deliver_html_page',
+    'type' => MENU_CALLBACK,
   );
 
   $items['embed/question_modal.js'] = array(
     'page callback' => 'vopros_embed_question_modal_js',
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
+    'type' => MENU_CALLBACK,
   );
 
   // Administrative pages.

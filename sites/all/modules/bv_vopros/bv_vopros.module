@@ -49,17 +49,6 @@ function bv_vopros_form_vopros_embed_question_alter(&$form, &$form_state) {
   // don't add the checkboxes.
   if (isset($form['question'])) {
     if (module_exists('vopros_editorial')) {
-      $form['bv_article'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('The question concerns an article.'),
-        '#states' => array(
-          'visible' => array(
-            'input[name=user_answer_preference]' => array('value' => 'mail'),
-          ),
-        ),
-        '#weight' => -9,
-      );
-
       $form['bv_education'] = array(
         '#type' => 'checkbox',
         '#title' => t('The answer is to be used in higher education.'),
@@ -88,8 +77,7 @@ function bv_vopros_vopros_embed_question_submit(&$form, &$form_state) {
   // Default to "Folkebibliotek".
   $question_wrapper->vopros_editorial->set(2);
   if ($form_state['values']['user_answer_preference'] === 'mail' &&
-      ($form_state['values']['bv_article'] ||
-       $form_state['values']['bv_education'])) {
+      $form_state['values']['bv_education']) {
     // Override to "Forskningsbibliotek".
     $question_wrapper->vopros_editorial->set(1);
   }

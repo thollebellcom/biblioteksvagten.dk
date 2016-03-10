@@ -1,6 +1,6 @@
-name = Vopros Editorial
+name = Biblioteksvagten Editorial
 description = Creates editorial seperation for question.
-package = Vopros
+package = Biblioteksvagten
 core = 7.x
 
 dependencies[] = vopros_base

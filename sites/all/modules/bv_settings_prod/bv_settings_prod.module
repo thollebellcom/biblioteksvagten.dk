@@ -1,0 +1,49 @@
+<?php
+/**
+ * @file
+ * Code for the BV settings for production feature.
+ */
+
+include_once 'bv_settings_prod.features.inc';
+
+/**
+ * Implements hook_init().
+ *
+ * Show a warning if password not configured.
+ */
+function bv_settings_prod_init() {
+  $pass = variable_get('bv_mailbox_pass', '');
+  if (empty($pass) && user_access('access administration pages')) {
+    drupal_set_message(t('You need to set the <em>bv_mailbox_pass</em> variable in settings.php to the password of the IMAP account.'), 'error', FALSE);
+  }
+
+  $pass = variable_get('bv_solr_pass', '');
+  if (empty($pass) && user_access('access administration pages')) {
+    drupal_set_message(t('You need to set the <em>bv_solr_pass</em> variable in settings.php to the password of the Solr server.'), 'error', FALSE);
+  }
+}
+
+/**
+ * Implements hook_default_mailhandler_mailbox_alter().
+ *
+ * Add in password from variable, so we don't have sensitive data in the
+ * export.
+ */
+function bv_settings_prod_default_mailhandler_mailbox_alter($boxes) {
+  $pass = variable_get('bv_mailbox_pass', '');
+  if (isset($boxes['biblioteksvagten_biblioteksvagten_dk'])) {
+    $boxes['biblioteksvagten_biblioteksvagten_dk']->settings['pass'] = $pass;
+  }
+}
+
+/**
+ * Implements hook_default_search_api_server_alter().
+ *
+ * Add in the password.
+ */
+function bv_settings_prod_default_search_api_server_alter(&$servers) {
+  $pass = variable_get('bv_solr_pass', '');
+  if (isset($servers['elstar_solr'])) {
+    $servers['elstar_solr']->options['http_pass'] = $pass;
+  }
+}

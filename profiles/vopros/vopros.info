@@ -3,7 +3,7 @@ distribution_name = "Vopros"
 description = "Install Vopros, a library-centered question and answer service."
 core = "7.x"
 exclusive = TRUE
-version = "0.9.0"
+version = "0.9.1"
 
 ; Core
 dependencies[] = block

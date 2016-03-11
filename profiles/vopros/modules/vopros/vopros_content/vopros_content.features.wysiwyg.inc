@@ -23,6 +23,7 @@ function vopros_content_wysiwyg_default_profiles() {
       'buttons' => array(
         'default' => array(
           'Bold' => 1,
+          'Italic' => 1,
           'Underline' => 1,
           'BulletedList' => 1,
           'NumberedList' => 1,

@@ -9,6 +9,20 @@
  * Parses an IMAP stream and creates and email entity.
  */
 class VoprosMailhandlerParser extends MailhandlerParser {
+
+  /**
+   * Define defaults.
+   *
+   * Override defaul_commands so we don't get "status: 1" prepended to body.
+   */
+  public function sourceDefaults() {
+    return array(
+      'auth_required' => TRUE,
+      'default_commands' => '',
+      'commands_failed_auth' => 'status: 0',
+    );
+  }
+
   public function configForm(&$form_state) {
     $form = array();
 

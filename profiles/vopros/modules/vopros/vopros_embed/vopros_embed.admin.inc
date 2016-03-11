@@ -26,7 +26,7 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Tab title'),
     '#default_value' => variable_get('vopros_embed_tab_title', 'Ask @site_name'),
-    '#description' => t('Title of the tab used on client sites.. Use <em>@site_name</em> to insert the site title.'),
+    '#description' => t('Title of the tab used on client sites. Use <em>@site_name</em> to insert the site title.'),
   );
 
   $form['appearance']['vopros_embed_show_deadline'] = array(
@@ -39,6 +39,15 @@ function vopros_embed_setting_form($form, &$form_state) {
                         'sms' => 'sms',
                       )),
     '#description' => t('Show deadline options for these answer methods.'),
+  );
+
+  $information_text = variable_get('vopros_embed_information_text', array('value' => '', 'format' => 0));
+  $form['appearance']['vopros_embed_information_text'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Tab title'),
+    '#default_value' => $information_text['value'],
+    '#format' => $information_text['format'],
+    '#description' => t('Extra information displayed at the bottom of the form.'),
   );
 
   $form['embed'] = array(

@@ -29,6 +29,13 @@ function vopros_embed_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['embed/tab.css'] = array(
+    'page callback' => 'vopros_embed_tab_css',
+    'access callback' => TRUE,
+    'file' => 'vopros_embed.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   $items['embed/question_modal.js'] = array(
     'page callback' => 'vopros_embed_question_modal_js',
     'access callback' => TRUE,

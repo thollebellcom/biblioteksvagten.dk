@@ -761,11 +761,10 @@ function vopros_email_theme() {
 function vopros_email_vopros_question_activity_feed($question, &$feed) {
   $emails = vopros_email_load_multiple(FALSE, array('question_id' => $question->question_id));
   foreach ($emails as $email_id => $email) {
-    $email->no_transfer = array_shift(db_select('vopros_email_transfers', 't')
-      ->condition('t.target_question_id', $question->question_id)
-      ->countQuery()
-      ->execute()
-      ->fetchCol());
+    $query = db_select('vopros_email_transfers', 't')
+           ->fields('t')
+           ->condition('t.origin_question_id', $question->question_id);
+    $email->no_transfer = $query->countQuery()->execute()->fetchField();
 
     vopros_email_build_content($email, 'question_list');
     if ($email->type == 'outgoing') {
@@ -774,10 +773,7 @@ function vopros_email_vopros_question_activity_feed($question, &$feed) {
     $feed['email_' . $email_id] = $email->content;
     $feed['email_' . $email_id]['#weight'] = -($email->created - 1);
   }
-  $transfers = db_select('vopros_email_transfers', 't')
-    ->fields('t')
-    ->condition('t.origin_question_id', $question->question_id)
-    ->execute();
+  $transfers = $query->execute();
 
   foreach ($transfers as $transfer) {
     $email = vopros_email_load($transfer->email_id);

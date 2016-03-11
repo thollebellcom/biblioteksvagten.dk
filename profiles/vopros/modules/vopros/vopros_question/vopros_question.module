@@ -593,6 +593,7 @@ function vopros_question_new($values = array()) {
     'question_deadline' => -1,
     'question_status_reason' => '',
     'user_age' => 'no inform',
+    'client_id' => 0,
   );
   $values += $default_values;
   return entity_create('vopros_question', $values);

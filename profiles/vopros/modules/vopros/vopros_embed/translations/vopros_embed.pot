@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-08 09:31+0100\n"
+"POT-Creation-Date: 2016-03-29 09:24+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -34,11 +34,11 @@ msgid "Main title of the page. Use <em>@site_name</em> to insert the site title.
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:27
-msgid "Tab title"
+msgid "Service description"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:29
-msgid "Title of the tab used on client sites.. Use <em>@site_name</em> to insert the site title."
+msgid "Title of the service as used in the tab on client sites. Use <em>@site_name</em> to insert the site title."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:34
@@ -49,47 +49,55 @@ msgstr ""
 msgid "Show deadline options for these answer methods."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:46
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:47
+msgid "Tab title"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:50
+msgid "Extra information displayed at the bottom of the form."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:55
 msgid "Embed code"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:51
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:60
 msgid "Agency id"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:54
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:63
 msgid "The agency id of the site, DK-<num> for libraries, custom string for others."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:59
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:68
 msgid "Local email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:62
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:71
 msgid "The email address to direct local inquiries to."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:67
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:76
 msgid "Default answer method"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:71
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:80
 msgid "Which answer method should be initially selected?"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:76
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:85
 msgid "Create tab"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:79
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:88
 msgid "Automatically create tab."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:94
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:103
 msgid "Code"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:112
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:121
 msgid "Copy this code to the site. The script element can be moved to the HEAD section of the page."
 msgstr ""
 
@@ -121,67 +129,63 @@ msgstr ""
 msgid "Enter your cell number"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:137
-msgid "What's your zip code?"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:159
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:144
 msgid "When do you need the answer?"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:206
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:191
 msgid "Submit question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:219
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:204
 msgid "Start chat"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:237
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:230
 msgid "E-mail required."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:240
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:233
 msgid "E-mail invalid."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:246
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:239
 msgid "Mobile phone number required."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:308
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:301
 msgid "Your question has been submitted."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:314
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:307
 msgid "Close window"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:322
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:315
 msgid "Return"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:385
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:420
 msgid "Are you sure you want to close?"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:70
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:77
 msgid "Administer embed settings"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:118
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:125
 msgid "Webform"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:122
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:129
 msgid "Chat"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:135
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:142
 msgid "From page: "
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:141
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:148
 msgid "Forward to @address"
 msgstr ""
 
@@ -193,15 +197,15 @@ msgstr ""
 msgid "Question submitted"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:41
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:48
 msgid "Embed settings"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:42
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:49
 msgid "Configure embed settings."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:50
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:57
 msgid "Settings"
 msgstr ""
 

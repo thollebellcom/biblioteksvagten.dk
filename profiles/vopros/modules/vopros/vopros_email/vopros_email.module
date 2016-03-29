@@ -761,19 +761,24 @@ function vopros_email_theme() {
 function vopros_email_vopros_question_activity_feed($question, &$feed) {
   $emails = vopros_email_load_multiple(FALSE, array('question_id' => $question->question_id));
   foreach ($emails as $email_id => $email) {
+    // Add flag on email indicating whether this question was created from that
+    // mail (and thus cannot be transferred to a new question).
     $query = db_select('vopros_email_transfers', 't')
            ->fields('t')
-           ->condition('t.origin_question_id', $question->question_id);
-    $email->no_transfer = $query->countQuery()->execute()->fetchField();
+           ->condition('t.origin_question_id', $question->question_id)
+           ->condition('t.email_id', $email_id);
+    $email->no_transfer = (bool) $query->countQuery()->execute()->fetchField();
 
     vopros_email_build_content($email, 'question_list');
-    if ($email->type == 'outgoing') {
-      //$email->content['body'][] = array('#markup' => '<iframe style="border: 2px solid red;" width="500px" height="300px" src="' . url('vopros/feedback/' . $email_id . '/' . md5($email_id . variable_get('vopros_feedback_secret', ''))) . '"></iframe>');
-    }
     $feed['email_' . $email_id] = $email->content;
     $feed['email_' . $email_id]['#weight'] = -($email->created - 1);
   }
-  $transfers = $query->execute();
+
+  // Add feed items for emails transferred away from this question.
+  $transfers = db_select('vopros_email_transfers', 't')
+             ->fields('t')
+             ->condition('t.origin_question_id', $question->question_id)
+             ->execute();
 
   foreach ($transfers as $transfer) {
     $email = vopros_email_load($transfer->email_id);

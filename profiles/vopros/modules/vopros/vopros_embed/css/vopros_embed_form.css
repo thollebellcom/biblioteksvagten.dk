@@ -119,6 +119,10 @@ textarea {
   cursor: default;
 }
 
+#edit-information {
+  margin-top: 2em;
+}
+
 /**
  * Media width: < 500px.
  */

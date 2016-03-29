@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Vopros\n"
-"POT-Creation-Date: 2016-03-08 09:31+0100\n"
-"PO-Revision-Date: 2016-03-08 11:42+0100\n"
+"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"PO-Revision-Date: 2016-03-29 09:27+0200\n"
 "Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -297,7 +297,7 @@ msgstr "Status"
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:440
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:255
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:589;1265
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:138;195;824
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:138;195;825
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:160
 #: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:311
 msgid "Deadline"
@@ -307,12 +307,12 @@ msgstr "Tidsfrist"
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:107
 #: profiles/vopros/modules/vopros/vopros_database_search/vopros_database_search.views_default.inc:113
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:591;1267
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:831
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:832
 msgid "Date asked"
 msgstr "Dato oprettet"
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:442
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1496;431
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1497;431
 msgid "Release question"
 msgstr "Frigiv spørgsmål"
 
@@ -376,17 +376,17 @@ msgid "The uid of the user creating the answer."
 msgstr "Unik ID på brugeren der laver svaret."
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:109
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:833
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:834
 msgid "The date the question was submitted."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:116
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:840
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:841
 msgid "Date changed"
 msgstr "Dato ændret"
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:119
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:843
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:844
 msgid "The date the question was most recently updated."
 msgstr "Datoen hvor spørgsmålet senest blev opdateret."
 
@@ -493,7 +493,7 @@ msgstr "Konfigurer generelle svarindstillinger, felter og visninger."
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:261
 #: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:80
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:50
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:57
 #: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:68
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:147
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:292;319
@@ -799,7 +799,7 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:253
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:116
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:1262
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:993
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:994
 msgid "Subject"
 msgstr "Emne"
 
@@ -825,17 +825,17 @@ msgstr "Indhold"
 msgid "The content of the email"
 msgstr "Emailens indhold"
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:803
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:804
 msgid "Ingoing"
 msgstr "Ind"
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:804
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:805
 #: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_direction_views_handler_filter_in_operator.inc:19
 msgid "Outgoing"
 msgstr "Ud"
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:840
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1034
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:841
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1035
 msgid "File attachments"
 msgstr "Filvedhæftninger"
 
@@ -872,7 +872,7 @@ msgid "Forward"
 msgstr "Videresend"
 
 #: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:134
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1514
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1515
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:941
 #: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:131
 #: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:124
@@ -1174,13 +1174,13 @@ msgid ""
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:27
-msgid "Tab title"
-msgstr ""
+msgid "Service description"
+msgstr "Service beskrivelse"
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:29
 msgid ""
-"Title of the tab used on client sites.. Use <em>@site_name</em> to insert "
-"the site title."
+"Title of the service as used in the tab on client sites. Use <em>@site_name</"
+"em> to insert the site title."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:34
@@ -1191,48 +1191,56 @@ msgstr ""
 msgid "Show deadline options for these answer methods."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:46
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:47
+msgid "Tab title"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:50
+msgid "Extra information displayed at the bottom of the form."
+msgstr "Ekstra information der vises i bunden af formularen."
+
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:55
 msgid "Embed code"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:51
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:60
 msgid "Agency id"
 msgstr "Institutions-ID"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:54
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:63
 msgid ""
 "The agency id of the site, DK-<num> for libraries, custom string for others."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:59
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:68
 msgid "Local email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:62
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:71
 msgid "The email address to direct local inquiries to."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:67
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:76
 msgid "Default answer method"
 msgstr "Foretrukket svarmetode"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:71
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:80
 msgid "Which answer method should be initially selected?"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:76
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:85
 msgid "Create tab"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:79
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:88
 msgid "Automatically create tab."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:94
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:103
 msgid "Code"
 msgstr "Kode"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:112
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:121
 msgid ""
 "Copy this code to the site. The script element can be moved to the HEAD "
 "section of the page."
@@ -1242,13 +1250,17 @@ msgstr ""
 msgid ""
 "Whoops, widget not configured properly. Please contact the site and tell "
 "them about this."
-msgstr "Hov, spørge widgeten er ikke konfigureret ordenligt. Kontakt venligst sitet og fortæl dem det."
+msgstr ""
+"Hov, spørge widgeten er ikke konfigureret ordenligt. Kontakt venligst sitet "
+"og fortæl dem det."
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:27
 msgid ""
 "@site_name has yet to approve questions from this site. Please contact "
 "@site_mail with the agency code \"@agency_id\"."
-msgstr "@site_name har endnu ikke godkendt spørgsmål fra dette site. Kontakt venligst @site_mail og oplys biblioteksnavn og agency code \"@agency_id\"."
+msgstr ""
+"@site_name har endnu ikke godkendt spørgsmål fra dette site. Kontakt "
+"venligst @site_mail og oplys biblioteksnavn og agency code \"@agency_id\"."
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:69
 msgid "How to receive answer"
@@ -1270,67 +1282,63 @@ msgstr "Din e-mailadresse"
 msgid "Enter your cell number"
 msgstr "Dit mobilnummer"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:137
-msgid "What's your zip code?"
-msgstr "Dit postnummer"
-
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:159
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:144
 msgid "When do you need the answer?"
 msgstr "Hvornår skal du senest have svar?"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:206
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:191
 msgid "Submit question"
 msgstr "Send spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:219
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:204
 msgid "Start chat"
 msgstr "Start chat"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:237
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:230
 msgid "E-mail required."
 msgstr "Email påkrævet."
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:240
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:233
 msgid "E-mail invalid."
 msgstr "Email ugyldig."
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:246
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:239
 msgid "Mobile phone number required."
 msgstr "Telefonnummer er påkrævet."
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:308
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:301
 msgid "Your question has been submitted."
 msgstr "Dit spørgsmål er sendt til biblioteksvagten."
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:314
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:307
 msgid "Close window"
 msgstr "Luk vindue"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:322
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:315
 msgid "Return"
 msgstr "Tilbage"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:385
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:420
 msgid "Are you sure you want to close?"
 msgstr "Er du sikker på at du vil lukke chatten?"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:70
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:77
 msgid "Administer embed settings"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:118
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:125
 msgid "Webform"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:122
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:129
 msgid "Chat"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:135
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:142
 msgid "From page: "
 msgstr "Sendt fra: "
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:141
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:148
 msgid "Forward to @address"
 msgstr "Videresend spørgsmål til @address "
 
@@ -1342,11 +1350,11 @@ msgstr "Stil spørgsmål"
 msgid "Question submitted"
 msgstr "Spørgsmål sendt"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:41
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:48
 msgid "Embed settings"
 msgstr "Embed-spørgeboks-indstillinger"
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:42
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:49
 msgid "Configure embed settings."
 msgstr ""
 
@@ -1694,15 +1702,15 @@ msgstr "Vorpso mailhåndtering"
 msgid "Handles parcing of mails to create entities of them."
 msgstr "Tager sig af konvertering af emails til entiteter."
 
-#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:16
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:30
 msgid "No settings available"
 msgstr "Ingen indstillinger tilgængelige"
 
-#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:28
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:42
 msgid "Question id from subject code"
 msgstr "Spørgsmåls-ID fra emnefeltet (kode)"
 
-#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:29
+#: profiles/vopros/modules/vopros/vopros_mailhandler/plugins/mailhandler/VoprosMailhandlerParser.inc:43
 msgid "The question id gotten from a code in the subject"
 msgstr "Spørgsmåls-ID hentet fra en kode i emnefeltet"
 
@@ -2160,218 +2168,218 @@ msgstr "Biblioteksvagten gør dig opmærksom på et spørgsmål"
 msgid "You can see the quesiton here: !link."
 msgstr "Du kan se spørgsmålet her: !link. "
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:794
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:795
 msgid "Question answerer"
 msgstr "Spørgsmålsbesvarer"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:796
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:797
 msgid "The uid of the user answering the question."
 msgstr "Det unikke id på den der besvarer spørgsmålet."
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:804
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:805
 msgid "Question URL"
 msgstr "Spørgsmåls-URL"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:806
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:807
 msgid "The URL of the question page."
 msgstr "URL til spørgsmålssiden."
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:827
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:828
 msgid "The deadline for answering the question."
 msgstr "Deadline for besvarelse af spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:853;1191
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:854;1192
 msgid "Telephone"
 msgstr "Telefon"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:877
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:878
 msgid "Question owner"
 msgstr "Spørgsmålsejer"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:947
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:948
 msgid "Release question link"
 msgstr "Frigiv spørgsmål link"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:948
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:949
 msgid "Creates a link for releasing a question assigned to a user."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1157
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1158
 msgid "Business"
 msgstr "Erhverv"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1158
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1159
 #: profiles/vopros/modules/vopros/vopros_question/theme/vopros_question.theme.inc:100
 msgid "Other"
 msgstr "Andet"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1159
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1160
 msgid "Personal"
 msgstr "Almen interesse / hobby"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1160
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1161
 msgid "Assignment for groundschool"
 msgstr "Folkeskoleopgave"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1161
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1162
 msgid "Assignment for highschool"
 msgstr ""
 "Opgave til gymnasium, EUC, VUC, SOSU eller anden kort videregående uddannelse"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1162
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1163
 msgid "Assignment for college education"
 msgstr "Opgave til mellemlang eller lang videregående uddannelse"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1163
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1164
 msgid "Assignment for university education or research"
 msgstr "Opgave til universitetsuddannelse eller forskning"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1200
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1201
 msgid "No deadline"
 msgstr "Ingen tidsfrist"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1201
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1202
 msgid "2 hours"
 msgstr "2 timer"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1202
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1203
 msgid "1 day"
 msgstr "1 dag"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1203
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1204
 msgid "1 week"
 msgstr "1 uge"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1212
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1213
 msgid "0 - 14 years"
 msgstr "0 - 14 år"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1213
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1214
 msgid "15 - 19 years"
 msgstr "15 - 19 år"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1214
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1215
 msgid "20 - 25 years"
 msgstr "20 - 25 år"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1215
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1216
 msgid "26 - 45 years"
 msgstr "26 - 45 år"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1216
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1217
 msgid "46 - 65 years"
 msgstr "46 - 65 år"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1217
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1218
 msgid "66 +"
 msgstr "66 +"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1218
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1219
 msgid "Doesn't want to inform"
 msgstr "Ønsker ikke at angive"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1227
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1228
 msgid "Male"
 msgstr "Mand"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1228
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1229
 msgid "Female"
 msgstr "Kvinde"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1237
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1238
 msgid "New"
 msgstr "Nye"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1238
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1239
 msgid "Active"
 msgstr "Aktive"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1239
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1240
 msgid "Assigned"
 msgstr "Tildelte"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1240
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1241
 msgid "Answered"
 msgstr "Besvaret"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1241
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1242
 msgid "Closed without answer"
 msgstr "Lukkede (uden svar)"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1250;1597
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1251;1598
 msgid "Spam"
 msgstr "Spam"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1251;1598
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1252;1599
 msgid "Problem question"
 msgstr "Problematisk spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1252;1599
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1253;1600
 msgid "Already answered"
 msgstr "Allerede besvaret"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1253
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1254
 msgid "Already published"
 msgstr "Allerede publiseret"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1254;1605
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1255;1606
 msgid "Ask for email"
 msgstr "Bed om email"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1255;1606;1614
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1256;1607;1615
 msgid "Need more info"
 msgstr "Behøver mere information"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1256;1608;1616
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1257;1609;1617
 msgid "Message for user"
 msgstr "Besked til spørger"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1257;1607;1615
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1258;1608;1616
 msgid "Not enough time for deadline"
 msgstr "Ikke tid nok til at svare"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1258
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1259
 msgid "Created from received email"
 msgstr "Oprettet fra email"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1259
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1260
 msgid "Reactivated by email"
 msgstr "Genåbnet fra email"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1260
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1261
 msgid "Reopened by user"
 msgstr "Genåbnet af bruger"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1261
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1262
 msgid "Locked for answering"
 msgstr "Låst for besvarelse"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1262
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1263
 msgid "Released"
 msgstr "Frigiv"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1263;1600
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1264;1601
 msgid "No contact info"
 msgstr "Kontaktinformation mangler"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1506
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1507
 msgid "Open question"
 msgstr "Åbn spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1519
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1520
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:775;795;946
 msgid "Close question"
 msgstr "Luk spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1525
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1526
 msgid "Notify librarian"
 msgstr "Send til specifik Biblioteksvagt"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1533;371
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1534;371
 msgid "Edit question"
 msgstr "Rediger spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1582
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1583
 msgid "Question has been reopened"
 msgstr "Spørgsmålet er genåbnet"
 
@@ -3534,7 +3542,10 @@ msgid ""
 "This role will be automatically assigned new Vopros permissions whenever a "
 "module is enabled. Changing this setting will not affect existing "
 "permissions."
-msgstr "Denne rolle tildeles automatisk nye Vopros tilladelser når et modul aktiveres. Ændring af denne indstilling påvirker ikke eksisterende tilladelser."
+msgstr ""
+"Denne rolle tildeles automatisk nye Vopros tilladelser når et modul "
+"aktiveres. Ændring af denne indstilling påvirker ikke eksisterende "
+"tilladelser."
 
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.admin.inc:99
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.module:40
@@ -3748,6 +3759,9 @@ msgstr "Modulet %module installeret."
 #: profiles/vopros/vopros.profile:230
 msgid "Enabling additional options"
 msgstr "Aktiverer moduler"
+
+#~ msgid "What's your zip code?"
+#~ msgstr "Dit postnummer"
 
 #~ msgctxt "a vopros feedback"
 #~ msgid "feedback"
@@ -15231,9 +15245,6 @@ msgstr "Aktiverer moduler"
 #~ msgid "Reset button label"
 #~ msgstr "Label på reset-knap"
 
-#~ msgid "Text to display in the reset button of the exposed form."
-#~ msgstr "Teksten der vises på reset-knappen i den blotlagte formular."
-
 #~ msgid "Exposed sorts label"
 #~ msgstr "Label til blotlagt sortering"
 
@@ -16179,9 +16190,6 @@ msgstr "Aktiverer moduler"
 
 #~ msgid "Hide sort"
 #~ msgstr "Skjul sortering"
-
-#~ msgid "Provide description"
-#~ msgstr "Tilbyd beskrivelse"
 
 #~ msgid "Save & exit"
 #~ msgstr "Gem & luk"

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the bv_openquestion module.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function bv_openquestion_enable() {
+  // Migrate qanda mapping from vopros_question.
+  $mapping = variable_get('vopros_question_qanda_mapping', NULL);
+  if ($mapping) {
+    variable_set('bv_openquestion_qanda_mapping', $mapping);
+    variable_del('vopros_question_qanda_mapping');
+  }
+}

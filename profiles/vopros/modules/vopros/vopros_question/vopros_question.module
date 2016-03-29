@@ -294,17 +294,6 @@ function vopros_question_menu() {
     'weight' => -10,
   );
 
-  // QandA migrate page.
-  $items['admin/vopros/config/client/migrate'] = array(
-    'title' => 'QandA migrate',
-    'description' => 'Migrate QandA to clients.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('vopros_question_client_migrate_form'),
-    'access arguments' => array('administer questions'),
-    'file' => 'includes/vopros_question_client.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-  );
-
   // Question settings page.
   $items['admin/vopros/config/question'] = array(
     'title' => 'Question settings',
@@ -436,14 +425,6 @@ function vopros_question_menu() {
     'file' => 'includes/vopros_question.admin.inc',
   );
 
-  // Create question from service.
-  $items['vopros/question/create/service'] = array(
-    'page callback' => 'vopros_question_create_service',
-    'access arguments' => array('create question via web service'),
-    'file' => 'includes/vopros_question.pages.inc',
-    'type' => MENU_CALLBACK,
-  );
-
   return $items;
 }
 
@@ -475,9 +456,6 @@ function vopros_question_menu_local_tasks_alter(&$data, $router_item, $root_path
  */
 function vopros_question_permission() {
   $permissions = array(
-    'create question via web service' => array(
-      'title' => t('Create question via web service'),
-    ),
     'administer questions' => array(
       'title' => t('Administer questions'),
       'restrict access' => TRUE,
@@ -1339,58 +1317,6 @@ function vopros_question_channel_data_render($question) {
   }
 
   return $rendered;
-}
-
-/**
- * Get QandA service mapping.
- *
- * Returns the mapping of old QandA service names and agency_id to the new
- * client and channel system.
- *
- * @return array
- *   The mapping in form of 'qanda_service_name|agency_id' => array(). Each
- *   value array has a client and channel key.
- */
-function _vopros_question_qanda_mapping() {
-  $mapping = &drupal_static(__FILE__, NULL);
-  if (is_null($mapping)) {
-    $mapping = _vopros_question_parse_qanda_mapping(variable_get('vopros_question_qanda_mapping', ''));
-  }
-
-  return $mapping;
-}
-
-/**
- * Parses QandA service mapping spec.
- *
- * @param string $mapping_string
- *   The textual representation.
- * @param bool $strict
- *   Whether to fail on unparsable lines.
- *
- * @return array
- *   The mapping in form of 'qanda_service_name|agency_id' => array(). Each
- *   value array has a client and channel key.
- */
-function _vopros_question_parse_qanda_mapping($mapping_string, $strict = FALSE) {
-  $mapping = array();
-  foreach (explode("\n", $mapping_string) as $line) {
-    $parts = explode('->', $line);
-    if (count($parts) == 2) {
-      $tmp = explode('|', trim($parts[1]));
-      $client = array(
-        'client' => $tmp[0],
-        'channel' => isset($tmp[1]) ? $tmp[1] : '',
-      );
-      $mapping[trim($parts[0])] = $client;
-    }
-    else {
-      if (trim($line) && $strict) {
-        return FALSE;
-      }
-    }
-  }
-  return $mapping;
 }
 
 /**

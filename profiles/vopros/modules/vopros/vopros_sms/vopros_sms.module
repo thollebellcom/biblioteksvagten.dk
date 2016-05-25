@@ -2,7 +2,10 @@
 
 /**
  * @file
+ * Vopros SMS module.
  */
+
+define('VOPROS_SMS_ANSWERED_QUESTION_MACRO', "[vopros_answer:answer-content]\n Mvh.[site:name]");
 
 /**
  * Implements hook_entity_info().
@@ -11,6 +14,7 @@ function vopros_sms_entity_info() {
   $return = array(
     'vopros_sms' => array(
       'label' => t('SMS', array(), array('context' => 'a vopros sms')),
+      'plural label' => t('SMSes', array(), array('context' => 'a vopros sms')),
       'controller class' => 'VoprosSMSEntityController',
       'base table' => 'vopros_sms',
       'revision table' => 'vopros_sms_revision',
@@ -53,14 +57,14 @@ function vopros_sms_enable() {
 }
 
 /**
- * Implementation of hook_init().
+ * Implements hook_init().
  */
 function vopros_sms_init() {
   drupal_add_css(drupal_get_path('module', 'vopros_sms') . '/theme/vopros_sms.base.css');
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function vopros_sms_menu() {
   $items = array();
@@ -130,16 +134,17 @@ function vopros_sms_menu() {
     'page callback' => 'vopros_sms_create_sms',
     'access arguments' => array('create question via sms service'),
     'file' => 'includes/vopros_sms.pages.inc',
+    'type' => MENU_CALLBACK,
   );
 
   return $items;
 }
 
 /**
- * Title callback for SMSes
+ * Title callback for SMSes.
  */
 function vopros_sms_title($sms) {
-  return isset($mail->subject) && !empty($mail->subject) ? $mail->subject : t('New sms');
+  return t('SMS');
 }
 
 /**
@@ -215,23 +220,6 @@ function vopros_sms_entity_property_info_alter(&$info) {
   $info['vopros_sms']['properties']['answer_id']['clear'] = array('question');
 }
 
-
-/**
- * Implements hook_vopros_install_tasks().
- */
-function vopros_sms_vopros_install_tasks() {
-  return array(
-    'vopros_sms' => array(
-      'display_name' => t('Vopros sms settings'),
-      'display' => TRUE,
-      'type' => 'form',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-      'function' => 'vopros_sms_settings_form',
-      'file' => drupal_get_path('module', 'vopros_sms') . '/includes/vopros_sms.admin.inc',
-    ),
-  );
-}
-
 /**
  * Implements hook_permission().
  */
@@ -240,9 +228,11 @@ function vopros_sms_permission() {
     'administer SMSes' => array(
       'title' => t('Administer SMSes'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'access SMSes' => array(
       'title' => t('Access lists of SMSes, primarily for viewing and referencing'),
+      'vopros roles' => array('staff'),
     ),
     'create SMSes' => array(
       'title' => t('Create SMSes'),
@@ -253,12 +243,15 @@ function vopros_sms_permission() {
     'edit any sms' => array(
       'title' => t('Edit any sms'),
       'restrict access' => TRUE,
+      'vopros roles' => array('staff'),
     ),
     'edit own SMSes' => array(
       'title' => t('Edit own SMSes'),
+      'vopros roles' => array('staff'),
     ),
     'view own SMSes' => array(
       'title' => t('View own SMSes'),
+      'vopros roles' => array('staff'),
     ),
   );
 
@@ -320,7 +313,7 @@ function vopros_sms_access($op, $sms = NULL, $account = NULL) {
     return TRUE;
   }
 
-  if (isset($order) && ($op == 'update' || $op == 'delete')) {
+  if (isset($sms) && ($op == 'update' || $op == 'delete')) {
     if (user_access('edit any sms', $account)) {
       return TRUE;
     }
@@ -335,7 +328,7 @@ function vopros_sms_access($op, $sms = NULL, $account = NULL) {
 }
 
 /**
- * Create a new sms object
+ * Create a new sms object.
  */
 function vopros_sms_new($values = array()) {
   $default_values = array(
@@ -351,7 +344,7 @@ function vopros_sms_new($values = array()) {
 }
 
 /**
- * Save a sms
+ * Save a sms.
  *
  * @param $sms
  *    The sms object
@@ -394,14 +387,16 @@ function vopros_sms_send($sms, $template = 'default') {
   $content = iconv('UTF-8', 'CP1252', $sms->content);
 
   // Construct the url:
-  $url = url($base_url, array('query' => array(
-    'recipient' => $number,
-    'username' => $user_name,
-    'password' => $password,
-    'text' => $content,
-    'price' => 0,
-    'from' => $sender,
-  )));
+  $url = url($base_url, array(
+    'query' => array(
+      'recipient' => $number,
+      'username' => $user_name,
+      'password' => $password,
+      'text' => $content,
+      'price' => 0,
+      'from' => $sender,
+    ),
+  ));
 
   // Try to send the sms.
   $request = drupal_http_request($url);
@@ -438,7 +433,7 @@ function vopros_sms_load_multiple($sms_ids = array(), $conditions = array(), $re
 }
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function vopros_sms_form_vopros_answer_form_alter(&$form, &$form_state) {
   // Hook into the form, if user wants an sms sent.
@@ -472,7 +467,7 @@ function vopros_sms_form_vopros_question_contact_user_submit(&$form, &$form_stat
 }
 
 /**
- * Implements hook_form_FORM_ID_alter()
+ * Implements hook_form_FORM_ID_alter().
  */
 function vopros_sms_form_vopros_question_question_frontend_form_alter(&$form, &$form_state) {
   if ($form['question']['#value']->user_answer_preference == 'sms') {

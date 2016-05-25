@@ -15,7 +15,6 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = vopros_question_list
 features[views_view][] = vopros_question_list_admin
-features[views_view][] = vopros_question_published_list
 files[] = includes/vopros_question.controller.inc
 files[] = includes/vopros_question.entity.inc
 files[] = includes/vopros_question_client.entity.inc

@@ -103,6 +103,8 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
   );
 
   field_attach_form('vopros_question', $question, $form['form'], $form_state);
+  // Checking that vopros_editorial is enabled is implicit in checking that
+  // the options is non-empty.
   if (empty($form['form']['vopros_editorial']['und']['#default_value']) && !empty($form['form']['vopros_editorial']['und']['#options'])) {
     $options = $form['form']['vopros_editorial']['und']['#options'];
     if (isset($options['_none'])) {

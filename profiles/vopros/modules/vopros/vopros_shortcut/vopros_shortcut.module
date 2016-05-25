@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * @file
+ * Vopros shortcut management.
+ */
+
+/**
+ * Update shortcuts.
+ */
+function vopros_shortcut_update_shortcuts() {
+  $set_name = variable_get('vopros_shortcut_set_name', NULL);
+  if ($set_name) {
+    $shortcuts = shortcut_set_load($set_name);
+    // Delete existing links, we'll repopulate.
+    menu_delete_links($shortcuts->set_name);
+    $shortcuts->links = array();
+  }
+  else {
+    $shortcuts = new stdClass();
+    $shortcuts->title = 'Vopros';
+    $shortcuts->links = array();
+  }
+
+  if (module_exists('vopros_question')) {
+    $shortcuts->links[] = array(
+      'link_path' => 'admin/vopros/questions/list',
+      'link_title' => t('Questions'),
+      'weight' => 0,
+    );
+  }
+
+  if (module_exists('vopros_database_search')) {
+    $shortcuts->links[] = array(
+      'link_path' => 'search',
+      'link_title' => t('Search questions'),
+      'weight' => 10,
+    );
+  }
+
+  if (module_exists('vopros_user')) {
+    $shortcuts->links[] = array(
+      'link_path' => 'admin/vopros/users',
+      'link_title' => t('Users'),
+      'weight' => 20,
+    );
+  }
+
+  shortcut_set_save($shortcuts);
+  if (!$set_name) {
+    variable_set('vopros_shortcut_set_name', $shortcuts->set_name);
+  }
+}
+
+/**
+ * Implements hook_shortcut_default_set().
+ */
+function vopros_shortcut_shortcut_default_set($account) {
+  if ($set_name = variable_get('vopros_shortcut_set_name', NULL)) {
+    return $set_name;
+  }
+}
+
+/**
+ * Implements hook_init().
+ *
+ * This fails a bit if triggered on the shortcut edit page, as the menu loader
+ * apparently manages to get the previous version. However, as the shortcut
+ * set is not meant to be editable, we'll live with it.
+ */
+function vopros_shortcut_init() {
+  if (variable_get('vopros_shortcut_rebuild', FALSE)) {
+    vopros_shortcut_update_shortcuts();
+    variable_del('vopros_shortcut_rebuild');
+  }
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function vopros_shortcut_modules_enabled($modules) {
+  variable_set('vopros_shortcut_rebuild', TRUE);
+}
+
+/**
+ * Implements hook_modules_disabled().
+ */
+function vopros_shortcut_modules_disabled() {
+  variable_set('vopros_shortcut_rebuild', TRUE);
+}
+
+/**
+ * Implements hook_flush_caches().
+ *
+ * Also rebuild shortcuts on cache clear. For one, the menu links might not be
+ * created when installing modules in the profile (probably due to some menu
+ * stuff being not quite right there), so we fix it here. Also makes it
+ * possible for the administrator to "fix" any problems by clearing the cache.
+ */
+function vopros_shortcut_flush_caches() {
+  vopros_shortcut_update_shortcuts();
+}

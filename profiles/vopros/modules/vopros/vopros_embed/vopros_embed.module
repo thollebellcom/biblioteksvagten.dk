@@ -1,0 +1,355 @@
+<?php
+
+/**
+ * @file
+ * Provides embed service of question creation to other sites.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function vopros_embed_menu() {
+  $items['embed/ask-question'] = array(
+    'title' => 'Ask question',
+    'title callback' => '_vopros_embed_menu_title',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_embed_question'),
+    'access callback' => TRUE,
+    'file' => 'vopros_embed.pages.inc',
+    'delivery callback' => 'vopros_embed_deliver_html_page',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['embed/ask-question/submitted'] = array(
+    'title' => 'Question submitted',
+    'page callback' => 'vopros_embed_question_submitted_page',
+    'access callback' => TRUE,
+    'file' => 'vopros_embed.pages.inc',
+    'delivery callback' => 'vopros_embed_deliver_html_page',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['embed/tab.css'] = array(
+    'page callback' => 'vopros_embed_tab_css',
+    'access callback' => TRUE,
+    'file' => 'vopros_embed.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['embed/question_modal.js'] = array(
+    'page callback' => 'vopros_embed_question_modal_js',
+    'access callback' => TRUE,
+    'file' => 'vopros_embed.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Administrative pages.
+  $items['admin/vopros/config/embed'] = array(
+    'title' => 'Embed settings',
+    'description' => 'Configure embed settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vopros_embed_setting_form'),
+    'access arguments' => array('administer vopros_embed'),
+    'file' => 'vopros_embed.admin.inc',
+  );
+
+  $items['admin/vopros/config/embed/settings'] = array(
+    'title' => 'Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Menu title callback.
+ */
+function _vopros_embed_menu_title() {
+  return format_string(variable_get('vopros_embed_title', 'Ask @site_name'), array('@site_name' => variable_get('site_name', 'Drupal')));
+}
+
+/**
+ * Implements hook_permission().
+ */
+function vopros_embed_permission() {
+  return array(
+    'administer vopros_embed' => array(
+      'title' => t('Administer embed settings'),
+      'description' => '',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function vopros_embed_theme() {
+  return array(
+    'embedded_html' => array(
+      'render element' => 'page',
+      'template' => 'embedded-html',
+    ),
+    'embedded_page' => array(
+      'render element' => 'page',
+      'template' => 'embedded-page',
+    ),
+    'vopros_embed_question_form' => array(
+      'render element' => 'element',
+    ),
+    'vopros_embed_tab' => array(
+      'variables' => array('title' => '', 'url' => ''),
+      'template' => 'vopros-embed-tab',
+    ),
+  );
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function vopros_embed_element_info() {
+  $types['embedded_page'] = array(
+    '#show_messages' => TRUE,
+    '#theme' => 'embedded_page',
+    '#theme_wrappers' => array('embedded_html'),
+  );
+
+  return $types;
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_embed_vopros_question_channels() {
+  return array(
+    'webform' => array(
+      'name' => t('Webform'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+    'chat' => array(
+      'name' => t('Chat'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+  );
+}
+
+/**
+ * Channel data render callback.
+ */
+function vopros_embed_channel_data_render($data, $question) {
+  $output = array();
+  if ($data['from_url']) {
+    $url = $data['from_url'];
+    $output[] = t('From page: ') . l($url, $url, array('external' => TRUE));
+  }
+  if ($data['site_email']) {
+    $mail = $data['site_email'];
+    $path = 'admin/vopros/questions/' . $question->question_id . '/bounce/' .
+          $mail;
+    $output[] = '<b>' . l(t('Forward to @address', array('@address' => $mail)), $path, array('query' => drupal_get_destination())) . '</b>';
+  }
+
+  return implode('<br />', $output);
+}
+
+/**
+ * Custom delivery callback for embedded pages.
+ *
+ * Mimics drupal_deliver_html_page().
+ */
+function vopros_embed_deliver_html_page($page_callback_result) {
+  // Fall back on drupal_deliver_html_page() when the result is a menu status
+  // contant.
+  if (is_int($page_callback_result)) {
+    drupal_deliver_html_page($page_callback_result);
+  }
+
+  // Emit the correct charset HTTP header, but not if the page callback
+  // result is NULL, since that likely indicates that it printed something
+  // in which case, no further headers may be sent, and not if code running
+  // for this page request has already set the content type header.
+  if (isset($page_callback_result) && is_null(drupal_get_http_header('Content-Type'))) {
+    drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+  }
+
+  // Send appropriate HTTP-Header for browsers and search engines.
+  global $language;
+  drupal_add_http_header('Content-Language', $language->language);
+
+  if (isset($page_callback_result)) {
+    // Print page content.
+    print vopros_embed_render_page($page_callback_result);
+  }
+
+  // Perform end-of-request tasks.
+  drupal_page_footer();
+}
+
+/**
+ * Renders an embedded page.
+ *
+ * Mimics drupal_render_page().
+ */
+function vopros_embed_render_page($page) {
+  $main_content_display = &drupal_static('system_main_content_added', FALSE);
+
+  // Allow menu callbacks to return strings or arbitrary arrays to render.
+  // If the array returned is not of #type page directly, we need to fill
+  // in the page with defaults.
+  if (is_string($page) || (is_array($page) && (!isset($page['#type']) || ($page['#type'] != 'embedded_page')))) {
+    drupal_set_page_content($page);
+    $page = element_info('embedded_page');
+  }
+
+  // If no module has taken care of the main content, add it to the page now.
+  // This allows the site to still be usable even if no modules that
+  // control page regions (for example, the Block module) are enabled.
+  if (!$main_content_display) {
+    $page['content']['system_main'] = drupal_set_page_content();
+  }
+
+  // Include files.
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css');
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed_form.css');
+  drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_styling.js');
+  drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_popup.js');
+
+  return drupal_render($page);
+}
+
+/**
+ * Preprocess variables for embedded-html.tpl.php.
+ *
+ * @see embedded-html.tpl.php
+ */
+function template_preprocess_embedded_html(&$variables) {
+  $variables['classes_array'] = array();
+  $variables['language']          = $GLOBALS['language'];
+  $variables['language']->dir     = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
+
+  // Construct page title.
+  if (drupal_get_title()) {
+    $head_title = array(
+      'title' => strip_tags(drupal_get_title()),
+      'name' => check_plain(variable_get('site_name', 'Drupal')),
+    );
+  }
+  else {
+    $head_title = array('name' => check_plain(variable_get('site_name', 'Drupal')));
+    if (variable_get('site_slogan', '')) {
+      $head_title['slogan'] = filter_xss_admin(variable_get('site_slogan', ''));
+    }
+  }
+  $variables['head_title_array'] = $head_title;
+  $variables['head_title'] = implode(' | ', $head_title);
+}
+
+/**
+ * Process variables for embedded-html.tpl.php.
+ *
+ * @see embedded-html.tpl.php
+ */
+function template_process_embedded_html(&$variables) {
+  // Render page_top and page_bottom into top level variables.
+  $variables['page_top'] = drupal_render($variables['page']['page_top']);
+  $variables['page_bottom'] = drupal_render($variables['page']['page_bottom']);
+  // Place the rendered HTML for the page body into a top level variable.
+  $variables['page']              = $variables['page']['#children'];
+  $variables['page_bottom'] .= drupal_get_js('footer');
+
+  $variables['head']    = drupal_get_html_head();
+  $variables['css']     = drupal_add_css();
+  $variables['styles']  = drupal_get_css();
+  $variables['scripts'] = drupal_get_js();
+}
+
+/**
+ * Preprocess variables for embedded-page.tpl.php.
+ *
+ * @see embedded-page.tpl.php
+ */
+function template_preprocess_embedded_page(&$variables) {
+  // Move some variables to the top level for themer convenience and template
+  // cleanliness.
+  $variables['show_messages'] = $variables['page']['#show_messages'];
+
+  foreach (array('content' => 'content', 'footer' => 'footer') as $region_key => $region_name) {
+    if (!isset($variables['page'][$region_key])) {
+      $variables['page'][$region_key] = array();
+    }
+  }
+
+
+  // Prep the logo for the template.
+  $variables['logo'] = NULL;
+  $logo = variable_get('vopros_embed_logo', '');
+  if (!empty($logo)) {
+    $variables['logo'] = theme(
+      'image', array(
+        'path' => image_style_url(
+          'medium',
+          $logo
+        ),
+      )
+    );
+  }
+
+  $variables['base_path']         = base_path();
+  $variables['language']          = $GLOBALS['language'];
+  $variables['language']->dir     = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
+  $variables['site_name']         = (theme_get_setting('toggle_name') ? filter_xss_admin(variable_get('site_name', 'Drupal')) : '');
+  $variables['site_slogan']       = (theme_get_setting('toggle_slogan') ? filter_xss_admin(variable_get('site_slogan', '')) : '');
+}
+
+/**
+ * Process variables for embedded-page.tpl.php
+ *
+ * @see embedded-page.tpl.php
+ */
+function template_process_embedded_page(&$variables) {
+  if (!isset($variables['title'])) {
+    $variables['title'] = drupal_get_title();
+  }
+
+  // Generate messages last in order to capture as many as possible for the
+  // current page.
+  if (!isset($variables['messages'])) {
+    $variables['messages'] = $variables['show_messages'] ? theme('status_messages') : '';
+  }
+}
+
+function theme_vopros_embed_question_form(&$vars) {
+  $element = $vars['element'];
+  $output = '';
+  if ($element['user_answer_preference']) {
+    $output .= '<div class="answer_type">' . drupal_render($element['user_answer_preference']) . '</div>';
+  }
+
+  $output .= '<div class="answer_details">' . drupal_render_children($element) . '</div>';
+
+  return $output;
+}
+
+/**
+ * Get the HTML for a close popup link.
+ *
+ * @param string $text
+ *   The raw HTML link content.
+ */
+function vopros_embed_popup_close_link($text) {
+  return '<a href=# class="element-hidden close-popup">' . $text . '</a>';
+}
+
+/**
+ * Get applicable answering methods.
+ */
+function _vopros_embed_answer_preferences() {
+  // Pick out a specific subset of options.
+  $options = _vopros_question_user_answer_preference();
+  $options = array_intersect_key($options, array(
+    'mail' => TRUE,
+    'sms' => TRUE,
+    'chat' => TRUE,
+  ));
+
+  return $options;
+}

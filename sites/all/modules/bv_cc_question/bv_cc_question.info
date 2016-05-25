@@ -1,7 +1,7 @@
 name = BV Call Center Questions
 description = Defines the Call Center Question entity and associated features.
 core = 7.x
-package = Vopros
+package = Biblioteksvagten
 dependencies[] = better_exposed_filters
 dependencies[] = ctools
 dependencies[] = entity

@@ -1,0 +1,4 @@
+project:
+  type: git
+  origin: 'git@github.com:Biblioteksvagten/vopros_editorial.git'
+  revision: e4dbd8d708f8a446ac447d3fdf6e3b87a5a45a98

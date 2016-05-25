@@ -1,0 +1,51 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (installer)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from file: profiles/vopros/vopros.profile: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-03-04 08:35+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: profiles/vopros/vopros.profile:67;96
+msgid "Additional options"
+msgstr ""
+
+#: profiles/vopros/vopros.profile:75;115
+msgid "Enable options"
+msgstr ""
+
+#: profiles/vopros/vopros.profile:90
+msgid "Get questions from an email account."
+msgstr ""
+
+#: profiles/vopros/vopros.profile:91
+msgid "Questions and answer search"
+msgstr ""
+
+#: profiles/vopros/vopros.profile:92
+msgid "Transfer questions to/from another Vopros site."
+msgstr ""
+
+#: profiles/vopros/vopros.profile:98
+msgid "Vopros comes bundled with additional options that provide extra functionality, but that is not required for basic functions. These can be enabled later if they're not selected now. We've pre-selected recommended options."
+msgstr ""
+
+#: profiles/vopros/vopros.profile:204
+msgid "Installed %module module."
+msgstr ""
+
+#: profiles/vopros/vopros.profile:230
+msgid "Enabling additional options"
+msgstr ""
+

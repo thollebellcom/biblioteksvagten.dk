@@ -1,0 +1,497 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"PO-Revision-Date: 2016-03-29 09:27+0200\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:14;27
+msgctxt "a vopros email"
+msgid "Email"
+msgstr "Email"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:292
+msgid "Email"
+msgstr "Email"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:15
+msgctxt "a vopros email"
+msgid "Emails"
+msgstr "Emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:332
+msgid "Emails"
+msgstr "Emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:37
+msgid "Administrator"
+msgstr "Administrator"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:164
+msgid "New email"
+msgstr "Ny email"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:177
+msgid "Answer"
+msgstr "Svar"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:179
+msgid "The unique ID of answer the email belongs to."
+msgstr "Unikt ID på det svar som emailen hører til."
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:187
+msgid "Question"
+msgstr "Spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:189
+msgid "The unique ID of the question the answer belongs to."
+msgstr "Unik ID på det spørgsmål som svaret hører til."
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:257
+msgid "Administer emails"
+msgstr "Administrer emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:262
+msgid "Access lists of emails, primarily for viewing and referencing"
+msgstr "Adgang til liste over emails, primært til visning og reference"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:266
+msgid "Create emails"
+msgstr "Opret emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:270
+msgid "Edit any email"
+msgstr "Rediger emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:275
+msgid "Edit own emails"
+msgstr "Rediger egne emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:279
+msgid "View own emails"
+msgstr "Se egne emails"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:302
+msgid "E-mail"
+msgstr "E-mail"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:501
+msgid "[@site] FWD: @subject"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:509
+msgid "------ Forwarded by @user fra @site ------"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:671
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:92;165;306;634
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:317
+msgid "Subject"
+msgstr "Emne"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:672
+msgid "The subject of the question"
+msgstr "Spørgsmålets emne"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:676
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:316
+msgid "Email address"
+msgstr "Mailadresse"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:677
+msgid "The email address that the email has been sent to or from"
+msgstr "Mailadressen som emailen er sendt til eller fra"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:681
+msgid "Content"
+msgstr "Indhold"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:682
+msgid "The content of the email"
+msgstr "Emailens indhold"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:804
+msgid "Ingoing"
+msgstr "Ind"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:805
+msgid "Outgoing"
+msgstr "Ud"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:841
+msgid "File attachments"
+msgstr "Filvedhæftninger"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:72
+msgid "Email settings"
+msgstr "Emailindstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:73
+msgid "Configure general email settings, fields, and displays."
+msgstr "Konfigurer generelle emailindstillinger, felter og visning."
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:80
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:85
+msgid "Answer question"
+msgstr "Svar på spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:102
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:320
+msgid "View"
+msgstr "Se"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:107
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:431
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:325
+msgid "Delete"
+msgstr "Slet"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:116
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:323
+msgid "Convert"
+msgstr "Konverter"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:125
+msgid "Forward"
+msgstr "Videresend"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:134
+msgid "Contact user"
+msgstr "Kontakt spørger"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:142
+msgid "Send mail to channel source"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:150
+msgid "Transfer email"
+msgstr "Overfør email"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.info:0
+msgid "Vopros Email"
+msgstr "Vopros email"
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.info:0
+msgid "Defines the Email entity and associated features."
+msgstr "Definerer email-entitet og tilhørende features."
+
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:13
+msgid ""
+"Below you can define default texts used for different situations when "
+"sending an email to the user. This could be an email containing the answer, "
+"or when the need to contact the user arises, fx to ask for more info. It is "
+"possible to use Drupal tokens to create dynamic macros containing question/"
+"answer or user data. See below under each category for a list of available "
+"tokens and their meaning."
+msgstr ""
+"Herunder kan du tilføje standardtekster til brug i forskellige situationer, "
+"hvor der skal sendes mails til brugeren. Det kan fx være en email der "
+"indeholder svaret, eller hvis der opstår behov for at kontakte brugeren, fx "
+"for at få mere information. Det er muligt at bruge særlige tokens (Drupal "
+"tokens) til at generere dynamiske makroer der indeholder spørgsmål/svar-data "
+"og/eller brugerdata. Neden under hver kategory findes en liste over "
+"tilgængelige tokens og deres betydning."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:20
+msgid "Contact user email macros"
+msgstr "Kontakt bruger email-makroer"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:28
+msgid "Setup macros used for sending email."
+msgstr "Lav makroer til emails."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:33
+msgid "Subject."
+msgstr "Emne."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:39
+msgid "Mail body."
+msgstr "Emailtekst"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:54
+msgid "Email macros"
+msgstr "Email-makroer"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:55
+msgid "Create macros inserted when sending an email."
+msgstr "Lav makroer til indsættelse ved afsendelse af en email."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:60
+msgid "Answered question subject"
+msgstr "Emnefelt for besvaret spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:61;68
+msgid "Macro used when answering a question."
+msgstr "Makro til brug ved besvarelse af spørgsmål."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:67
+msgid "Answered question mail body"
+msgstr "Indhold i mail til besvaret spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:85
+msgid "Forward to local contact"
+msgstr "Videresend spørgsmål til lokal besvarelse"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:86
+msgid "Setup mail sent to local contact."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:98;180
+msgid "Mail body"
+msgstr "Emailindhold"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:133;200
+msgid "Send"
+msgstr "Send"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:153;289;624
+msgid "To"
+msgstr "Til"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:166
+msgid "The subject for the email."
+msgstr "Emailens emnefelt."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:181
+msgid "The main content of the email."
+msgstr "Hovedindholdet i emailen."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:206
+msgid "Edit answer"
+msgstr "Rediger svar"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:259
+msgid ""
+"The answer has been sent to @receiver and the question !question is marked "
+"as answered."
+msgstr ""
+"Emailen er sendt til @receiver og spørgsmålet !question er markeret som "
+"besvaret."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:275;319;610;652
+msgid "Send mail"
+msgstr "Send email"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:297
+msgid "Answer type"
+msgstr "Svartype"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:312;644
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:319
+msgid "Email content"
+msgstr "Indhold i email"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:325;432;658
+msgid "Cancel"
+msgstr "Annuller"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:358;670
+msgid "The email address %mail is not valid."
+msgstr "Mailadressen %mail er ikke valid."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:384;695
+msgid ""
+"The e-mail has been sent to @receiver and the question !question is marked "
+"as closed without answer (@status_reason)."
+msgstr ""
+"Emailen er sendt til @receiver og spørgsmålet !question er markeret som "
+"lukket uden svar (@status_reason)."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:428
+msgid "Are you sure you want to delete the email?"
+msgstr "Er du sikker på, at du vil slette emailen?"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:429
+msgid "This action cannot be undone."
+msgstr "Denne handling kan ikke fortrydes."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:477
+msgid ""
+"Email is already attached to a question, cannot be converted to a question."
+msgstr ""
+"Emailen er allerede tilknyttet et spørgsmål, og kan derfor ikke konverteres "
+"til et nyt spørgsmål."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:505
+msgid "User"
+msgstr "Bruger"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:506
+msgid "Select the user you want to forward the mail to."
+msgstr "Vælg den Biblioteksvagt mailen skal videresendes til"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:513
+msgid "Message"
+msgstr "Meddelelse"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:514
+msgid "An extra message to append to the mail."
+msgstr "En ekstra besked, der kan medsendes"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:519
+msgid "forward"
+msgstr "Send"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:541
+msgid "Email forwarded."
+msgstr "Email vidresent."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:552
+msgid "This email cannot be transferred"
+msgstr "Emailen kan ikke overføres"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:303
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:304
+msgid "Ingoing mails not related to a question"
+msgstr "Indkomne mails der ikke er knyttet til et spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:305
+msgid "more"
+msgstr "mere"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:306
+msgid "Apply"
+msgstr "Anvend"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:307
+msgid "Reset"
+msgstr "Nulstil"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:308
+msgid "Sort by"
+msgstr "Sorter efter"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:309
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:310
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:311
+msgid "Items per page"
+msgstr "Poster pr side"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:312
+msgid "- All -"
+msgstr "- Alle -"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:313
+msgid "Offset"
+msgstr "Offset"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:314
+msgid "Email ID"
+msgstr "Email-ID"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:315
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:318
+msgid "admin/vopros/emails/[email_id]"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:321
+msgid "<br />"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:322
+msgid "Action"
+msgstr "Handling"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:324
+msgid "admin/vopros/emails/[email_id]/convert"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:326
+msgid "admin/vopros/emails/[email_id]/delete"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:327
+msgid "Page"
+msgstr "Side"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:331
+msgid "Display a list of inbound emails"
+msgstr "Se en liste af indkomne e-mails"
+
+#: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:333
+msgid "Email list"
+msgstr "Emailliste"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:29
+msgid "Subject:"
+msgstr "Emne:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:41
+msgid "See mail content"
+msgstr "Se mailens indhold"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:53
+msgid "Email address:"
+msgstr "Mailadresse:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:68;129
+msgid "From:"
+msgstr "Fra:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:83;130
+msgid "To:"
+msgstr "Til:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:92;131
+msgid "Sent:"
+msgstr "Sendt:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:106
+msgid "Type of email:"
+msgstr "Emailtype:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:147;151
+msgid "Transfer:"
+msgstr "Overfør:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:148
+msgid "Can't transfer e-mail, already transferred"
+msgstr "Email kan ikke overføres, den er allerede overført"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:152
+msgid "Create new question"
+msgstr "Opret nyt spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:155
+msgid "Transfered:"
+msgstr "Overført:"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:156
+msgid "!question created by !username"
+msgstr "!question oprettet af !username"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:157
+msgid "New question"
+msgstr "Nyt spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:174
+msgid "Email converted into new !question by !username @date"
+msgstr "Email er konverteret til nyt !question af !username @date"
+
+#: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:174
+msgid "question"
+msgstr "spørgsmål"

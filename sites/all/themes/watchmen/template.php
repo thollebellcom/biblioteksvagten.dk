@@ -29,9 +29,13 @@ function watchmen_form_vopros_embed_question_alter(&$form, $form_state) {
 /**
  * Implements hook_vopros_embed_tab_style_alter().
  */
-function watchmen_vopros_embed_tab_style_alter(&$path) {
-  $path[] = '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css';
-  $path[] = url(drupal_get_path('theme', 'watchmen') . '/css/ask_vopros.css', array('absolute' => TRUE));
+function watchmen_vopros_embed_tab_style_alter(&$styles) {
+  // Totally override style sheet.
+  $styles['processed'] = array(
+    drupal_get_path('theme', 'watchmen') . '/css/ask_vopros.css',
+  );
+  // Add FontAwesome.
+  $styles['external'][] = '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css';
 }
 
 /**

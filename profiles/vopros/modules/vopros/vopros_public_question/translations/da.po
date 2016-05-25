@@ -1,0 +1,363 @@
+# Danish translation of Vopros
+msgid ""
+msgstr ""
+"Project-Id-Version: Vopros\n"
+"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"PO-Revision-Date: 2016-03-29 09:27+0200\n"
+"Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:234
+msgid "Master"
+msgstr "Master"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:235
+msgid "Public question list"
+msgstr "Offentliggjorte spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:236
+msgid "more"
+msgstr "mere"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:237
+msgid "Anvend"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:238
+msgid "Nulstil"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:239
+msgid "Sorter efter"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:240
+msgid "Asc"
+msgstr "Asc"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:241
+msgid "Desc"
+msgstr "Desc"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:242
+msgid "Items per page"
+msgstr "Poster pr side"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:243
+msgid "- All -"
+msgstr "- Alle -"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:244
+msgid "Offset"
+msgstr "Offset"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:245
+msgid "« first"
+msgstr "« første"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:246
+msgid "‹ previous"
+msgstr "‹ forrige"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:247
+msgid "next ›"
+msgstr "næste ›"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:248
+msgid "last »"
+msgstr "sidste »"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:249
+msgid "question"
+msgstr "spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:250
+msgid "Question ID"
+msgstr "Spørgsmåls-ID"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:251
+msgid "."
+msgstr "."
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:252
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:92
+msgid "Title"
+msgstr "Titel"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:253
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:116
+msgid "Subject"
+msgstr "Emne"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:254
+msgid "Status"
+msgstr "Status"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:255
+msgid "Deadline"
+msgstr "Tidsfrist"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:256
+msgid "Updated"
+msgstr "Opdateret"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:257
+msgid "Created"
+msgstr "Oprettet"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:258
+msgid "Show all"
+msgstr "Vi alle"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:259
+msgid "Usage"
+msgstr "Brug"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:260
+msgid "Editorial"
+msgstr "Redaktion"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:261
+msgid "Received from"
+msgstr "Modtaget fra"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:262
+msgid "Public questions"
+msgstr "Offentliggjort spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:25
+msgctxt "a vopros question"
+msgid "Public questions"
+msgstr "Offentliggjorte spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:24
+msgctxt "a vopros question"
+msgid "Public question"
+msgstr "Publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:38
+msgctxt "a vopros public question"
+msgid "Public question"
+msgstr "Publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:363
+#: profiles/vopros/modules/vopros/vopros_public_question/theme/vopros_public_question.theme.inc:25
+msgid "Public question"
+msgstr "Publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:48
+msgid "Default"
+msgstr "Standard"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:186
+msgid "Administer public questions"
+msgstr "Adminitrer publicering af spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:190
+msgid "Access public questions"
+msgstr "Tilgå publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:194
+msgid "Create public questions"
+msgstr "Publicer spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:198
+msgid "Edit any public question"
+msgstr "Rediger publiceret spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:337
+msgid "Publish question and answer"
+msgstr "Publicer spørgsmål og svar"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:364
+msgid "Link to the public version of this question if it exists."
+msgstr "Link til den offentlige version af dette spørgsmål, hvis det findes."
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:139
+msgid "Public question settings"
+msgstr "Indstillinger for publicering af spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:140
+msgid "Configure general question settings, fields, and displays."
+msgstr "Konfigurer generelle indstillinger for spørgsmål, felter og visning."
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:147
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:154
+msgid "View"
+msgstr "Se"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:159
+msgid "Edit"
+msgstr "Rediger"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:169
+msgid "Publish question"
+msgstr "Publicer spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.info:0
+msgid "Vopros Public Questions"
+msgstr "Vopros publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.info:0
+msgid "Defines the public question entity and associated features."
+msgstr "Definerer entitet for publiceret spørgsmål og tilhørende features."
+
+#: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.info:0
+msgid "Vopros"
+msgstr "Vopros"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:14
+msgid "Agency ID"
+msgstr "Institutions-ID"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:16
+msgid "Agency ID used on published questions."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:21
+msgid "Source"
+msgstr "Kilde"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:23
+msgid "Publisher name used on published questions."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:28
+msgid "E-mail"
+msgstr "E-mail"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:30
+msgid "Email that should get the results of processing at DBC."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:35
+msgid "-o"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:37
+msgid "Value for the -o option of the transfer file."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:42
+msgid "FTP"
+msgstr "FTP"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:44
+msgid ""
+"FTP to use in the format <em>[user]:[pass]@[host]</em>. If empty the "
+"generated files will be output to the page instead."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:47
+msgid "Plain text"
+msgstr "Ren tekst"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:59
+msgid "Default text format"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:105
+msgid "Question content"
+msgstr "Spørgsmålsindhold"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:119
+msgid "Answer content"
+msgstr "Svarindhold"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:142
+msgid "Save"
+msgstr "Gem"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:149
+msgid "Save and publish"
+msgstr "Gem og publicer"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:156
+msgid "Save and update"
+msgstr "Gem og opdater"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:162
+msgid "Delete published data"
+msgstr "Slet publiceret spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:197
+msgid "Question/answer has been saved but haven't been made public"
+msgstr "Spørgsmål/svar er gemt men ikke blevet publiceret"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:219
+msgid "Question has been published !link"
+msgstr "Spørgsmålet er publiceret !link"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:219;244
+msgid "see public question"
+msgstr "Se publicerede spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:223
+msgid "Could not create question at service."
+msgstr "Kunne ikke oprettet spørgsmål via service"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:244
+msgid "Question/answer has been updated in external data store, !link"
+msgstr "Spørgsmålet er opdateret i Brønden"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:251
+msgid "Could not update question at service."
+msgstr "Kunne ikke opdatere spørgsmålet via service."
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:263
+msgid "Unknown error - could not delete question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:269
+msgid "link"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:264
+msgid "vopros_public_question"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:264
+msgid "Error when trying to delete public question from data store: @error"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.service.inc:45
+msgid ""
+"<pre>Transfer file @filename: \n"
+"@content</pre>"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.service.inc:50
+msgid ""
+"<pre>XML file @filename: \n"
+"@content</pre>"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.service.inc:59
+msgid "Could not upload XML file."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.service.inc:63
+msgid "Could not upload trans file."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_public_question/theme/vopros_public_question.theme.inc:15
+msgid "Question published by !username @date"
+msgstr "Spørgsmålet er publiceret af !username @date"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/theme/vopros_public_question.theme.inc:25
+msgid "Edit public question"
+msgstr "Rediger publiceret spørgsmål"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/theme/vopros_public_question.theme.inc:35
+msgid "No public question"
+msgstr "Ikke publiceret"
+
+#: profiles/vopros/modules/vopros/vopros_public_question/theme/vopros_public_question.theme.inc:35
+msgid "Add public question now"
+msgstr "Publicér spørgsmål "

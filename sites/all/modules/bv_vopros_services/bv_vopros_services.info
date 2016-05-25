@@ -1,7 +1,7 @@
 name = BV Vopros Services
 description = Services module for BV.
 core = 7.x
-package = Vopros
+package = Biblioteksvagten
 php = 5.2.4
 version = 7.x-1.0
 project = bv_vopros_services

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the vopros_editorial module.
+ */
+
+/**
+ * Delete obsolete email macros.
+ */
+function vopros_editorial_update_7101() {
+  $vocabolary = taxonomy_vocabulary_machine_name_load('vopros_editorial');
+  $terms = taxonomy_term_load_multiple(NULL, array('vid' => $vocabolary->vid));
+
+  $condition = db_or();
+
+  foreach ($terms as $term) {
+    // Emails.
+    $condition->condition('name', 'vopros_email_subject_macro_%_' . $term->tid, 'like');
+    $condition->condition('name', 'vopros_email_macro_%_' . $term->tid, 'like');
+    $condition->condition('name', 'vopros_email_answered_question_subject_macro_' . $term->tid, 'like');
+    $condition->condition('name', 'vopros_email_answered_question_macro_' . $term->tid, 'like');
+
+    // SMS.
+    $condition->condition('name', 'vopros_sms_macro_%_' . $term->tid, 'like');
+    $condition->condition('name', 'vopros_sms_answered_question_macro_' . $term->tid, 'like');
+  }
+
+  $vars = db_select('variable', 'v')
+        ->fields('v', array('name'))
+        ->condition($condition)
+        ->execute()
+        ->fetchCol();
+
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @ file
+ * @file
  * Admin forms and callback functions.
  */
 
 /**
- * Answer settings form
+ * Answer settings form.
  */
 function vopros_email_settings_form($form, &$form_state) {
   $form['info'] = array(
@@ -31,20 +31,20 @@ function vopros_email_settings_form($form, &$form_state) {
     $form['contact'][$key]['vopros_email_subject_macro_' . $key] = array(
       '#type' => 'textfield',
       '#title' => t('Subject.'),
-      '#default_value' => variable_get('vopros_email_subject_macro_' . $key, ''),
+      '#default_value' => _vopros_email_subject_macro($key),
     );
 
     $form['contact'][$key]['vopros_email_macro_' . $key] = array(
       '#type' => 'textarea',
       '#title' => t('Mail body.'),
-      '#default_value' => variable_get('vopros_email_macro_' . $key, ''),
+      '#default_value' => _vopros_email_body_macro($key),
     );
   }
 
   $form['contact']['tokens'] = array(
     '#markup' => theme('token_tree', array(
       'token_types' => array('vopros_question'),
-      'global_types' => FALSE,
+      'global_types' => TRUE,
     )),
     '#weight' => 2,
   );
@@ -59,57 +59,58 @@ function vopros_email_settings_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Answered question subject'),
     '#description' => t('Macro used when answering a question.'),
-    '#default_value' => variable_get('vopros_email_answered_question_subject_macro', ''),
+    '#default_value' => _vopros_email_subject_macro('answered_question'),
   );
 
   $form['macros']['vopros_email_answered_question_macro'] = array(
     '#type' => 'textarea',
     '#title' => t('Answered question mail body'),
     '#description' => t('Macro used when answering a question.'),
-    '#default_value' => variable_get('vopros_email_answered_question_macro', ''),
+    '#default_value' => _vopros_email_body_macro('answered_question'),
   );
 
   $form['macros']['tokens'] = array(
     '#markup' => theme('token_tree', array(
       'token_types' => array('vopros_answer', 'vopros_question', 'vopros_email'),
-      'global_types' => FALSE,
+      'global_types' => TRUE,
     )),
     '#weight' => 2,
   );
 
-  $form['bounce'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    '#title' => t('Forward to local contact'),
-    '#description' => t('Setup mail sent to local contact.'),
-    '#weight' => 10,
-  );
+  if (module_exists('vopros_embed')) {
+    $form['bounce'] = array(
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#title' => t('Forward to local contact'),
+      '#description' => t('Setup mail sent to local contact.'),
+      '#weight' => 10,
+    );
 
-  $form['bounce']['vopros_email_subject_macro_bounce'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Subject.'),
-    '#default_value' => variable_get('vopros_email_subject_macro_bounce', ''),
-  );
+    $form['bounce']['vopros_email_subject_macro_bounce'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Subject'),
+      '#default_value' => _vopros_email_subject_macro('bounce'),
+    );
 
-  $form['bounce']['vopros_email_macro_bounce'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Mail body.'),
-    '#default_value' => variable_get('vopros_email_macro_bounce', ''),
-  );
-  $form['bounce']['tokens'] = array(
-    '#markup' => theme('token_tree', array(
-                 'token_types' => array('vopros_question'),
-                 'global_types' => FALSE,
-               )),
-    '#weight' => 2,
-  );
-
+    $form['bounce']['vopros_email_macro_bounce'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Mail body'),
+      '#default_value' => _vopros_email_body_macro('bounce'),
+    );
+    $form['bounce']['tokens'] = array(
+      '#markup' => theme('token_tree', array(
+        'token_types' => array('vopros_question'),
+        'global_types' => TRUE,
+      )),
+      '#weight' => 2,
+    );
+  }
   return system_settings_form($form);
 }
 
 /**
- * Answer form
+ * Answer form.
  */
 function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   if (empty($answer) && $email->answer_id) {
@@ -168,7 +169,7 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   );
 
   if (!$email->subject && $answer && isset($answer_wrapper)) {
-    $form['form']['subject']['#default_value'] = token_replace(variable_get('vopros_email_answered_question_subject_macro', ''), array(
+    $form['form']['subject']['#default_value'] = token_replace(_vopros_email_subject_macro('answered_question'), array(
       'vopros_answer' => $answer,
       'vopros_question' => $answer_wrapper->question->value(),
     ), array('sanitize' => FALSE));
@@ -184,7 +185,7 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   );
 
   if (!$email->email_content && $answer && isset($answer_wrapper)) {
-    $form['form']['email_content']['#default_value'] = token_replace(variable_get('vopros_email_answered_question_macro', ''), array(
+    $form['form']['email_content']['#default_value'] = token_replace(_vopros_email_body_macro('answered_question'), array(
       'vopros_answer' => $answer,
       'vopros_question' => $answer_wrapper->question->value(),
     ), array('sanitize' => FALSE));
@@ -210,6 +211,9 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   return $form;
 }
 
+/**
+ * Validate handler for saving emails.
+ */
 function vopros_email_form_validate(&$form, &$form_state) {
   $email = $form_state['values']['vopros_email'];
   field_attach_validate('vopros_email', $email, $form, $form_state);
@@ -217,7 +221,7 @@ function vopros_email_form_validate(&$form, &$form_state) {
 }
 
 /**
- * Submit handler for saving questions
+ * Submit handler for saving emails.
  */
 function vopros_email_form_submit(&$form, &$form_state) {
   // Update the email with submitted data.
@@ -252,7 +256,10 @@ function vopros_email_form_submit(&$form, &$form_state) {
   }
 
   $form_state['redirect'] = 'admin/vopros/questions';
-  drupal_set_message(t('The answer has been sent to @receiver and the question !question is marked as answered.', array('@receiver' => $email->email, '!question' => '<em>' . l($question->question_title, 'admin/vopros/questions/' . $question->question_id) . '</em>')));
+  drupal_set_message(t('The answer has been sent to @receiver and the question !question is marked as answered.', array(
+    '@receiver' => $email->email,
+    '!question' => '<em>' . l($question->question_title, 'admin/vopros/questions/' . $question->question_id) . '</em>',
+  )));
 }
 
 /**
@@ -327,12 +334,12 @@ function vopros_email_question_contact_form($form, &$form_state, $question) {
 function vopros_email_question_contact_form_macro($form, &$form_state) {
   $key = str_replace(' ', '_', $form_state['values']['reason']);
   $content_key = 'vopros_email_macro_' . $key;
-  $content = variable_get($content_key, '');
+  $content = _vopros_email_body_macro($key);
   drupal_alter('vopros_email_question_contact_form_macro', $content, $form, $content_key);
   $processed_content = token_replace($content, array('vopros_question' => $form_state['values']['question']), array('sanitize' => FALSE));
 
   $subject_key = 'vopros_email_subject_macro_' . $key;
-  $subject = variable_get($subject_key, '');
+  $subject = _vopros_email_subject_macro($key);
   drupal_alter('vopros_email_question_contact_form_macro', $subject, $form, $subject_key);
   $processed_subject = token_replace($subject, array('vopros_question' => $form_state['values']['question']), array('sanitize' => FALSE));
 
@@ -446,7 +453,7 @@ function vopros_email_convert_to_question_form($form, &$form_state, $email) {
     'question_title' => $email->subject,
     'question_content' => $email->email_content,
     'user_email' => $email->email,
-    'channel' => 'mail'
+    'channel' => 'mail',
   ));
 
   $form = vopros_question_question_form($form, $form_state, $question);
@@ -536,7 +543,7 @@ function vopros_email_forward_form_submit($form, &$form_state) {
 }
 
 /**
- * Form for transferring an email from one question to another
+ * Form for transferring an email from one question to another.
  */
 function vopros_email_transfer_form($form, &$form_state, $email) {
   // Don't allow transfering emails that doesn't belong to a question.
@@ -620,7 +627,7 @@ function vopros_email_question_bounce_form($form, &$form_state, $question, $mail
     '#required' => TRUE,
   );
 
-  $subject = variable_get('vopros_email_subject_macro_bounce', '');
+  $subject = _vopros_email_subject_macro('bounce');
   $subject = token_replace($subject, array('vopros_question' => $question), array('sanitize' => FALSE));
 
   $form['form']['subject'] = array(
@@ -630,7 +637,7 @@ function vopros_email_question_bounce_form($form, &$form_state, $question, $mail
     '#required' => TRUE,
   );
 
-  $content = variable_get('vopros_email_macro_bounce', '');
+  $content = _vopros_email_body_macro('bounce');
   $content = token_replace($content, array('vopros_question' => $question), array('sanitize' => FALSE));
 
   $form['form']['email_content'] = array(

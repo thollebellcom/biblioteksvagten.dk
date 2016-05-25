@@ -1,0 +1,66 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  profiles/vopros/modules/vopros/vopros_base/vopros_base.module: n/a
+#  profiles/vopros/modules/vopros/vopros_base/vopros_base.info: n/a
+#  profiles/vopros/modules/vopros/vopros_base/includes/views/handlers/vopros_base_taxonomy_tid_filter_handler.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:102
+msgid "Access to various vopros administration"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:106
+msgid "Access advances admin pages (Structure, Config and Help)"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:149
+msgid "Generic file with images"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:23 profiles/vopros/modules/vopros/vopros_base/vopros_base.info:0
+msgid "Vopros"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:24
+msgid "Administer vopros."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:33
+msgid "Configuration"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.module:34
+msgid "Configure settings and business rules for vopros."
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.info:0
+msgid "Vopros Base"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/vopros_base.info:0
+msgid "General module to tie all vopros together with admin interface"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/includes/views/handlers/vopros_base_taxonomy_tid_filter_handler.inc:18
+msgid "All"
+msgstr ""
+
+#: profiles/vopros/modules/vopros/vopros_base/includes/views/handlers/vopros_base_taxonomy_tid_filter_handler.inc:23
+msgid "Value"
+msgstr ""
+

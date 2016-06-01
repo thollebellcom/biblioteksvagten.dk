@@ -3,7 +3,7 @@ distribution_name = "Vopros"
 description = "Install Vopros, a library-centered question and answer service."
 core = "7.x"
 exclusive = TRUE
-version = "0.9.1"
+version = "0.9.2"
 
 ; Core
 dependencies[] = block
@@ -20,14 +20,16 @@ dependencies[] = menu
 dependencies[] = number
 dependencies[] = options
 dependencies[] = path
-dependencies[] = taxonomy
 dependencies[] = shortcut
+dependencies[] = taxonomy
 dependencies[] = toolbar
+dependencies[] = update
 
 ; Contrib
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = entity_token
+dependencies[] = l10n_update
 dependencies[] = libraries
 dependencies[] = profile2
 dependencies[] = token

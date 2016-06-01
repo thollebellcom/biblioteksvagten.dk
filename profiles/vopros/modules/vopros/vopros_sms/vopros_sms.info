@@ -4,6 +4,7 @@ package = Vopros
 core = 7.x
 
 configure = admin/vopros/config/sms
+vopros translation = true
 
 dependencies[] = vopros_base
 dependencies[] = vopros_answer

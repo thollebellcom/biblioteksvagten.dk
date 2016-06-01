@@ -15,6 +15,31 @@ function vopros_profile_details() {
 }
 
 /**
+ * Implements l10n_update_projects_alter().
+ *
+ * Tell l10n_update about our module translations. Modules with
+ * 'vopros translation' set in their info file will be added.
+ */
+function vopros_l10n_update_projects_alter(&$projects) {
+  // We're not handling the profile. It's strings are currently only used in the
+  // install phase.
+  foreach (system_rebuild_module_data() as $name => $module) {
+    if (isset($module->info['vopros translation'])) {
+      $projects[$name] = array(
+        'project_type'  => 'module',
+        'name' => $module->name,
+        'info' => $module->info + array(
+          'project' => $name,
+          'l10n path' => drupal_get_path('module', $name) . '/translations/%language.po',
+        ),
+      );
+    }
+  }
+  // Consider doing the same with system_rebuild_theme_data() to get theme
+  // translations handled.
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Allows the profile to alter the site configuration form.

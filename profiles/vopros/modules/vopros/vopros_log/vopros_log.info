@@ -2,6 +2,7 @@ name = Vopros Log
 description = Defines the Email entity and associated features.
 package = Vopros
 core = 7.x
+vopros translation = true
 
 dependencies[] = vopros_answer
 dependencies[] = vopros_base

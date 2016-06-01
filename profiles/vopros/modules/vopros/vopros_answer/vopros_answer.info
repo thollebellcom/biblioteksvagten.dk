@@ -2,6 +2,7 @@ name = Vopros Answers
 description = Defines the Answer entity and associated features.
 core = 7.x
 package = Vopros
+vopros translation = true
 dependencies[] = cache_actions
 dependencies[] = diff
 dependencies[] = entity

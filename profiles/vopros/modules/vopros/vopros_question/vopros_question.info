@@ -2,6 +2,7 @@ name = Vopros Questions
 description = Defines the Question entity and associated features.
 core = 7.x
 package = Vopros
+vopros translation = true
 dependencies[] = better_exposed_filters
 dependencies[] = cache_actions
 dependencies[] = diff

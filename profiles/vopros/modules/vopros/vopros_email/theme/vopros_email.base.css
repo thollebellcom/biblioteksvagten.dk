@@ -1,3 +1,10 @@
+
+/** Mail icon in question lists **/
+.view-vopros-question-list .views-field-question-status img {
+  margin-bottom: -2px;
+  margin-left: 3px;
+}
+
 /** Display Email **/
 .vopros-email-display .header {
   border: 1px solid black;

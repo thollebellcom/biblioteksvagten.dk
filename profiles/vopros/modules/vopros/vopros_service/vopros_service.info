@@ -4,6 +4,7 @@ package = Vopros
 core = 7.x
 
 configure = admin/vopros/config/service
+vopros translation = true
 
 dependencies[] = ctools
 dependencies[] = entity

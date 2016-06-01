@@ -4,6 +4,7 @@ package = Vopros
 core = 7.x
 
 configure = admin/vopros/config/feedback
+vopros translation = true
 
 dependencies[] = fivestar
 dependencies[] = vopros_base

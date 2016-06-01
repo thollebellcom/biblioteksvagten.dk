@@ -111,4 +111,9 @@ function vopros_install() {
   variable_set('date_format_long', 'l, F j, Y - H:i');
   variable_set('date_format_medium', 'D, Y-m-d H:i');
   variable_set('date_format_short', 'd/m/Y - H:i');
+
+  // Set up automatic translation update.
+  variable_set('l10n_update_check_frequency', '7');
+  variable_set('l10n_update_check_mode', '3');
+  variable_set('l10n_update_import_mode', '2');
 }

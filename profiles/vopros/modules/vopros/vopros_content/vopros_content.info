@@ -3,6 +3,7 @@ description = Add content to Vopros
 core = 7.x
 package = Vopros
 version = 7.x-1.0
+vopros translation = true
 dependencies[] = book
 dependencies[] = features
 dependencies[] = filter

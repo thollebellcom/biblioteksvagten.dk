@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -124,15 +124,15 @@ msgstr ""
 msgid "The content of the email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:804
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:827
 msgid "Ingoing"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:805
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:828
 msgid "Outgoing"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:841
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:864
 msgid "File attachments"
 msgstr ""
 

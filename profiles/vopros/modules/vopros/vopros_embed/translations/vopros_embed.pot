@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -34,7 +34,7 @@ msgid "Main title of the page. Use <em>@site_name</em> to insert the site title.
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:27
-msgid "Service description"
+msgid "Tab title"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:29
@@ -50,7 +50,7 @@ msgid "Show deadline options for these answer methods."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:47
-msgid "Tab title"
+msgid "Service information"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:50
@@ -153,19 +153,19 @@ msgstr ""
 msgid "Mobile phone number required."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:301
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:302
 msgid "Your question has been submitted."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:307
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:308
 msgid "Close window"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:315
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:316
 msgid "Return"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:420
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:421
 msgid "Are you sure you want to close?"
 msgstr ""
 

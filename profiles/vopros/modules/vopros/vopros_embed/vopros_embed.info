@@ -4,3 +4,4 @@ package = Vopros
 core = 7.x
 dependencies[] = vopros_question
 dependencies[] = vopros_email
+vopros translation = true

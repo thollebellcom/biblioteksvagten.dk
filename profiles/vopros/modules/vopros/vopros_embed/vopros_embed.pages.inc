@@ -273,6 +273,7 @@ function vopros_embed_question_submit($form, &$form_state) {
   // Save question.
   $question->save();
 
+  $query = array();
   // If the form was not shown from a popup, add the originating URL to the
   // path, so we can add a return link.
   if (!$form_state['values']['popup']) {

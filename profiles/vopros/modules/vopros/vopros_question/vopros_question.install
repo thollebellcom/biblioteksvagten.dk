@@ -395,6 +395,7 @@ function vopros_question_schema() {
     ),
     'primary key' => array('revision_id'),
     'indexes' => array(
+      'question_id' => array('question_id'),
       'question_status' => array('question_status'),
       'question_usage' => array('question_usage'),
       'qanda_service_name' => array('qanda_service_name'),
@@ -405,7 +406,7 @@ function vopros_question_schema() {
     'foreign keys' => array(
       'question' => array(
         'table' => 'vopros_question',
-        'columns'=> array('question_id' => 'question_id'),
+        'columns' => array('question_id' => 'question_id'),
       ),
     ),
   );
@@ -807,4 +808,11 @@ function vopros_question_update_7007() {
  */
 function vopros_question_update_7008() {
   variable_del('vopros_question_qanda_service_options');
+}
+
+/**
+ * Add question_id index to vopros_question_revision.
+ */
+function vopros_question_update_7101() {
+  db_add_index('vopros_question_revision', 'question_id', array('question_id'));
 }

@@ -2,23 +2,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Vopros\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
-"PO-Revision-Date: 2016-03-29 09:27+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
+"PO-Revision-Date: 2016-06-01 09:59+0200\n"
 "Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:28
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:29
 msgid "Questions"
 msgstr "Spørgsmål"
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:36
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:35
 msgid "Search questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:44
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:41
 msgid "Users"
 msgstr "Brugere"
 

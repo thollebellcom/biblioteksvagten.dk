@@ -218,7 +218,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  vopros_answer.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -228,7 +228,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_base.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -238,7 +238,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_content.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -248,7 +248,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_database_search.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -258,7 +258,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_email.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -268,7 +268,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_embed.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -278,7 +278,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_feedback.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -288,7 +288,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_log.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -298,7 +298,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_mailhandler.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -308,7 +308,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_permission.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -318,7 +318,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_public_question.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -328,7 +328,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_question.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -338,7 +338,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_search.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -348,7 +348,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_service.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -358,7 +358,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_shortcut.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -368,7 +368,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_sms.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -378,7 +378,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_statistics.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -388,7 +388,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "#-#-#-#-#  vopros_user.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -625,7 +625,7 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:248;437
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:1276
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:153;205
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:191;200
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:191;199
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.controller.inc:41
 msgid "Channel"
 msgstr ""
@@ -641,7 +641,7 @@ msgid "Question created"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:251
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:271
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:270
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.views_default.inc:315
 msgid "Library"
 msgstr ""
@@ -694,7 +694,7 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:440
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:255
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:589;1265
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:138;195;825
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:138;195;803
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:160
 #: profiles/vopros/modules/vopros/vopros_service/includes/vopros_service.views_default.inc:311
 msgid "Deadline"
@@ -704,12 +704,12 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:107
 #: profiles/vopros/modules/vopros/vopros_database_search/vopros_database_search.views_default.inc:113
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:591;1267
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:832
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:810
 msgid "Date asked"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.views_default.inc:442
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1497;431
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1423;420
 msgid "Release question"
 msgstr ""
 
@@ -773,17 +773,17 @@ msgid "The uid of the user creating the answer."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:109
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:834
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:812
 msgid "The date the question was submitted."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:116
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:841
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:819
 msgid "Date changed"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:119
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:844
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:822
 msgid "The date the question was most recently updated."
 msgstr ""
 
@@ -841,7 +841,7 @@ msgid "View own answers"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:346
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:502
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:480
 msgid "Access and use revisions"
 msgstr ""
 
@@ -893,23 +893,23 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.module:57
 #: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:68
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:147
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:292;319
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:292;308
 #: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:82
 msgid "Settings"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:284
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:382
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:371
 msgid "Revisions"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:294
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:393
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:382
 msgid "Diff"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/vopros_answer.module:304
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:404
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:393
 msgid "Revert revision"
 msgstr ""
 
@@ -957,7 +957,7 @@ msgid "Question data"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:120
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:208
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:207
 msgid "Channel data"
 msgstr ""
 
@@ -973,8 +973,8 @@ msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:166
 #: profiles/vopros/modules/vopros/vopros_public_question/includes/vopros_public_question.admin.inc:142
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:91;288;369;854
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:281
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:91;287;368;853
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:57
 msgid "Save"
 msgstr ""
 
@@ -1008,47 +1008,47 @@ msgid "Answer saved and is ready to be submited to the user."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:323;331;384;388
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:478;486;539;543
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:477;485;538;542
 msgid "!date by !username"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:336
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:491
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:490
 msgid "revert"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:358
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:513
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:512
 msgid "Show diff"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:416
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:571
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:570
 msgid "next diff >"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:422
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:577
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:576
 msgid "< previous diff"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:459
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:614
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:613
 msgid "Current revision:"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:462
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:617
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:616
 msgid "Revision of !new_date:"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:561
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:734
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:733
 msgid "Changes to %name"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_answer/includes/vopros_answer.admin.inc:571
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:744
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:743
 msgid "No visible changes"
 msgstr ""
 
@@ -1128,7 +1128,7 @@ msgid "Email"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:292
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:233
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:232
 msgid "Email"
 msgstr ""
 
@@ -1194,7 +1194,7 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.views_default.inc:253
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:116
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.views_default.inc:1262
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:994
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:972
 msgid "Subject"
 msgstr ""
 
@@ -1220,17 +1220,17 @@ msgstr ""
 msgid "The content of the email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:804
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:827
 msgid "Ingoing"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:805
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:828
 #: profiles/vopros/modules/vopros/vopros_service/includes/views/handlers/vopros_service_direction_views_handler_filter_in_operator.inc:19
 msgid "Outgoing"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:841
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1035
+#: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:864
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1013
 msgid "File attachments"
 msgstr ""
 
@@ -1246,7 +1246,7 @@ msgstr ""
 #: profiles/vopros/modules/vopros/vopros_email/includes/views/vopros_email.views_default.inc:320
 #: profiles/vopros/modules/vopros/vopros_feedback/vopros_feedback.module:90
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:154
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:354
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:343
 #: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:107
 msgid "View"
 msgstr ""
@@ -1267,8 +1267,8 @@ msgid "Forward"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:134
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1515
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:941
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1441
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:940
 #: profiles/vopros/modules/vopros/vopros_service/vopros_service.module:131
 #: profiles/vopros/modules/vopros/vopros_sms/vopros_sms.module:124
 msgid "Contact user"
@@ -1391,7 +1391,7 @@ msgid "Email content"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:325;432;658
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:377
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:376
 #: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:122
 #: profiles/vopros/modules/vopros/vopros_service/vopros_service.pages.inc:120
 msgid "Cancel"
@@ -1421,7 +1421,7 @@ msgid ""
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:505
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:982
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:981
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.views_default.inc:471
 msgid "User"
 msgstr ""
@@ -1431,7 +1431,7 @@ msgid "Select the user you want to forward the mail to."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/includes/vopros_email.admin.inc:513
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:990
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:989
 #: profiles/vopros/modules/vopros/vopros_service/vopros_service.form.inc:112
 msgid "Message"
 msgstr ""
@@ -1538,7 +1538,7 @@ msgid "!question created by !username"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_email/theme/vopros_email.theme.inc:157
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:582;591
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:560;569
 msgid "New question"
 msgstr ""
 
@@ -1556,7 +1556,7 @@ msgid ""
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:27
-msgid "Service description"
+msgid "Tab title"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:29
@@ -1574,7 +1574,7 @@ msgid "Show deadline options for these answer methods."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:47
-msgid "Tab title"
+msgid "Service information"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.admin.inc:50
@@ -1684,19 +1684,19 @@ msgstr ""
 msgid "Mobile phone number required."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:301
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:302
 msgid "Your question has been submitted."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:307
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:308
 msgid "Close window"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:315
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:316
 msgid "Return"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:420
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:421
 msgid "Are you sure you want to close?"
 msgstr ""
 
@@ -1964,7 +1964,7 @@ msgid "user"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_feedback/includes/views/vopros_feedback.views_default.inc:694
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:227
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:226
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.views_default.inc:312
 msgid "Name"
 msgstr ""
@@ -2061,7 +2061,7 @@ msgstr ""
 msgid "!username posted log message @date"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.module:16
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.module:18
 msgid ""
 "No mailboxes configured for automatic mail import. Please <a href=@url>add a "
 "mailbox</a>."
@@ -2190,7 +2190,7 @@ msgid "Public question settings"
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_public_question/vopros_public_question.module:140
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:311
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:300
 msgid "Configure general question settings, fields, and displays."
 msgstr ""
 
@@ -2501,257 +2501,253 @@ msgstr ""
 msgid "Subject catagory"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:479
-msgid "Create question via web service"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:482
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:460
 msgid "Administer questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:486
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:464
 msgid "Access lists of questions, primarily for viewing and referencing"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:490
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:468
 msgid "Create questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:494
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:472
 msgid "Edit any question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:498
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:476
 msgid "Contact user about question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:505
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:483
 msgid "Assign a user a question or notify them about it"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:518
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:496
 msgid "[@site] Question notification"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:519
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:497
 msgid "You have been notified about a question."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:523
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:501
 msgid "You can see the quesiton here: !link."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:795
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:773
 msgid "Question answerer"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:797
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:775
 msgid "The uid of the user answering the question."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:805
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:783
 msgid "Question URL"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:807
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:785
 msgid "The URL of the question page."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:828
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:806
 msgid "The deadline for answering the question."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:854;1192
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:832;1170
 msgid "Telephone"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:878
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:856
 msgid "Question owner"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:948
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:926
 msgid "Release question link"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:949
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:927
 msgid "Creates a link for releasing a question assigned to a user."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1158
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1136
 msgid "Business"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1159
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1137
 #: profiles/vopros/modules/vopros/vopros_question/theme/vopros_question.theme.inc:100
 msgid "Other"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1160
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1138
 msgid "Personal"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1161
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1139
 msgid "Assignment for groundschool"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1162
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1140
 msgid "Assignment for highschool"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1163
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1141
 msgid "Assignment for college education"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1164
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1142
 msgid "Assignment for university education or research"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1201
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1179
 msgid "No deadline"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1202
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1180
 msgid "2 hours"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1203
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1181
 msgid "1 day"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1204
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1182
 msgid "1 week"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1213
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1191
 msgid "0 - 14 years"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1214
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1192
 msgid "15 - 19 years"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1215
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1193
 msgid "20 - 25 years"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1216
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1194
 msgid "26 - 45 years"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1217
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1195
 msgid "46 - 65 years"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1218
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1196
 msgid "66 +"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1219
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1197
 msgid "Doesn't want to inform"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1228
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1206
 msgid "Male"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1229
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1207
 msgid "Female"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1238
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1216
 msgid "New"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1239
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1217
 msgid "Active"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1240
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1218
 msgid "Assigned"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1241
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1219
 msgid "Answered"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1242
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1220
 msgid "Closed without answer"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1251;1598
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1229;1524
 msgid "Spam"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1252;1599
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1230;1525
 msgid "Problem question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1253;1600
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1231;1526
 msgid "Already answered"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1254
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1232
 msgid "Already published"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1255;1606
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1233;1532
 msgid "Ask for email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1256;1607;1615
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1234;1533;1541
 msgid "Need more info"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1257;1609;1617
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1235;1535;1543
 msgid "Message for user"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1258;1608;1616
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1236;1534;1542
 msgid "Not enough time for deadline"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1259
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1237
 msgid "Created from received email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1260
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1238
 msgid "Reactivated by email"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1261
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1239
 msgid "Reopened by user"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1262
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1240
 msgid "Locked for answering"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1263
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1241
 msgid "Released"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1264;1601
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1242;1527
 msgid "No contact info"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1507
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1433
 msgid "Open question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1520
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:775;795;946
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1446
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:774;794;945
 msgid "Close question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1526
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1452
 msgid "Notify librarian"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1534;371
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1460;360
 msgid "Edit question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1583
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:1509
 msgid "Question has been reopened"
 msgstr ""
 
@@ -2764,35 +2760,27 @@ msgid "Configure general settings for clients, fields, and displays."
 msgstr ""
 
 #: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:299
-msgid "QandA migrate"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:300
-msgid "Migrate QandA to clients."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:310
 msgid "Question settings"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:326
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:315
 msgid "Add a question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:335
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:324
 msgid "Add a question with an answer"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:361
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:350
 msgid "Admin edit"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:413
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:402
 #: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:21;51
 msgid "Close"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:422
+#: profiles/vopros/modules/vopros/vopros_question/vopros_question.module:411
 msgid "Notify user"
 msgstr ""
 
@@ -2842,75 +2830,75 @@ msgstr ""
 msgid "The answwer for this question."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:215
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:214
 msgid "Note about the question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:221
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:220
 msgid "Info about person who asked the question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:239
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:238
 msgid "Postal code"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:245
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:244
 msgid "Mobile phone"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:251
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:250
 msgid "Age"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:258
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:257
 msgid "Gender"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:265
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:264
 msgid "Field of study"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:277
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:276
 msgid "How to recieve answer"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:295
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:294
 msgid "Subject categories"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:785
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:784
 msgid "Reason to close the question"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:826
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:825
 msgid "Question has been marked as answered"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:831
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:830
 msgid "Question has been closed and wont be answered"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:916
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:915
 msgid "Click to edit"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:928
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:927
 msgid "Show complete form"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:970
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:969
 msgid "Question has been saved"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:983
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:982
 msgid "Select the user you want to notify."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:995
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:994
 msgid "Assign question to the user"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:1001
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question.admin.inc:1000
 msgid "Notify"
 msgstr ""
 
@@ -2938,73 +2926,26 @@ msgstr ""
 msgid "User email or mobile phone"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:49
-msgid "QandA mapping"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:52
-msgid ""
-"Mapping of QandA sevice names to clients in the form of <em>qanda|agency_id -"
-"> client|channel</em>. Everything after a # is ignored, and are populated "
-"with the number of pending/migrated questions."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:64
-msgid "Known channels"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:92
-msgid "Error parsing mapping."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:96
-msgid "Unknown client @client."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:99
-msgid "Unknown channel @channel."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:127
-msgid "Un-migrated questions"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:133
-msgid "Number to migrate"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:135
-msgid "Leave empty to migrate all un-migrated questions."
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:140
-msgid "Migrate questions"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:174
-msgid "Migrating questions"
-msgstr ""
-
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:258
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:34
 msgid "Machine name"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:261
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:37
 msgid ""
 "The ID of the client. For libraries this is their agency ID in the form "
 "<em>DK-123456</em>. For other clients it can be any unique (preferably "
 "lowercase) string."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:266
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:42
 msgid "Label"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:269
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:45
 msgid "Human readable label for this client."
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:306
+#: profiles/vopros/modules/vopros/vopros_question/includes/vopros_question_client.admin.inc:82
 msgid "Machine name must be unique."
 msgstr ""
 
@@ -3529,15 +3470,15 @@ msgstr ""
 msgid "Message from forwarding service"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:28
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:29
 msgid "Questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:36
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:35
 msgid "Search questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:44
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:41
 #: profiles/vopros/modules/vopros/vopros_user/vopros_user.views_default.inc:319
 msgid "Users"
 msgstr ""

@@ -24,7 +24,7 @@ function vopros_embed_setting_form($form, &$form_state) {
 
   $form['appearance']['vopros_embed_tab_title'] = array(
     '#type' => 'textfield',
-    '#title' => t('Service description'),
+    '#title' => t('Tab title'),
     '#default_value' => variable_get('vopros_embed_tab_title', 'Ask @site_name'),
     '#description' => t('Title of the service as used in the tab on client sites. Use <em>@site_name</em> to insert the site title.'),
   );
@@ -44,7 +44,7 @@ function vopros_embed_setting_form($form, &$form_state) {
   $information_text = variable_get('vopros_embed_information_text', array('value' => '', 'format' => 0));
   $form['appearance']['vopros_embed_information_text'] = array(
     '#type' => 'text_format',
-    '#title' => t('Tab title'),
+    '#title' => t('Service information'),
     '#default_value' => $information_text['value'],
     '#format' => $information_text['format'],
     '#description' => t('Extra information displayed at the bottom of the form.'),

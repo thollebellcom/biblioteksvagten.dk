@@ -2,6 +2,7 @@ name = "Vopros permission"
 package = Vopros
 description = "Defines a set of default permissions for vopros."
 core = "7.x"
+vopros translation = true
 dependencies[] = "features"
 dependencies[] = "profile2"
 dependencies[] = "ting"

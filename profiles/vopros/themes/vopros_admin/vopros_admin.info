@@ -1,5 +1,0 @@
-name = "Vopros Admin"
-description = "Specialized admin theme for a Vopros site"
-base theme  = "seven"
-stylesheets[all][] = css/vopros.css
-core = "7.x"

@@ -2,4 +2,5 @@ name = Vopros Shortcut
 description = Standard Vopros shortcut bar
 core = 7.x
 package = Vopros
+vopros translation = true
 dependencies[] = shortcut

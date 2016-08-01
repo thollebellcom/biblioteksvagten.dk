@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:28
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:29
 msgid "Questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:36
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:35
 msgid "Search questions"
 msgstr ""
 
-#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:44
+#: profiles/vopros/modules/vopros/vopros_shortcut/vopros_shortcut.module:41
 msgid "Users"
 msgstr ""
 

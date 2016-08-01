@@ -2,6 +2,7 @@ name = "Vopros Base"
 description = "General module to tie all vopros together with admin interface"
 package = Vopros
 core = 7.x
+vopros translation = true
 
 dependencies[] = entity
 dependencies[] = uuid

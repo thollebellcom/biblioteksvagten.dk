@@ -35,6 +35,9 @@ projects[fivestar][patch][] = https://www.drupal.org/files/issues/add_better_vie
 projects[job_scheduler][subdir] = contrib
 projects[job_scheduler][version] = 2.0-alpha3
 
+projects[l10n_update][subdir] = contrib
+projects[l10n_update][version] = 2.0
+
 projects[libraries][subdir] = contrib
 projects[libraries][version] = 2.2
 

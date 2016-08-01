@@ -6,9 +6,11 @@ include_once 'vopros_mailhandler.features.inc';
  * Implements hook_init().
  */
 function vopros_mailhandler_init() {
+  // Try to skip ajax calls.
   // Using drupal_installation_attempted() to defer warnings until the
   // installation is complete.
-  if (!drupal_installation_attempted() &&
+  if (strpos(current_path(), 'ajax') === FALSE &&
+    !drupal_installation_attempted() &&
       user_access('access administration pages') &&
       !variable_get('vopros_mailhandler_configured', FALSE)) {
     $mailboxes = mailhandler_mailbox_load_all(FALSE);
@@ -57,4 +59,34 @@ function vopros_mailhandler_vopros_extra_permissions() {
   return array(
     'staff' => array('administer mailhandler'),
   );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add submit handler to filter out mailhandlers verbose messages when saving
+ * mailbox. They're irrelevant/misleading in our setup.
+ */
+function vopros_mailhandler_form_ctools_export_ui_edit_item_form_alter(&$form, $form_state, $form_id) {
+  // Damn you ctools for not making it more obvious.
+  if (isset($form_state['plugin']['name']) &&
+    isset($form_state['plugin']['module']) &&
+    $form_state['plugin']['name'] == 'mailhandler' &&
+    $form_state['plugin']['module'] == 'mailhandler'
+  ) {
+    $form['#submit'][] = 'vopros_mailhandler_mailbox_submit';
+  }
+}
+
+/**
+ * Submit handler to filter out verbose mailhandler messages.
+ */
+function vopros_mailhandler_mailbox_submit() {
+  $prefix = "Now that you've created a mailbox";
+  $messages = drupal_get_messages('status');
+  foreach ($messages['status'] as $message) {
+    if (substr($message, 0, strlen($prefix)) != $prefix) {
+      drupal_set_message($message, 'status', TRUE);
+    }
+  }
 }

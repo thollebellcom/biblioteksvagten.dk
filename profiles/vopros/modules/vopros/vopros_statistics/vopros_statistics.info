@@ -2,6 +2,7 @@ name = Vopros Statistics
 description = Allows users to access statistics information about Vopros
 package = Vopros
 core = 7.x
+vopros translation = true
 
 dependencies[] = date_popup
 dependencies[] = vopros_base

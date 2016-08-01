@@ -9,42 +9,59 @@
  * Update shortcuts.
  */
 function vopros_shortcut_update_shortcuts() {
+  $links = array();
   $set_name = variable_get('vopros_shortcut_set_name', NULL);
   if ($set_name) {
     $shortcuts = shortcut_set_load($set_name);
-    // Delete existing links, we'll repopulate.
-    menu_delete_links($shortcuts->set_name);
-    $shortcuts->links = array();
+    foreach ($shortcuts->links as $link) {
+      $links[$link['link_path']] = $link;
+    }
   }
   else {
     $shortcuts = new stdClass();
     $shortcuts->title = 'Vopros';
-    $shortcuts->links = array();
   }
 
-  if (module_exists('vopros_question')) {
-    $shortcuts->links[] = array(
+  $static_links = array(
+    array(
+      'module' => 'vopros_question',
       'link_path' => 'admin/vopros/questions/list',
       'link_title' => t('Questions'),
       'weight' => 0,
-    );
-  }
-
-  if (module_exists('vopros_database_search')) {
-    $shortcuts->links[] = array(
+    ),
+    array(
+      'module' => 'vopros_database_search',
       'link_path' => 'search',
       'link_title' => t('Search questions'),
       'weight' => 10,
-    );
-  }
-
-  if (module_exists('vopros_user')) {
-    $shortcuts->links[] = array(
+    ),
+    array(
+      'module' => 'vopros_user',
       'link_path' => 'admin/vopros/users',
       'link_title' => t('Users'),
       'weight' => 20,
-    );
+    ),
+  );
+
+  foreach ($static_links as $static_link) {
+    $link_path = $static_link['link_path'];
+    if (empty($static_link['module']) ||
+        module_exists($static_link['module'])) {
+      if (!isset($links[$link_path])) {
+        // Add in new links.
+        unset($static_link['module']);
+        $links[$link_path] = $static_link;
+      }
+    }
+    elseif (isset($links[$link_path])) {
+      // Remove this link.
+      menu_link_delete($links[$link_path]['mlid']);
+      unset($links[$link_path]);
+    }
   }
+
+
+  $shortcuts->links = array_values($links);
 
   shortcut_set_save($shortcuts);
   if (!$set_name) {

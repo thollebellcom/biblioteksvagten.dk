@@ -2,15 +2,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Vopros\n"
-"POT-Creation-Date: 2016-03-29 09:24+0200\n"
-"PO-Revision-Date: 2016-03-29 09:27+0200\n"
+"POT-Creation-Date: 2016-06-01 09:58+0200\n"
+"PO-Revision-Date: 2016-06-01 09:59+0200\n"
 "Last-Translator: Thomas Fini Hansen <fini@reload.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.module:16
+#: profiles/vopros/modules/vopros/vopros_mailhandler/vopros_mailhandler.module:18
 msgid ""
 "No mailboxes configured for automatic mail import. Please <a href=@url>add a "
 "mailbox</a>."

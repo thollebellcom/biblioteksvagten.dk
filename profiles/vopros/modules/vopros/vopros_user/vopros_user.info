@@ -3,6 +3,7 @@ description = Defines the user profile with fields for admins.
 core = 7.x
 package = Vopros
 version = 7.x-1.0
+vopros translation = true
 dependencies[] = features
 dependencies[] = image
 dependencies[] = link

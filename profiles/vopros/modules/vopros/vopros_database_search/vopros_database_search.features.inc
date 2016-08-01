@@ -23,7 +23,7 @@ function vopros_database_search_default_search_api_index() {
     "server" : "local_database",
     "item_type" : "vopros_answer",
     "options" : {
-      "index_directly" : 0,
+      "index_directly" : 1,
       "cron_limit" : "50",
       "fields" : {
         "answer_content" : { "type" : "text", "boost" : "3.0" },

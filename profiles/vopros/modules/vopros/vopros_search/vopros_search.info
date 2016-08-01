@@ -2,6 +2,7 @@ name = Vopros Search
 description = Defines the search pages and performs integration with search API
 package = Vopros
 core = 7.x
+vopros translation = true
 
 dependencies[] = vopros_base
 dependencies[] = vopros_answer

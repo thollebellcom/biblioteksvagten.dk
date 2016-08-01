@@ -10,7 +10,6 @@
   font-size: 16px;
 
   display: block;
-  cursor: pointer;
 
   position: fixed;
   /*
@@ -19,13 +18,35 @@
   margin-left: 62px;
   bottom: -10px;
   right: 25%;
-  padding: 5px 20px 15px;
+  padding: 5px 10px 15px;
 
   border-radius: 5px 5px 0 0;
 
   -webkit-box-shadow: 2px -1px 10px 0 rgba(0,0,0,0.3);
   -moz-box-shadow: 2px -1px 10px 0 rgba(0,0,0,0.3);
   box-shadow: 2px -1px 10px 0 rgba(0,0,0,0.3);
+}
+
+.ask-vopros-tab .ask-vopros-text {
+  margin: 0 5px;
+}
+
+.ask-vopros-tab .ask-vopros-minimize {
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTMyIDE2YzAtOC44MzctNy4xNjMtMTYtMTYtMTZzLTE2IDcuMTYzLTE2IDE2IDcuMTYzIDE2IDE2IDE2IDE2LTcuMTYzIDE2LTE2ek0zIDE2YzAtNy4xOCA1LjgyLTEzIDEzLTEzczEzIDUuODIgMTMgMTMtNS44MiAxMy0xMyAxMy0xMy01LjgyLTEzLTEzeiI+PC9wYXRoPgo8cGF0aCBmaWxsPSIjZmZmIiBkPSJNOS45MTQgMTEuMDg2bC0yLjgyOSAyLjgyOSA4LjkxNCA4LjkxNCA4LjkxNC04LjkxNC0yLjgyOC0yLjgyOC02LjA4NiA2LjA4NnoiPjwvcGF0aD4KPC9zdmc+Cg==");
+  background-size:  100% 100%;
+
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ask-vopros-tab .ask-vopros-icon,
+.ask-vopros-tab .ask-vopros-minimize {
+  cursor: pointer;
 }
 
 .ask-vopros-tab a:link,
@@ -38,6 +59,14 @@
 .ask-vopros-tab.minimized {
   right: 0;
   border-top-right-radius: 0;
+}
+
+.ask-vopros-tab .ask-vopros-icon {
+  display: none;
+}
+
+.ask-vopros-tab.minimized .ask-vopros-icon {
+  display: inline;
 }
 
 .ask-vopros-tab.minimized .ask-vopros-text,

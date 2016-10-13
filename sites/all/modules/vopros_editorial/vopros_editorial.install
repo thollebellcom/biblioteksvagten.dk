@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_enable().
+ */
+function vopros_editorial_enable() {
+  // Create the question vopros_editorial vocabolary.
+  if (!taxonomy_vocabulary_machine_name_load('vopros_editorial')) {
+    $vocabulary = (object) array(
+      'name' => t('Editorial'),
+      'machine_name' => 'vopros_editorial',
+      'module' => 'vopros_editorial',
+    );
+    taxonomy_vocabulary_save($vocabulary);
+  }
+  vopros_editorial_configure_question();
+}
+
+/**
  * Delete obsolete email macros.
  */
 function vopros_editorial_update_7101() {
@@ -29,6 +45,21 @@ function vopros_editorial_update_7101() {
   $vars = db_select('variable', 'v')
         ->fields('v', array('name'))
         ->condition($condition)
+        ->execute()
+        ->fetchCol();
+
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
+
+/**
+ * Delete obsoleted service variables.
+ */
+function vopros_editorial_update_7102() {
+  $vars = db_select('variable', 'v')
+        ->fields('v', array('name'))
+        ->condition('name', 'vopros_editorial_service_default_%', "LIKE")
         ->execute()
         ->fetchCol();
 

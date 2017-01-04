@@ -15,7 +15,7 @@ projects[date][subdir] = contrib
 projects[date][version] = 2.9
 
 projects[diff][subdir] = contrib
-projects[diff][version] = 3.2
+projects[diff][version] = 3.3
 
 projects[entity][subdir] = contrib
 projects[entity][version] = 1.8
@@ -48,7 +48,7 @@ projects[mailhandler][subdir] = contrib
 projects[mailhandler][version] = 2.10
 
 projects[media][subdir] = contrib
-projects[media][version] = 1.5
+projects[media][version] = 1.6
 
 projects[nanosoap][subdir] = contrib
 projects[nanosoap][version] = 1.0
@@ -93,9 +93,7 @@ projects[votingapi][subdir] = contrib
 projects[votingapi][version] = 2.12
 
 projects[wysiwyg][subdir] = contrib
-projects[wysiwyg][version] = 2.2
-; Fix allow_url_fopen warning https://www.drupal.org/node/1802394
-projects[wysiwyg][patch][1802394] = https://www.drupal.org/files/wysiwyg-1802394-4.patch
+projects[wysiwyg][version] = 2.3
 
 ; Libraries
 libraries[search_api_solr_php_client][download][type] = get

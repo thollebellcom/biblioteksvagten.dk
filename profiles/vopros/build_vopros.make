@@ -5,7 +5,7 @@ core = 7.x
 
 projects[drupal] = drupal
 ; Remember to update the .po file in translations/.
-projects[drupal][version] = 7.43
+projects[drupal][version] = 7.53
 
 projects[vopros][type] = "profile"
 projects[vopros][download][type] = "git"

@@ -9,7 +9,7 @@ projects[cache_actions][subdir] = contrib
 projects[cache_actions][version] = 2.0-alpha5
 
 projects[ctools][subdir] = contrib
-projects[ctools][version] = 1.9
+projects[ctools][version] = 1.12
 
 projects[date][subdir] = contrib
 projects[date][version] = 2.9
@@ -18,19 +18,19 @@ projects[diff][subdir] = contrib
 projects[diff][version] = 3.2
 
 projects[entity][subdir] = contrib
-projects[entity][version] = 1.6
+projects[entity][version] = 1.8
 
 projects[features][subdir] = contrib
-projects[features][version] = 2.6
+projects[features][version] = 2.10
 
 projects[feeds][subdir] = contrib
-projects[feeds][version] = 2.0-beta1
+projects[feeds][version] = 2.0-beta3
 
 projects[fivestar][subdir] = contrib
-projects[fivestar][version] = 2.1
+projects[fivestar][version] = 2.2
 ; Better views filter.
 ; https://www.drupal.org/node/1255160#comment-10392031
-projects[fivestar][patch][] = https://www.drupal.org/files/issues/add_better_views-1255160-35.patch
+projects[fivestar][patch][] = https://www.drupal.org/files/issues/add_better_views-1255160-40.patch
 
 projects[job_scheduler][subdir] = contrib
 projects[job_scheduler][version] = 2.0-alpha3
@@ -39,10 +39,10 @@ projects[l10n_update][subdir] = contrib
 projects[l10n_update][version] = 2.0
 
 projects[libraries][subdir] = contrib
-projects[libraries][version] = 2.2
+projects[libraries][version] = 2.3
 
 projects[link][subdir] = contrib
-projects[link][version] = 1.3
+projects[link][version] = 1.4
 
 projects[mailhandler][subdir] = contrib
 projects[mailhandler][version] = 2.10
@@ -60,16 +60,16 @@ projects[rules][subdir] = contrib
 projects[rules][version] = 2.9
 
 projects[search_api][subdir] = contrib
-projects[search_api][version] = 1.16
+projects[search_api][version] = 1.20
 
 projects[search_api_solr][subdir] = contrib
-projects[search_api_solr][version] = 1.9
+projects[search_api_solr][version] = 1.11
 
 projects[search_api_db][subdir] = contrib
 projects[search_api_db][version] = 1.5
 
 projects[services][subdir] = contrib
-projects[services][version] = 3.12
+projects[services][version] = 3.18
 
 projects[services_views][subdir] = contrib
 projects[services_views][version] = 1.1
@@ -81,10 +81,10 @@ projects[token][subdir] = contrib
 projects[token][version] = 1.6
 
 projects[uuid][subdir] = contrib
-projects[uuid][version] = 1.0-alpha6
+projects[uuid][version] = 1.0-beta2
 
 projects[views][subdir] = contrib
-projects[views][version] = 3.13
+projects[views][version] = 3.14
 ; Views menu titles and description isn't exported.
 ; https://www.drupal.org/node/1054746
 projects[views][patch][1054746] = https://www.drupal.org/files/issues/code_export_doesn_t-1054746-5.patch
@@ -99,7 +99,7 @@ projects[wysiwyg][patch][1802394] = https://www.drupal.org/files/wysiwyg-1802394
 
 ; Libraries
 libraries[search_api_solr_php_client][download][type] = get
-libraries[search_api_solr_php_client][download][url] = http://solr-php-client.googlecode.com/files/SolrPhpClient.r60.2011-05-04.tgz
+libraries[search_api_solr_php_client][download][url] = https://github.com/PTCInc/solr-php-client/archive/v1.0.0.zip
 libraries[search_api_solr_php_client][directory_name] = SolrPhpClient
 libraries[search_api_solr_php_client][destination] = libraries
 

@@ -35,9 +35,9 @@ function vopros_embed_setting_form($form, &$form_state) {
     '#options' => _vopros_embed_answer_preferences(),
     // Defaults to the same as the previous (unconfigurable) versions.
     '#default_value' => variable_get('vopros_embed_show_deadline', array(
-                        'mail' => 'mail',
-                        'sms' => 'sms',
-                      )),
+      'mail' => 'mail',
+      'sms' => 'sms',
+    )),
     '#description' => t('Show deadline options for these answer methods.'),
   );
 
@@ -90,7 +90,7 @@ function vopros_embed_setting_form($form, &$form_state) {
 
   // The Drupal.formatString JS function doesn't support replacing each
   // placeholder more than once, so use different placeholders.
-  // Using async and defer is the currently recommend practice,
+  // Using async and defer is the currently recommend practice.
   // @see https://www.igvita.com/2014/05/20/script-injected-async-scripts-considered-harmful/
   $code = '<script src="!script_base/question_modal.js" async defer></script>
 <a href="!form_base/ask-question?!params">Ask a question</a>

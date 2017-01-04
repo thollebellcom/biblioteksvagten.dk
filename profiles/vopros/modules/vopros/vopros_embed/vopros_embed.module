@@ -14,6 +14,7 @@ function vopros_embed_menu() {
     'title callback' => '_vopros_embed_menu_title',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('vopros_embed_question'),
+    // No access control needed.
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'delivery callback' => 'vopros_embed_deliver_html_page',
@@ -23,6 +24,7 @@ function vopros_embed_menu() {
   $items['embed/ask-question/submitted'] = array(
     'title' => 'Question submitted',
     'page callback' => 'vopros_embed_question_submitted_page',
+    // No access control needed.
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'delivery callback' => 'vopros_embed_deliver_html_page',
@@ -31,6 +33,7 @@ function vopros_embed_menu() {
 
   $items['embed/tab.css'] = array(
     'page callback' => 'vopros_embed_tab_css',
+    // No access control needed.
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'type' => MENU_CALLBACK,
@@ -38,6 +41,7 @@ function vopros_embed_menu() {
 
   $items['embed/question_modal.js'] = array(
     'page callback' => 'vopros_embed_question_modal_js',
+    // No access control needed.
     'access callback' => TRUE,
     'file' => 'vopros_embed.pages.inc',
     'type' => MENU_CALLBACK,
@@ -139,7 +143,9 @@ function vopros_embed_channel_data_render($data, $question) {
   $output = array();
   if ($data['from_url']) {
     $url = $data['from_url'];
-    $output[] = t('From page: ') . l($url, $url, array('external' => TRUE));
+    $output[] = t('From page: !url', array(
+      '!url' => l($url, $url, array('external' => TRUE)),
+    ));
   }
   if ($data['site_email']) {
     $mail = $data['site_email'];
@@ -278,21 +284,6 @@ function template_preprocess_embedded_page(&$variables) {
     }
   }
 
-
-  // Prep the logo for the template.
-  $variables['logo'] = NULL;
-  $logo = variable_get('vopros_embed_logo', '');
-  if (!empty($logo)) {
-    $variables['logo'] = theme(
-      'image', array(
-        'path' => image_style_url(
-          'medium',
-          $logo
-        ),
-      )
-    );
-  }
-
   $variables['base_path']         = base_path();
   $variables['language']          = $GLOBALS['language'];
   $variables['language']->dir     = $GLOBALS['language']->direction ? 'rtl' : 'ltr';
@@ -301,7 +292,7 @@ function template_preprocess_embedded_page(&$variables) {
 }
 
 /**
- * Process variables for embedded-page.tpl.php
+ * Process variables for embedded-page.tpl.php.
  *
  * @see embedded-page.tpl.php
  */
@@ -317,6 +308,9 @@ function template_process_embedded_page(&$variables) {
   }
 }
 
+/**
+ * Theme function for vopros_embed_question_form().
+ */
 function theme_vopros_embed_question_form(&$vars) {
   $element = $vars['element'];
   $output = '';

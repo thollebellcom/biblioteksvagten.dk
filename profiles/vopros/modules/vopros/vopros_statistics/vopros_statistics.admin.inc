@@ -16,14 +16,9 @@ function vopros_statistics_year_view($year = NULL) {
   // Generate all of the weeks.
   $dates = array();
   foreach (range(1, 52) as $week_num) {
-    $week_num_date = $week_num;
-    if ($week_num < 10) {
-      $week_num_date = '0' . (string) $week_num_date;
-    }
-
     $dates[$week_num] = array(
-      ':start' => strtotime($year . 'W' . $week_num_date . '1'),
-      ':end' => strtotime($year . 'W' . $week_num_date . '7'),
+      ':start' => strtotime($year . 'W' . sprintf("%02d", $week_num) . '1'),
+      ':end' => strtotime($year . 'W' . sprintf("%02d", $week_num + 1) . '1'),
     );
 
     if ($dates[$week_num][':end'] > REQUEST_TIME) {

@@ -6,7 +6,7 @@
  */
 
 /**
- * Display statistics for a year
+ * Display statistics for a year.
  */
 function vopros_statistics_year_view($year = NULL) {
   if (empty($year)) {
@@ -15,15 +15,10 @@ function vopros_statistics_year_view($year = NULL) {
 
   // Generate all of the weeks.
   $dates = array();
-  foreach (range(1,52) as $week_num) {
-    $week_num_date = $week_num;
-    if ($week_num < 10) {
-      $week_num_date = '0' . (string) $week_num_date;
-    }
-
+  foreach (range(1, 52) as $week_num) {
     $dates[$week_num] = array(
-      ':start' => strtotime($year . 'W' . $week_num_date . '1'),
-      ':end' => strtotime($year . 'W' . $week_num_date . '7'),
+      ':start' => strtotime($year . 'W' . sprintf("%02d", $week_num) . '1'),
+      ':end' => strtotime($year . 'W' . sprintf("%02d", $week_num + 1) . '1'),
     );
 
     if ($dates[$week_num][':end'] > REQUEST_TIME) {
@@ -42,7 +37,7 @@ function vopros_statistics_year_view($year = NULL) {
   $rows = array();
 
   foreach ($dates as $week => $where) {
-    $question_ids = db_query("SELECT question_id FROM {vopros_question} WHERE created >= :start AND created <= :end", $where)->fetchAllKeyed(0,0);
+    $question_ids = db_query("SELECT question_id FROM {vopros_question} WHERE created >= :start AND created <= :end", $where)->fetchAllKeyed(0, 0);
     $row = array(
       $week,
       count($question_ids),
@@ -63,7 +58,7 @@ function vopros_statistics_year_view($year = NULL) {
 }
 
 /**
- * Display count of created questions devided by the time it was created
+ * Display count of created questions devided by the time it was created.
  */
 function vopros_statistics_week_view($start = NULL, $end = NULL) {
   if (!$end) {
@@ -78,7 +73,6 @@ function vopros_statistics_week_view($start = NULL, $end = NULL) {
             AND created > :start
             GROUP BY day_name", array(':end' => $end, ':start' => $start))->fetchAllKeyed(0, 1);
 
-
   $header = array(t('Week day'), t('Total questions created'));
   $rows = array();
   // Create a unix timestamp for a random date that has the time 00:00:00.
@@ -92,7 +86,7 @@ function vopros_statistics_week_view($start = NULL, $end = NULL) {
     'Sunday' => t('Sunday'),
   );
 
-  // Create the total count
+  // Create the total count.
   foreach ($weeks as $week_day => $label) {
     $rows[$week_day] = array($label, isset($result[$week_day]) ? $result[$week_day] : 0);
   }
@@ -108,7 +102,12 @@ function vopros_statistics_week_view($start = NULL, $end = NULL) {
                                               WHERE q.created < :end
                                               AND q.created > :start
                                               AND f.vopros_editorial_tid = :tid
-                                              GROUP BY day_name", array(':tid' => $tid, ':end' => $end, ':start' => $start))->fetchAllKeyed(0, 1);
+                                              GROUP BY day_name", array(
+                                                ':tid' => $tid,
+                                                ':end' => $end,
+                                                ':start' =>
+                                                $start,
+                                              ))->fetchAllKeyed(0, 1);
       foreach ($weeks as $week_day => $label) {
         $rows[$week_day][] = isset($result[$week_day]) ? $result[$week_day] : 0;
       }
@@ -166,7 +165,7 @@ function vopros_statistics_week_form_submit($form, &$form_state) {
 }
 
 /**
- * Display count of created questions devided by the time it was created
+ * Display count of created questions devided by the time it was created.
  */
 function vopros_statistics_time_view($start = NULL, $end = NULL) {
   if (!$end) {
@@ -182,14 +181,16 @@ function vopros_statistics_time_view($start = NULL, $end = NULL) {
             GROUP BY created_hour
             ORDER BY created_hour", array(':end' => $end, ':start' => $start))->fetchAllKeyed(0, 1);
 
-
   $header = array(t('Time'), t('Questions created'));
   $rows = array();
   // Create a unix timestamp for a random date that has the time 00:00:00.
   $start_time = strtotime('2000-12-12 00:00:00');
   foreach (range(0, 23) as $time) {
     $count = isset($result[$time]) ? $result[$time] : 0;
-    $rows[$time] = array(date('H:i:s', $start_time + $time*3600) . ' - ' . date('H:i:s', $start_time + $time*3600 + 3599), $count);
+    $rows[$time] = array(
+      date('H:i:s', $start_time + $time * 3600) . ' - ' .
+      date('H:i:s', $start_time + $time * 3600 + 3599), $count,
+    );
   }
 
   if (module_exists('vopros_editorial')) {
@@ -203,7 +204,11 @@ function vopros_statistics_time_view($start = NULL, $end = NULL) {
                           AND created > :start
                           AND f.vopros_editorial_tid = :tid
                           GROUP BY created_hour
-                          ORDER BY created_hour", array(':end' => $end, ':start' => $start, ':tid' => $tid))->fetchAllKeyed(0, 1);
+                          ORDER BY created_hour", array(
+                            ':end' => $end,
+                            ':start' => $start,
+                            ':tid' => $tid,
+                          ))->fetchAllKeyed(0, 1);
       foreach (range(0, 23) as $time) {
         $rows[$time][] = isset($result[$time]) ? $result[$time] : 0;
       }
@@ -289,8 +294,8 @@ function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
                       FROM {vopros_question} AS q
                       LEFT JOIN {field_data_vopros_editorial} AS f
                       ON q.question_id = f.entity_id
-                      WHERE created < :end
-                      AND created > :start
+                      WHERE created <= :end
+                      AND created >= :start
                       GROUP BY client_id, channel, tid
                       ORDER BY client_id, channel, tid",
   array(':end' => $end, ':start' => $start));
@@ -314,7 +319,6 @@ function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
     }
 
     // Add everything to the column totals.
-
     $column_totals[$tid] += $row->count;
     // Again, add to the total column.
     if ($tid != 0) {

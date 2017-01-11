@@ -294,8 +294,8 @@ function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
                       FROM {vopros_question} AS q
                       LEFT JOIN {field_data_vopros_editorial} AS f
                       ON q.question_id = f.entity_id
-                      WHERE created < :end
-                      AND created > :start
+                      WHERE created <= :end
+                      AND created >= :start
                       GROUP BY client_id, channel, tid
                       ORDER BY client_id, channel, tid",
   array(':end' => $end, ':start' => $start));

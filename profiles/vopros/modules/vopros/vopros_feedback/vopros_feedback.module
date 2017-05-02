@@ -297,6 +297,10 @@ function vopros_feedback_page_alter(&$page) {
       }
     }
     array_unshift($page['#theme_wrappers'], 'vopros_feedback_page');
+
+    // This page is supposed to be iframed on other sites so remove the
+    // X-Frame-Options 'SAMEORIGIN' header.
+    //    header_remove('X-Frame-Options');
   }
 }
 

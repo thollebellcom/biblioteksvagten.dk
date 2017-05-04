@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "drupal-node.js": "^1.0.10"
+  }
+}

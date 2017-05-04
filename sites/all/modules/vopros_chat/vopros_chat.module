@@ -169,7 +169,7 @@ function vopros_chat_permission() {
 }
 
 /**
- * Implements hook_library().
+ * Implements hook_libraries_info().
  */
 function vopros_chat_libraries_info() {
   return array(
@@ -238,6 +238,10 @@ function vopros_chat_libraries_info() {
           'notification.js',
         ),
       ),
+    ),
+    'drupal-node.js' => array(
+      'name' => 'drupal-node.js',
+      'vendor url' => 'https://www.drupal.org/project/nodejs',
     ),
   );
 }
@@ -589,8 +593,7 @@ function vopros_chat_get_channel_hash_from_question_id($question_id) {
  *   File name of the generated config file.
  */
 function vopros_chat_create_chat_config() {
-  $vopros_chat_extension_path = _vopros_chat_relative_path(drupal_get_path('module', 'nodejs'), drupal_get_path('module', 'vopros_chat') . '/extensions');
-
+  $vopros_chat_extension_path = _vopros_chat_relative_path(vopros_chat_drupal_node_js_path() . '/lib', drupal_get_path('module', 'vopros_chat') . '/extensions');
   global $is_https;
 
   $nodejs_config = nodejs_get_config();
@@ -924,62 +927,27 @@ function _vopros_chat_standard_messages() {
 }
 
 /**
- * Check whether the server is running.
+ * Get path to drupal-node npm package.
  */
-function _vopros_chat_server_running() {
-  // Starting the server by hand doesn't create the pid file, so we check if
-  // there's a drush command in the process list which runs the server start
-  // command.
-  exec('ps xa', $output);
-  foreach ($output as $line) {
-    if (strpos($line, 'drush') !== FALSE &&
-      strpos($line, 'vopros-chat-start') !== FALSE) {
-      return TRUE;
-    }
+function vopros_chat_drupal_node_js_path($add_root = FALSE) {
+  libraries_load('drupal-node.js');
+  $path = libraries_get_path('drupal-node.js') . '/node_modules/drupal-node.js';
+
+  if ($add_root) {
+    return DRUPAL_ROOT . '/' . $path;
   }
 
-  $pidfile = _vopros_chat_server_pidfile();
-  if (file_exists($pidfile) &&
-    $pid = trim(file_get_contents($pidfile))) {
-    // Kill -0 doesn't actually send a signal, but does all the preflight
-    // checking. So it'll check that the process is running and that we're
-    // allowed to signal it.
-    exec('kill 2>&1 -0 ' . escapeshellarg($pid), $output, $return_code);
-    if ($return_code == 0) {
-      // Success, all good.
-      return TRUE;
-    }
-    elseif (strpos(implode("\n", $output), 'not permitted')) {
-      // Failure, but the output indicated that we're not allowed to signal the
-      // process, which means that it's runnning. So we'll call that a success
-      // too.
-      return TRUE;
-    }
-  }
-  return FALSE;
+  return $path;
 }
 
 /**
  * Start or stop the server.
  */
-function _vopros_chat_start_stop_server($start = TRUE, $method = 'node', $exec = 'shell_exec', $debug = FALSE) {
+function _vopros_chat_start_stop_server($start = TRUE, $exec = 'shell_exec', $debug = FALSE) {
   $node_bin = '/usr/bin/node';
-  // Stop implies daemon.
-  if ($method == 'daemon' || !$start) {
-    $node_bin = '/sbin/start-stop-daemon --' . ($start ? 'start' : 'stop') .
-      ' --oknodo --make-pidfile --pidfile ' .
-      escapeshellarg(_vopros_chat_server_pidfile()) . ' ' .
-      ($start ? '--background' : '') . ' --exec ' . $node_bin . ' -- ';
-  }
-  elseif ($method == 'nodemon') {
-    $node_bin = 'nodemon';
-  }
 
-  $nodejs_path = getcwd() . '/' . drupal_get_path('module', 'nodejs');
   $vopros_chat_path = getcwd() . '/' . drupal_get_path('module', 'vopros_chat');
 
-  $old_dir = getcwd();
-  chdir(drupal_get_path('module', 'vopros_chat') . '/server');
   $config_file = vopros_chat_create_chat_config();
 
   $command_parts = array();
@@ -992,18 +960,16 @@ function _vopros_chat_start_stop_server($start = TRUE, $method = 'node', $exec =
     escapeshellarg($vopros_chat_path . '/server/node_modules');
 
   $command_parts[] = $node_bin;
-  $command_parts[] = escapeshellarg($nodejs_path . '/server.js');
+  $command_parts[] = escapeshellarg(vopros_chat_drupal_node_js_path(TRUE) . '/app.js');
   $command_parts[] = escapeshellarg($config_file);
 
   $command = implode(' ', $command_parts);
 
+  $old_dir = getcwd();
+  chdir(drupal_get_path('module', 'vopros_chat') . '/server');
   $exec($command);
 
   chdir($old_dir);
-  if (!$start) {
-    // start-stop-daemon doesn't remove the pid file when stopping, so we do.
-    unlink('/tmp/vopros_chat.pid');
-  }
 
   return $command;
 }

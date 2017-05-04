@@ -262,7 +262,6 @@ function vopros_embed_question_submit($form, &$form_state) {
       $question->{$key} = $form_state['values'][$key];
     }
   }
-  $log = array();
 
   $question->channel = $form_state['values']['user_answer_preference'] == 'chat' ? 'chat' : 'webform';
   $question->channel_data = array(

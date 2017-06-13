@@ -84,7 +84,7 @@ projects[uuid][subdir] = contrib
 projects[uuid][version] = 1.0-beta2
 
 projects[views][subdir] = contrib
-projects[views][version] = 3.14
+projects[views][version] = 3.16
 ; Views menu titles and description isn't exported.
 ; https://www.drupal.org/node/1054746
 projects[views][patch][1054746] = https://www.drupal.org/files/issues/code_export_doesn_t-1054746-5.patch

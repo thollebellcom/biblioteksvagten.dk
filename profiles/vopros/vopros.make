@@ -3,7 +3,7 @@ core = 7.x
 
 ; Contrib modules.
 projects[better_exposed_filters][subdir] = contrib
-projects[better_exposed_filters][version] = 3.2
+projects[better_exposed_filters][version] = 3.4
 
 projects[cache_actions][subdir] = contrib
 projects[cache_actions][version] = 2.0-alpha5

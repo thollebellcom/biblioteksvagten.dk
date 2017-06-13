@@ -69,7 +69,7 @@ projects[search_api_db][subdir] = contrib
 projects[search_api_db][version] = 1.5
 
 projects[services][subdir] = contrib
-projects[services][version] = 3.18
+projects[services][version] = 3.19
 
 projects[services_views][subdir] = contrib
 projects[services_views][version] = 1.1

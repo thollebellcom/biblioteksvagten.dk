@@ -3,7 +3,7 @@ core = 7.x
 
 ; Contrib modules.
 projects[better_exposed_filters][subdir] = contrib
-projects[better_exposed_filters][version] = 3.2
+projects[better_exposed_filters][version] = 3.4
 
 projects[cache_actions][subdir] = contrib
 projects[cache_actions][version] = 2.0-alpha5
@@ -25,6 +25,9 @@ projects[features][version] = 2.10
 
 projects[feeds][subdir] = contrib
 projects[feeds][version] = 2.0-beta3
+
+projects[file_entity][subdir] = contrib
+projects[file_entity][version] = 2.1
 
 projects[fivestar][subdir] = contrib
 projects[fivestar][version] = 2.2
@@ -48,7 +51,7 @@ projects[mailhandler][subdir] = contrib
 projects[mailhandler][version] = 2.10
 
 projects[media][subdir] = contrib
-projects[media][version] = 1.6
+projects[media][version] = 2.6
 
 projects[nanosoap][subdir] = contrib
 projects[nanosoap][version] = 1.0
@@ -69,7 +72,7 @@ projects[search_api_db][subdir] = contrib
 projects[search_api_db][version] = 1.5
 
 projects[services][subdir] = contrib
-projects[services][version] = 3.18
+projects[services][version] = 3.19
 
 projects[services_views][subdir] = contrib
 projects[services_views][version] = 1.1
@@ -84,7 +87,7 @@ projects[uuid][subdir] = contrib
 projects[uuid][version] = 1.0-beta2
 
 projects[views][subdir] = contrib
-projects[views][version] = 3.14
+projects[views][version] = 3.16
 ; Views menu titles and description isn't exported.
 ; https://www.drupal.org/node/1054746
 projects[views][patch][1054746] = https://www.drupal.org/files/issues/code_export_doesn_t-1054746-5.patch

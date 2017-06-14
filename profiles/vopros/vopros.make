@@ -26,6 +26,9 @@ projects[features][version] = 2.10
 projects[feeds][subdir] = contrib
 projects[feeds][version] = 2.0-beta3
 
+projects[file_entity][subdir] = contrib
+projects[file_entity][version] = 2.1
+
 projects[fivestar][subdir] = contrib
 projects[fivestar][version] = 2.2
 ; Better views filter.
@@ -48,7 +51,7 @@ projects[mailhandler][subdir] = contrib
 projects[mailhandler][version] = 2.10
 
 projects[media][subdir] = contrib
-projects[media][version] = 1.6
+projects[media][version] = 2.6
 
 projects[nanosoap][subdir] = contrib
 projects[nanosoap][version] = 1.0

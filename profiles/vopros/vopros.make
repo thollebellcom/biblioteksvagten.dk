@@ -72,7 +72,7 @@ projects[search_api_db][subdir] = contrib
 projects[search_api_db][version] = 1.5
 
 projects[services][subdir] = contrib
-projects[services][version] = 3.19
+projects[services][version] = 3.20
 
 projects[services_views][subdir] = contrib
 projects[services_views][version] = 1.1
@@ -108,3 +108,8 @@ libraries[ckeditor][download][type] = get
 libraries[ckeditor][download][url] = http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.6.2/ckeditor_3.6.6.2.zip
 libraries[ckeditor][directory_name] = ckeditor
 libraries[ckeditor][destination] = libraries
+
+libraries[spyc][directory_name] = spyc
+libraries[spyc][download][type] = file
+libraries[spyc][download][url] = https://raw.github.com/mustangostang/spyc/0.5.1/Spyc.php
+libraries[spyc][type] = library

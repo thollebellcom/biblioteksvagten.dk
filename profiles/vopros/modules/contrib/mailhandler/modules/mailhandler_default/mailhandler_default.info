@@ -34,9 +34,9 @@ features[variable][] = node_options_mailhandler_source
 features[variable][] = node_preview_mailhandler_source
 features[variable][] = node_submitted_mailhandler_source
 
-; Information added by Drupal.org packaging script on 2014-06-10
-version = "7.x-2.10"
+; Information added by Drupal.org packaging script on 2017-12-05
+version = "7.x-2.11"
 core = "7.x"
 project = "mailhandler"
-datestamp = "1402414150"
+datestamp = "1512494003"
 

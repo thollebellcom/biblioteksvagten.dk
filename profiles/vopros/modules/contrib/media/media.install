@@ -113,7 +113,6 @@ function media_requirements($phase) {
   if ($phase == 'update') {
     $info = system_get_info('module', 'file_entity');
     if (strpos($info['version'], '7.x-2') === FALSE) {
-      drupal_set_message(print_r($info, true));
       $requirements['file_entity'] = array(
         'title' => $t('File entity 2.x'),
         'value' => $t('Wrong version'),

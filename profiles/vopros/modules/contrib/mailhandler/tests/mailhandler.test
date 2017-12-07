@@ -147,7 +147,9 @@ class MailhandlerTestCase extends DrupalWebTestCase {
       'entity_type' => 'node',
       'bundle' => 'article',
       'required' => FALSE,
-      'settings' => array(),
+      'settings' => array(
+        'file_extensions' => 'txt png',
+      ),
       'widget' => array(
         'type' => 'file_generic',
         'settings' => array(),
@@ -247,7 +249,7 @@ class MailhandlerTestCase extends DrupalWebTestCase {
     $this->drupalPost(NULL, $edit, t('Save'));
     $this->createMapping('body_html', 'body');
     $this->createMapping('taxonomy', 'field_tags');
-    $this->createMapping('attachments', 'field_files');
+    $this->createMapping('attachments', 'field_files:uri');
     $this->createMapping('from-address', 'field_from_address');
     $this->createMapping('from-name', 'field_from_name');
     $this->createMapping('Nachname', 'field_text_test');

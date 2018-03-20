@@ -63,6 +63,15 @@
       var status_message = Drupal.theme('voprosChatStatus', {text: ''}).addClass('chat-status-message').hide();
       $('.form-type-radios.form-item-user-answer-preference').append(status_message);
       Drupal.Nodejs.socket.emit('message', msg);
+
+      // First time visitor
+      //if (! Cookies.get('firstie')) {
+      //  Cookies.set('firstie', 1, { expires: 365 });
+
+      //  setTimeout(function() {
+      //    location.reload(true);
+      //  }, 500);
+      //}
     }
   };
 

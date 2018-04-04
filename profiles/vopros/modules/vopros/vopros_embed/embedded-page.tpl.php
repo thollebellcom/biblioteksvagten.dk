@@ -39,13 +39,13 @@
 
 </div></div> <!-- /#page, /#page-wrapper -->
 
-#<script>
-#    // First time visitor
-#    if (! Cookies.get('firstie')) {
-#        Cookies.set('firstie', 1, {expires: 365});
-#
-#        setTimeout(function () {
-#            location.reload(true);
-#        }, 500);
-#    }
-#</script>
+<script>
+    // First time visitor
+    // if (! Cookies.get('firstie')) {
+    //     Cookies.set('firstie', 1, {expires: 365});
+    //
+    //     setTimeout(function () {
+    //         location.reload(true);
+    //     }, 500);
+    // }
+</script>

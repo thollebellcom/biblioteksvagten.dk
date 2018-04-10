@@ -43,10 +43,10 @@
     window.onload = function() {
 
         // First time visitor
-        if (! Cookies.get('firstie')) {
-            Cookies.set('firstie', 1, {expires: 1});
+        if (! Cookies.get('firstebuster')) {
+            Cookies.set('firstebuster', 1, {expires: 1});
 
-            if (Cookies.get('firstie')) {
+            if (Cookies.get('firstebuster')) {
                 window.location.reload(true);
             }
         }

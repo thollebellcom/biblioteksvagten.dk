@@ -46,8 +46,8 @@ if (! Cookies.get('firstie')) {
 
     if (Cookies.get('firstie')) {
         setTimeout(function () {
-            location.reload(true);
-        }, 500);
+            window.location.reload(true);
+        }, 2500);
     }
 }
 </script>

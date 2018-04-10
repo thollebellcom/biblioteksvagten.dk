@@ -40,7 +40,10 @@
 </div></div> <!-- /#page, /#page-wrapper -->
 
 <script>
+    console.log('Not yet ready');
+
     jQuery( document ).ready(function() {
+        console.log('Document ready');
 
         // First time visitor
         if (! Cookies.get('firstie')) {
@@ -52,5 +55,9 @@
                 }, 500);
             }
         }
+    });
+
+    jQuery( window ).ready(function() {
+        console.log('Window ready');
     });
 </script>

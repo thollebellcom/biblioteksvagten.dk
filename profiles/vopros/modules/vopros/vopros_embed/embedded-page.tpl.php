@@ -40,24 +40,15 @@
 </div></div> <!-- /#page, /#page-wrapper -->
 
 <script>
-    console.log('Not yet ready');
-
-    jQuery( document ).ready(function() {
-        console.log('Document ready');
+    window.onload = function() {
 
         // First time visitor
         if (! Cookies.get('firstie')) {
             Cookies.set('firstie', 1, {expires: 1});
 
             if (Cookies.get('firstie')) {
-                setTimeout(function () {
-                    window.location.reload(true);
-                }, 500);
+                window.location.reload(true);
             }
         }
-    });
-
-    jQuery( window ).ready(function() {
-        console.log('Window ready');
-    });
+    };
 </script>

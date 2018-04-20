@@ -41,7 +41,7 @@
 
 <script>
     window.onload = function() {
-
+      setTimeout(function() {
         // First time visitor
         if (! Cookies.get('firstebuster')) {
             Cookies.set('firstebuster', 1, {expires: 1});
@@ -50,5 +50,6 @@
                 window.location.reload(true);
             }
         }
+      }, 3000);
     };
 </script>

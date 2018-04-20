@@ -266,6 +266,9 @@ function template_process_embedded_html(&$variables) {
   $variables['css']     = drupal_add_css();
   $variables['styles']  = drupal_get_css();
   $variables['scripts'] = drupal_get_js();
+
+  // Policy header to get cookie worrks for IE.
+  drupal_add_http_header('P3P', 'CP="ALL IND DSP COR ADM CONo CUR CUSo IVAo IVDo PSA PSD TAI TELo OUR SAMo CNT COM INT NAV ONL PHY PRE PUR UNI"');
 }
 
 /**

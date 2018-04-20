@@ -40,16 +40,18 @@
 </div></div> <!-- /#page, /#page-wrapper -->
 
 <script>
-    window.onload = function() {
-      setTimeout(function() {
-        // First time visitor
-        if (! Cookies.get('firstebuster')) {
-            Cookies.set('firstebuster', 1, {expires: 1});
+  // @TODO Figureout why user ca not get correct chat button checks.
+  // Fix works by reloading page with established sesstion.
+  window.onload = function() {
+    setTimeout(function() {
+      // First time visitor
+      if (! Cookies.get('firstebuster')) {
+        Cookies.set('firstebuster', 1, {expires: 1});
 
-            if (Cookies.get('firstebuster')) {
-                window.location.reload(true);
-            }
+        if (Cookies.get('firstebuster')) {
+          window.location.reload(true);
         }
-      }, 3000);
-    };
+      }
+    }, 3000);
+  };
 </script>

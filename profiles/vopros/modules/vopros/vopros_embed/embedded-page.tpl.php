@@ -39,19 +39,6 @@
 
 </div></div> <!-- /#page, /#page-wrapper -->
 
-# merger conflict was here
-#<<<<<<< HEAD
-##<script>
-##    // First time visitor
-##    if (! Cookies.get('firstie')) {
-##        Cookies.set('firstie', 1, {expires: 365});
-##
-##        setTimeout(function () {
-##            location.reload(true);
-##        }, 500);
-##    }
-##</script>
-#=======
 <script>
   // @TODO Figureout why user ca not get correct chat button checks.
   // Fix works by reloading page with established sesstion.
@@ -68,4 +55,3 @@
     }, 3000);
   };
 </script>
-#>>>>>>> develop

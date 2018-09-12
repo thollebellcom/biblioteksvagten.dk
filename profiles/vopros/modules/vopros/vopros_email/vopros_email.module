@@ -958,14 +958,12 @@ Med venlig hilsen
  * Get the subject macro for the given name.
  */
 function _vopros_email_subject_macro($name) {
-  $key = 'vopros_email_subject_macro_' . $name;
-  return variable_get($key, _vopros_email_default_macro('subject', $name));
+  return variable_get($name, _vopros_email_default_macro('subject', $name));
 }
 
 /**
  * Get the body macro for the given name.
  */
 function _vopros_email_body_macro($name) {
-  $key = 'vopros_email_macro_' . $name;
-  return variable_get($key, _vopros_email_default_macro('body', $name));
+  return variable_get($name, _vopros_email_default_macro('body', $name));
 }

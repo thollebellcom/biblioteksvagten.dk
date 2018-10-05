@@ -15,6 +15,9 @@ function vopros_question_gdpr_reset_cron() {
     $question->user_name = '';
     $question->user_email = '';
     $question->user_mobile_phone = '';
+    $question->user_age = 'no inform';
+    $question->user_gender = '';
+    $question->user_field_of_study = '';
 
     // Save.
     if ($question->save()) {

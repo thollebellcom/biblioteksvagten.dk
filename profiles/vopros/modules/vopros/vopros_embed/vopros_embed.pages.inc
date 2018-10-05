@@ -48,6 +48,8 @@ function vopros_embed_question($form, &$form_state) {
 
   $agency_mail = isset($_GET['agency_mail']) ? check_plain($_GET['agency_mail']) : '';
 
+  $require_postal_code = isset($_GET['require_postal_code']);
+
   $popup = isset($_GET['popup']);
 
   $focus_script = <<<EOF
@@ -95,6 +97,16 @@ EOF;
     '#default_value' => isset($_GET['name']) ? check_plain($_GET['name']) : '',
     '#weight' => -50,
   );
+
+  if ($require_postal_code) {
+    $form['user_postal_code'] = array(
+      '#type' => 'textfield',
+      '#title' => t("What is your postal code?"),
+      '#required' => TRUE,
+      '#default_value' => isset($_GET['postal_code']) ? check_plain($_GET['postal_code']) : '',
+      '#weight' => -50,
+    );
+  }
 
   $form['user_email'] = array(
     '#type' => 'textfield',

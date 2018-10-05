@@ -120,6 +120,10 @@ msgstr "Kontaktform"
 msgid "What's your question?"
 msgstr "Hvad vil du spørge om?"
 
+#: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:104
+msgid "What is your postal code?"
+msgstr "Dit post nr."
+
 #: profiles/vopros/modules/vopros/vopros_embed/vopros_embed.pages.inc:93
 msgid "What's your name?"
 msgstr "Dit navn"

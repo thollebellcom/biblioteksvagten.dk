@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function vopros_question_gdpr_reset_cron() {
+  $int = 0;
+  $question_ids = _find_overdue_vopros_questions();
+
+  // Run through all questions and reset their personal information.
+  foreach ($question_ids as $question_id) {
+    $question = vopros_question_load($question_id);
+
+    // Resetting personal information.
+    $question->user_name = '';
+    $question->user_email = '';
+    $question->user_mobile_phone = '';
+
+    // Save.
+    if ($question->save()) {
+      $int++;
+    }
+  }
+
+  // Save to the logs.
+  watchdog(
+    'vopros_question_gdpr_reset',
+    'A total of: @total questions, was reset due to GDPR.',
+    array('@total' => $int),
+    WATCHDOG_INFO
+  );
+}
+
+/**
+ * Query the database for a list of overdue questions.
+ * Returns an array containing the ID's of the overdued questions.
+ *
+ * @param string $period
+ *
+ * @return array().
+ */
+function _find_overdue_vopros_questions($period = '-6 month') {
+  $ago = strtotime($period, time());
+  $ids = array();
+
+  $query = db_select('vopros_question', 'vq')
+    ->range(0, 1000)
+    ->fields('vq', array('question_id'))
+    ->condition('created', $ago, '<');
+
+  $db_or = db_or()
+    ->condition('vq.user_name', '', '!=')
+    ->condition('vq.user_email', '', '!=')
+    ->condition('vq.user_mobile_phone', '', '!=');
+  $query->condition($db_or);
+  $query->orderBy('vq.question_id', 'ASC');
+  $result = $query->execute()->fetchAll();
+
+  foreach ($result as $question) {
+    $ids[] = $question->question_id;
+  }
+
+  return $ids;
+}

@@ -122,6 +122,10 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
     $email->answer_uid = $answer->uid;
   }
 
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'vopros_email') . '/js/vopros_email.answer_checker.js',
+  );
+
   $form['action'] = array(
     '#prefix' => '<div class="action">',
     '#suffix' => '</div>',

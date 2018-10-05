@@ -19,6 +19,12 @@ msgstr "Email"
 msgid "Email"
 msgstr "Email"
 
+msgid "It appears that one or more fields contains either e-mail, phone number or CPR number. Click OK if you still want to submit the form."
+msgstr "Det ser ud til at ét eller flere felter indeholder CPR, e-mail eller et telefon nr.! Klik på OK hvis du vil sende formularen alligevel."
+
+msgid "Have you checked that the inputs doesnt contain e-mails, phone numbers or CPR numbers? Click OK to continue."
+msgstr "Har du tjekket at teksten ikke indeholder e-mails, CPR numre eller telefon numre? Klik på OK for at fortsætte."
+
 #: profiles/vopros/modules/vopros/vopros_email/vopros_email.module:15
 msgctxt "a vopros email"
 msgid "Emails"

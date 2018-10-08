@@ -9,6 +9,7 @@
  * Publish question.
  */
 function vopros_public_question_publish_question($public_question) {
+  return true;
   return _vopros_public_question_publish_questions(array('create' => array($public_question)));
 }
 
@@ -208,4 +209,66 @@ function _vopros_public_question_request_object($object, $doc, $collection, $sou
   }
   // Add the record container to the collection.
   $collection->appendChild($container);
+}
+
+/**
+ * Implements hook_cron().
+ * Publish all scheduled public questions, to the well.
+ */
+function vopros_public_question_cron() {
+  $int = 0;
+  $public_question_ids = _find_overdue_vopros_public_questions();
+
+  // Run through all overdue public questions and publish them to the well.
+  foreach($public_question_ids as $public_question_id) {
+    $public_question = vopros_public_question_load($public_question_id);
+
+    // Publish question.
+    if (vopros_public_question_publish_question($public_question)) {
+      $public_question->status = 'published';
+
+      // Save.
+      if ($public_question->save()) {
+        $int++;
+      }
+    }
+  }
+
+  // Save to the logs.
+  if ($int > 0) {
+    watchdog(
+      'vopros_public_question_well_publish',
+      'A total of: @total public questions, was published to the well.',
+      array('@total' => $int),
+      WATCHDOG_INFO
+    );
+  }
+}
+
+/**
+ * Query the database for a list of overdue questions.
+ * Returns an array containing the ID's of the overdued questions.
+ *
+ * @param string $period
+ *
+ * @return array().
+ */
+function _find_overdue_vopros_public_questions($period = '-72 hours') {
+  $ago = strtotime($period, time());
+  $ids = array();
+
+  $query = db_select('vopros_public_question', 'vpq')
+    ->range(0, 1000)
+    ->fields('vpq', array('public_question_id'))
+    ->condition('status', 'scheduled', '=')
+    ->condition('changed', $ago, '<');
+
+  $query->orderBy('vpq.public_question_id', 'ASC');
+  $result = $query->execute()->fetchAll();
+
+  foreach ($result as $question) {
+    $ids[] = $question->public_question_id;
+  }
+
+  return $ids;
 }

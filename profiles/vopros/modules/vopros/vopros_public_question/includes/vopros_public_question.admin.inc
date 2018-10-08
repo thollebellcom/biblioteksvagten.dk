@@ -137,17 +137,26 @@ function vopros_public_question_form($form, &$form_state, $question = NULL, $pub
 
   field_attach_form('vopros_public_question', $public_question, $form, $form_state);
 
-  $form['save'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save'),
-    '#submit' => array('vopros_public_question_form_save_submit'),
-  );
+  if ($public_question->status !== 'scheduled') {
+    $form['save'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save'),
+      '#submit' => array('vopros_public_question_form_save_submit'),
+    );
+  }
 
   if ($public_question->status === 'unpublished') {
-    $form['publish'] = array(
+    $form['schedule'] = array(
       '#type' => 'submit',
-      '#value' => t('Save and publish'),
-      '#submit' => array('vopros_public_question_form_publish_submit'),
+      '#value' => t('Save and schedule'),
+      '#submit' => array('vopros_public_question_form_schedule_submit'),
+    );
+  }
+  elseif ($public_question->status === 'scheduled') {
+    $form['unschedule'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save and unschedule'),
+      '#submit' => array('vopros_public_question_form_unschedule_submit'),
     );
   }
   else {
@@ -199,10 +208,10 @@ function vopros_public_question_form_save_submit(&$form, &$form_state) {
 
 /**
  * Submit handler for vopros_public_question_form().
- * Used for saving a public question.
+ * Used for scheduling a public question.
  */
-function vopros_public_question_form_publish_submit(&$form, &$form_state) {
-  // Save the public question.
+function vopros_public_question_form_schedule_submit(&$form, &$form_state) {
+  // Save any form updates, that might have been made.
   global $user;
   $public_question = $form_state['public_question'];
 
@@ -212,16 +221,41 @@ function vopros_public_question_form_publish_submit(&$form, &$form_state) {
   $public_question->question_content = $form_state['values']['question_content']['value'];
   $public_question->question_content_format = $form_state['values']['question_content']['format'];
   $public_question->uid = $user->uid;
+
+  // Change the status to "scheduled".
+  $public_question->status = 'scheduled';
+
+  // Save.
   field_attach_submit('vopros_public_question', $public_question, $form, $form_state);
   $public_question->save();
 
-  if (vopros_public_question_publish_question($public_question)) {
-    drupal_set_message(t('Question has been published !link', array('!link' => l(t('see public question'), 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit'))));
-    $form_state['redirect'] = 'admin/vopros/questions/list';
-  }
-  else {
-    drupal_set_message(t('Could not create question at service.'), 'error');
-  }
+  drupal_set_message(t('Updated the public question and set the status to "scheduled".'));
+}
+
+/**
+ * Submit handler for vopros_public_question_form().
+ * Used for unscheduling a public question.
+ */
+function vopros_public_question_form_unschedule_submit(&$form, &$form_state) {
+  // Save any form updates, that might have been made.
+  global $user;
+  $public_question = $form_state['public_question'];
+
+  $public_question->title = $form_state['values']['title'];
+  $public_question->answer_content = $form_state['values']['answer_content']['value'];
+  $public_question->answer_content_format = $form_state['values']['answer_content']['format'];
+  $public_question->question_content = $form_state['values']['question_content']['value'];
+  $public_question->question_content_format = $form_state['values']['question_content']['format'];
+  $public_question->uid = $user->uid;
+
+  // Change the status back to "unpublished".
+  $public_question->status = 'unpublished';
+
+  // Save.
+  field_attach_submit('vopros_public_question', $public_question, $form, $form_state);
+  $public_question->save();
+
+  drupal_set_message(t('Updated the public question and set the status to "unpublished".'));
 }
 
 /**
@@ -244,7 +278,7 @@ function vopros_public_question_form_update_submit(&$form, &$form_state) {
     drupal_set_message(t('Question/answer has been updated in external data store, !link', array('!link' => l(t('see public question'), 'admin/vopros/public-questions/' . $public_question->public_question_id . '/edit'))));
     $form_state['redirect'] = 'admin/vopros/questions/list';
 
-    $public_question->status = 1;
+    $public_question->status = 'published';
     $public_question->save();
   }
   else {

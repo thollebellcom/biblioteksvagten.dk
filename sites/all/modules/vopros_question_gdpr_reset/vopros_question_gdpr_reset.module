@@ -26,12 +26,14 @@ function vopros_question_gdpr_reset_cron() {
   }
 
   // Save to the logs.
-  watchdog(
-    'vopros_question_gdpr_reset',
-    'A total of: @total questions, was reset due to GDPR.',
-    array('@total' => $int),
-    WATCHDOG_INFO
-  );
+  if ($int > 0) {
+    watchdog(
+      'vopros_question_gdpr_reset',
+      'A total of: @total questions, was reset due to GDPR.',
+      array('@total' => $int),
+      WATCHDOG_INFO
+    );
+  }
 }
 
 /**

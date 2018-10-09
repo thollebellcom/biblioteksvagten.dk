@@ -165,13 +165,13 @@ function vopros_public_question_form($form, &$form_state, $question = NULL, $pub
       '#value' => t('Save and update'),
       '#submit' => array('vopros_public_question_form_update_submit'),
     );
-
-    $form['delete_published_data'] = array(
-      '#type' => 'submit',
-      '#value' => t('Delete published data'),
-      '#submit' => array('vopros_public_question_form_delete_submit'),
-    );
   }
+
+  $form['delete_published_data'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete published data'),
+    '#submit' => array('vopros_public_question_form_delete_submit'),
+  );
 
   $form_state['public_question'] = $public_question;
   $form_state['question'] = $question;

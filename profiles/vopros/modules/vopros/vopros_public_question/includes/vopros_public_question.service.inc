@@ -9,7 +9,6 @@
  * Publish question.
  */
 function vopros_public_question_publish_question($public_question) {
-  return true;
   return _vopros_public_question_publish_questions(array('create' => array($public_question)));
 }
 

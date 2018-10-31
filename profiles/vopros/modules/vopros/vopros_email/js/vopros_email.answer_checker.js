@@ -2,7 +2,7 @@
   Drupal.behaviors.voprosEmailAnswerChecker = {
     attach: function (context, settings) {
       document.querySelector('#vopros-email-form').addEventListener('submit', function(event) {
-        var fields = ['input[name=email]', 'input[name=subject]', 'textarea[name=email_content]'];
+        var fields = ['input[name=subject]', 'textarea[name=email_content]'];
         var illegal = false;
 
         // Run through all the fields in the array.

@@ -179,3 +179,17 @@
   width: 150px;
   float: left;
 }
+
+/**
+ * View statistics.
+ */
+.view-id-vopros_feedback_user_list.view-display-id-page_statistics caption {
+  font-size: 16px;
+  font-weight: bold;
+}
+.view-id-vopros_feedback_user_list.view-display-id-page_statistics .views-table {
+  margin-top: 30px;
+}
+.view-id-vopros_feedback_user_list.view-display-id-page_statistics td {
+  width: 50%;
+}

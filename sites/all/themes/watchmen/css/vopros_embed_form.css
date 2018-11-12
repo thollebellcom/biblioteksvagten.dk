@@ -251,3 +251,9 @@ body.vopros-embed .form-type-checkbox label:before {
 body.vopros-embed .form-type-checkbox.checked label:before {
   content: "\f046";
 }
+
+/* Remove the "Date" text from /search on the From: and To: exposed fields. */
+.form-item-date-from-date label,
+.form-item-date-to-date label {
+  display: none;
+}

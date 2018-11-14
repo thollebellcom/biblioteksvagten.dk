@@ -18,4 +18,32 @@
       });
     }
   };
+  Drupal.behaviors.voprosAnswerField = {
+    attach: function(context, settings) {
+
+      // Save the current value of the answer field.
+      var answer_on_pageload = $('#edit-answer-content').val();
+
+      // Leaving the page
+      $(window).bind('beforeunload', function(event){
+        var answer_on_unload = $('#edit-answer-content').val();
+
+        if (! answer_on_unload) {
+          return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
+        }
+
+        if (answer_on_pageload != answer_on_unload) {
+          return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
+        }
+      });
+
+      // On form submit, we cancel the beforeunload event.
+      $('form').submit(function(event) {
+        $(window).unbind('beforeunload');
+
+        return true;
+      });
+    }
+  };
 })(jQuery);
+

@@ -1,0 +1,9 @@
+name = Vopros simple text format
+core = 7.x
+package = Vopros
+dependencies[] = ckeditor
+dependencies[] = features
+dependencies[] = filter
+features[ckeditor_profile][] = Simple
+features[features_api][] = api:2
+features[filter][] = simple_text

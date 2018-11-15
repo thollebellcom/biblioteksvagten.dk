@@ -21,32 +21,39 @@
   Drupal.behaviors.voprosAnswerField = {
     attach: function(context, settings) {
 
-      // Save the current value of the answer field.
-      var $answer_field = $('#edit-answer-content');
+      // Run the following after 3 seconds (we need to wait for CKeditor).
+      setTimeout(function() {
 
-      if ($answer_field.length <= 0) return;
+        // Save the current value of the answer field.
+        var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
+        var answer_on_pageload = $answer_field.getData();
 
-      var answer_on_pageload = $('#edit-answer-content').val();
+        // Leaving the page
+        $(window).bind('beforeunload', function(event){
+          var answer_on_unload = $answer_field.getData();
 
-      // Leaving the page
-      $(window).bind('beforeunload', function(event){
-        var answer_on_unload = $('#edit-answer-content').val();
+          if (! answer_on_unload) {
+            return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
+          }
 
-        if (! answer_on_unload) {
-          return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
-        }
+          if (answer_on_pageload != answer_on_unload) {
+            return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
+          }
+        });
 
-        if (answer_on_pageload != answer_on_unload) {
-          return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
-        }
-      });
+        // On form submit, we cancel the beforeunload event.
+        $('form').submit(function(event) {
+          var answer_on_submit = $answer_field.getData();
 
-      // On form submit, we cancel the beforeunload event.
-      $('form').submit(function(event) {
-        $(window).unbind('beforeunload');
+          // It's not an empty message, so we are okay unbinding.
+          if (answer_on_submit) {
+            $(window).unbind('beforeunload');
 
-        return true;
-      });
+            return true;
+          }
+        });
+
+      }, 3000);
     }
   };
 })(jQuery);

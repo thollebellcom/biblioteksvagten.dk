@@ -40,7 +40,8 @@ function vopros_feedback_form($form, &$form_state, $feedback, $question = NULL, 
   }
 
   $form['feedback_content'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format'=> 'simple_text',
     '#title' => t('Feedback'),
     '#default_value' => $feedback->feedback_content,
   );

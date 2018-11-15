@@ -93,7 +93,8 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
   );
 
   $form['form']['answer_content'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format'=> 'simple_text',
     '#title' => t('Answer'),
     '#default_value' => isset($answer->answer_content) ? $answer->answer_content : '',
     '#rows' => 10,

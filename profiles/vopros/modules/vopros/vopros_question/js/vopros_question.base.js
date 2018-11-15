@@ -22,6 +22,10 @@
     attach: function(context, settings) {
 
       // Save the current value of the answer field.
+      var $answer_field = $('#edit-answer-content');
+
+      if ($answer_field.length <= 0) return;
+
       var answer_on_pageload = $('#edit-answer-content').val();
 
       // Leaving the page

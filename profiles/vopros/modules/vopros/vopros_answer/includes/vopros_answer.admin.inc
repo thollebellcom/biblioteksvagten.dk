@@ -142,7 +142,7 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
     '#type' => 'fieldset',
     '#title' => t('Question history'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   );
 
   $feed = array();
@@ -159,8 +159,21 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
       unset($feed[$key]);
     }
   }
-  $form['form']['question_feed'][] = $feed;
 
+  // Change the order of emails.
+  $emails = array();
+  $int = 0;
+  foreach ($feed as $key => $value) {
+    if (strpos($key, 'email') !== FALSE) {
+      $emails[$key] = $feed[$key];
+      $emails[$key]['#weight'] = $int;
+      $int++;
+
+      unset($feed[$key]);
+    }
+  }
+  $mutated_feed = array_merge($feed, $emails);
+  $form['form']['question_feed'][] = $mutated_feed;
 
   $form['form']['save'] = array(
     '#type' => 'submit',

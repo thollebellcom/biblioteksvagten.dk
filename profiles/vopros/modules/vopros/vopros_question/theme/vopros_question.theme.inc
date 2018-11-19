@@ -226,7 +226,7 @@ function theme_vopros_question_user_data($variables) {
  */
 function theme_vopros_question_user_credentials($variables) {
   $question = $variables['question']['#question'];
-  $output .= '<div class="question-user-credentials">';
+  $output = '<div class="question-user-credentials">';
 
   if ($question->user_email) {
     $output .= '<div class="question-user-email vopros-question-extra">';
@@ -285,5 +285,10 @@ function theme_vopros_question_revision_question_feed($variables) {
     $output .= t('%status by !username @date', array('@date' => $date, '!username' => $username, '%status' => $status));
   }
   $output .= '</div>';
+
+  // Reset output was the easy solution to remove output for screen.
+  // We might want to re-add the above code on a later point.
+  $output = '';
+
   return $output;
 }

@@ -56,5 +56,45 @@
       }, 3000);
     }
   };
+  Drupal.behaviors.voprosAnswerFeed = {
+    attach: function(context, settings) {
+      var $outgoingFeedItems = $('.vopros-email-display.outgoing');
+      var $ingoingFeedItems = $('.vopros-email-display.ingoing');
+
+      $outgoingFeedItems.each(function(index, item) {
+        var $item = $(this);
+
+        $item.find('.type > .count').html(index + 1);
+      });
+
+      $ingoingFeedItems.each(function(index, item) {
+        var $item = $(this);
+
+        $item.find('.type > .count').html(index + 1);
+      });
+    }
+  };
+  Drupal.behaviors.voprosAnswerFeedDuplicateQuestion = {
+    attach: function(context, settings) {
+      var $question = $('.question-content');
+      var $feedWrapper = $('#edit-question-feed').find('.fieldset-wrapper');
+      var $newItem = $('<div class="vopros-email-display question"><div class="type">' + Drupal.t('Spørgsmål') + '</div><div class="body clearfix">' + $question.html() + '</div></div>');
+
+      $feedWrapper.prepend($newItem);
+    }
+  };
+  Drupal.behaviors.voprosAnswerLatestResponse = {
+    attach: function(context, settings) {
+      var $responses = $('.vopros-email-display.ingoing');
+      var numberOfResponses = $responses.length;
+      var $latestResponse = $responses[numberOfResponses - 1];
+      var $questionContent = $('.question-content');
+      var $copiedResponse = $('<div />').addClass('copied-latest-response').html($latestResponse);
+
+      $copiedResponse.find('.type').html(Drupal.t('Seneste input fra bruger'));
+
+      $questionContent.append($copiedResponse);
+    }
+  };
 })(jQuery);
 

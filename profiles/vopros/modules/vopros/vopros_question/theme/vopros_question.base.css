@@ -193,3 +193,99 @@
 .view-id-vopros_feedback_user_list.view-display-id-page_statistics td {
   width: 50%;
 }
+
+/**
+ * Question history.
+ */
+
+/* Resets */
+.vopros-email-display .header {
+  background-color: transparent !important;
+}
+.vopros-email-display .header,
+.vopros-email-display .body {
+  padding: 15px 20px;
+  border: 0;
+}
+
+.vopros-email-display.outgoing,
+.vopros-email-display.ingoing {
+  background-color: transparent;
+}
+
+/* New additions. */
+.vopros-email-display.outgoing .body {
+  background-color: #E6E6E6;
+}
+
+.vopros-email-display.question .body,
+.vopros-email-display.ingoing .body {
+  background-color: #E1EAF2;
+}
+
+.vopros-email-display .header {
+  padding: 0;
+
+  border: 0;
+
+  background-color: transparent;
+}
+
+.vopros-email-display + .vopros-email-display {
+  margin-top: 30px;
+}
+
+.vopros-email-display .type {
+  font-size: 16px;
+  font-weight: bold;
+}
+.vopros-email-display .type .count {
+  margin-left: 5px;
+}
+
+.vopros-email-display .email-to,
+.vopros-email-display .email-subject {
+  display: none;
+}
+.vopros-email-display .email-from .label,
+.vopros-email-display .email-sent .label,
+.vopros-email-display .email-transfer .label {
+  display: none;
+}
+
+.vopros-email-display .email-from,
+.vopros-email-display .email-sent {
+  display: inline-block;
+}
+
+.vopros-email-display .email-from::after {
+  display: inline-block;
+
+  width: 15px;
+  content: " ";
+}
+
+.vopros-email-display.ingoing {
+  position: relative;
+
+  padding-bottom: 26px;
+}
+.vopros-email-display .email-transfer {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background-color: #EDF7EE;
+}
+
+.copied-latest-response {
+  padding-top: 30px;
+}
+.copied-latest-response .type .count,
+.copied-latest-response .header {
+  display: none;
+}

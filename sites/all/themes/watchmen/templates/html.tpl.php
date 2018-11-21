@@ -68,9 +68,12 @@
       <h4 class="colleague-chat__heading__title"><?=t('Kollega chat'); ?></h4>
     </div>
 
+    <div class="colleague-chat__members">
+      <div class="colleague-chat__members-count">-</div>
+      <div class="colleague-chat__members-list">-</div>
+    </div>
+
     <div class="colleague-chat__content">
-      <div class="members-count">-</div>
-      <div class="members-list">-</div>
       <div class="colleague-chat__messages"></div>
     </div>
 

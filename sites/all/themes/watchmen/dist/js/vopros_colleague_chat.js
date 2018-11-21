@@ -20,12 +20,23 @@ drone.bind('open', function (error) {
   }
   console.log('Successfully connected to Scaledrone');
 
-  var room = drone.subscribe('observable-room');
+  var room = drone.subscribe('observable-room', {
+    historyCount: 5 // ask for the 5 latest messages from history
+  });
   room.bind('open', function (error) {
     if (error) {
       return console.error(error);
     }
     console.log('Successfully joined room');
+  });
+
+  room.bind('history_message', function (message) {
+    var _message$data = message.data,
+        name = _message$data.name,
+        text = _message$data.text;
+
+
+    addHistoryToListDOM(name, text);
   });
 
   room.bind('members', function (m) {
@@ -78,8 +89,8 @@ function getRandomColor() {
 //------------- DOM STUFF
 
 var DOM = {
-  membersCount: document.querySelector('.members-count'),
-  membersList: document.querySelector('.members-list'),
+  membersCount: document.querySelector('.colleague-chat__members-count'),
+  membersList: document.querySelector('.colleague-chat__members-list'),
   messages: document.querySelector('.colleague-chat__messages'),
   input: document.querySelector('.colleague-chat__form__input'),
   form: document.querySelector('.colleague-chat__form')
@@ -89,13 +100,19 @@ DOM.form.addEventListener('submit', sendMessage);
 
 function sendMessage() {
   var value = DOM.input.value;
+  var sender = getWhoIAm();
   if (value === '') {
     return;
   }
+  var message = {
+    name: sender,
+    text: value
+  };
+
   DOM.input.value = '';
   drone.publish({
     room: 'observable-room',
-    message: value
+    message: message
   });
 }
 
@@ -111,8 +128,16 @@ function createMemberElement(member) {
   return el;
 }
 
+function createHistoryMemberElement(name) {
+  var el = document.createElement('div');
+  el.appendChild(document.createTextNode(name));
+  el.className = 'member';
+  el.style.color = 'gray';
+  return el;
+}
+
 function updateMembersDOM() {
-  DOM.membersCount.innerText = members.length + ' users in room:';
+  DOM.membersCount.innerText = 'Brugere online: (' + members.length + '):';
   DOM.membersList.innerHTML = '';
   members.forEach(function (member) {
     return DOM.membersList.appendChild(createMemberElement(member));
@@ -133,7 +158,7 @@ function createMessageElement(text, member) {
   var name = member.clientData.name;
 
   el.appendChild(createMemberElement(member));
-  el.appendChild(document.createTextNode(text));
+  el.appendChild(document.createTextNode(text.text));
   el.className = 'message';
 
   // If the message is created by someone else.
@@ -141,8 +166,6 @@ function createMessageElement(text, member) {
 
     // Update the message status, so when the chat is closed, you get a supple notification about the new message.
     if (!$chatWindow.hasClass('open')) {
-      console.log('The window was closed, so we will add a supple notification...');
-
       $chatWindow.find('.colleague-chat__message-status').html('(ulæste beskeder)');
     }
 
@@ -162,13 +185,28 @@ function createMessageElement(text, member) {
   return el;
 }
 
+function createHistoryMessageElement(text, name) {
+  var el = document.createElement('div');
+  el.appendChild(createHistoryMemberElement(name));
+  el.appendChild(document.createTextNode(text));
+  el.className = 'message';
+
+  return el;
+}
+
 function addMessageToListDOM(text, member) {
   var el = DOM.messages;
-  var wasTop = el.scrollTop === el.scrollHeight - el.clientHeight;
+  var content = document.getElementsByClassName("colleague-chat__content")[0];
   el.appendChild(createMessageElement(text, member));
-  if (wasTop) {
-    el.scrollTop = el.scrollHeight - el.clientHeight;
-  }
+
+  // Scroll to bottom of div when message was added to the DOM.
+  content.scrollTop = content.scrollHeight;
+}
+
+function addHistoryToListDOM(name, text) {
+  var el = DOM.messages;
+
+  el.appendChild(createHistoryMessageElement(text, name));
 }
 
 jQuery('.colleague-chat__heading').bind('click', function (event) {

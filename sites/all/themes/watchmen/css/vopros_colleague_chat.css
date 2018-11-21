@@ -21,6 +21,7 @@
   height: 550px;
 }
 
+.colleague-chat__members,
 .colleague-chat__content,
 .colleague-chat__form {
   display: none;
@@ -28,6 +29,7 @@
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
+.colleague-chat.open .colleague-chat__members,
 .colleague-chat.open .colleague-chat__content,
 .colleague-chat.open .colleague-chat__form {
   display: block;

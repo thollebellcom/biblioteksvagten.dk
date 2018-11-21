@@ -1,0 +1,17 @@
+{
+  "name": "watchmen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "development": "nodemon --watch ./src/js --ext js --exec babel ./src/js/ --out-dir ./dist/js",
+    "dev": "npm run development"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.6"
+  }
+}

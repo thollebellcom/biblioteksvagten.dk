@@ -6,6 +6,35 @@
  */
 
 /**
+ * Implements template_preprocess_html().
+ */
+function watchmen_preprocess_html(&$variables) {
+  global $user;
+
+  $theme_path = path_to_theme();
+  $profile = profile2_load_by_user($user, 'vopros_user_librarian');
+
+  $variables['theme_path'] = $theme_path;
+  $variables['colleague_chat']['users_name'] = t('Anonymous');
+
+  if ($profile) {
+    $variables['colleague_chat']['users_name'] = vopros_user_profile_user_name($profile);
+  }
+
+  // Find users first- and lastname.
+  if ($fields = field_get_items('user', $user, 'field_firstname')) {
+
+    if (isset($fields[0]['url'])) {
+      $variables['content']['raw_url'] = $fields[0]['url'];
+    }
+  }
+
+  // Add javascript files.
+  drupal_add_js('https://cdn.scaledrone.com/scaledrone.min.js',
+    ['type' => 'external']);
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function watchmen_form_vopros_embed_question_alter(&$form, $form_state) {

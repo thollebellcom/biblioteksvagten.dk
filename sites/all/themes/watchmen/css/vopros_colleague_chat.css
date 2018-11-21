@@ -1,0 +1,121 @@
+.colleague-chat {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+
+  z-index: 1000;
+
+  width: 400px;
+
+  left: 15px;
+  bottom: 0;
+
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+
+  overflow: hidden;
+
+  background-color: #fff;
+}
+.colleague-chat.open {
+  height: 500px;
+}
+
+.colleague-chat__content,
+.colleague-chat__form {
+  display: none;
+
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.colleague-chat.open .colleague-chat__content,
+.colleague-chat.open .colleague-chat__form {
+  display: block;
+}
+
+.colleague-chat__heading,
+.colleague-chat__content,
+.colleague-chat__form {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Heading */
+.colleague-chat__heading {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  font-weight: bold;
+
+  cursor: hand;
+  cursor: pointer;
+
+  background-color: #6095D3;
+  color: #fff;
+
+  transition: background-color ease .15s;
+}
+.colleague-chat__message-status {
+  float: right;
+}
+.colleague-chat--new-message .colleague-chat__heading {
+  background-color: #106aa0;
+}
+.colleague-chat__heading__title {
+  margin: 0;
+}
+
+/* Content */
+.colleague-chat__content {
+  flex-grow: 1;
+}
+.message .member {
+  display: inline-block;
+
+  margin-right: 5px;
+}
+
+  /* Form */
+.colleague-chat__form {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border-top: 1px solid #ddd;
+}
+.colleague-chat__form__input {
+  display: inline-block;
+
+  width: 75%;
+  padding: 6px 12px;
+
+  font-size: 14px;
+  line-height: 1.42857143;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+}
+.colleague-chat__form__input:focus {
+  outline: 0;
+
+  border-color: #66afe9;
+}
+.colleague-chat__form__submit {
+  display: inline-block;
+  padding: 6px 12px;
+
+  font-size: 14px;
+  line-height: 1.42857143;
+
+  border-radius: 4px;
+  border: 1px solid #66afe9;
+
+  cursor: hand;
+  cursor: pointer;
+
+  color: #fff;
+  background-color: #6095D3;
+}

@@ -95,8 +95,20 @@
       if ($('body').hasClass('page-admin-vopros-answers-edit')) {
         var $responses = $('.vopros-email-display.ingoing');
         var numberOfResponses = $responses.length;
-        var $latestResponse = $responses[numberOfResponses - 1];
         var $questionContent = $('.question-content');
+
+        // We have no responses, so we copy the question.
+        if (numberOfResponses === 0) {
+          var $question = $('.question-content');
+          var $newItem = $('<div class="vopros-email-display question"><div class="type">' + Drupal.t('Spørgsmål') + '</div><div class="body clearfix">' + $question.html() + '</div></div>');
+
+          var $latestResponse = $newItem;
+        }
+        // We have responses to grab from.
+        else {
+          var $latestResponse = $responses[numberOfResponses - 1];
+        }
+
         var $copiedResponse = $('<div />').addClass('copied-latest-response').html($latestResponse);
 
         $copiedResponse.find('.type').html(Drupal.t('Seneste input fra bruger'));

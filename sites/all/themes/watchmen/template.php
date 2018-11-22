@@ -29,6 +29,13 @@ function watchmen_preprocess_html(&$variables) {
     }
   }
 
+  // Add javascript files.
+  drupal_add_js($theme_path . '/js/app.js', array(
+    'type' => 'file',
+    'scope' => 'footer',
+    'group' => JS_THEME,
+  ));
+
   // User is not anonymous.
   if ($user->uid != '0') {
 

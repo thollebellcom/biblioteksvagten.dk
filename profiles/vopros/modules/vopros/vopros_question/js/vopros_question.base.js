@@ -27,6 +27,9 @@
 
           // Save the current value of the answer field.
           var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
+
+          if (!$answer_field) return;
+
           var answer_on_pageload = $answer_field.getData();
 
           // Leaving the page
@@ -54,7 +57,7 @@
             }
           });
 
-        }, 3000);
+        }, 5000);
       }
     }
   };

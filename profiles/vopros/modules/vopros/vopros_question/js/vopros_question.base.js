@@ -20,40 +20,42 @@
   };
   Drupal.behaviors.voprosAnswerField = {
     attach: function(context, settings) {
+      if ($('body').hasClass('page-admin-vopros-answers-edit')) {
 
-      // Run the following after 3 seconds (we need to wait for CKeditor).
-      setTimeout(function() {
+        // Run the following after 3 seconds (we need to wait for CKeditor).
+        setTimeout(function () {
 
-        // Save the current value of the answer field.
-        var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
-        var answer_on_pageload = $answer_field.getData();
+          // Save the current value of the answer field.
+          var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
+          var answer_on_pageload = $answer_field.getData();
 
-        // Leaving the page
-        $(window).bind('beforeunload', function(event){
-          var answer_on_unload = $answer_field.getData();
+          // Leaving the page
+          $(window).bind('beforeunload', function (event) {
+            var answer_on_unload = $answer_field.getData();
 
-          if (! answer_on_unload) {
-            return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
-          }
+            if (!answer_on_unload) {
+              return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
+            }
 
-          if (answer_on_pageload != answer_on_unload) {
-            return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
-          }
-        });
+            if (answer_on_pageload != answer_on_unload) {
+              return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
+            }
+          });
 
-        // On form submit, we cancel the beforeunload event.
-        $('form').submit(function(event) {
-          var answer_on_submit = $answer_field.getData();
+          // On form submit, we cancel the beforeunload event.
+          $('form').submit(function (event) {
+            var answer_on_submit = $answer_field.getData();
 
-          // It's not an empty message, so we are okay unbinding.
-          if (answer_on_submit) {
-            $(window).unbind('beforeunload');
+            // It's not an empty message, so we are okay unbinding.
+            if (answer_on_submit) {
+              $(window).unbind('beforeunload');
 
-            return true;
-          }
-        });
+              return true;
+            }
+          });
 
-      }, 3000);
+        }, 3000);
+      }
     }
   };
   Drupal.behaviors.voprosAnswerFeed = {
@@ -76,24 +78,28 @@
   };
   Drupal.behaviors.voprosAnswerFeedDuplicateQuestion = {
     attach: function(context, settings) {
-      var $question = $('.question-content');
-      var $feedWrapper = $('#edit-question-feed').find('.fieldset-wrapper');
-      var $newItem = $('<div class="vopros-email-display question"><div class="type">' + Drupal.t('Spørgsmål') + '</div><div class="body clearfix">' + $question.html() + '</div></div>');
+      if ($('body').hasClass('page-admin-vopros-answers-edit')) {
+        var $question = $('.question-content');
+        var $feedWrapper = $('#edit-question-feed').find('.fieldset-wrapper');
+        var $newItem = $('<div class="vopros-email-display question"><div class="type">' + Drupal.t('Spørgsmål') + '</div><div class="body clearfix">' + $question.html() + '</div></div>');
 
-      $feedWrapper.prepend($newItem);
+        $feedWrapper.prepend($newItem);
+      }
     }
   };
   Drupal.behaviors.voprosAnswerLatestResponse = {
     attach: function(context, settings) {
-      var $responses = $('.vopros-email-display.ingoing');
-      var numberOfResponses = $responses.length;
-      var $latestResponse = $responses[numberOfResponses - 1];
-      var $questionContent = $('.question-content');
-      var $copiedResponse = $('<div />').addClass('copied-latest-response').html($latestResponse);
+      if ($('body').hasClass('page-admin-vopros-answers-edit')) {
+        var $responses = $('.vopros-email-display.ingoing');
+        var numberOfResponses = $responses.length;
+        var $latestResponse = $responses[numberOfResponses - 1];
+        var $questionContent = $('.question-content');
+        var $copiedResponse = $('<div />').addClass('copied-latest-response').html($latestResponse);
 
-      $copiedResponse.find('.type').html(Drupal.t('Seneste input fra bruger'));
+        $copiedResponse.find('.type').html(Drupal.t('Seneste input fra bruger'));
 
-      $questionContent.append($copiedResponse);
+        $questionContent.append($copiedResponse);
+      }
     }
   };
 })(jQuery);

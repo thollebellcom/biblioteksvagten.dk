@@ -21,7 +21,6 @@
         if (error) {
           return console.error(error);
         }
-        console.log('Successfully connected to Scaledrone');
 
         var room = drone.subscribe('observable-room', {
           historyCount: 5 // ask for the 5 latest messages from history
@@ -30,7 +29,6 @@
           if (error) {
             return console.error(error);
           }
-          console.log('Successfully joined room');
         });
 
         room.bind('history_message', function (message) {
@@ -207,9 +205,9 @@
       }
 
       function addHistoryToListDOM(name, text) {
-        var el = DOM.messages;
+        var $messages = $('.colleague-chat__messages');
 
-        el.prepend(createHistoryMessageElement(text, name));
+        $messages.prepend(createHistoryMessageElement(text, name));
       }
 
       $('.colleague-chat__heading').bind('click', function (event) {

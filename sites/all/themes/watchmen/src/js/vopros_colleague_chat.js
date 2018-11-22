@@ -19,7 +19,6 @@
         if (error) {
           return console.error(error);
         }
-        console.log('Successfully connected to Scaledrone');
 
         const room = drone.subscribe('observable-room', {
           historyCount: 5 // ask for the 5 latest messages from history
@@ -28,7 +27,6 @@
           if (error) {
             return console.error(error);
           }
-          console.log('Successfully joined room');
         });
 
         room.bind('history_message', message => {
@@ -140,14 +138,14 @@
       }
 
       function getWhoIAm() {
-        const $chatWindow = jQuery('.colleague-chat');
+        const $chatWindow = $('.colleague-chat');
         const name = $chatWindow.data('name');
 
         return name;
       }
 
       function createMessageElement(text, member) {
-        const $chatWindow = jQuery('.colleague-chat');
+        const $chatWindow = $('.colleague-chat');
         const el = document.createElement('div');
         const me = getWhoIAm();
         const { name } = member.clientData;
@@ -198,13 +196,13 @@
       }
 
       function addHistoryToListDOM(name, text) {
-        const el = DOM.messages;
+        const $messages = $('.colleague-chat__messages');
 
-        el.appendChild(createHistoryMessageElement(text, name));
+        $messages.prepend(createHistoryMessageElement(text, name));
       }
 
-      jQuery('.colleague-chat__heading').bind('click', function(event) {
-        var $element = jQuery(this);
+      $('.colleague-chat__heading').bind('click', function(event) {
+        var $element = $(this);
         var $chatWindow = $element.parents('.colleague-chat');
         var $messageStatus = $chatWindow.find('.colleague-chat__message-status');
 
@@ -222,7 +220,7 @@
 
       // On load.
       if (sessionStorage.getItem('chat_window_open') === 'true') {
-        const $chatWindow = jQuery('.colleague-chat');
+        const $chatWindow = $('.colleague-chat');
 
         $chatWindow.addClass('open');
       }

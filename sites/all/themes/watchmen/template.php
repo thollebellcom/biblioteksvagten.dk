@@ -29,13 +29,17 @@ function watchmen_preprocess_html(&$variables) {
     }
   }
 
-  // Add javascript files.
-  drupal_add_js('https://cdn.scaledrone.com/scaledrone.min.js', array('type' => 'external'));
-  drupal_add_js($theme_path . '/dist/js/vopros_colleague_chat.js', array(
-    'type' => 'file',
-    'scope' => 'footer',
-    'group' => JS_THEME,
-  ));
+  // User is not anonymous.
+  if ($user->uid != '0') {
+
+    // Add javascript files.
+    drupal_add_js('https://cdn.scaledrone.com/scaledrone.min.js', array('type' => 'external'));
+    drupal_add_js($theme_path . '/dist/js/vopros_colleague_chat.js', array(
+      'type' => 'file',
+      'scope' => 'footer',
+      'group' => JS_THEME,
+    ));
+  }
 }
 
 /**

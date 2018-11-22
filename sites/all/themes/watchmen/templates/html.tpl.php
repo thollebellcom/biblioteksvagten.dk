@@ -60,30 +60,33 @@
   <?php print $page; ?>
   <?php print $page_bottom; ?>
 
-  <!-- Begin - colleague chat -->
-  <div class="colleague-chat" data-name="<?=$colleague_chat['users_name']; ?>">
-    <div class="colleague-chat__heading">
-      <span class="colleague-chat__message-status"></span>
 
-      <h4 class="colleague-chat__heading__title"><?=t('Kollega chat'); ?></h4>
+  <?php if ($user->uid !== 0): ?>
+    <!-- Begin - colleague chat -->
+    <div class="colleague-chat" data-name="<?=$colleague_chat['users_name']; ?>">
+      <div class="colleague-chat__heading">
+        <span class="colleague-chat__message-status"></span>
+
+        <h4 class="colleague-chat__heading__title"><?=t('Kollega chat'); ?></h4>
+      </div>
+
+      <div class="colleague-chat__members">
+        <div class="colleague-chat__members-count">-</div>
+        <div class="colleague-chat__members-list">-</div>
+      </div>
+
+      <div class="colleague-chat__content">
+        <div class="colleague-chat__messages"></div>
+      </div>
+
+      <form class="colleague-chat__form" onsubmit="return false;">
+        <input class="colleague-chat__form__input" placeholder="<?=t('Skriv en besked...'); ?>" type="text"/>
+        <input class="colleague-chat__form__submit" value="Send" type="submit"/>
+      </form>
+
     </div>
-
-    <div class="colleague-chat__members">
-      <div class="colleague-chat__members-count">-</div>
-      <div class="colleague-chat__members-list">-</div>
-    </div>
-
-    <div class="colleague-chat__content">
-      <div class="colleague-chat__messages"></div>
-    </div>
-
-    <form class="colleague-chat__form" onsubmit="return false;">
-      <input class="colleague-chat__form__input" placeholder="<?=t('Skriv en besked...'); ?>" type="text"/>
-      <input class="colleague-chat__form__submit" value="Send" type="submit"/>
-    </form>
-
-  </div>
-  <!-- End - colleague chat -->
+    <!-- End - colleague chat -->
+  <?php endif; ?>
 
 </body>
 </html>

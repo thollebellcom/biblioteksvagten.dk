@@ -9,6 +9,8 @@
  * Display statistics for a year.
  */
 function vopros_statistics_year_view($year = NULL) {
+  $csv = $_GET['csv'];
+
   if (empty($year)) {
     $year = date('Y', REQUEST_TIME);
   }
@@ -54,13 +56,40 @@ function vopros_statistics_year_view($year = NULL) {
     $rows[] = $row;
   }
 
-  return theme('table', array('header' => $header, 'rows' => $rows));
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-year-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
+  $build = array(
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+      '#prefix' => '<div><br />',
+      '#suffix' => '</div>',
+    ),
+    'table' => array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ),
+  );
+
+  return $build;
 }
 
 /**
  * Display count of created questions devided by the time it was created.
  */
 function vopros_statistics_week_view($start = NULL, $end = NULL) {
+  $csv = $_GET['csv'];
+
   if (!$end) {
     $end = REQUEST_TIME;
   }
@@ -114,14 +143,30 @@ function vopros_statistics_week_view($start = NULL, $end = NULL) {
     }
   }
 
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-week-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
   $build = array(
     'form' => drupal_get_form('vopros_statistics_week_form', $start, $end),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
     'table' => array(
       '#theme' => 'table',
       '#header' => $header,
       '#rows' => $rows,
     ),
   );
+
   return $build;
 }
 
@@ -168,6 +213,8 @@ function vopros_statistics_week_form_submit($form, &$form_state) {
  * Display count of created questions devided by the time it was created.
  */
 function vopros_statistics_time_view($start = NULL, $end = NULL) {
+  $csv = $_GET['csv'];
+
   if (!$end) {
     $end = REQUEST_TIME;
   }
@@ -215,8 +262,23 @@ function vopros_statistics_time_view($start = NULL, $end = NULL) {
     }
   }
 
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-time-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
   $build = array(
     'form' => drupal_get_form('vopros_statistics_time_form', $start, $end),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
     'table' => array(
       '#theme' => 'table',
       '#header' => $header,
@@ -269,6 +331,8 @@ function vopros_statistics_time_form_submit($form, &$form_state) {
  * Display statistics based on Q and A service names.
  */
 function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
+  $csv = $_GET['csv'];
+
   if (!$end) {
     $end = REQUEST_TIME;
   }
@@ -354,14 +418,30 @@ function vopros_statistics_client_channels_view($start = NULL, $end = NULL) {
     }
   }
 
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-channels-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
   $build = array(
     'form' => drupal_get_form('vopros_statistics_client_channels_form', $start, $end),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
     'table' => array(
       '#theme' => 'table',
       '#header' => $header,
       '#rows' => $rows,
     ),
   );
+
   return $build;
 }
 
@@ -402,4 +482,45 @@ function vopros_statistics_client_channels_form_submit($form, &$form_state) {
   $start = strtotime($form_state['values']['start']);
   $end = strtotime($form_state['values']['end']);
   $form_state['redirect'] = "admin/vopros/statistics/client_channels/$start/$end";
+}
+
+function _vopros_statistics_array2csv(array &$header, array &$content) {
+//  $array = array_merge($header, $content);
+  $array = $content;
+
+  if (count($array) == 0) {
+    return NULL;
+  }
+
+  ob_start();
+
+  $df = fopen("php://output", 'w');
+
+  fputcsv($df, array_keys(reset($array)));
+
+  foreach ($array as $row) {
+    fputcsv($df, $row);
+  }
+
+  fclose($df);
+
+  return ob_get_clean();
+}
+
+function _vopros_statistics_download_send_headers($filename) {
+
+  // Disable caching.
+  $now = gmdate("D, d M Y H:i:s");
+  header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+  header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+  header("Last-Modified: {$now} GMT");
+
+  // Force download.
+  header("Content-Type: application/force-download");
+  header("Content-Type: application/octet-stream");
+  header("Content-Type: application/download");
+
+  // Disposition / encoding on response body.
+  header("Content-Disposition: attachment;filename={$filename}");
+  header("Content-Transfer-Encoding: binary");
 }

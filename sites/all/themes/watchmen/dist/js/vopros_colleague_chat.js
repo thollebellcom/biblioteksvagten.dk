@@ -148,14 +148,14 @@
       }
 
       function getWhoIAm() {
-        var $chatWindow = jQuery('.colleague-chat');
+        var $chatWindow = $('.colleague-chat');
         var name = $chatWindow.data('name');
 
         return name;
       }
 
       function createMessageElement(text, member) {
-        var $chatWindow = jQuery('.colleague-chat');
+        var $chatWindow = $('.colleague-chat');
         var el = document.createElement('div');
         var me = getWhoIAm();
         var name = member.clientData.name;
@@ -209,11 +209,11 @@
       function addHistoryToListDOM(name, text) {
         var el = DOM.messages;
 
-        el.appendChild(createHistoryMessageElement(text, name));
+        el.prepend(createHistoryMessageElement(text, name));
       }
 
-      jQuery('.colleague-chat__heading').bind('click', function (event) {
-        var $element = jQuery(this);
+      $('.colleague-chat__heading').bind('click', function (event) {
+        var $element = $(this);
         var $chatWindow = $element.parents('.colleague-chat');
         var $messageStatus = $chatWindow.find('.colleague-chat__message-status');
 
@@ -231,7 +231,7 @@
 
       // On load.
       if (sessionStorage.getItem('chat_window_open') === 'true') {
-        var $chatWindow = jQuery('.colleague-chat');
+        var $chatWindow = $('.colleague-chat');
 
         $chatWindow.addClass('open');
       }

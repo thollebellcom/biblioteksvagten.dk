@@ -9,7 +9,7 @@
       var $searchForm = $('#views-exposed-form-vopros-search-solr-page');
 
       if ($searchForm.length > 0) {
-        var $dateFields = $searchForm.find('.hasDatepicker');
+        var $dateFields = $searchForm.find('.form-type-date-popup .form-text');
 
         $dateFields.attr('autocomplete', 'off');
       }

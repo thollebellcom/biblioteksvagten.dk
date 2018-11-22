@@ -85,6 +85,6 @@
   </div>
   <!-- End - colleague chat -->
 
-  <script src="<?=$theme_path; ?>/dist/js/vopros_colleague_chat.js"></script>
+  <script type="text/javascript" src="<?=$theme_path; ?>/dist/js/vopros_colleague_chat.js"></script>
 </body>
 </html>

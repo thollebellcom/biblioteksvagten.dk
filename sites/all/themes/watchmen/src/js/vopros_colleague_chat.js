@@ -129,7 +129,7 @@ function createHistoryMemberElement(name) {
 }
 
 function updateMembersDOM() {
-  DOM.membersCount.innerText = `Brugere online: (${members.length}):`;
+  DOM.membersCount.innerText = `Brugere online (${members.length}):`;
   DOM.membersList.innerHTML = '';
   members.forEach(member =>
       DOM.membersList.appendChild(createMemberElement(member))

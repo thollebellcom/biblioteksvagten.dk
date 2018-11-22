@@ -60,9 +60,7 @@
         });
       });
 
-      drone.bind('close', event => {
-        console.log('Connection was closed', event);
-      });
+      drone.bind('close');
 
       drone.bind('error', error => {
         console.error(error);

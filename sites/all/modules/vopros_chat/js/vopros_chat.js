@@ -31,6 +31,7 @@
   };
 
   var appendToLog = function(channel, messageContent) {
+    var pageType = ($('#vopros-chat-admin').length > 0) ? 'backend' : 'frontend';
     var currentTime = new Date();
     var messageTime = '<span class="message-time">' + currentTime.format('G:i') + '</span>';
 
@@ -43,6 +44,13 @@
     // auto-scrolling when a user is reading the comments log. Checking if the
     // chat-log div is focused might be enough.
     $('#' + channel + ' .chat-log')[0].scrollTop = $('#' + channel + ' .chat-log')[0].scrollHeight;
+
+    // Play notification sound (for admins only).
+    if (pageType === 'backend') {
+      var messageNotificationSound = '/sites/all/modules/vopros_chat/sounds/message';
+
+      $.playSound(messageNotificationSound);
+    }
   };
 
   /**

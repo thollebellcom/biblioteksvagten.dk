@@ -4,6 +4,9 @@
       document.querySelector('#vopros-email-form').addEventListener('submit', function(event) {
         var fields = ['input[name=subject]', 'textarea[name=email_content]'];
         var illegal = false;
+        var $body = document.querySelector('body');
+
+        if ($body.classList.contains('has-reminded')) return;
 
         // Run through all the fields in the array.
         for (var int in fields) {
@@ -39,6 +42,8 @@
             event.preventDefault();
           }
         }
+
+        $body.classList.add('has-reminded');
       });
     }
   };

@@ -180,7 +180,8 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   }
 
   $form['form']['email_content'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format'=> 'simple_text',
     '#title' => t('Mail body'),
     '#description' => t('The main content of the email.'),
     '#default_value' => $email->email_content,

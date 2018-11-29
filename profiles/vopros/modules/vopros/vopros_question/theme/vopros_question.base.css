@@ -202,6 +202,7 @@
 .vopros-email-display .header {
   background-color: transparent !important;
 }
+.vopros-question .feed .vopros-answer,
 .vopros-email-display .header,
 .vopros-email-display .body {
   padding: 15px 20px;

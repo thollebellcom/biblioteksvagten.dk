@@ -1,0 +1,26 @@
+#views-exposed-form-vopros-search-solr-page #edit-date-from-wrapper,
+#views-exposed-form-vopros-search-solr-page #edit-date-to-wrapper {
+  width: 220px;
+}
+#views-exposed-form-vopros-search-solr-page #edit-date-from-wrapper .date-padding,
+#views-exposed-form-vopros-search-solr-page #edit-date-to-wrapper .date-padding {
+  float: none !important;
+}
+
+/* Date (to / from) */
+#views-exposed-form-vopros-search-solr-page #edit-date-from-wrapper .form-item-date-from-date input,
+#views-exposed-form-vopros-search-solr-page #edit-date-to-wrapper .form-item-date-to-date input {
+  width: 120px;
+}
+
+/* Time (to / from) */
+#views-exposed-form-vopros-search-solr-page #edit-date-from-wrapper .form-item-date-from-time input,
+#views-exposed-form-vopros-search-solr-page #edit-date-to-wrapper .form-item-date-to-time input {
+  width: 50px;
+}
+
+/* Time label (to / from) */
+#views-exposed-form-vopros-search-solr-page #edit-date-from-wrapper .form-item-date-from-time label,
+#views-exposed-form-vopros-search-solr-page #edit-date-to-wrapper .form-item-date-to-time label {
+  margin-top: -19px;
+}

@@ -232,7 +232,7 @@ function vopros_email_form_submit(&$form, &$form_state) {
   // Update the email with submitted data.
   $email = $form_state['values']['vopros_email'];
   $email->subject = $form_state['values']['subject'];
-  $email->email_content = $form_state['values']['email_content'];
+  $email->email_content = $form_state['values']['email_content']['value'];
   $email->email = $form_state['values']['email'];
   field_attach_submit('vopros_email', $email, $form, $form_state);
   // Create the needed relations for later.

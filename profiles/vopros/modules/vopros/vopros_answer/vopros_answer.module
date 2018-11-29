@@ -495,7 +495,7 @@ function vopros_answer_vopros_question_activity_feed($question, &$feed) {
           'js' => array(drupal_get_path('module', 'vopros_answer') . '/js/vopros_answer.question_feed.js'),
         ),
       );
-      $answer_text = explode("\n", trim(check_plain($answer->answer_content)));
+      $answer_text = explode("\n", trim($answer->answer_content));
 
       $output_intro = array_slice($answer_text, 0, 5);
       $output_rest = array_slice($answer_text, 5);
@@ -508,7 +508,7 @@ function vopros_answer_vopros_question_activity_feed($question, &$feed) {
       );
 
       $feed['answer' . $answer_id]['intro'] = array(
-        '#markup' => implode('<br />', $output_intro),
+        '#markup' => implode('', $output_intro),
       );
 
       if ($output_rest) {

@@ -7,3 +7,4 @@ dependencies[] = filter
 features[ckeditor_profile][] = Simple
 features[features_api][] = api:2
 features[filter][] = simple_text
+features[user_permission][] = use text format simple_text

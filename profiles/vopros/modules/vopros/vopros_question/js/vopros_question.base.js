@@ -102,7 +102,7 @@
           var $latestResponse = $responses[numberOfResponses - 1];
           var $copiedResponse = $('<div />').addClass('copied-latest-response').html($latestResponse);
 
-          $copiedResponse.find('.type').html(Drupal.t('Seneste input fra bruger'));
+          $copiedResponse.find('.type').html(Drupal.t('Seneste tilbagemelding fra bruger'));
 
           $questionContent.append($copiedResponse);
         }

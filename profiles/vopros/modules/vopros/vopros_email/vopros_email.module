@@ -465,7 +465,7 @@ function vopros_email_mail($key, &$message, $params) {
       $body  .= "\n--$trenner\n";
       // We're base64 encoding the body to ensure that some old 7bit MTA doesn't
       // munge the UTF-8.
-      $body .= "Content-Type: text/plain; charset=UTF-8\n" .
+      $body .= "Content-Type: text/html; charset=UTF-8\n" .
             "Content-Transfer-Encoding: base64\n\n";
 
       $body .= chunk_split(base64_encode($email->email_content)) . "\n";

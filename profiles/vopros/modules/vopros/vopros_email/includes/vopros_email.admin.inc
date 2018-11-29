@@ -190,7 +190,7 @@ function vopros_email_form($form, &$form_state, $email, $answer = NULL) {
   );
 
   if (!$email->email_content && $answer && isset($answer_wrapper)) {
-    $form['form']['email_content']['#default_value'] = token_replace(_vopros_email_body_macro('vopros_email_answered_question_macro'), array(
+    $form['form']['email_content']['#default_value'] = token_replace(nl2br(_vopros_email_body_macro('vopros_email_answered_question_macro')), array(
       'vopros_answer' => $answer,
       'vopros_question' => $answer_wrapper->question->value(),
     ), array('sanitize' => FALSE));

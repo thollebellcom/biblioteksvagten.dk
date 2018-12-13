@@ -10,8 +10,7 @@
 
       var drone = new ScaleDrone(CLIENT_ID, {
         data: { // Will be sent out as clientData via events
-          name: getWhoIAm(),
-          color: getRandomColor()
+          name: getWhoIAm()
         }
       });
 
@@ -42,11 +41,13 @@
 
         room.bind('members', function (m) {
           members = m;
+
           updateMembersDOM();
         });
 
         room.bind('member_join', function (member) {
           members.push(member);
+
           updateMembersDOM();
         });
 
@@ -57,6 +58,7 @@
             return member.id === id;
           });
           members.splice(index, 1);
+
           updateMembersDOM();
         });
 
@@ -86,10 +88,6 @@
         return adjs[Math.floor(Math.random() * adjs.length)] + "_" + nouns[Math.floor(Math.random() * nouns.length)];
       }
 
-      function getRandomColor() {
-        return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-      }
-
       //------------- DOM STUFF
 
       var DOM = {
@@ -105,9 +103,11 @@
       function sendMessage() {
         var value = DOM.input.value;
         var sender = getWhoIAm();
+
         if (value === '') {
           return;
         }
+
         var message = {
           name: sender,
           text: value
@@ -121,30 +121,53 @@
       }
 
       function createMemberElement(member) {
-        var _member$clientData = member.clientData,
-            name = _member$clientData.name,
-            color = _member$clientData.color;
+        var name = member.clientData.name;
 
         var el = document.createElement('div');
+        var me = getWhoIAm();
+        var color = 'gray';
+
+        if (me === name) {
+          color = '#7394D0';
+          el.className = 'member me';
+        } else {
+          el.className = 'member';
+        }
+
         el.appendChild(document.createTextNode(name));
-        el.className = 'member';
         el.style.color = color;
+
         return el;
       }
 
       function createHistoryMemberElement(name) {
         var el = document.createElement('div');
+        var me = getWhoIAm();
+        var color = 'gray';
+
+        if (me === name) {
+          color = '#7394D0';
+        }
+
         el.appendChild(document.createTextNode(name));
         el.className = 'member';
-        el.style.color = 'gray';
+        el.style.color = color;
+
         return el;
       }
 
       function updateMembersDOM() {
-        DOM.membersCount.innerText = 'Brugere online (' + members.length + '):';
+        DOM.membersCount.innerText = 'Brugere online:';
         DOM.membersList.innerHTML = '';
+        console.log(members);
+
         members.forEach(function (member) {
-          return DOM.membersList.appendChild(createMemberElement(member));
+          // If the member is already added, don't add again.
+          console.log('Member: ', member);
+          console.log('membersList: ', DOM.membersList);
+          if (!DOM.membersList.querySelector('.me')) {
+            DOM.membersList.appendChild(createMemberElement(member));
+          }
         });
       }
 

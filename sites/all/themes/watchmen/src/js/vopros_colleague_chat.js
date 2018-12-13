@@ -9,7 +9,6 @@
       const drone = new ScaleDrone(CLIENT_ID, {
         data: { // Will be sent out as clientData via events
           name: getWhoIAm(),
-          color: getRandomColor(),
         },
       });
 
@@ -37,17 +36,20 @@
 
         room.bind('members', m => {
           members = m;
+
           updateMembersDOM();
         });
 
         room.bind('member_join', member => {
           members.push(member);
+
           updateMembersDOM();
         });
 
         room.bind('member_leave', ({id}) => {
           const index = members.findIndex(member => member.id === id);
           members.splice(index, 1);
+
           updateMembersDOM();
         });
 
@@ -81,10 +83,6 @@
         );
       }
 
-      function getRandomColor() {
-        return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-      }
-
       //------------- DOM STUFF
 
       const DOM = {
@@ -100,9 +98,11 @@
       function sendMessage() {
         const value = DOM.input.value;
         const sender = getWhoIAm();
+
         if (value === '') {
           return;
         }
+
         let message = {
           name: sender,
           text: value
@@ -116,28 +116,53 @@
       }
 
       function createMemberElement(member) {
-        const { name, color } = member.clientData;
+        const { name } = member.clientData;
         const el = document.createElement('div');
+        const me = getWhoIAm();
+        let color = 'gray';
+
+        if (me === name) {
+          color = '#7394D0';
+          el.className = 'member me';
+        } else {
+          el.className = 'member';
+        }
+
         el.appendChild(document.createTextNode(name));
-        el.className = 'member';
         el.style.color = color;
+
         return el;
       }
 
       function createHistoryMemberElement(name) {
         const el = document.createElement('div');
+        const me = getWhoIAm();
+        let color = 'gray';
+
+        if (me === name) {
+          color = '#7394D0';
+        }
+
         el.appendChild(document.createTextNode(name));
         el.className = 'member';
-        el.style.color = 'gray';
+        el.style.color = color;
+
         return el;
       }
 
       function updateMembersDOM() {
-        DOM.membersCount.innerText = `Brugere online (${members.length}):`;
+        DOM.membersCount.innerText = `Brugere online:`;
         DOM.membersList.innerHTML = '';
-        members.forEach(member =>
-            DOM.membersList.appendChild(createMemberElement(member))
-        );
+        console.log(members);
+
+        members.forEach(member => {
+          // If the member is already added, don't add again.
+          console.log('Member: ', member);
+          console.log('membersList: ', DOM.membersList);
+          if (! DOM.membersList.querySelector('.me')) {
+            DOM.membersList.appendChild(createMemberElement(member));
+          }
+        });
       }
 
       function getWhoIAm() {

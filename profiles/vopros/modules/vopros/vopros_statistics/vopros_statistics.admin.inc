@@ -485,7 +485,6 @@ function vopros_statistics_client_channels_form_submit($form, &$form_state) {
 }
 
 function _vopros_statistics_array2csv(array &$header, array &$content) {
-//  $array = array_merge($header, $content);
   $array = $content;
 
   if (count($array) == 0) {
@@ -496,8 +495,10 @@ function _vopros_statistics_array2csv(array &$header, array &$content) {
 
   $df = fopen("php://output", 'w');
 
-  fputcsv($df, array_keys(reset($array)));
+  // Header.
+  fputcsv($df, $header);
 
+  // Content.
   foreach ($array as $row) {
     fputcsv($df, $row);
   }

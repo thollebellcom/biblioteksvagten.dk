@@ -153,12 +153,9 @@
       function updateMembersDOM() {
         DOM.membersCount.innerText = `Brugere online:`;
         DOM.membersList.innerHTML = '';
-        console.log(members);
 
         members.forEach(member => {
           // If the member is already added, don't add again.
-          console.log('Member: ', member);
-          console.log('membersList: ', DOM.membersList);
           if (! DOM.membersList.querySelector('.me')) {
             DOM.membersList.appendChild(createMemberElement(member));
           }

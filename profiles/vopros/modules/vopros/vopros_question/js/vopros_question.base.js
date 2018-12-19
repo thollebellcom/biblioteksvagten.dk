@@ -22,42 +22,44 @@
     attach: function(context, settings) {
       if ($('body').hasClass('page-admin-vopros-answers-edit')) {
 
-        // Run the following after 3 seconds (we need to wait for CKeditor).
+        // Run the following after 10 seconds (we need to wait for CKeditor).
         setTimeout(function () {
 
-          // Save the current value of the answer field.
-          var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
+          if (window.CKEDITOR) {
 
-          if (!$answer_field) return;
+            // Save the current value of the answer field.
+            var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
 
-          var answer_on_pageload = $answer_field.getData();
+            if (!$answer_field) return;
 
-          // Leaving the page
-          $(window).bind('beforeunload', function (event) {
-            var answer_on_unload = $answer_field.getData();
+            var answer_on_pageload = $answer_field.getData();
 
-            if (!answer_on_unload) {
-              return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
-            }
+            // Leaving the page
+            $(window).bind('beforeunload', function (event) {
+              var answer_on_unload = $answer_field.getData();
 
-            if (answer_on_pageload != answer_on_unload) {
-              return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
-            }
-          });
+              if (!answer_on_unload) {
+                return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
+              }
 
-          // On form submit, we cancel the beforeunload event.
-          $('form').submit(function (event) {
-            var answer_on_submit = $answer_field.getData();
+              if (answer_on_pageload != answer_on_unload) {
+                return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
+              }
+            });
 
-            // It's not an empty message, so we are okay unbinding.
-            if (answer_on_submit) {
-              $(window).unbind('beforeunload');
+            // On form submit, we cancel the beforeunload event.
+            $('form').submit(function (event) {
+              var answer_on_submit = $answer_field.getData();
 
-              return true;
-            }
-          });
+              // It's not an empty message, so we are okay unbinding.
+              if (answer_on_submit) {
+                $(window).unbind('beforeunload');
 
-        }, 5000);
+                return true;
+              }
+            });
+          }
+        }, 10000);
       }
     }
   };

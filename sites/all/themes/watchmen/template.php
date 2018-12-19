@@ -40,6 +40,7 @@ function watchmen_preprocess_html(&$variables) {
   if ($user->uid != '0') {
 
     // Add javascript files.
+    drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js', array('type' => 'external'));
     drupal_add_js('https://cdn.scaledrone.com/scaledrone.min.js', array('type' => 'external'));
     drupal_add_js($theme_path . '/dist/js/vopros_colleague_chat.js', array(
       'type' => 'file',

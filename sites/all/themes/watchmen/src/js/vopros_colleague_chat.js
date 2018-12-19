@@ -151,13 +151,22 @@
       }
 
       function updateMembersDOM() {
+        let membersAdded = [];
+
         DOM.membersCount.innerText = `Brugere online:`;
         DOM.membersList.innerHTML = '';
 
+        // Run through the member list.
         members.forEach(member => {
-          // If the member is already added, don't add again.
-          if (! DOM.membersList.querySelector('.me')) {
+
+          // Don't add duplicates.
+          if (! _.find(membersAdded, { 'name': member.clientData.name })) {
+
+            // Insert into DOM.
             DOM.membersList.appendChild(createMemberElement(member));
+
+            // Add for later reference.
+            membersAdded.push(member.clientData);
           }
         });
       }

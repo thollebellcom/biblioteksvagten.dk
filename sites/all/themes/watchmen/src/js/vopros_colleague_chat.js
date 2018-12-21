@@ -47,7 +47,8 @@
         });
 
         room.bind('member_leave', ({id}) => {
-          const index = members.findIndex(member => member.id === id);
+          // const index = members.findIndex(member => member.id === id);
+          const index = _.findIndex(members, member => member.id === id);
           members.splice(index, 1);
 
           updateMembersDOM();

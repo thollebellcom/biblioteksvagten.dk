@@ -54,7 +54,8 @@
         room.bind('member_leave', function (_ref) {
           var id = _ref.id;
 
-          var index = members.findIndex(function (member) {
+          // const index = members.findIndex(member => member.id === id);
+          var index = _.findIndex(members, function (member) {
             return member.id === id;
           });
           members.splice(index, 1);

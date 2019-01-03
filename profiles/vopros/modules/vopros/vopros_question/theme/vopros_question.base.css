@@ -290,3 +290,8 @@
 .copied-latest-response .header {
   display: none;
 }
+
+#switch_edit-answer-content-value,
+#edit-answer-content-format {
+  display: none !important;
+}

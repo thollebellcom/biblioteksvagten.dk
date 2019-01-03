@@ -4,4 +4,5 @@ base theme  = "bartik"
 stylesheets[all][] = css/vopros_colleague_chat.css
 stylesheets[all][] = css/vopros_embed_form.css
 stylesheets[all][] = css/search.css
+stylesheets[all][] = css/style.css
 core = "7.x"

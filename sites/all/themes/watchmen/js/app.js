@@ -53,4 +53,11 @@
       }
     }
   };
+  Drupal.behaviors.setAutocomplete = {
+    attach: function (context, settings) {
+      var $input = $('#edit-bv-schema-date-datepicker-popup-0');
+
+      $input.attr('autocomplete', 'off');
+    }
+  };
 })(jQuery);

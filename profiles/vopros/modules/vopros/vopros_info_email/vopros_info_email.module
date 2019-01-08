@@ -34,33 +34,9 @@ function vopros_info_email_menu() {
  * Implements hook_mail().
  */
 function vopros_info_email_mail($key, &$message, $params) {
-  global $user;
-
-  // Each message is associated with a language, which may or may not be the
-  // current user's selected language, depending on the type of e-mail being
-  // sent. This $options array is used later in the t() calls for subject
-  // and body to ensure the proper translation takes effect.
-  $options = array(
-    'langcode' => $message['language']->language,
-  );
 
   switch ($key) {
-    // Send a simple message from the contact form.
     case 'info_email':
-
-//      if ($params['format'] === 'html') {
-//        $headers = array(
-//          'MIME-Version' => '1.0',
-//          'Content-Type' => 'text/html; charset=UTF-8; format=flowed',
-//          'Content-Transfer-Encoding' => '8Bit',
-//          'X-Mailer' => 'Drupal'
-//        );
-//
-//        foreach ($headers as $key => $value) {
-//          $message['headers'][$key] = $value;
-//        }
-//      }
-
       $message['params']['attachments'] = $params['attachments'];
 
       $message['subject'] = $params['subject'];
@@ -131,16 +107,16 @@ function vopros_info_email_form_validate($form, &$form_state) {
  * @ingroup form_example
  */
 function vopros_info_email_form_submit($form, &$form_state) {
-//  $file = $form_state['storage']['file'];
-//
-//  // We are done with the file, remove it from storage.
-//  unset($form_state['storage']['file']);
-//
-//  // Make the storage of the file permanent.
-//  $file->status = FILE_STATUS_PERMANENT;
-//
-//  // Save file status.
-//  file_save($file);
+  $file = $form_state['storage']['file'];
+
+  // We are done with the file, remove it from storage.
+  unset($form_state['storage']['file']);
+
+  // Make the storage of the file permanent.
+  $file->status = FILE_STATUS_PERMANENT;
+
+  // Save file status.
+  file_save($file);
 
   // Grab all emails from users with "Ønsker IKKE info-email" set to false.
   $query = new EntityFieldQuery();
@@ -181,6 +157,7 @@ function vopros_info_email_form_submit($form, &$form_state) {
   $language = language_default();
   $send = TRUE;
 
+  // Run through all users.
   foreach($users as $user) {
 
     // If no email is set (user 0), don't proceed.

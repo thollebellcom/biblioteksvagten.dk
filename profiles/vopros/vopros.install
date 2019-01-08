@@ -117,3 +117,13 @@ function vopros_install() {
   variable_set('l10n_update_check_mode', '3');
   variable_set('l10n_update_import_mode', '2');
 }
+
+/**
+ * Enable modules.
+ */
+function vopros_update_7001() {
+  module_enable(array(
+    'vopros_mail_settings',
+    'vopros_info_email',
+  ));
+}

@@ -1,0 +1,207 @@
+<?php
+
+/*
+ * Implements hook_form_alter().
+ */
+function vopros_info_email_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  if ($form['#form_id'] === 'user_profile_form') {
+
+    // Only allow for changes if you are an administrator.
+    if (! in_array('Super Admin', $user->roles) && ! in_array('Admin', $user->roles)) {
+      $form['field_no_info_mail']['#access'] = false;
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function vopros_info_email_menu() {
+  return array(
+    'admin/vopros/info-email' => array(
+      'title' => 'Send info email',
+      'description' => '',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('vopros_info_email_form'),
+      'access arguments' => true,
+    ),
+  );
+}
+
+/**
+ * Implements hook_mail().
+ */
+function vopros_info_email_mail($key, &$message, $params) {
+  global $user;
+
+  // Each message is associated with a language, which may or may not be the
+  // current user's selected language, depending on the type of e-mail being
+  // sent. This $options array is used later in the t() calls for subject
+  // and body to ensure the proper translation takes effect.
+  $options = array(
+    'langcode' => $message['language']->language,
+  );
+
+  switch ($key) {
+    // Send a simple message from the contact form.
+    case 'info_email':
+
+//      if ($params['format'] === 'html') {
+//        $headers = array(
+//          'MIME-Version' => '1.0',
+//          'Content-Type' => 'text/html; charset=UTF-8; format=flowed',
+//          'Content-Transfer-Encoding' => '8Bit',
+//          'X-Mailer' => 'Drupal'
+//        );
+//
+//        foreach ($headers as $key => $value) {
+//          $message['headers'][$key] = $value;
+//        }
+//      }
+
+      $message['params']['attachments'] = $params['attachments'];
+
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+
+      break;
+  }
+}
+
+/*
+ * Implements hook_form().
+ */
+function vopros_info_email_form($form, &$form_state) {
+  $form['subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject'),
+    '#required' => TRUE,
+  );
+
+  $form['body'] = array(
+    '#type' => 'text_format',
+    '#format'=> 'simple_text',
+    '#title' => t('Body'),
+    '#rows' => 20,
+    '#required' => TRUE,
+  );
+
+  $form['file'] = array(
+    '#type' => 'file',
+    '#multiple' => TRUE,
+    '#description' => t('Tilføj vedhæftning til emailen.'),
+  );
+
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send e-mail'),
+  );
+
+  return $form;
+}
+
+/**
+ * Validate handler for vopros_info_email_form().
+ *
+ * @ingroup form_example
+ */
+function vopros_info_email_form_validate($form, &$form_state) {
+  $file = file_save_upload('file', array());
+
+  // If the file passed validation:
+  if ($file) {
+
+    // Move the file into the Drupal file system.
+    if ($file = file_move($file, 'public://')) {
+
+      // Save the file for use in the submit handler.
+      $form_state['storage']['file'] = $file;
+    }
+    else {
+      form_set_error('file', t("Failed to write the uploaded file to the site's file folder."));
+    }
+  }
+}
+
+/**
+ * Submit handler for vopros_info_email_form().
+ *
+ * @ingroup form_example
+ */
+function vopros_info_email_form_submit($form, &$form_state) {
+//  $file = $form_state['storage']['file'];
+//
+//  // We are done with the file, remove it from storage.
+//  unset($form_state['storage']['file']);
+//
+//  // Make the storage of the file permanent.
+//  $file->status = FILE_STATUS_PERMANENT;
+//
+//  // Save file status.
+//  file_save($file);
+
+  // Grab all emails from users with "Ønsker IKKE info-email" set to false.
+  $query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'user', '=')
+        ->execute();
+
+  $users = entity_load('user', array_keys($entities['user']));
+
+  // Email configurations.
+  $module = 'vopros_info_email';
+  $key = 'info_email';
+
+  // Specify 'to' and 'from' addresses.
+  $from = variable_get('site_mail', 'admin@example.com');
+
+  $format = 'html';
+  $subject = $form_state['values']['subject'];
+  $body = $form_state['values']['body']['value'];
+
+  // Attachments.
+  $attachments = array();
+  $parts = pathinfo($file->uri);
+  $attachments[] = array(
+    'filecontent' => file_get_contents($file->uri),
+    'filename' => $file->filename,
+    'filemime' => $file->filemime,
+    'extension' => $parts['extension'],
+  );
+
+  // Params.
+  $params = array(
+    'format' => $format,
+    'subject' => $subject,
+    'body' => $body,
+    'attachments' => $attachments,
+  );
+
+  $language = language_default();
+  $send = TRUE;
+
+  foreach($users as $user) {
+
+    // If no email is set (user 0), don't proceed.
+    if (! $user->mail) continue;
+
+    // If the user don't want to receive emails, don't proceed.
+    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
+
+      // The user doesn't want any emails.
+      if ($field[0]['value'] === '1') {
+        continue;
+      }
+    }
+
+    $to = $user->mail;
+
+    // Send out the email.
+    $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+
+    if ($result['result'] !== TRUE) {
+      drupal_set_message(t('There was a problem sending your message and it was not sent to ' . $to . '.'), 'error');
+    }
+  }
+}

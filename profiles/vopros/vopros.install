@@ -125,5 +125,9 @@ function vopros_update_7001() {
   module_enable(array(
     'vopros_mail_settings',
     'vopros_info_email',
+    'views_data_export',
   ));
+
+  // Empty all caches.
+  cache_clear_all(NULL, 'cache_page', '*');
 }

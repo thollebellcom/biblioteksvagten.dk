@@ -50,6 +50,13 @@ function vopros_info_email_mail($key, &$message, $params) {
  * Implements hook_form().
  */
 function vopros_info_email_form($form, &$form_state) {
+  $form['to_email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Modtager e-mail adresse'),
+    '#required' => TRUE,
+    '#description' => 'KUN til aftestning - fjernes efter test. Vi vil være 120% sikre på at vi ikke spammer brugere under aftestning.'
+  );
+
   $form['subject'] = array(
     '#type' => 'textfield',
     '#title' => t('Subject'),
@@ -107,16 +114,17 @@ function vopros_info_email_form_validate($form, &$form_state) {
  * @ingroup form_example
  */
 function vopros_info_email_form_submit($form, &$form_state) {
-  $file = $form_state['storage']['file'];
+  if ($file = $form_state['storage']['file']) {
 
-  // We are done with the file, remove it from storage.
-  unset($form_state['storage']['file']);
+    // We are done with the file, remove it from storage.
+    unset($form_state['storage']['file']);
 
-  // Make the storage of the file permanent.
-  $file->status = FILE_STATUS_PERMANENT;
+    // Make the storage of the file permanent.
+    $file->status = FILE_STATUS_PERMANENT;
 
-  // Save file status.
-  file_save($file);
+    // Save file status.
+    file_save($file);
+  }
 
   // Grab all emails from users with "Ønsker IKKE info-email" set to false.
   $query = new EntityFieldQuery();
@@ -125,30 +133,42 @@ function vopros_info_email_form_submit($form, &$form_state) {
 
   $users = entity_load('user', array_keys($entities['user']));
 
+  // TEST
+  $morten = new stdClass();
+  $morten->mail = 'mn@bellcom.dk';
+
+  $test_user = new stdClass();
+  $test_user->mail = $form_state['values']['to_email'];
+
+  $users = array();
+  $users[] = $morten;
+  $users[] = $test_user;
+  // TEST
+
   // Email configurations.
   $module = 'vopros_info_email';
   $key = 'info_email';
 
   // Specify 'to' and 'from' addresses.
   $from = variable_get('site_mail', 'admin@example.com');
-
-  $format = 'html';
   $subject = $form_state['values']['subject'];
   $body = $form_state['values']['body']['value'];
 
   // Attachments.
   $attachments = array();
-  $parts = pathinfo($file->uri);
-  $attachments[] = array(
-    'filecontent' => file_get_contents($file->uri),
-    'filename' => $file->filename,
-    'filemime' => $file->filemime,
-    'extension' => $parts['extension'],
-  );
+
+  if ($file) {
+    $parts = pathinfo($file->uri);
+    $attachments[] = array(
+      'filecontent' => file_get_contents($file->uri),
+      'filename' => $file->filename,
+      'filemime' => $file->filemime,
+      'extension' => $parts['extension'],
+    );
+  }
 
   // Params.
   $params = array(
-    'format' => $format,
     'subject' => $subject,
     'body' => $body,
     'attachments' => $attachments,
@@ -164,13 +184,13 @@ function vopros_info_email_form_submit($form, &$form_state) {
     if (! $user->mail) continue;
 
     // If the user don't want to receive emails, don't proceed.
-    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
-
-      // The user doesn't want any emails.
-      if ($field[0]['value'] === '1') {
-        continue;
-      }
-    }
+//    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
+//
+//      // The user doesn't want any emails.
+//      if ($field[0]['value'] === '1') {
+//        continue;
+//      }
+//    }
 
     $to = $user->mail;
 

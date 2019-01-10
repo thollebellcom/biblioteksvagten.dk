@@ -122,10 +122,11 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
   );
 
   $form['form']['question_content'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format'=> 'simple_text',
     '#title' => t('Question content'),
     '#required' => TRUE,
-    '#default_value' => !empty($question->question_content) ? $question->question_content : '',
+    '#default_value' => !empty($question->question_content) ? nl2br($question->question_content) : '',
     '#weight' => -11,
   );
 

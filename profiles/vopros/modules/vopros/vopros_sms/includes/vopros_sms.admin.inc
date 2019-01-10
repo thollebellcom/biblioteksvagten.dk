@@ -194,6 +194,9 @@ function vopros_sms_form($form, &$form_state, $answer, $sms) {
      'vopros_question' => $answer_wrapper->question->value(),
    ), array('sanitize' => FALSE));
 
+  // Strip HTML tags.
+  $content = html_entity_decode(strip_tags($content));
+
   if (strlen($content) <= 160) {
     $sms_count = 1;
   }

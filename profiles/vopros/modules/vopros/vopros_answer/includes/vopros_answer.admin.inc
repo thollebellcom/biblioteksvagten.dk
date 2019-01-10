@@ -96,7 +96,7 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
     '#type' => 'text_format',
     '#format'=> 'simple_text',
     '#title' => t('Answer'),
-    '#default_value' => '',
+    '#default_value' => isset($answer->answer_content) ? nl2br($answer->answer_content) : '',
     '#rows' => 10,
   );
 

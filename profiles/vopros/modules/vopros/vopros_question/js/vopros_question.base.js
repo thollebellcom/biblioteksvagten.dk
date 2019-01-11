@@ -25,7 +25,7 @@
         // Run the following after 10 seconds (we need to wait for CKeditor).
         setTimeout(function () {
 
-          if (window.CKEDITOR) {
+          if (typeof window.CKEDITOR != 'undefined') {
 
             // Save the current value of the answer field.
             var $answer_field = CKEDITOR.instances['edit-answer-content-value'];

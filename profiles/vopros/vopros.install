@@ -119,13 +119,16 @@ function vopros_install() {
 }
 
 /**
- * Enable modules.
+ * Enable and disable modules.
  */
 function vopros_update_7001() {
   module_enable(array(
     'vopros_mail_settings',
     'vopros_info_email',
-    'views_data_export',
+  ));
+
+  module_disable(array(
+    'wysiwyg',
   ));
 
   // Empty all caches.

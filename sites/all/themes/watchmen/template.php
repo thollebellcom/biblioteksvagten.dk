@@ -35,6 +35,11 @@ function watchmen_preprocess_html(&$variables) {
     'scope' => 'footer',
     'group' => JS_THEME,
   ));
+  drupal_add_js($theme_path . '/js/table2csv.js', array(
+    'type' => 'file',
+    'scope' => 'footer',
+    'group' => JS_THEME,
+  ));
 
   // User is not anonymous.
   if ($user->uid != '0') {

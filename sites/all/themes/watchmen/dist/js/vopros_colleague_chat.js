@@ -244,7 +244,7 @@
         var newMessageTextContent = newMessage.textContent;
 
         // Only add, if it is not previously added.
-        if (!messagesTextContent.includes(newMessageTextContent)) {
+        if (_doesNotInclude(messagesTextContent, newMessageTextContent)) {
           $messages.prepend(newMessage);
         }
       }
@@ -271,6 +271,24 @@
         var $chatWindow = $('.colleague-chat');
 
         $chatWindow.addClass('open');
+      }
+
+      function _includes(container, value) {
+        var returnValue = false;
+        var pos = container.indexOf(value);
+        if (pos >= 0) {
+          returnValue = true;
+        }
+        return returnValue;
+      }
+
+      function _doesNotInclude(container, value) {
+        var returnValue = false;
+        var pos = container.indexOf(value);
+        if (pos < 0) {
+          returnValue = true;
+        }
+        return returnValue;
       }
     }
   };

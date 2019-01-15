@@ -861,7 +861,6 @@ function vopros_question_question_frontend_form($form, &$form_state, $question) 
   );
 
   $click_to_edit = array(
-    'question_content',
     'question_deadline',
     'question_usage',
     'question_note',

@@ -232,8 +232,14 @@
 
       function addHistoryToListDOM(name, text) {
         const $messages = $('.colleague-chat__messages');
+        const messagesTextContent = DOM.messages.textContent;
+        const newMessage = createHistoryMessageElement(text, name);
+        const newMessageTextContent = newMessage.textContent;
 
-        $messages.prepend(createHistoryMessageElement(text, name));
+        // Only add, if it is not previously added.
+        if (! messagesTextContent.includes(newMessageTextContent)) {
+          $messages.prepend(newMessage);
+        }
       }
 
       $('.colleague-chat__heading').bind('click', function(event) {

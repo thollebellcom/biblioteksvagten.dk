@@ -1,3 +1,11 @@
 #footer-wrapper {
   padding-bottom: 85px;
 }
+
+/* CKeditor changer. */
+.text-format-wrapper {
+  margin-bottom: 1em;
+}
+.text-format-wrapper .filter-wrapper {
+  display: none;
+}

@@ -127,10 +127,6 @@ function vopros_update_7001() {
     'vopros_info_email',
   ));
 
-  module_disable(array(
-    'wysiwyg',
-  ));
-
   // Empty all caches.
   cache_clear_all(NULL, 'cache_page', '*');
 }

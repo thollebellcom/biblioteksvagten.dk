@@ -314,8 +314,10 @@ function vopros_question_question_form_submit(&$form, &$form_state) {
   $info = entity_get_property_info('vopros_question');
 
   foreach ($info['properties'] as $key => $property) {
-    if (isset($form_state['values'][$key])) {
+    if (isset($form_state['values'][$key]) && !isset($form_state['values'][$key]['value'])) {
       $question->{$key} = $form_state['values'][$key];
+    } elseif(isset($form_state['values'][$key]['value'])) {
+      $question->{$key} = $form_state['values'][$key]['value'];
     }
   }
 
@@ -344,6 +346,7 @@ function vopros_question_question_form_submit(&$form, &$form_state) {
       $answer->save();
     }
   }
+
   // Add the question to the $form_state for other modules to use.
   $form_state['question'] = $question;
   $form_state['redirect'] = 'admin/vopros/questions/' . $question->question_id;

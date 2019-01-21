@@ -44,8 +44,8 @@ function vopros_mail_settings_strongarm() {
   $strongarm->name = 'mail_system';
   $strongarm->value = array(
     'default-system' => 'MimeMailSystem',
-    'mimemail' => 'MimeMailSystem',
     'htmlmail' => 'HTMLMailSystem',
+    'mimemail' => 'MimeMailSystem',
   );
   $export['mail_system'] = $strongarm;
 

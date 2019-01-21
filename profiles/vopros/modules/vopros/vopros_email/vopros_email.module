@@ -448,9 +448,6 @@ function vopros_email_mail($key, &$message, $params) {
   switch ($key) {
     case 'vopros_email':
       $email = $params['email'];
-      $trenner  = md5(uniqid(REQUEST_TIME));
-      $message['headers']['Content-Type'] = "multipart/mixed; boundary=$trenner";
-      $message['headers']['MIME-Version'] = '1.0';
 
       $message['subject'] = $email->subject;
       if ($email->question_id) {
@@ -461,15 +458,8 @@ function vopros_email_mail($key, &$message, $params) {
         $message['headers']['Reply-To'] = $email->reply_to;
       }
 
-      $body = "This is a MIME encoded email, plase use a compatible mail program.\n";
-      $body  .= "\n--$trenner\n";
-      // We're base64 encoding the body to ensure that some old 7bit MTA doesn't
-      // munge the UTF-8.
-      $body .= "Content-Type: text/html; charset=UTF-8\n" .
-            "Content-Transfer-Encoding: base64\n\n";
-
-      $body .= chunk_split(base64_encode($email->email_content)) . "\n";
-      $body .= "\n\n";
+      $attachments = array();
+      $body = $email->email_content;
 
       $email_wrapper = entity_metadata_wrapper('vopros_email', $email);
 
@@ -482,16 +472,17 @@ function vopros_email_mail($key, &$message, $params) {
         $filedata = file_get_contents(drupal_realpath($fv['uri']));
         $filename = $fv['filename'];
         $filemime = $fv['filemime'];
-        // Mark the start of a new mime.
-        $body .= "--$trenner\n";
-        $body .= "Content-Type:$filemime; name='$filename'\n";
-        $body .= "Content-Disposition: attachment; filename=$filename\n";
-        $body .= "Content-Transfer-Encoding: base64\n\n";
-        $body .= chunk_split(base64_encode($filedata));
+
+        $parts = pathinfo($fv['uri']);
+        $attachments[] = array(
+          'filecontent' => $filedata,
+          'filename' => $filename,
+          'filemime' => $filemime,
+          'extension' => $parts['extension'],
+        );
       }
 
-      // Mark the end of the email.
-      $body .= "--$trenner--";
+      $message['params']['attachments'] = $attachments;
       $message['body'][] = $body;
       break;
 

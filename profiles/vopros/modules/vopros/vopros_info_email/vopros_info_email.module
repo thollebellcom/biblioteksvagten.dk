@@ -126,24 +126,13 @@ function vopros_info_email_form_submit($form, &$form_state) {
     file_save($file);
   }
 
-  // Grab all emails from users with "Ønsker IKKE info-email" set to false.
+  // Grab all users.
   $query = new EntityFieldQuery();
   $entities = $query->entityCondition('entity_type', 'user', '=')
+        ->propertyCondition('status', true)
         ->execute();
 
   $users = entity_load('user', array_keys($entities['user']));
-
-  // TEST
-  $morten = new stdClass();
-  $morten->mail = 'mn@bellcom.dk';
-
-  $test_user = new stdClass();
-  $test_user->mail = $form_state['values']['to_email'];
-
-  $users = array();
-  $users[] = $morten;
-  $users[] = $test_user;
-  // TEST
 
   // Email configurations.
   $module = 'vopros_info_email';
@@ -184,13 +173,13 @@ function vopros_info_email_form_submit($form, &$form_state) {
     if (! $user->mail) continue;
 
     // If the user don't want to receive emails, don't proceed.
-//    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
-//
-//      // The user doesn't want any emails.
-//      if ($field[0]['value'] === '1') {
-//        continue;
-//      }
-//    }
+    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
+
+      // The user doesn't want any emails.
+      if ($field[0]['value'] === '1') {
+        continue;
+      }
+    }
 
     $to = $user->mail;
 

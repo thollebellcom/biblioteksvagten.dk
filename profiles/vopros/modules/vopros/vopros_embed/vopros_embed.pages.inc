@@ -275,7 +275,22 @@ function vopros_embed_question_submit($form, &$form_state) {
     }
   }
 
-  $question->channel = $form_state['values']['user_answer_preference'] == 'chat' ? 'chat' : 'webform';
+  switch ($form_state['values']['user_answer_preference']) {
+    case 'chat':
+      $question->channel = 'chat';
+      break;
+    case 'mail':
+      $question->channel = 'mail';
+      break;
+    case 'sms':
+      $question->channel = 'sms';
+      break;
+    default:
+      $question->channel = 'webform';
+  }
+
+  // $question->channel = $form_state['values']['user_answer_preference'] == 'chat' ? 'chat' : 'webform';
+
   $question->channel_data = array(
     'from_url' => $form_state['values']['from_url'],
     'site_email' => $form_state['values']['agency_mail'],

@@ -132,6 +132,10 @@
       // Format ugly views table.
       var $container = $('.view-display-id-page_statistics .view-content');
       var $newTable = $('<table />');
+
+      // Remove zero as an option.
+      $container.find('table').first().remove();
+
       var $tables = $container.find('table');
 
       // Insert thead
@@ -157,7 +161,9 @@
         var options = {
           "filename": "eksport.csv",
         };
-        $('.view-display-id-page_statistics .view-content table').first().table2csv('download', options);
+        $('.view-display-id-page_statistics .view-content table')
+            .first()
+            .table2csv('download', options);
       });
     }
   };

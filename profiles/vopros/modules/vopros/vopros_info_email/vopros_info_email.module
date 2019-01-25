@@ -50,13 +50,6 @@ function vopros_info_email_mail($key, &$message, $params) {
  * Implements hook_form().
  */
 function vopros_info_email_form($form, &$form_state) {
-  $form['to_email'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Modtager e-mail adresse'),
-    '#required' => TRUE,
-    '#description' => 'KUN til aftestning - fjernes efter test. Vi vil være 120% sikre på at vi ikke spammer brugere under aftestning.'
-  );
-
   $form['subject'] = array(
     '#type' => 'textfield',
     '#title' => t('Subject'),

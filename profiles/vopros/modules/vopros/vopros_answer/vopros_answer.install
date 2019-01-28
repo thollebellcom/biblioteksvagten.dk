@@ -41,6 +41,12 @@ function vopros_answer_schema() {
         'not null' => TRUE,
         'size' => 'big',
       ),
+      'tmp_answer_content' => array(
+        'description' => 'A temporary answer content.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
       'status' => array(
         'description' => 'The status of the answer.',
         'type' => 'varchar',
@@ -136,6 +142,12 @@ function vopros_answer_schema() {
         'not null' => TRUE,
         'size' => 'big',
       ),
+      'tmp_answer_content' => array(
+        'description' => 'A temporary answer content.',
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+      ),
       'status' => array(
         'description' => 'The status of the answer.',
         'type' => 'varchar',
@@ -194,4 +206,20 @@ function vopros_answer_update_7001(&$sandbox) {
   db_add_index('vopros_answer_revision', 'answer_id', array('answer_id'));
   db_add_index('vopros_answer_revision', 'uid', array('uid'));
   db_add_index('vopros_answer_revision', 'revision_uid', array('revision_uid'));
+}
+
+/**
+ * Add tmp answer content to answer tables.
+ */
+function vopros_answer_update_7002(&$sandbox) {
+  db_add_field('vopros_answer', 'tmp_answer_content', array(
+    'description' => 'A temporary answer content.',
+    'type' => 'text',
+    'size' => 'big',
+  ));
+  db_add_field('vopros_answer_revision', 'tmp_answer_content', array(
+    'description' => 'A temporary answer content.',
+    'type' => 'text',
+    'size' => 'big',
+  ));
 }

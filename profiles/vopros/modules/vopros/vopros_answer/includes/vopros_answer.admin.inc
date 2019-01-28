@@ -96,7 +96,7 @@ function vopros_answer_form($form, &$form_state, $question, $answer) {
     '#type' => 'text_format',
     '#format'=> 'simple_text',
     '#title' => t('Answer'),
-    '#default_value' => isset($answer->answer_content) ? $answer->answer_content : '',
+    '#default_value' => isset($answer->tmp_answer_content) ? $answer->tmp_answer_content : '',
     '#rows' => 10,
   );
 
@@ -231,6 +231,7 @@ function vopros_answer_form_save_submit(&$form, &$form_state) {
   }
   $answer->question_id = $question->question_id;
   $answer->answer_content = $v['answer_content']['value'];
+  $answer->tmp_answer_content = $v['answer_content']['value'];
   $answer->author_name = $GLOBALS['user']->name;
   field_attach_submit('vopros_answer', $answer, $form, $form_state);
   vopros_answer_save($answer);
@@ -281,6 +282,7 @@ function vopros_answer_form_save_release_submit(&$form, &$form_state) {
   $question->save();
   $answer->question_id = $question->question_id;
   $answer->answer_content = $v['answer_content']['value'];
+  $answer->tmp_answer_content = $v['answer_content']['value'];
   $answer->author_name = $GLOBALS['user']->name;
   field_attach_submit('vopros_answer', $answer, $form, $form_state);
   vopros_answer_save($answer);
@@ -300,6 +302,7 @@ function vopros_answer_form_save_submit_submit(&$form, &$form_state) {
   $answer = $v['answer'];
   $answer->question_id = $question->question_id;
   $answer->answer_content = $v['answer_content']['value'];
+  $answer->tmp_answer_content = '';
   $answer->author_name = $GLOBALS['user']->name;
   $answer->status = 'complete';
   $form_state['answer'] = $answer;

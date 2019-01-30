@@ -300,6 +300,7 @@ function vopros_email_vopros_question_channels() {
   return array(
     'mail' => array(
       'name' => t('E-mail'),
+      'data render' => 'vopros_embed_channel_data_render',
     ),
   );
 }

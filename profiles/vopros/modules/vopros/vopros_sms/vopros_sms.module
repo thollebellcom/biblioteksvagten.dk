@@ -274,6 +274,7 @@ function vopros_sms_vopros_question_channels() {
   return array(
     'sms' => array(
       'name' => t('SMS'),
+      'data render' => 'vopros_embed_channel_data_render',
     ),
   );
 }

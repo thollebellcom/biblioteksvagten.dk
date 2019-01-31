@@ -456,3 +456,15 @@ function vopros_sms_form_vopros_question_question_frontend_form_alter(&$form, &$
     $form['buttons']['contact']['#submit'][] = 'vopros_sms_form_vopros_question_contact_user_submit';
   }
 }
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function vopros_sms_vopros_question_channels() {
+  return array(
+    'sms' => array(
+      'name' => t('SMS'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+  );
+}

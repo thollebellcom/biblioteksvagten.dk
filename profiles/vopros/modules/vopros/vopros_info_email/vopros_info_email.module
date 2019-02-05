@@ -25,7 +25,19 @@ function vopros_info_email_menu() {
       'description' => '',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('vopros_info_email_form'),
-      'access arguments' => true,
+      'access arguments' => array('send info emails'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function vopros_info_email_permission() {
+  return array(
+    'send info emails' => array(
+      'title' => t('Send info e-mails'),
+      'description' => t('Being able to send out info emails to all users which have this setting enabled.'),
     ),
   );
 }
@@ -123,6 +135,7 @@ function vopros_info_email_form_submit($form, &$form_state) {
   $query = new EntityFieldQuery();
   $entities = $query->entityCondition('entity_type', 'user', '=')
         ->propertyCondition('status', true)
+        ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
         ->execute();
 
   $users = entity_load('user', array_keys($entities['user']));

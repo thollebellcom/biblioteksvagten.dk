@@ -484,6 +484,103 @@ function vopros_statistics_client_channels_form_submit($form, &$form_state) {
   $form_state['redirect'] = "admin/vopros/statistics/client_channels/$start/$end";
 }
 
+/**
+ * Display statistics based on Q and A service names.
+ */
+function vopros_statistics_info_email_view($status) {
+  $csv = $_GET['csv'];
+  $rows = array();
+
+  // Grab all users.
+  $query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'user', '=')
+                    ->propertyCondition('status', true)
+                    ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
+                    ->execute();
+
+  $users = entity_load('user', array_keys($entities['user']));
+
+  // Run through all users.
+  foreach($users as $user) {
+    $wants_to_recieve = true;
+
+    // If no email is set (user 0), don't proceed.
+    if (! $user->mail) continue;
+
+    // If the user don't want to receive emails, don't proceed.
+    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
+
+      // The user doesn't want any emails.
+      if ($field[0]['value'] === '1') {
+        $wants_to_recieve = false;
+      }
+    }
+
+    if ($wants_to_recieve == $status) {
+      $rows[] = array($user->mail);
+    }
+  }
+
+  $header = array(t('E-mail addresses (' . count($rows) . ')'));
+
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-channels-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
+  $build = array(
+    'form' => drupal_get_form('vopros_statistics_info_email_form', $status),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
+    'table' => array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ),
+  );
+
+  return $build;
+}
+
+/**
+ * Form for selecting the date range for the time statistics page.
+ */
+function vopros_statistics_info_email_form($form, &$form_state, $status) {
+  $form['status'] = array(
+    '#type' => 'radios',
+    '#title' => t('Show users that have said:'),
+    '#options' => array(
+      0 => t('No'),
+      1 => t('Yes')
+    ),
+    '#default_value' => $status,
+  );
+
+  $form['get'] = array(
+    '#type' => 'submit',
+    '#value' => t('Get statistics'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for vopros_statistics_client_channels_form()
+ */
+function vopros_statistics_info_email_form_submit($form, &$form_state) {
+  $status = $form_state['values']['status'];
+
+  $form_state['redirect'] = "admin/vopros/statistics/info-email/$status";
+}
+
 function _vopros_statistics_array2csv(array &$header, array &$content) {
   $array = $content;
 

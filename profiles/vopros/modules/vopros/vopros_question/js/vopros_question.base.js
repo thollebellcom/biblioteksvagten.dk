@@ -23,43 +23,43 @@
       if ($('body').hasClass('page-admin-vopros-answers-edit')) {
 
         // Run the following after 10 seconds (we need to wait for CKeditor).
-        // setTimeout(function () {
-        //
-        //   if (typeof window.CKEDITOR != 'undefined') {
-        //
-        //     // Save the current value of the answer field.
-        //     var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
-        //
-        //     if (!$answer_field) return;
-        //
-        //     var answer_on_pageload = $answer_field.getData();
-        //
-        //     // Leaving the page
-        //     $(window).bind('beforeunload', function (event) {
-        //       var answer_on_unload = $answer_field.getData();
-        //
-        //       if (!answer_on_unload) {
-        //         return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
-        //       }
-        //
-        //       if (answer_on_pageload != answer_on_unload) {
-        //         return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
-        //       }
-        //     });
-        //
-        //     // On form submit, we cancel the beforeunload event.
-        //     $('form').submit(function (event) {
-        //       var answer_on_submit = $answer_field.getData();
-        //
-        //       // It's not an empty message, so we are okay unbinding.
-        //       if (answer_on_submit) {
-        //         $(window).unbind('beforeunload');
-        //
-        //         return true;
-        //       }
-        //     });
-        //   }
-        // }, 10000);
+        setTimeout(function () {
+
+          if (typeof window.CKEDITOR != 'undefined') {
+
+            // Save the current value of the answer field.
+            var $answer_field = CKEDITOR.instances['edit-answer-content-value'];
+
+            if (!$answer_field) return;
+
+            var answer_on_pageload = $answer_field.getData();
+
+            // Leaving the page
+            $(window).bind('beforeunload', function (event) {
+              var answer_on_unload = $answer_field.getData();
+
+              if (!answer_on_unload) {
+                return Drupal.t('Du har ikke indtastet en besked. Er du sikker på at du vil forlade siden?');
+              }
+
+              if (answer_on_pageload !== answer_on_unload) {
+                return Drupal.t('Hvis du forlader siden, vil du miste det indtastede svar. Er du sikker på at du vil forlade siden?');
+              }
+            });
+
+            // On form submit, we cancel the beforeunload event.
+            $('form').submit(function (event) {
+              var answer_on_submit = $answer_field.getData();
+
+              // It's not an empty message, so we are okay unbinding.
+              if (answer_on_submit) {
+                $(window).unbind('beforeunload');
+
+                return true;
+              }
+            });
+          }
+        }, 15000);
       }
     }
   };

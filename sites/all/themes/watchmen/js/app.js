@@ -10,8 +10,19 @@
 
       if ($searchForm.length > 0) {
         var $dateFields = $searchForm.find('.form-type-date-popup .form-text');
+        var $fromDate = $searchForm.find('input[name="date_from[date]"]');
 
         $dateFields.attr('autocomplete', 'off');
+
+        // A search has not been performed. Determined by params in URL.
+        if ((window.location.search.indexOf('search_api_views_fulltext') === -1)) {
+
+          // Wait for some time for other JS to finish,
+          // as the input is populated by some other JS.
+          window.setTimeout(function() {
+            $fromDate.attr('value', '1/1/2010');
+          }, 500);
+        }
       }
     }
   };

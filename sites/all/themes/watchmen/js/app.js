@@ -10,26 +10,8 @@
 
       if ($searchForm.length > 0) {
         var $dateFields = $searchForm.find('.form-type-date-popup .form-text');
-        var $fromDate = $searchForm.find('input[name="date_from[date]"]');
-        var $toDate = $searchForm.find('input[name="date_to[date]"]');
 
         $dateFields.attr('autocomplete', 'off');
-
-        // A search has not been performed. Determined by params in URL.
-        if ((window.location.search.indexOf('search_api_views_fulltext') === -1)) {
-
-          // Wait for some time for other JS to finish,
-          // as the input is populated by some other JS.
-          window.setTimeout(function() {
-            $fromDate.attr('value', '1/1/2010');
-
-            var today = new Date();
-            var toDateValue = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-
-            $fromDate.attr('value', '1/1/2010');
-            $toDate.attr('value', toDateValue);
-          }, 500);
-        }
       }
     }
   };
@@ -37,7 +19,7 @@
     attach: function (context, settings) {
       var now = new Date();
       var now_year = now.getFullYear();
-      var now_month = now.getMonth();
+      var now_month = now.getMonth() + 1;
       var now_day = now.getDate();
 
       var formattedDate = now_month + '/' + now_day + '/' + now_year;
@@ -55,7 +37,7 @@
 
         // Dates.
         if ($dateFrom.val() === '') {
-          $dateFrom.val(formattedDate);
+          $dateFrom.val('1/1/2010');
         }
         if ($dateTo.val() === '') {
           $dateTo.val(formattedDate);

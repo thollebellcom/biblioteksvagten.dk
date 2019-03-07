@@ -11,6 +11,7 @@
       if ($searchForm.length > 0) {
         var $dateFields = $searchForm.find('.form-type-date-popup .form-text');
         var $fromDate = $searchForm.find('input[name="date_from[date]"]');
+        var $toDate = $searchForm.find('input[name="date_to[date]"]');
 
         $dateFields.attr('autocomplete', 'off');
 
@@ -21,6 +22,12 @@
           // as the input is populated by some other JS.
           window.setTimeout(function() {
             $fromDate.attr('value', '1/1/2010');
+
+            var today = new Date();
+            var toDateValue = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+
+            $fromDate.attr('value', '1/1/2010');
+            $toDate.attr('value', toDateValue);
           }, 500);
         }
       }

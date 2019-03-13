@@ -36,7 +36,13 @@
               text = _message$data.text;
 
 
-          addHistoryToListDOM(name, text);
+          if (name !== undefined && text !== undefined) {
+            addHistoryToListDOM(name, text);
+          } else {
+            console.error('Name or text undefined');
+            console.error('Name:', name);
+            console.error('Text:', text);
+          }
         });
 
         room.bind('members', function (m) {
@@ -181,6 +187,10 @@
       function getWhoIAm() {
         var $chatWindow = $('.colleague-chat');
         var name = $chatWindow.data('name');
+
+        if (name === undefined) {
+          return 'Anonym';
+        }
 
         return name;
       }

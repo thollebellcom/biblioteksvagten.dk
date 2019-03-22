@@ -9,3 +9,8 @@
 .text-format-wrapper .filter-wrapper {
   display: none;
 }
+
+/* CKeditor minimum height. */
+.cke_reset {
+  min-height: 300px;
+}

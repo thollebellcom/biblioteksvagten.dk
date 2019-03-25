@@ -1,3 +1,7 @@
+body {
+  width: auto !important;
+}
+
 #footer-wrapper {
   padding-bottom: 85px;
 }

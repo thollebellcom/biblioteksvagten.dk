@@ -53,6 +53,26 @@
       }
     }
   };
+  Drupal.behaviors.watchmenSearchHTMLEntityDecode = {
+    attach: function (context, settings) {
+      var view = document.querySelector('.view-vopros-search-solr');
+      var questionContents = view.querySelectorAll('.views-field-question-question-content span');
+
+      var decodeHTML = function (html) {
+        var txt = document.createElement('textarea');
+        txt.innerHTML = html;
+
+        return txt.value;
+      };
+
+      questionContents.forEach(function(el) {
+        var markup = el.innerHTML;
+        var decodedMarkup = decodeHTML(markup);
+
+        el.innerHTML = decodedMarkup;
+      });
+    }
+  };
   Drupal.behaviors.setAutocomplete = {
     attach: function (context, settings) {
       var $input = $('#edit-bv-schema-date-datepicker-popup-0');

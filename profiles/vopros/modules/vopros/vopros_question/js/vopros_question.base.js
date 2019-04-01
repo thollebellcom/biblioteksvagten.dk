@@ -23,7 +23,7 @@
       if ($('body').hasClass('page-admin-vopros-answers-edit')) {
 
         // Run the following after 10 seconds (we need to wait for CKeditor).
-        setTimeout(function () {
+        var loop = setInterval(function () {
 
           if (typeof window.CKEDITOR != 'undefined') {
 
@@ -58,8 +58,10 @@
                 return true;
               }
             });
+
+            clearInterval(loop);
           }
-        }, 15000);
+        }, 200);
       }
     }
   };
@@ -112,4 +114,3 @@
     }
   };
 })(jQuery);
-

@@ -160,20 +160,22 @@
       function updateMembersDOM() {
         let membersAdded = [];
 
-        DOM.membersCount.innerText = `Brugere online:`;
+        DOM.membersCount.innerText = 'Brugere online:';
         DOM.membersList.innerHTML = '';
 
         // Run through the member list.
         members.forEach(member => {
+          if (typeof member.clientData !== 'undefined') {
 
-          // Don't add duplicates.
-          if (! _.find(membersAdded, { 'name': member.clientData.name })) {
+            // Don't add duplicates.
+            if (! _.find(membersAdded, { 'name': member.clientData.name })) {
 
-            // Insert into DOM.
-            DOM.membersList.appendChild(createMemberElement(member));
+              // Insert into DOM.
+              DOM.membersList.appendChild(createMemberElement(member));
 
-            // Add for later reference.
-            membersAdded.push(member.clientData);
+              // Add for later reference.
+              membersAdded.push(member.clientData);
+            }
           }
         });
       }

@@ -171,15 +171,17 @@
 
         // Run through the member list.
         members.forEach(function (member) {
+          if (typeof member.clientData !== 'undefined') {
 
-          // Don't add duplicates.
-          if (!_.find(membersAdded, { 'name': member.clientData.name })) {
+            // Don't add duplicates.
+            if (!_.find(membersAdded, { 'name': member.clientData.name })) {
 
-            // Insert into DOM.
-            DOM.membersList.appendChild(createMemberElement(member));
+              // Insert into DOM.
+              DOM.membersList.appendChild(createMemberElement(member));
 
-            // Add for later reference.
-            membersAdded.push(member.clientData);
+              // Add for later reference.
+              membersAdded.push(member.clientData);
+            }
           }
         });
       }

@@ -56,21 +56,26 @@
   Drupal.behaviors.watchmenSearchHTMLEntityDecode = {
     attach: function (context, settings) {
       var view = document.querySelector('.view-vopros-search-solr');
-      var questionContents = view.querySelectorAll('.views-field-question-question-content span');
 
-      var decodeHTML = function (html) {
-        var txt = document.createElement('textarea');
-        txt.innerHTML = html;
+      if (view) {
+        var questionContents = view.querySelectorAll('.views-field-question-question-content span');
 
-        return txt.value;
-      };
+        if (questionContents !== null) {
+          var decodeHTML = function (html) {
+            var txt = document.createElement('textarea');
+            txt.innerHTML = html;
 
-      questionContents.forEach(function(el) {
-        var markup = el.innerHTML;
-        var decodedMarkup = decodeHTML(markup);
+            return txt.value;
+          };
 
-        el.innerHTML = decodedMarkup;
-      });
+          questionContents.forEach(function(el) {
+            var markup = el.innerHTML;
+            var decodedMarkup = decodeHTML(markup);
+
+            el.innerHTML = decodedMarkup;
+          });
+        }
+      }
     }
   };
   Drupal.behaviors.setAutocomplete = {

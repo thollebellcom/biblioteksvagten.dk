@@ -581,6 +581,201 @@ function vopros_statistics_info_email_form_submit($form, &$form_state) {
   $form_state['redirect'] = "admin/vopros/statistics/info-email/$status";
 }
 
+
+
+
+/**
+ * Display statistics based on Q and A service names.
+ */
+function vopros_statistics_client_channels_column_view($start = NULL, $end = NULL) {
+  $csv = $_GET['csv'];
+
+  if (!$end) {
+    $end = REQUEST_TIME;
+  }
+  if (!$start) {
+    $start = REQUEST_TIME - 86400 * 7;
+  }
+
+  $clients = vopros_question_client_load_multiple();
+  $channels = vopros_question_channels();
+
+  // We are using the 0 tid for totals, cross editorial.
+  $terms = array(0 => (object) array('name' => t('Total questions')));
+  if (module_exists('vopros_editorial')) {
+    $vocab = taxonomy_vocabulary_machine_name_load('vopros_editorial');
+    $terms += taxonomy_term_load_multiple(FALSE, array('vid' => $vocab->vid));
+  }
+
+  // Get counts by client, channel and tid.
+  $res = db_query("SELECT COUNT(*) AS count,
+                      q.client_id AS client_id,
+                      q.channel AS channel,
+                      f.vopros_editorial_tid AS tid
+                      FROM {vopros_question} AS q
+                      LEFT JOIN {field_data_vopros_editorial} AS f
+                      ON q.question_id = f.entity_id
+                      WHERE created <= :end
+                      AND created >= :start
+                      GROUP BY client_id, channel, tid
+                      ORDER BY client_id, channel, tid",
+    array(':end' => $end, ':start' => $start));
+
+  // Calculate totals and rearrange result for display.
+  $totals = array();
+  $column_totals = array();
+  foreach ($res as $row) {
+    // We handle the rows without a tid as tid 0. Means they're (mostly) not a
+    // special case.
+    $tid = $row->tid ? $row->tid : 0;
+    $client_name = check_plain(isset($clients[$row->client_id]) ? $clients[$row->client_id]->label : '<unknown>');
+    $channel_name = check_plain(isset($channels[$row->channel]) ? $channels[$row->channel]['name'] : '<unknown>');
+
+    $totals[$client_name]['totals'][$tid] += $row->count;
+    $totals[$client_name]['channels'][$channel_name][$tid] = $row->count;
+    // Also add non-zero to the zero (the totals column) tid.
+    if ($tid != 0) {
+      $totals[$client_name]['totals'][0] += $row->count;
+      $totals[$client_name]['channels'][$channel_name][0] += $row->count;
+    }
+
+    // Add everything to the column totals.
+    $column_totals[$tid] += $row->count;
+    // Again, add to the total column.
+    if ($tid != 0) {
+      $column_totals[0] += $row->count;
+    }
+  }
+
+  // Default totals.
+  $_totals['client'] = 'Totalt:';
+  $_totals['total'] = 0;
+  $_totals['chat'] = 0;
+  $_totals['email'] = 0;
+  $_totals['phone'] = 0;
+  $_totals['sms'] = 0;
+  $_totals['webform'] = 0;
+
+  // Header.
+  $header = array(
+    t('Client'),
+    t('Total number of questions'),
+    t('Number of chat questions'),
+    t('Number of email questions'),
+    t('Number of phone questions'),
+    t('Number of SMS questions'),
+    t('Number of webform questions'),
+  );
+
+  // Rows.
+  $rows = array();
+  foreach ($totals as $name => $data) {
+    $row = array();
+
+    $chatCount = _collect_channel_data($data['channels']['Chat'][0]);
+    $emailCount = _collect_channel_data($data['channels']['E-mail'][0]);
+    $phoneCount = _collect_channel_data($data['channels']['Telefon'][0]);
+    $smsCount = _collect_channel_data($data['channels']['SMS'][0]);
+    $webformCount = _collect_channel_data($data['channels']['Webform'][0]);
+
+    $totalCount = $chatCount + $emailCount + $phoneCount + $smsCount + $webformCount;
+
+    $row['client'] = $name;
+    $row['total'] = $totalCount;
+    $row['chat'] = $chatCount;
+    $row['email'] = $emailCount;
+    $row['phone'] = $phoneCount;
+    $row['sms'] = $smsCount;
+    $row['webform'] = $webformCount;
+
+    $rows[] = $row;
+
+    // Update totals.
+    $_totals['total'] = $_totals['total'] + $totalCount;
+    $_totals['chat'] = $_totals['chat'] + $chatCount;
+    $_totals['email'] = $_totals['email'] + $emailCount;
+    $_totals['phone'] = $_totals['phone'] + $phoneCount;
+    $_totals['sms'] = $_totals['sms'] + $smsCount;
+    $_totals['webform'] = $_totals['webform'] + $webformCount;
+  }
+
+  // Add totals.
+  $rows[] = $_totals;
+
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-channels-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
+  $build = array(
+    'form' => drupal_get_form('vopros_statistics_client_channels_column_form', $start, $end),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
+    'table' => array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ),
+  );
+
+  return $build;
+}
+
+function _collect_channel_data($count) {
+  if ($count === null) {
+    $count = 0;
+  }
+
+  return $count;
+}
+
+/**
+ * Form for selecting the date range for the time statistics page.
+ */
+function vopros_statistics_client_channels_column_form($form, &$form_state, $start, $end) {
+  $form['start'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('Start for time range'),
+    '#date_format' => 'd-m-Y',
+    '#date_year_range' => '-10:+1',
+    '#default_value' => date('Y-m-d', $start),
+    '#required' => TRUE,
+  );
+
+  $form['end'] = array(
+    '#type' => 'date_popup',
+    '#title' => t('End for time range'),
+    '#date_format' => 'd-m-Y',
+    '#date_year_range' => '-10:+1',
+    '#default_value' => date('Y-m-d', $end),
+    '#required' => TRUE,
+  );
+
+  $form['get'] = array(
+    '#type' => 'submit',
+    '#value' => t('Get statistics'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for vopros_statistics_client_channels_form()
+ */
+function vopros_statistics_client_channels_column_form_submit($form, &$form_state) {
+  $start = strtotime($form_state['values']['start']);
+  $end = strtotime($form_state['values']['end']);
+  $form_state['redirect'] = "admin/vopros/statistics/client_channels_column/$start/$end";
+}
+
 function _vopros_statistics_array2csv(array &$header, array &$content) {
   $array = $content;
 

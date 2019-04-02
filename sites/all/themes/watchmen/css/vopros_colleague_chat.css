@@ -67,6 +67,13 @@
 .colleague-chat__heading__title {
   margin: 0;
 }
+.colleague-chat__messages .message + .message {
+  margin-top: 10px;
+}
+.colleague-chat__messages .date {
+  font-size: 11px;
+  color: grey;
+}
 
 /* Members */
 .colleague-chat__members {

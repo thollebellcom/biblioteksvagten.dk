@@ -5,6 +5,7 @@
   Drupal.behaviors.watchmenColleagueChat = {
     attach: function (context, settings) {
       const CLIENT_ID = 'bQcjq9NjKrmnGuDb';
+      // const CLIENT_ID = 'rjgNL0l5SPR7XzY9'; // Development only!
 
       const drone = new ScaleDrone(CLIENT_ID, {
         data: { // Will be sent out as clientData via events
@@ -20,7 +21,7 @@
         }
 
         const room = drone.subscribe('observable-room', {
-          historyCount: 5 // ask for the 5 latest messages from history
+          historyCount: 8 // ask for the 8 latest messages from history
         });
         room.bind('open', error => {
           if (error) {
@@ -29,14 +30,19 @@
         });
 
         room.bind('history_message', message => {
-          const { name, text } = message.data;
+          let { name, text, date } = message.data;
+
+          if (date === undefined) {
+            date = null;
+          }
 
           if (name !== undefined && text !== undefined) {
-            addHistoryToListDOM(name, text);
+            addHistoryToListDOM(name, text, date);
           } else {
             console.error('Name or text undefined');
             console.error('Name:', name);
             console.error('Text:', text);
+            console.error('Date:', date);
           }
         });
 
@@ -105,6 +111,8 @@
       function sendMessage() {
         const value = DOM.input.value;
         const sender = getWhoIAm();
+        // const sender = getRandomName();
+        const date = new Date();
 
         if (value === '') {
           return;
@@ -112,7 +120,8 @@
 
         let message = {
           name: sender,
-          text: value
+          text: value,
+          date: date,
         };
 
         DOM.input.value = '';
@@ -157,6 +166,22 @@
         return el;
       }
 
+      function createDateElement(date) {
+        const el = document.createElement('div');
+
+        if (! date) {
+          return el;
+        }
+
+        const dateObj = new Date(date);
+        const formattedDate = dateFns.format(dateObj, 'DD.MM.YYYY kl. HH:m'); // Ex. 25.12.2018 kl. 09:50
+
+        el.appendChild(document.createTextNode(formattedDate));
+        el.className = 'date';
+
+        return el;
+      }
+
       function updateMembersDOM() {
         let membersAdded = [];
 
@@ -191,11 +216,12 @@
         return name;
       }
 
-      function createMessageElement(text, member) {
+      function createMessageElement(text, member, date) {
         const $chatWindow = $('.colleague-chat');
         const el = document.createElement('div');
         const me = getWhoIAm();
         const { name } = member.clientData;
+        el.appendChild(createDateElement(date));
         el.appendChild(createMemberElement(member));
         el.appendChild(document.createTextNode(text.text));
         el.className = 'message';
@@ -224,8 +250,9 @@
         return el;
       }
 
-      function createHistoryMessageElement(text, name) {
+      function createHistoryMessageElement(text, name, date) {
         const el = document.createElement('div');
+        el.appendChild(createDateElement(date));
         el.appendChild(createHistoryMemberElement(name));
         el.appendChild(document.createTextNode(text));
         el.className = 'message';
@@ -234,23 +261,24 @@
       }
 
       function addMessageToListDOM(text, member) {
+        const { date } = text;
         const el = DOM.messages;
         var content = document.getElementsByClassName("colleague-chat__content")[0];
-        el.appendChild(createMessageElement(text, member));
+        el.appendChild(createMessageElement(text, member, date));
 
         // Scroll to bottom of div when message was added to the DOM.
         content.scrollTop = content.scrollHeight;
       }
 
-      function addHistoryToListDOM(name, text) {
+      function addHistoryToListDOM(name, text, date) {
         const $messages = $('.colleague-chat__messages');
         const messagesTextContent = DOM.messages.textContent;
-        const newMessage = createHistoryMessageElement(text, name);
+        const newMessage = createHistoryMessageElement(text, name, date);
         const newMessageTextContent = newMessage.textContent;
 
         // Only add, if it is not previously added.
         if (_doesNotInclude(messagesTextContent, newMessageTextContent)) {
-          $messages.prepend(newMessage);
+          $messages.append(newMessage);
         }
       }
 

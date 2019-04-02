@@ -35,13 +35,14 @@
           if (! answer) {
             event.preventDefault();
           }
-        } else {
-          var answer = confirm(Drupal.t('Have you checked that the inputs doesnt contain e-mails, phone numbers or CPR numbers? Click OK to continue.'));
-
-          if (! answer) {
-            event.preventDefault();
-          }
         }
+        // else {
+        //   var answer = confirm(Drupal.t('Have you checked that the inputs doesnt contain e-mails, phone numbers or CPR numbers? Click OK to continue.'));
+        //
+        //   if (! answer) {
+        //     event.preventDefault();
+        //   }
+        // }
 
         $body.classList.add('has-reminded');
       });

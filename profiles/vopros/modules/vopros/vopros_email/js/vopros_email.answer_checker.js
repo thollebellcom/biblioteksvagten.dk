@@ -2,29 +2,24 @@
   Drupal.behaviors.voprosEmailAnswerChecker = {
     attach: function (context, settings) {
       document.querySelector('#vopros-email-form').addEventListener('submit', function(event) {
-        var fields = ['input[name=subject]', 'textarea[name=email_content]'];
+        // event.preventDefault(); // Just for testing!!!!
+        var subjectField = document.querySelector('input[name=subject]');
         var illegal = false;
         var $body = document.querySelector('body');
 
         if ($body.classList.contains('has-reminded')) return;
 
-        // Run through all the fields in the array.
-        for (var int in fields) {
-          var selector = fields[int];
-          var field = document.querySelector(selector);
+        // Check "subject" field.
+        var subjectValue = subjectField.value;
+        if (_isValid(subjectValue) !== true) {
+          illegal = true;
+        }
 
-          if (field === null) continue;
+        // Check CKeditor field.
+        if (typeof window.CKEDITOR != 'undefined') {
+          var ckeditorValue = (CKEDITOR.instances['edit-email-content-value']).getData();
 
-          var value = field.value;
-
-          // Perform checks
-          if (_checkIfEmailInString(value)) {
-            illegal = true;
-          }
-          if (/\d{8}/.test(value)) {
-            illegal = true;
-          }
-          if (/\d{10}/.test(value)) {
+          if (_isValid(ckeditorValue) !== true) {
             illegal = true;
           }
         }
@@ -49,6 +44,22 @@
     }
   };
 })(jQuery);
+
+function _isValid(value) {
+  var isValid = true;
+
+  if (_checkIfEmailInString(value)) {
+    isValid = false;
+  }
+  if (/\d{8}/.test(value)) {
+    isValid = false;
+  }
+  if (/\d{10}/.test(value)) {
+    isValid = false;
+  }
+
+  return isValid;
+}
 
 // Grabbed from https://stackoverflow.com/questions/16424659/check-if-a-string-contains-an-email-address
 function _checkIfEmailInString(text) {

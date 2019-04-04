@@ -2,12 +2,8 @@
   Drupal.behaviors.voprosEmailAnswerChecker = {
     attach: function (context, settings) {
       document.querySelector('#vopros-email-form').addEventListener('submit', function(event) {
-        // event.preventDefault(); // Just for testing!!!!
         var subjectField = document.querySelector('input[name=subject]');
         var illegal = false;
-        var $body = document.querySelector('body');
-
-        if ($body.classList.contains('has-reminded')) return;
 
         // Check "subject" field.
         var subjectValue = subjectField.value;
@@ -38,8 +34,6 @@
         //     event.preventDefault();
         //   }
         // }
-
-        $body.classList.add('has-reminded');
       });
     }
   };

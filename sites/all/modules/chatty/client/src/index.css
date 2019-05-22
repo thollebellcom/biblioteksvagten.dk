@@ -1,8 +1,8 @@
-body {
+body.development {
     font-size: 16px;
 }
 
-#chatty_client {
+body.development #chatty_client {
     position: fixed;
 
     left: 0;
@@ -15,7 +15,7 @@ body {
 
     background-color: #eee;
 }
-#chatty_backend {
+body.development #chatty_backend {
     position: fixed;
 
     right: 0;

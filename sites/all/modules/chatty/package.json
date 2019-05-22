@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "client": "npm run start --prefix client",
+    "server": "npm run dev --prefix server",
+    "dev": "npm run development",
+    "development": "concurrently \"npm run server\" \"npm run client\"",
+    "prod": "npm run production",
+    "production": "npm run prod --prefix server"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
+}

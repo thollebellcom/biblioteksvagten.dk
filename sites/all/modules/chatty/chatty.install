@@ -1,0 +1,107 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function chatty_schema() {
+  $schema['chatty_questions'] = array(
+    'description' => 'Chatty - questions',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a question.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'reason' => array(
+        'description' => 'The reason for closing the question.',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'authorName' => array(
+        'description' => 'The authors name',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'authorEmail' => array(
+        'description' => 'The authors email',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'subject' => array(
+        'description' => 'Questions subject',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+      ),
+      'consultant' => array(
+        'description' => 'The {users}.uid that owns this question.',
+        'type' => 'int',
+      ),
+      'status' => array(
+        'description' => 'Status of the question',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => 'pending',
+      ),
+      'createdAt' => array(
+        'description' => 'The Unix timestamp when the question was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updatedAt' => array(
+        'description' => 'The Unix timestamp when the question was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['chatty_messages'] = array(
+    'description' => 'Chatty - messages',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a message.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'text' => array(
+        'description' => 'Body of the message',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'sentFrom' => array(
+        'description' => 'Who sent the message',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'question' => array(
+        'description' => 'The foreign key to the question.id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'createdAt' => array(
+        'description' => 'The Unix timestamp when the message was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+

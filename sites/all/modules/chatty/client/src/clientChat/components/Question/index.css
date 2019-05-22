@@ -1,0 +1,42 @@
+.question-form {
+    padding: 15px;
+}
+
+.question-form__input-wrapper + .question-form__input-wrapper {
+    margin-top: 15px;
+}
+
+.question-form label {
+    font-weight: bold;
+}
+
+.question-form input[type="text"],
+.question-form input[type="email"],
+.question-form textarea {
+    padding: 8px 15px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    font-size: 1rem;
+
+    outline: 0;
+    border: 1px solid #dddfe2;
+}
+.question-form input[type="text"]:focus,
+.question-form input[type="email"]:focus,
+.question-form textarea:focus {
+    border-color: #aaaaaa;
+}
+
+.question-form input[type="submit"] {
+    padding: 10px 15px;
+    border: 0;
+
+    font-size: 1rem;
+    outline: 0;
+
+    color: #fff;
+    background-color: green;
+}

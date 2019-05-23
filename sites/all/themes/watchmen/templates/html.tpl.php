@@ -86,6 +86,8 @@
 
     </div>
     <!-- End - colleague chat -->
+
+    <div id="chatty_backend"></div>
   <?php endif; ?>
 
 </body>

@@ -33,6 +33,7 @@ export const ChatProvider = ({ children }) => {
     clientChat: null,
   });
 
+  // eslint-disable-next-line
   useEffect(() => {
     const data = localStorage.getItem('clientActiveQuestionId');
 

@@ -31,6 +31,7 @@ export const SettingsProvider = ({ children }) => {
   });
 
   // Grab data from localStorage on first run.
+  // eslint-disable-next-line
   useEffect(() => {
     const localStorageData = localStorage.getItem('backendSettings');
 

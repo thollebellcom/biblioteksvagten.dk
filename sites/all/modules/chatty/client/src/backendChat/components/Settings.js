@@ -29,6 +29,7 @@ const SettingsSetter = ({ children, data, loading }) => {
         payload: data.settings,
       });
     }
+    // eslint-disable-next-line
   }, []);
 
   return children;

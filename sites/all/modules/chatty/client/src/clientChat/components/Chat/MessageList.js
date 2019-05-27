@@ -109,6 +109,7 @@ const MessageList = ({
         });
       },
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

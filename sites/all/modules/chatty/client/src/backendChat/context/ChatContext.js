@@ -43,6 +43,7 @@ export const ChatProvider = ({ children }) => {
     backendChat: null,
   });
 
+  // eslint-disable-next-line
   useEffect(() => {
     const data = localStorage.getItem('backendActiveQuestionId');
 

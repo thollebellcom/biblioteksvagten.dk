@@ -28,6 +28,7 @@ export const SettingsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(SettingsReducer, {});
 
   // Grab data from localStorage on first run.
+  // eslint-disable-next-line
   useEffect(() => {
     const localStorageData = localStorage.getItem('clientSettings');
 

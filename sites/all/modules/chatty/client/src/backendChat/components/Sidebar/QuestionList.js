@@ -13,6 +13,7 @@ const QuestionList = ({
     for (let i = 0; i < subscriptions.length; i++) {
       subscriptions[i]();
     }
+    // eslint-disable-next-line
   }, []);
 
   const renderQuestions = () => {

@@ -88,6 +88,13 @@ EOF;
         $focus_script => array('type' => 'inline'),
       ),
     ),
+    '#states' => array(
+      'invisible' => array(
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'chatty'),
+        ),
+      ),
+    ),
   );
 
   $form['user_name'] = array(
@@ -96,6 +103,13 @@ EOF;
     '#required' => TRUE,
     '#default_value' => isset($_GET['name']) ? check_plain($_GET['name']) : '',
     '#weight' => -50,
+    '#states' => array(
+      'invisible' => array(
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'chatty'),
+        ),
+      ),
+    ),
   );
 
   if ($require_postal_code) {
@@ -105,8 +119,31 @@ EOF;
       '#required' => TRUE,
       '#default_value' => isset($_GET['postal_code']) ? check_plain($_GET['postal_code']) : '',
       '#weight' => -50,
+      '#states' => array(
+        'invisible' => array(
+          'input[name=user_answer_preference]' => array(
+            array('value' => 'chatty'),
+          ),
+        ),
+      ),
     );
   }
+
+  // Chatty.
+  $form['chatty'] = array(
+    '#type' => 'container',
+    '#markup' => '<div id="chatty_client"></div>',
+    '#states' => array(
+      'visible' => array(
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'chatty'),
+        ),
+      ),
+    ),
+  );
+  $form['chatty']['window'] = array(
+    '#markup' => '<div id="chatty_client"></div>',
+  );
 
   $form['user_email'] = array(
     '#type' => 'textfield',
@@ -204,7 +241,10 @@ EOF;
     '#attributes' => array('class' => array('primary-action')),
     '#states' => array(
       'invisible' => array(
-        'input[name=user_answer_preference]' => array('value' => 'chat'),
+        'input[name=user_answer_preference]' => array(
+          array('value' => 'chat'),
+          array('value' => 'chatty'),
+        ),
       ),
     ),
   );

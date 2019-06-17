@@ -1,5 +1,7 @@
 <?php
 
+module_load_include('inc', 'chatty', 'includes/helpers');
+
 /*
  * Implements hook_menu().
  */
@@ -116,4 +118,41 @@ function chatty_access() {
   }
 
   return FALSE;
+}
+
+/**
+ * Implements hook_vopros_question_user_answer_preference().
+ *
+ * Exposes chat as an user answer preference for questions.
+ */
+function chatty_vopros_question_user_answer_preference() {
+  if (_chatty_status() === 'closed') {
+    return array();
+  }
+
+  return array('chatty' => t('Chat - chatty'));
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function chatty_vopros_question_channels() {
+  return array(
+    'chatty' => array(
+      'name' => t('Chatty'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function chatty_theme() {
+  return array(
+    'chatty_admin_hours' => array(
+      'render element' => 'elements',
+      'file' => 'includes/admin.inc',
+    ),
+  );
 }

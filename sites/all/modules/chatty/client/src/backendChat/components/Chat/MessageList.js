@@ -45,7 +45,7 @@ const MessageList = ({
 
   const renderMessages = () =>
     messages.map((message, index) => (
-      <div id="messages" key={`backend-message-${index}-${message.id}`}>
+      <div key={`backend-message-${index}-${message.id}`}>
         <Message
           text={message.text}
           createdAt={message.createdAt}

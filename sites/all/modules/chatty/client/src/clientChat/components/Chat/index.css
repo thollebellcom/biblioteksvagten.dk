@@ -1,17 +1,15 @@
 .client-chat {
   display: block;
-
-  background-color: #fff;
 }
 
 /* Messages. */
 .client-messages {
   position: relative;
 
-  max-height: 700px;
-  min-height: 500px;
+  max-height: 500px;
+  min-height: 350px;
 
-  padding: 5px 15px;
+  padding: 5px 0;
 
   overflow: scroll;
 }
@@ -57,7 +55,7 @@
 .client-message--admin .client-message__box {}
 .client-message--admin .client-message__text {
   color: #4a4e55;
-  background-color: #f1f0f0;
+  background-color: #dddfe2;
 }
 .client-message--user .client-message__created-at {
   text-align: right;
@@ -75,7 +73,7 @@
   text-align: center;
 }
 .client-message--system .client-message__text {
-  font-size: 1rem;
+  font-size: 0.929em;
 
   color: #c0c4ca;
 }
@@ -93,10 +91,10 @@
   min-height: 40px;
   line-height: 40px;
 
-  font-size: 1rem;
+  font-size: 0.929em;
 
   outline: 0;
-
+  box-sizing: border-box;
   border: 0;
 }
 .client-form input[disabled] {
@@ -121,7 +119,7 @@
   font-weight: bold;
   outline: 0;
 
-  font-size: 1rem;
+  font-size: 0.929em;
 
   color: #4b4f56;
   background-color: #F2F3F5;
@@ -139,10 +137,8 @@
   font-size: .8rem;
   text-align: center;
 
-  border-bottom: 1px solid #DDDFE2;
-
-  color: #4a4e55;
-  background-color: #F5F6F7;
+  color: #fff;
+  background-color: #515151;
 }
 .client-status-bar--pending {}
 .client-status-bar--assigned {}

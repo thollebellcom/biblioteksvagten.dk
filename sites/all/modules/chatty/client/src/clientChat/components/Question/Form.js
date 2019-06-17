@@ -23,7 +23,19 @@ const Form = ({ createQuestion, loading }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="question-form__input-wrapper">
+      <div className="question-form__input-wrapper question-form__input-wrapper--question">
+        <label>
+          Hvad vil du spørge om?
+        </label>
+        <div>
+            <textarea
+              disabled={disableInputs}
+              rows="5"
+              ref={subjectInput}
+            />
+        </div>
+      </div>
+      <div className="question-form__input-wrapper question-form__input-wrapper--name">
         <label>
           Dit navn
           <div>
@@ -36,7 +48,7 @@ const Form = ({ createQuestion, loading }) => {
           </div>
         </label>
       </div>
-      <div className="question-form__input-wrapper">
+      <div className="question-form__input-wrapper question-form__input-wrapper--email">
         <label>
           Din e-mail adresse
           <div>
@@ -45,18 +57,6 @@ const Form = ({ createQuestion, loading }) => {
               disabled={disableInputs}
               ref={emailInput}
               required={true}
-            />
-          </div>
-        </label>
-      </div>
-      <div className="question-form__input-wrapper">
-        <label>
-          Spørgsmål
-          <div>
-            <textarea
-              disabled={disableInputs}
-              rows="10"
-              ref={subjectInput}
             />
           </div>
         </label>

@@ -8,8 +8,8 @@
     "production": "NODE_ENV=production node index.js"
   },
   "dependencies": {
-    "apollo-server-express": "^2.5.0",
-    "axios": "^0.18.0",
+    "apollo-server-express": "^2.6.3",
+    "axios": "^0.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "graphql": "^14.3.1",

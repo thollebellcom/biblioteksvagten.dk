@@ -19,14 +19,14 @@ const QuestionList = ({
   const renderQuestions = () => {
     if (questions.length === 0) {
       return (
-        <div className="list__item list__item--no-result">
+        <div className="backend-list__item backend-list__item--no-result">
           Ingen samtaler at vise.
         </div>
       );
     }
 
     return questions.map(question => (
-      <div className="list__item" key={`question-${question.id}`}>
+      <div className="backend-list__item" key={`question-${question.id}`}>
         <QuestionTeaser
           questionId={question.id}
           heading={question.authorName}
@@ -40,11 +40,11 @@ const QuestionList = ({
   };
 
   return (
-    <div className="list">
-      <div className="list__heading">
-        <h4 className="list__heading__title">{title}</h4>
+    <div className="backend-list">
+      <div className="backend-list__heading">
+        <h4 className="backend-list__heading__title">{title}</h4>
       </div>
-      <div className="list__body">{renderQuestions()}</div>
+      <div className="backend-list__body">{renderQuestions()}</div>
     </div>
   );
 };

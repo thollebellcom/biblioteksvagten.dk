@@ -5,7 +5,7 @@ import AvailableQuestions from './AvailableQuestions';
 import AssignedQuestions from './AssignedQuestions';
 
 const Sidebar = () => (
-  <div className="sidebar">
+  <div className="backend-sidebar">
     <AvailableQuestions />
     <AssignedQuestions />
   </div>

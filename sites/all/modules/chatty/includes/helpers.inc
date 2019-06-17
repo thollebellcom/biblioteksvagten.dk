@@ -71,3 +71,38 @@ function chatty_load_message($messageId) {
 
   return $query->execute()->fetchObject();
 }
+
+/*
+ * Status.
+ * Returns 'open', 'closed'.
+ */
+function _chatty_status() {
+  $status = 'closed';
+  $hours = variable_get('chatty_hours');
+  $readable_hours = json_decode($hours);
+  $day_of_week = date('w');
+  $now_in_minutes = ((date('G') * 60) + date('i'));
+  $today = new stdClass();
+
+  if ($day_of_week === 0) {
+    $day_of_week = 7;
+  }
+
+  $count = 1;
+  foreach ($readable_hours as $readable_hour) {
+    if ($count === (int) $day_of_week) {
+      $today = $readable_hour;
+    }
+
+    $count++;
+  }
+
+  if ($today->open !== NULL || $today->close !== NULL) {
+    if (($today->open === NULL || $today->open <= $now_in_minutes) &&
+        ($today->close === NULL || $today->close > $now_in_minutes)) {
+      $status = 'open';
+    }
+  }
+
+  return $status;
+}

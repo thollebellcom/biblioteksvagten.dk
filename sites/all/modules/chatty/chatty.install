@@ -104,4 +104,11 @@ function chatty_schema() {
   return $schema;
 }
 
-
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete configuration variables.
+ */
+function chatty_uninstall() {
+  variable_del('chatty_hours');
+}

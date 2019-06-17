@@ -346,6 +346,7 @@ function _vopros_embed_answer_preferences() {
     'mail' => TRUE,
     'sms' => TRUE,
     'chat' => TRUE,
+    'chatty' => TRUE,
   ));
 
   return $options;

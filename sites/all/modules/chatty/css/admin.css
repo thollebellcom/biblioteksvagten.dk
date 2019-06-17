@@ -39,7 +39,7 @@
 }
 
 /* */
-body {
+body.logged-in {
   padding-right: 300px !important;
 }
 #chatty_backend .sidebar {

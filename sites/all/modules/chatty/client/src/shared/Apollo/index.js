@@ -11,12 +11,12 @@ import { getMainDefinition } from 'apollo-utilities';
 
 // HTTP link.
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4300/graphql',
+  uri: 'http://localhost:8282/graphql',
 });
 
 // WebSocket link.
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4300/graphql',
+  uri: 'ws://localhost:8282/graphql',
   options: {
     reconnect: true,
   },

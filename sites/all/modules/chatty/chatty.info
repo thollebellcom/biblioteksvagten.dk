@@ -4,6 +4,6 @@ core = 7.x
 stylesheets[all][] = css/admin.css
 
 scripts[] = static/js/2.c1705646.chunk.js
-scripts[] = static/js/main.c07d6fc8.chunk.js
+scripts[] = static/js/main.db284807.chunk.js
 
 stylesheets[all][] = static/css/main.c09a89a3.chunk.css

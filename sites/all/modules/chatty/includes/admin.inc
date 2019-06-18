@@ -13,9 +13,6 @@ module_load_include('inc', 'chatty', 'includes/helpers');
  * Settings form.
  */
 function chatty_setting_form($form, &$form_state) {
-  _chatty_status();
-
-
   $form['chatty_hours'] = array(
     '#title' => t('Opening hours'),
     '#theme' => 'chatty_admin_hours',

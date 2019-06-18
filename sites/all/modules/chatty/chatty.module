@@ -83,9 +83,21 @@ function chatty_menu() {
   );
 
   // Administrative pages.
+  $items['admin/config/chatty'] = array(
+    'type' => MENU_LOCAL_TASK,
+    'title' => 'Chatty',
+    'description' => 'Configure chatty module.',
+    'position' => 'left',
+    'weight' => -20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
   $items['admin/config/chatty/settings'] = array(
-    'title' => 'Chat settings',
-    'description' => 'Configure chatty settings.',
+    'type' => MENU_LOCAL_TASK,
+    'title' => 'Configuration',
+    'description' => 'Adjust chatty settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('chatty_setting_form'),
     'access arguments' => array('administer chatty'),

@@ -19,7 +19,8 @@
   <?php print $page; ?>
 
   <!-- Begin - load javascript files -->
-  <script>!function (l) {
+  <script>
+    !function (l) {
       function e(e) {
         for (var r, t, n = e[0], o = e[1], u = e[2], f = 0, i = []; f < n.length; f++) {
           t = n[f], p[t] && i.push(p[t][0]), p[t] = 0;
@@ -94,7 +95,8 @@
       }
       var s = n;
       a()
-    }([])</script>
+    }([])
+  </script>
 
   <?php print $scripts; ?>
   <!-- End - load javascript files -->

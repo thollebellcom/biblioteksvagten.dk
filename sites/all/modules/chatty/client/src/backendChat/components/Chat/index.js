@@ -24,7 +24,7 @@ const ChatContainer = () => {
       {({ data, loading, subscribeToMore }) => {
         if (!data || !data.question || loading) return '';
 
-        // The recieved question is marked as complete, so dispatch an action
+        // The received question is marked as complete, so dispatch an action
         // invalidating everything in the state.
         if (data.question.status === 'complete') {
           dispatch({

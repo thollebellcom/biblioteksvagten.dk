@@ -1,33 +1,48 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 
 import { ChatContext } from '../../context/ChatContext';
 
 const Form = ({ createMessage, disabled }) => {
   const [state] = useContext(ChatContext);
-  const messageInput = useRef(null);
+  const [message, setMessage] = useState('');
+  const formRef = useRef();
+
+  const handleChange = event => setMessage(event.target.value);
+
+  const handleKeyDown = event => {
+    if (event.keyCode === 13 && event.metaKey) {
+      formRef.current.dispatchEvent(new Event('submit'));
+    }
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    createMessage({
-      variables: {
-        questionId: state.clientChat.questionId,
-        text: messageInput.current.value,
-        sentFrom: 'user',
-      },
-    });
+    if (message !== '') {
+      createMessage({
+        variables: {
+          questionId: state.clientChat.questionId,
+          text: message,
+          sentFrom: 'user',
+        },
+      });
 
-    messageInput.current.value = '';
+      // Clear the input.
+      setMessage('');
+    }
   };
 
   return (
     <div className="client-form">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Skriv en besked ..."
-          required={true}
-          ref={messageInput}
+      <form onSubmit={handleSubmit} ref={formRef}>
+        <TextareaAutosize
+          minRows={2}
+          maxRows={5}
+          value={message}
+          placeholder="Indtast din besked..."
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           disabled={disabled}
         />
       </form>

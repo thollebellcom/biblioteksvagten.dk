@@ -83,13 +83,11 @@
   border-top: 1px solid #dddfe2;
   background-color: #f5f6f7;
 }
-.client-form input[type="text"] {
+.client-form input[type="text"],
+.client-form textarea {
   width: 100%;
 
-  padding: 0 15px;
-
-  min-height: 40px;
-  line-height: 40px;
+  padding: 5px 15px;
 
   font-size: 0.929em;
 
@@ -97,7 +95,8 @@
   box-sizing: border-box;
   border: 0;
 }
-.client-form input[disabled] {
+.client-form input[disabled],
+.client-form textarea[disabled] {
   cursor: not-allowed;
   background-color: #eee;
 }

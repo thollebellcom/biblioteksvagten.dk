@@ -1,12 +1,16 @@
 import daLocale from 'date-fns/locale/da';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import format from 'date-fns/format';
 
 const generateDateString = date => {
-  const mutatedDate = distanceInWordsToNow(date, {
+  const mutatedDate = format(date, 'DD.MM.YYYY', {
     locale: daLocale,
   });
 
-  return `For ${mutatedDate} siden`;
+  const mutatedTime = format(date, 'HH:mm', {
+    locale: daLocale,
+  });
+
+  return `D. ${mutatedDate} kl. ${mutatedTime}`;
 };
 
 export default generateDateString;

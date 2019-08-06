@@ -96,7 +96,7 @@ const AvailableQuestions = () => {
             questions={data.questions}
             subscriptions={subscriptions}
             canAssign={true}
-            canSetActive={false}
+            canSetActive={true}
           />
         );
       }}

@@ -34,6 +34,7 @@ const QuestionList = ({
           createdAt={question.createdAt}
           canAssign={canAssign}
           canSetActive={canSetActive}
+          lastHeartbeat={question.lastHeartbeatAt}
         />
       </div>
     ));

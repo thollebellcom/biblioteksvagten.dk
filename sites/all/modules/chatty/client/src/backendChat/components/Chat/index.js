@@ -6,6 +6,7 @@ import GET_QUESTION_QUERY from '../../../shared/Apollo/query/getQuestion';
 import CREATE_MESSAGE_MUTATION from '../../../shared/Apollo/mutation/createMessage';
 import { ChatContext, RESET_CHAT } from '../../context/ChatContext';
 
+import OfflineMessage from './OfflineMessage';
 import Bar from './Bar';
 import MessageList from './MessageList';
 import Actions from './actions';
@@ -37,6 +38,7 @@ const ChatContainer = () => {
         return (
           <div className="backend-chat">
             <Bar title={data.question.authorName} />
+            <OfflineMessage lastHeartbeat={data.question.lastHeartbeatAt} />
             <MessageList
               subject={data.question.subject}
               questionCreatedAt={data.question.createdAt}

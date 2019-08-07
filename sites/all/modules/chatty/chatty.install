@@ -49,6 +49,12 @@ function chatty_schema() {
         'not null' => TRUE,
         'default' => 'pending',
       ),
+      'lastHeartbeatAt' => array(
+        'description' => 'The Unix timestamp when the question last had a client heartbeat.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'createdAt' => array(
         'description' => 'The Unix timestamp when the question was created.',
         'type' => 'int',

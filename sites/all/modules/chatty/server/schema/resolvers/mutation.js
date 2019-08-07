@@ -6,6 +6,7 @@ const {
   ASSIGNED_QUESTION_CLOSED,
   QUESTION_CLOSED,
   QUESTION_REOPENED,
+  QUESTION_HEARTBEAT,
 } = require('../../shared/constants');
 
 const tokenReplacer = require('../../shared/tokenReplacer');
@@ -107,6 +108,15 @@ const resolver = {
       });
       pubsub.publish(QUESTION_REOPENED, {
         questionReopened: question,
+      });
+
+      return question;
+    },
+    makeHeartbeat: async (_, { questionId }, { pubsub }) => {
+      const question = await QuestionController.makeHeartbeat(questionId);
+
+      pubsub.publish(QUESTION_HEARTBEAT, {
+        questionHeartbeat: question,
       });
 
       return question;

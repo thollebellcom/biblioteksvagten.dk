@@ -81,6 +81,13 @@ function chatty_menu() {
     'file' => 'includes/api.post.inc',
     'type' => MENU_CALLBACK,
   );
+  $items['chatty/api/v1/question-heartbeat'] = array(
+    'page callback' => 'question_client_heartbeat_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
 
   // Administrative pages.
   $items['admin/config/chatty'] = array(

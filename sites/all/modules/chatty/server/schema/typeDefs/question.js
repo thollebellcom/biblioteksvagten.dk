@@ -9,6 +9,7 @@ const typeDef = gql`
     consultant: String
     messages: [Message]!
     status: String!
+    lastHeartbeatAt: String!
     createdAt: String!
     updatedAt: String!
   }

@@ -32,6 +32,7 @@ function get_questions_callback() {
   $query->addField('chatty_questions', 'subject');
   $query->addField('chatty_questions', 'status');
   $query->addField('chatty_questions', 'consultant');
+  $query->addField('chatty_questions', 'lastHeartbeatAt');
   $query->addField('chatty_questions', 'createdAt');
   $query->addField('chatty_questions', 'updatedAt');
 

@@ -2,10 +2,11 @@ import './index.css';
 import React, { useContext } from 'react';
 import { Mutation, Query } from 'react-apollo';
 
+import { ChatContext } from '../../context/ChatContext';
 import GET_QUESTION_QUERY from '../../../shared/Apollo/query/getQuestion';
 import CREATE_MESSAGE_MUTATION from '../../../shared/Apollo/mutation/createMessage';
-import { ChatContext } from '../../context/ChatContext';
 import { RESET_CHAT } from '../../../backendChat/context/ChatContext';
+import MAKE_HEARTBEAT_MUTATION from '../../../shared/Apollo/mutation/makeHeartbeat';
 
 import StatusBar from './StatusBar';
 import MessageList from './MessageList';
@@ -40,13 +41,18 @@ const ChatContainer = () => {
           <div className="client-chat">
             <StatusBar status={data.question.status} />
 
-            <MessageList
-              disabled={disabledStates}
-              subject={data.question.subject}
-              questionCreatedAt={data.question.createdAt}
-              messages={data.question.messages}
-              subscribeToMore={subscribeToMore}
-            />
+            <Mutation mutation={MAKE_HEARTBEAT_MUTATION}>
+              {makeHeartbeat => (
+                <MessageList
+                  disabled={disabledStates}
+                  subject={data.question.subject}
+                  questionCreatedAt={data.question.createdAt}
+                  messages={data.question.messages}
+                  subscribeToMore={subscribeToMore}
+                  makeHeartbeat={makeHeartbeat}
+                />
+              )}
+            </Mutation>
 
             <Mutation mutation={CREATE_MESSAGE_MUTATION}>
               {createMessage => (

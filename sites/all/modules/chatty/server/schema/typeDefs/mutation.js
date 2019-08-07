@@ -7,6 +7,7 @@ const typeDef = gql`
     assignQuestion(questionId: ID!, consultantId: ID!): Question!
     closeQuestion(questionId: ID!, reason: String!): Question!
     reopenQuestion(questionId: ID!): Question!
+    makeHeartbeat(questionId: ID!): Question!
   }
 `;
 

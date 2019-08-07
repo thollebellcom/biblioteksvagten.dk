@@ -38,6 +38,7 @@ function create_question_callback() {
       'subject' => $subject,
       'createdAt' => REQUEST_TIME,
       'updatedAt' => REQUEST_TIME,
+      'lastHeartbeatAt' => REQUEST_TIME,
     ))
     ->execute();
 
@@ -198,6 +199,37 @@ function reopen_question_callback() {
       'status' => 'pending',
       'consultant' => NULL,
       'updatedAt' => REQUEST_TIME,
+    ))
+    ->condition('id', $questionId)
+    ->execute();
+
+  // Query the database, returning the updated question.
+  $question = chatty_load_question($questionId);
+
+  return $question;
+}
+
+/**
+ * Question heartbeat callback.
+ *
+ * Sets a timestamp on the question for when the question
+ * had a heartbeat by the client.
+ *
+ * Params:
+ * - questionId: required
+ */
+function question_client_heartbeat_callback() {
+  $questionId = $_POST['questionId'];
+
+  // Validate params.
+  if (!$questionId) {
+    return 'A question ID is required.';
+  }
+
+  // Update the database.
+  db_update('chatty_questions')
+    ->fields(array(
+      'lastHeartbeatAt' => REQUEST_TIME,
     ))
     ->condition('id', $questionId)
     ->execute();

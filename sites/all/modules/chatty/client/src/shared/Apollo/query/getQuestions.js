@@ -7,6 +7,7 @@ const GET_QUESTIONS = gql`
       subject
       authorName
       createdAt
+      lastHeartbeatAt
     }
   }
 `;

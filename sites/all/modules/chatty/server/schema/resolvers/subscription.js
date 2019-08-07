@@ -8,6 +8,7 @@ const {
   ASSIGNED_QUESTION_CLOSED,
   QUESTION_CLOSED,
   QUESTION_REOPENED,
+  QUESTION_HEARTBEAT,
 } = require('../../shared/constants');
 
 const resolver = {
@@ -86,6 +87,21 @@ const resolver = {
           // Check if question matches the requested.
           if (typeof variables.questionId !== 'undefined') {
             if (payload.questionReopened.id !== variables.questionId) {
+              return false;
+            }
+          }
+
+          return true;
+        },
+      ),
+    },
+    questionHeartbeat: {
+      subscribe: withFilter(
+        (_, __, { pubsub }) => pubsub.asyncIterator(QUESTION_HEARTBEAT),
+        (payload, variables) => {
+          // Check if question matches the requested.
+          if (typeof variables.questionId !== 'undefined') {
+            if (payload.questionHeartbeat.id !== variables.questionId) {
               return false;
             }
           }

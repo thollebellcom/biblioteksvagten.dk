@@ -78,6 +78,17 @@ const reopenQuestion = async questionId => {
   return response.data;
 };
 
+const makeHeartbeat = async questionId => {
+  const response = await axios.post(
+    'question-heartbeat',
+    qs.stringify({
+      questionId,
+    }),
+  );
+
+  return response.data;
+};
+
 module.exports = {
   create,
   read,
@@ -86,4 +97,5 @@ module.exports = {
   assignQuestion,
   closeQuestion,
   reopenQuestion,
+  makeHeartbeat,
 };

@@ -16,6 +16,7 @@ const MessageList = ({
   questionCreatedAt,
   messages,
   subscribeToMore,
+  makeHeartbeat,
 }) => {
   const [state, dispatch] = useContext(ChatContext);
 
@@ -33,9 +34,7 @@ const MessageList = ({
           ...prev,
           question: {
             ...prev.question,
-            messages: [
-              subscriptionData.data.newMessage,
-            ],
+            messages: [subscriptionData.data.newMessage],
           },
         });
 
@@ -109,8 +108,22 @@ const MessageList = ({
         });
       },
     });
+
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    // Make a heartbeat every 10 seconds.
+    const timer = setInterval(() => {
+      makeHeartbeat({
+        variables: {
+          questionId: state.clientChat.questionId,
+        },
+      });
+    }, 1000 * 10);
+
+    return () => clearInterval(timer);
+  });
 
   useEffect(() => {
     // Scroll to the bottom of the messages.

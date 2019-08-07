@@ -5,6 +5,7 @@ import GET_QUESTIONS from '../../../shared/Apollo/query/getQuestions';
 import QUESTION_ASSIGNED_TO_CONSULTANT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionAssignedToConsultant';
 import QUESTION_REOPENED_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionReopened';
 import ASSIGNED_QUESTION_CLOSED_SUBSCRIPTION from '../../../shared/Apollo/subscription/assignedQuestionClosed';
+import QUESTION_HEARTBEAT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionHeartbeat';
 
 import QuestionList from './QuestionList';
 
@@ -84,6 +85,37 @@ const AssignedQuestions = () => {
               const filteredQuestions = prev.questions.filter(
                 question => question.id !== questionToRemove.id,
               );
+
+              return Object.assign({}, prev, {
+                questions: filteredQuestions,
+              });
+            },
+          }),
+        );
+
+        // Question heartbeat.
+        subscriptions.push(() =>
+          subscribeToMore({
+            document: QUESTION_HEARTBEAT_SUBSCRIPTION,
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) return prev;
+
+              const questionHeartbeat = subscriptionData.data.questionHeartbeat;
+              const currentQuestion = prev.questions.find(
+                question => question.id === questionHeartbeat.id,
+              );
+
+              if (!currentQuestion) return prev;
+
+              const mutatedQuestion = {
+                ...currentQuestion,
+              }
+
+              const filteredQuestions = prev.questions.filter(
+                question => question.id !== questionHeartbeat.id,
+              );
+
+              filteredQuestions.push(mutatedQuestion);
 
               return Object.assign({}, prev, {
                 questions: filteredQuestions,

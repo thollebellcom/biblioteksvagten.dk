@@ -7,6 +7,7 @@ import AssignQuestionMutation from '../../../shared/Apollo/mutation/assignQuesti
 
 import convertTimestampToDate from '../../../shared/utils/convertTimestampToDate';
 import generateDateString from '../../../shared/utils/generateDateString';
+import isOffline from '../../../shared/utils/calculateOffline';
 
 const QuestionTeaser = ({
   canAssign,
@@ -15,19 +16,34 @@ const QuestionTeaser = ({
   heading,
   text,
   createdAt,
+  lastHeartbeat,
 }) => {
   const convertedDate = convertTimestampToDate(createdAt);
   const myConsultantId = '666';
   const [dateString, setDateString] = useState(
     generateDateString(convertedDate),
   );
+  const [offline, setOffline] = useState(
+    isOffline(lastHeartbeat),
+  );
   const [, dispatch] = useContext(ChatContext);
 
+  // DateString.
   useEffect(() => {
     // Update dateString every thirty second as time passes.
     const timer = setInterval(() => {
       setDateString(generateDateString(convertedDate));
     }, 1000 * 30);
+
+    return () => clearInterval(timer);
+  });
+
+  // Offline.
+  useEffect(() => {
+    // Check if we are now offline.
+    const timer = setInterval(() => {
+      setOffline(isOffline(lastHeartbeat));
+    }, 1000 * 10);
 
     return () => clearInterval(timer);
   });
@@ -50,6 +66,12 @@ const QuestionTeaser = ({
     });
   };
 
+  if (offline) {
+    heading = truncate(heading, 20) + ' (offline)';
+  } else {
+    heading = truncate(heading, 32);
+  }
+
   return (
     <Mutation mutation={AssignQuestionMutation}>
       {assignQuestion => (
@@ -67,7 +89,7 @@ const QuestionTeaser = ({
         >
           <div className="question__heading">
             <div className="question__heading__title">
-              {truncate(heading, 32)}
+              {heading}
             </div>
           </div>
 

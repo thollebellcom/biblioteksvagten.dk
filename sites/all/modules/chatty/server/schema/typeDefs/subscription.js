@@ -9,6 +9,7 @@ const typeDef = gql`
     assignedQuestionClosed(consultantId: ID!): Question!
     questionClosed(questionId: ID!): Question!
     questionReopened(questionId: ID): Question!
+    questionHeartbeat(questionId: ID): Question!
   }
 `;
 

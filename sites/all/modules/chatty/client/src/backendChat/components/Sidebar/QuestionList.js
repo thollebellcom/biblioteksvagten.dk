@@ -9,6 +9,8 @@ const QuestionList = ({
   questions,
   subscriptions,
 }) => {
+  const myConsultantId = '666';
+
   useEffect(() => {
     for (let i = 0; i < subscriptions.length; i++) {
       subscriptions[i]();
@@ -26,7 +28,14 @@ const QuestionList = ({
     }
 
     return questions.map(question => (
-      <div className="backend-list__item" key={`question-${question.id}`}>
+      <div
+        className={
+          myConsultantId !== question.consultant
+            ? 'backend-list__item backend-list__item--faded'
+            : 'backend-list__item'
+        }
+        key={`question-${question.id}`}
+      >
         <QuestionTeaser
           questionId={question.id}
           heading={question.authorName}
@@ -35,6 +44,7 @@ const QuestionList = ({
           canAssign={canAssign}
           canSetActive={canSetActive}
           lastHeartbeat={question.lastHeartbeatAt}
+          readOnly={myConsultantId !== question.consultant}
         />
       </div>
     ));

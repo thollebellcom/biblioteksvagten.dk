@@ -11,14 +11,13 @@ import QuestionList from './QuestionList';
 
 const AssignedQuestions = () => {
   let subscriptions = [];
-  const myConsultantId = '666';
 
   return (
     <Query
       query={GET_QUESTIONS}
       variables={{
         statusType: 'assigned',
-        consultantId: myConsultantId,
+        consultantId: null,
       }}
     >
       {({ loading, data, subscribeToMore }) => {
@@ -32,9 +31,6 @@ const AssignedQuestions = () => {
         subscriptions.push(() =>
           subscribeToMore({
             document: QUESTION_ASSIGNED_TO_CONSULTANT_SUBSCRIPTION,
-            variables: {
-              consultantId: myConsultantId,
-            },
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) return prev;
 
@@ -52,9 +48,6 @@ const AssignedQuestions = () => {
         subscriptions.push(() =>
           subscribeToMore({
             document: ASSIGNED_QUESTION_CLOSED_SUBSCRIPTION,
-            variables: {
-              consultantId: myConsultantId,
-            },
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) return prev;
 
@@ -109,7 +102,7 @@ const AssignedQuestions = () => {
 
               const mutatedQuestion = {
                 ...currentQuestion,
-              }
+              };
 
               const filteredQuestions = prev.questions.filter(
                 question => question.id !== questionHeartbeat.id,
@@ -131,7 +124,6 @@ const AssignedQuestions = () => {
             subscriptions={subscriptions}
             canAssign={false}
             canSetActive={true}
-            subscribeToMore={subscribeToMore}
           />
         );
       }}

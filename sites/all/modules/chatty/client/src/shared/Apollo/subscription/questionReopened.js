@@ -9,6 +9,7 @@ const QUESTION_REOPENED_SUBSCRIPTION = gql`
       subject
       authorName
       createdAt
+      lastHeartbeatAt
     }
   }
 `;

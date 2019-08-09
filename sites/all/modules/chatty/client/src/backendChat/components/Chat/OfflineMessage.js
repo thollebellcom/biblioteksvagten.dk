@@ -17,7 +17,7 @@ const OfflineMessage = ({ lastHeartbeat }) => {
 
   if (offline) {
     return (
-      <div className="backend-offline-message">Brugeren er offline...</div>
+      <div className="backend-notice backend-notice--offline">Brugeren er offline...</div>
     );
   }
 

@@ -7,6 +7,8 @@ const NEW_QUESTION = gql`
       subject
       authorName
       createdAt
+      consultant
+      lastHeartbeatAt
     }
   }
 `;

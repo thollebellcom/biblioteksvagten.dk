@@ -5,6 +5,7 @@ const GET_QUESTIONS = gql`
     questions(statusType: $statusType, consultantId: $consultantId) {
       id
       subject
+      consultant
       authorName
       createdAt
       lastHeartbeatAt

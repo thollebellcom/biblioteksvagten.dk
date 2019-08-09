@@ -17,15 +17,14 @@ const QuestionTeaser = ({
   text,
   createdAt,
   lastHeartbeat,
+  consultantId,
 }) => {
   const convertedDate = convertTimestampToDate(createdAt);
   const myConsultantId = '666';
   const [dateString, setDateString] = useState(
     generateDateString(convertedDate),
   );
-  const [offline, setOffline] = useState(
-    isOffline(lastHeartbeat),
-  );
+  const [offline, setOffline] = useState(isOffline(lastHeartbeat));
   const [, dispatch] = useContext(ChatContext);
 
   // DateString.
@@ -88,9 +87,7 @@ const QuestionTeaser = ({
           }}
         >
           <div className="question__heading">
-            <div className="question__heading__title">
-              {heading}
-            </div>
+            <div className="question__heading__title">{heading}</div>
           </div>
 
           <div className="question__body">{truncate(text, 35)}</div>

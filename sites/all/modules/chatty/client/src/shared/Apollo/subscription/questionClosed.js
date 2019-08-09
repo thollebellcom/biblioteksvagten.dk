@@ -6,7 +6,9 @@ const QUESTION_CLOSED_SUBSCRIPTION = gql`
       id
       subject
       authorName
+      consultant
       createdAt
+      lastHeartbeatAt
       messages {
         id
         text

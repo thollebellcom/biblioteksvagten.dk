@@ -6,9 +6,10 @@ const GET_QUESTION = gql`
       id
       authorName
       subject
+      consultant
+      status
       lastHeartbeatAt
       createdAt
-      status
       messages {
         id
         text

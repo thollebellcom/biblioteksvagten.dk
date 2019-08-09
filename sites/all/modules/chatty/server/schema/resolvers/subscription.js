@@ -69,8 +69,19 @@ const resolver = {
     assignedQuestionClosed: {
       subscribe: withFilter(
         (_, __, { pubsub }) => pubsub.asyncIterator(ASSIGNED_QUESTION_CLOSED),
-        (payload, variables) =>
-          payload.assignedQuestionClosed.consultant === variables.consultantId,
+        (payload, variables) => {
+          // Check if consultant matches the requested.
+          if (typeof variables.consultantId !== 'undefined') {
+            if (
+              payload.assignedQuestionClosed.consultant !==
+              variables.consultantId
+            ) {
+              return false;
+            }
+          }
+
+          return true;
+        },
       ),
     },
     questionClosed: {

@@ -7,12 +7,14 @@ import CREATE_MESSAGE_MUTATION from '../../../shared/Apollo/mutation/createMessa
 import { ChatContext, RESET_CHAT } from '../../context/ChatContext';
 
 import OfflineMessage from './OfflineMessage';
+import ReadonlyMessage from './ReadonlyMessage';
 import Bar from './Bar';
 import MessageList from './MessageList';
 import Actions from './actions';
 import Form from './Form';
 
 const ChatContainer = () => {
+  const myConsultantId = '666';
   const [state, dispatch] = useContext(ChatContext);
 
   return (
@@ -39,6 +41,9 @@ const ChatContainer = () => {
           <div className="backend-chat">
             <Bar title={data.question.authorName} />
             <OfflineMessage lastHeartbeat={data.question.lastHeartbeatAt} />
+
+            {data.question.consultant !== myConsultantId && <ReadonlyMessage />}
+
             <MessageList
               subject={data.question.subject}
               questionCreatedAt={data.question.createdAt}
@@ -46,11 +51,13 @@ const ChatContainer = () => {
               subscribeToMore={subscribeToMore}
             />
 
-            <Actions />
+            {data.question.consultant === myConsultantId && <Actions />}
 
-            <Mutation mutation={CREATE_MESSAGE_MUTATION}>
-              {createMessage => <Form createMessage={createMessage} />}
-            </Mutation>
+            {data.question.consultant === myConsultantId && (
+              <Mutation mutation={CREATE_MESSAGE_MUTATION}>
+                {createMessage => <Form createMessage={createMessage} />}
+              </Mutation>
+            )}
           </div>
         );
       }}

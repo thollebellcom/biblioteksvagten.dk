@@ -6,7 +6,7 @@ const typeDef = gql`
     newMessage(questionId: ID!): Message!
     questionAssignedToConsultant(consultantId: ID): Question!
     questionAssigned(questionId: ID): Question!
-    assignedQuestionClosed(consultantId: ID!): Question!
+    assignedQuestionClosed(consultantId: ID): Question!
     questionClosed(questionId: ID!): Question!
     questionReopened(questionId: ID): Question!
     questionHeartbeat(questionId: ID): Question!

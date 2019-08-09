@@ -59,6 +59,10 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.backend-list__item--faded {
+  background-color: #eee;
+}
+
 .backend-list__item--no-result,
 .backend-list__item--no-result:hover {
   cursor: initial;
@@ -71,8 +75,7 @@
 }
 
 /* Question teaser. */
-.question {
-}
+.question {}
 
 .question__heading h1,
 .question__heading h2,
@@ -88,9 +91,15 @@
 
   color: #636770;
 }
+.backend-list__item--faded .question__heading__title {
+  color: #8f949d;
+}
 
 .question__body {
   color: #636770;
+}
+.backend-list__item--faded .question__body {
+  color: #8f949d;
 }
 
 .question__created-at {

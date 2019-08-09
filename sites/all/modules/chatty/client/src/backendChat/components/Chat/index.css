@@ -14,8 +14,8 @@
   background-color: #fff;
 }
 
-/* Offline message. */
-.backend-offline-message {
+/* Chat notice. */
+.backend-notice {
   padding: 5px 0;
 
   font-size: 0.8rem;
@@ -24,6 +24,14 @@
 
   color: #fff;
   background-color: #4a4e55;
+}
+.backend-notice--offline {
+  color: #fff;
+  background-color: #4a4e55;
+}
+.backend-notice--readonly {
+  color: #fff;
+  background-color: #b70f17;
 }
 
 /* Bar. */

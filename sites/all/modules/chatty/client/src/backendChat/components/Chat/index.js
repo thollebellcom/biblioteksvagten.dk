@@ -39,7 +39,8 @@ const ChatContainer = () => {
 
         return (
           <div className="backend-chat">
-            <Bar title={data.question.authorName} />
+            <Bar name={data.question.authorName} email={data.question.authorEmail} source={data.question.source} />
+
             <OfflineMessage lastHeartbeat={data.question.lastHeartbeatAt} />
 
             {data.question.consultant !== myConsultantId && <ReadonlyMessage />}

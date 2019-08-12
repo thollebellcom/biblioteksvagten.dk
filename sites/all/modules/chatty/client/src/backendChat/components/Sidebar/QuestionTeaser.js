@@ -15,9 +15,9 @@ const QuestionTeaser = ({
   questionId,
   heading,
   text,
+  source,
   createdAt,
   lastHeartbeat,
-  consultantId,
 }) => {
   const convertedDate = convertTimestampToDate(createdAt);
   const myConsultantId = '666';
@@ -91,6 +91,8 @@ const QuestionTeaser = ({
           </div>
 
           <div className="question__body">{truncate(text, 35)}</div>
+
+          <div className="question__source">{truncate(source, 35)}</div>
 
           <small className="question__created-at">{dateString}</small>
         </div>

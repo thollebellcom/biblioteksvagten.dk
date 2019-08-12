@@ -32,6 +32,8 @@ function get_questions_callback() {
   $query->addField('chatty_questions', 'subject');
   $query->addField('chatty_questions', 'status');
   $query->addField('chatty_questions', 'consultant');
+  $query->addField('chatty_questions', 'url');
+  $query->addField('chatty_questions', 'agencyId');
   $query->addField('chatty_questions', 'lastHeartbeatAt');
   $query->addField('chatty_questions', 'createdAt');
   $query->addField('chatty_questions', 'updatedAt');
@@ -44,7 +46,29 @@ function get_questions_callback() {
     $query->condition('chatty_questions.consultant', $consultantId, '=');
   }
 
-  return $query->execute()->fetchAll();
+  $results = $query->execute()->fetchAll();
+
+  if (!empty($results)) {
+    $int = 0;
+
+    foreach ($results as $result) {
+
+      // Grab the client by the agency ID.
+      $client = vopros_question_client_load_by_agency($result->agencyId);
+      unset($results[$int]->agencyId);
+
+      if ($client) {
+        $results[$int]->source = $client->label;
+      }
+      else {
+        $results[$int]->source = t('Undefined');
+      }
+
+      $int++;
+    }
+  }
+
+  return $results;
 }
 
 /**

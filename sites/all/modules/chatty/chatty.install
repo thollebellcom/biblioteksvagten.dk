@@ -42,6 +42,18 @@ function chatty_schema() {
         'description' => 'The {users}.uid that owns this question.',
         'type' => 'int',
       ),
+      'agencyId' => array(
+        'description' => 'The foreign key to the agency.id',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'url' => array(
+        'description' => 'The URL of the agency.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+      ),
       'status' => array(
         'description' => 'Status of the question',
         'type' => 'varchar',

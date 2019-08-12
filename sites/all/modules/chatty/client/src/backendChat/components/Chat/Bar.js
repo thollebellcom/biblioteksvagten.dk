@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { ChatContext, RESET_CHAT } from '../../context/ChatContext';
 
-const Bar = ({ title }) => {
+const Bar = ({ name, email, source }) => {
   const [, dispatch] = useContext(ChatContext);
 
   const handleCloseChat = () => {
@@ -15,7 +15,11 @@ const Bar = ({ title }) => {
   return (
     <div className="backend-bar">
       <div className="backend-bar__heading">
-        <h4 className="backend-bar__heading__title">{title}</h4>
+        <h2>{name}</h2>
+        <h3>
+          <a href={`mailto:${email}`}>{email}</a>
+        </h3>
+        <h4>{source}</h4>
       </div>
 
       <div className="backend-bar__spacer" />

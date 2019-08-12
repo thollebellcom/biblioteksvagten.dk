@@ -10,16 +10,23 @@ module_load_include('inc', 'chatty', 'includes/helpers');
  * Opens a new unassigned question.
  *
  * Params:
+ * - agencyId: required
  * - authorName: required
  * - authorEmail: required
  * - subject: required
+ * - url: required
  */
 function create_question_callback() {
+  $agencyId = $_POST['agencyId'];
   $authorName = $_POST['authorName'];
   $authorEmail = $_POST['authorEmail'];
   $subject = $_POST['subject'];
+  $url = $_POST['url'];
 
   // Validate params.
+  if (!$agencyId) {
+    return 'An agency ID is required.';
+  }
   if (!$authorName) {
     return 'A author name is required.';
   }
@@ -29,13 +36,18 @@ function create_question_callback() {
   if (!$subject) {
     return 'A subject is required.';
   }
+  if (!$url) {
+    return 'An url is required.';
+  }
 
   // Create question in database.
   $questionId = db_insert('chatty_questions')
     ->fields(array(
+      'agencyId' => $agencyId,
       'authorName' => $authorName,
       'authorEmail' => $authorEmail,
       'subject' => $subject,
+      'url' => $url,
       'createdAt' => REQUEST_TIME,
       'updatedAt' => REQUEST_TIME,
       'lastHeartbeatAt' => REQUEST_TIME,

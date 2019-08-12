@@ -6,8 +6,10 @@ const ASSIGNED_QUESTION_CLOSED_SUBSCRIPTION = gql`
       id
       subject
       authorName
-      createdAt
+      authorEmail
       consultant
+      source
+      createdAt
       lastHeartbeatAt
     }
   }

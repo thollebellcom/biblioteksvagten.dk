@@ -8,6 +8,8 @@ const QUESTION_REOPENED_SUBSCRIPTION = gql`
       consultant
       subject
       authorName
+      authorEmail
+      source
       createdAt
       lastHeartbeatAt
     }

@@ -52,7 +52,16 @@
 }
 
 .backend-bar__heading {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
+
+.backend-bar__heading a,
+.backend-bar__heading a:hover,
+.backend-bar__heading a:focus {
+  color: #09f;
+}
+
 .backend-bar__heading h1,
 .backend-bar__heading h2,
 .backend-bar__heading h3,
@@ -60,12 +69,26 @@
 .backend-bar__heading h5,
 .backend-bar__heading h6 {
   margin: 0;
+
+  line-height: 1.4;
+  font-weight: normal;
 }
 
-.backend-bar__heading__title {
-  font-size: 1rem;
+.backend-bar__heading h2 {
+  font-size: 1.1rem;
+  font-weight: bold;
 
   color: #4a4e55;
+}
+.backend-bar__heading h3 {
+  font-size: .9rem;
+
+  color: #8f949d;
+}
+.backend-bar__heading h4 {
+  font-size: .9rem;
+
+  color: #8f949d;
 }
 
 .backend-bar__button {

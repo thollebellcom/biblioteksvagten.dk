@@ -6,7 +6,9 @@ const QUESTION_ASSIGNED_TO_CONSULTANT_SUBSCRIPTION = gql`
       id
       subject
       authorName
+      authorEmail
       consultant
+      source
       createdAt
       lastHeartbeatAt
     }

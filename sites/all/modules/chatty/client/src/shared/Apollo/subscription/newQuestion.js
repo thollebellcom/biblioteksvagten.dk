@@ -6,8 +6,10 @@ const NEW_QUESTION = gql`
       id
       subject
       authorName
-      createdAt
+      authorEmail
+      source
       consultant
+      createdAt
       lastHeartbeatAt
     }
   }

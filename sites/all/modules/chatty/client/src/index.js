@@ -2,13 +2,13 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import getUrlParams from './shared/utils/getUrlParams';
+import getUrlParam from './shared/utils/getUrlParam';
 import ClientChat from './clientChat';
 import BackendChat from './backendChat';
 
 // Render only one.
-if (getUrlParams('renderOnly') !== '') {
-  if (getUrlParams('renderOnly') === 'backend') {
+if (getUrlParam('renderOnly') !== '') {
+  if (getUrlParam('renderOnly') === 'backend') {
     if (document.getElementById('chatty_backend')) {
       ReactDOM.render(
         <BackendChat />,
@@ -17,7 +17,7 @@ if (getUrlParams('renderOnly') !== '') {
     }
   }
 
-  if (getUrlParams('renderOnly') === 'client') {
+  if (getUrlParam('renderOnly') === 'client') {
     if (document.getElementById('chatty_client')) {
       ReactDOM.render(<ClientChat />, document.getElementById('chatty_client'));
     }

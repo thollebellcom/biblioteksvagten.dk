@@ -9,15 +9,18 @@ const typeDef = gql`
     consultant: String
     messages: [Message]!
     status: String!
+    source: String!
     lastHeartbeatAt: String!
     createdAt: String!
     updatedAt: String!
   }
 
   input QuestionCreateInput {
+    agencyId: String!
     authorName: String!
     authorEmail: String!
     subject: String!
+    url: String!
   }
 `;
 

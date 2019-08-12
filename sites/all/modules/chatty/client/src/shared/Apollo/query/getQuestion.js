@@ -4,10 +4,12 @@ const GET_QUESTION = gql`
   query QuestionQuery($questionId: ID!) {
     question(questionId: $questionId) {
       id
-      authorName
       subject
+      authorName
+      authorEmail
       consultant
       status
+      source
       lastHeartbeatAt
       createdAt
       messages {

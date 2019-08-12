@@ -18,13 +18,28 @@ function chatty_load_question($questionId) {
   $query->addField('chatty_questions', 'subject');
   $query->addField('chatty_questions', 'status');
   $query->addField('chatty_questions', 'consultant');
+  $query->addField('chatty_questions', 'url');
+  $query->addField('chatty_questions', 'agencyId');
   $query->addField('chatty_questions', 'lastHeartbeatAt');
   $query->addField('chatty_questions', 'createdAt');
   $query->addField('chatty_questions', 'updatedAt');
 
   $query->condition('chatty_questions.id', $questionId, '=');
 
-  return $query->execute()->fetchObject();
+  $result = $query->execute()->fetchObject();
+
+  // Grab the client by the agency ID.
+  $client = vopros_question_client_load_by_agency($result->agencyId);
+  unset($result->agencyId);
+
+  if ($client) {
+    $result->source = $client->label;
+  }
+  else {
+    $result->source = t('Undefined');
+  }
+
+  return $result;
 }
 
 /**

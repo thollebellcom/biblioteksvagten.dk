@@ -146,6 +146,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
     'question_content' => t('Chat log:') . "\n" . $subject . "\n" . $messages,
     'user_name' => $name,
     'user_email' => $email,
+    'question_usage' => 'other',
     'channel_data' => array(
       'from_url' => $fromUrl,
       'site_email' => $agencyMail,

@@ -8,6 +8,7 @@ const QuestionList = ({
   title,
   questions,
   subscriptions,
+  subscribeToMore,
 }) => {
   const myConsultantId = '666';
 
@@ -45,6 +46,7 @@ const QuestionList = ({
           canSetActive={canSetActive}
           lastHeartbeat={question.lastHeartbeatAt}
           readOnly={myConsultantId !== question.consultant}
+          subscribeToMore={subscribeToMore}
         />
       </div>
     ));

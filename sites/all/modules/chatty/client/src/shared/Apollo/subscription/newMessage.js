@@ -8,6 +8,7 @@ const NEW_MESSAGE = gql`
       sentFrom
       createdAt
       question {
+        id
         authorName
       }
     }

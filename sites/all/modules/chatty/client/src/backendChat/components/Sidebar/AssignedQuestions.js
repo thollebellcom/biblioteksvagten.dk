@@ -122,6 +122,7 @@ const AssignedQuestions = () => {
             title="Tildelte spørgsmål"
             questions={data.questions}
             subscriptions={subscriptions}
+            subscribeToMore={subscribeToMore}
             canAssign={false}
             canSetActive={true}
           />

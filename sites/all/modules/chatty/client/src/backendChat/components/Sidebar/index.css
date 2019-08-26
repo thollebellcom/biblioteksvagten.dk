@@ -103,7 +103,15 @@
 }
 
 .question__created-at {
+  display: block;
+
   font-size: 0.8rem;
 
   color: #8f949d;
+}
+
+.question__unread-messages {
+  display: block;
+
+  color: #b70f17;
 }

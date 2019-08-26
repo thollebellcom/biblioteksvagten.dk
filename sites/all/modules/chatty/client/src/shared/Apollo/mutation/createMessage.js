@@ -8,6 +8,7 @@ const CREATE_MESSAGE_MUTATION = gql`
       sentFrom
       createdAt
       question {
+        id
         authorName
       }
     }

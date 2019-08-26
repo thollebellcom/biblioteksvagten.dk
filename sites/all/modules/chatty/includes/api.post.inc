@@ -11,6 +11,7 @@ module_load_include('inc', 'chatty', 'includes/helpers');
  *
  * Params:
  * - agencyId: required
+ * - agencyMail: required
  * - authorName: required
  * - authorEmail: required
  * - subject: required
@@ -18,6 +19,7 @@ module_load_include('inc', 'chatty', 'includes/helpers');
  */
 function create_question_callback() {
   $agencyId = $_POST['agencyId'];
+  $agencyMail = $_POST['agencyMail'];
   $authorName = $_POST['authorName'];
   $authorEmail = $_POST['authorEmail'];
   $subject = $_POST['subject'];
@@ -26,6 +28,9 @@ function create_question_callback() {
   // Validate params.
   if (!$agencyId) {
     return 'An agency ID is required.';
+  }
+  if (!$agencyMail) {
+    return 'An agency mail is required.';
   }
   if (!$authorName) {
     return 'A author name is required.';
@@ -44,6 +49,7 @@ function create_question_callback() {
   $questionId = db_insert('chatty_questions')
     ->fields(array(
       'agencyId' => $agencyId,
+      'agencyMail' => $agencyMail,
       'authorName' => $authorName,
       'authorEmail' => $authorEmail,
       'subject' => $subject,
@@ -183,7 +189,13 @@ function close_question_callback() {
   $messages = chatty_load_messages($questionId);
   $messages_in_plain_text = _render_messages_in_plain_text($messages);
 
-  _create_vopros_question($reason, $question->subject, $question->authorName, $question->authorEmail, $messages_in_plain_text);
+  _create_vopros_question($reason,
+    $question->subject,
+    $question->authorName,
+    $question->authorEmail,
+    $messages_in_plain_text,
+    $question->url,
+    $question->agencyMail);
 
   return $question;
 }
@@ -250,79 +262,4 @@ function question_client_heartbeat_callback() {
   $question = chatty_load_question($questionId);
 
   return $question;
-}
-
-/**
- * Create vopros question.
- *
- * Just a helper wrapper.
- *
- * Params:
- * - $reason: required
- * - $subject: required
- * - $name: required
- * - $email: required
- * - $messages: required
- */
-function _create_vopros_question($reason, $subject, $name, $email, $messages) {
-  $default_values = array(
-    'user_answer_preference' => 'chat',
-    'channel' => 'chat',
-    'client_id' => 52,
-    'question_content' => t('Chat log:') . "\n" . $subject . "\n" . $messages,
-    'user_name' => $name,
-    'user_email' => $email,
-  );
-
-  // Spam.
-  if ($reason === 'spam') {
-    $default_values['question_status'] = 'closed';
-    $default_values['question_status_reason'] = 'spam';
-  }
-
-  // Answered.
-  if ($reason === 'answered') {
-    $default_values['question_title'] = t('Answered chat question');
-    $default_values['question_status'] = 'answered';
-  }
-
-  // Answer later.
-  if ($reason === 'later') {
-    $default_values['question_status'] = 'active';
-
-    // The question is still open, change the answer preference to allow editors
-    // to contact the user by mail later.
-    $default_values['user_answer_preference'] = 'mail';
-  }
-
-  $question = vopros_question_new($default_values);
-
-  $question->save();
-}
-
-/**
- * Render a chat log in plain text.
- */
-function _render_messages_in_plain_text($messages) {
-  // Same as drupal_get_user_timezone() uses to get the system default.
-  $timezone = variable_get('date_default_timezone', @date_default_timezone_get());
-  $plain = array();
-
-  foreach ($messages as $message) {
-    $sentFrom = 'Unknown';
-
-    if ($message->sentFrom == 'admin') {
-      $sentFrom = t('Operator');
-    }
-    if ($message->sentFrom == 'user') {
-      $sentFrom = t('Asker');
-    }
-    if ($message->sentFrom == 'system') {
-      $sentFrom = t('System');
-    }
-
-    $plain[] = format_date($message->createdAt, 'custom', 'G:i', $timezone) . ' - ' . $sentFrom . ': ' . $message->text;
-  }
-
-  return implode("\n", $plain);
 }

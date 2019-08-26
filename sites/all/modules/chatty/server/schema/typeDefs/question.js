@@ -17,6 +17,7 @@ const typeDef = gql`
 
   input QuestionCreateInput {
     agencyId: String!
+    agencyMail: String!
     authorName: String!
     authorEmail: String!
     subject: String!

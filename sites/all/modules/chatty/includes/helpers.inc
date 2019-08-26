@@ -20,6 +20,7 @@ function chatty_load_question($questionId) {
   $query->addField('chatty_questions', 'consultant');
   $query->addField('chatty_questions', 'url');
   $query->addField('chatty_questions', 'agencyId');
+  $query->addField('chatty_questions', 'agencyMail');
   $query->addField('chatty_questions', 'lastHeartbeatAt');
   $query->addField('chatty_questions', 'createdAt');
   $query->addField('chatty_questions', 'updatedAt');
@@ -121,4 +122,85 @@ function _chatty_status() {
   }
 
   return $status;
+}
+
+/**
+ * Create vopros question.
+ *
+ * Just a helper wrapper.
+ *
+ * Params:
+ * - $reason: required
+ * - $subject: required
+ * - $name: required
+ * - $email: required
+ * - $messages: required
+ * - $fromUrl: required
+ * - $agencyMail: required
+ */
+function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail) {
+  $default_values = array(
+    'user_answer_preference' => 'chat',
+    'channel' => 'chat',
+    'client_id' => 52,
+    'question_content' => t('Chat log:') . "\n" . $subject . "\n" . $messages,
+    'user_name' => $name,
+    'user_email' => $email,
+    'channel_data' => array(
+      'from_url' => $fromUrl,
+      'site_email' => $agencyMail,
+    ),
+  );
+
+  // Spam.
+  if ($reason === 'spam') {
+    $default_values['question_status'] = 'closed';
+    $default_values['question_status_reason'] = 'spam';
+  }
+
+  // Answered.
+  if ($reason === 'answered') {
+    $default_values['question_title'] = t('Answered chat question');
+    $default_values['question_status'] = 'answered';
+  }
+
+  // Answer later.
+  if ($reason === 'later') {
+    $default_values['question_status'] = 'active';
+
+    // The question is still open, change the answer preference to allow editors
+    // to contact the user by mail later.
+    $default_values['user_answer_preference'] = 'mail';
+  }
+
+  $question = vopros_question_new($default_values);
+
+  $question->save();
+}
+
+/**
+ * Render a chat log in plain text.
+ */
+function _render_messages_in_plain_text($messages) {
+  // Same as drupal_get_user_timezone() uses to get the system default.
+  $timezone = variable_get('date_default_timezone', @date_default_timezone_get());
+  $plain = array();
+
+  foreach ($messages as $message) {
+    $sentFrom = 'Unknown';
+
+    if ($message->sentFrom == 'admin') {
+      $sentFrom = t('Operator');
+    }
+    if ($message->sentFrom == 'user') {
+      $sentFrom = t('Asker');
+    }
+    if ($message->sentFrom == 'system') {
+      $sentFrom = t('System');
+    }
+
+    $plain[] = format_date($message->createdAt, 'custom', 'G:i', $timezone) . ' - ' . $sentFrom . ': ' . $message->text;
+  }
+
+  return implode("\n", $plain);
 }

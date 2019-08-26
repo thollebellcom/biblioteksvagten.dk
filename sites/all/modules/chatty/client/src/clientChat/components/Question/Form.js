@@ -10,13 +10,23 @@ const Form = ({ createQuestion, loading }) => {
   const handleSubmit = event => {
     event.preventDefault();
 
+    const agencyIdParam = getUrlParam('agency_id');
+    const agencyMailParam = getUrlParam('agency_mail');
+    const urlParam = getUrlParam('url');
+
+    // Validate params.
+    if (!agencyIdParam || !urlParam) {
+      return alert('A needed param was not set.');
+    }
+
     createQuestion({
       variables: {
-        agencyId: getUrlParam('agency_id'),
+        agencyId: agencyIdParam,
+        agencyMail: agencyMailParam,
         authorName: nameInput.current.value,
         authorEmail: emailInput.current.value,
         subject: subjectInput.current.value,
-        url: getUrlParam('url'),
+        url: urlParam,
       },
     });
   };

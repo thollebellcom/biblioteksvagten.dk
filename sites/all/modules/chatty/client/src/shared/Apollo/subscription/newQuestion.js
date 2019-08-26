@@ -4,6 +4,7 @@ const NEW_QUESTION = gql`
   subscription NewQuestionSubscription($statusType: String!) {
     newQuestion(statusType: $statusType) {
       id
+      status
       subject
       authorName
       authorEmail

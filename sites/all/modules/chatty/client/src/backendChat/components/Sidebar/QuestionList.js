@@ -19,7 +19,7 @@ const QuestionList = ({
   }, []);
 
   const renderQuestions = () => {
-    if (questions.length === 0) {
+    if (!questions || questions.length === 0) {
       return (
         <div className="backend-list__item backend-list__item--no-result">
           Ingen samtaler at vise.

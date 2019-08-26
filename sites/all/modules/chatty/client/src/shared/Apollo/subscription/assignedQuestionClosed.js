@@ -4,6 +4,7 @@ const ASSIGNED_QUESTION_CLOSED_SUBSCRIPTION = gql`
   subscription AssignedQuestionClosedSubscription($consultantId: ID) {
     assignedQuestionClosed(consultantId: $consultantId) {
       id
+      status
       subject
       authorName
       authorEmail

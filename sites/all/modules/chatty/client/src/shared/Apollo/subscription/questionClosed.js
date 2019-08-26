@@ -4,6 +4,7 @@ const QUESTION_CLOSED_SUBSCRIPTION = gql`
   subscription QuestionClosedSubscription($questionId: ID!) {
     questionClosed(questionId: $questionId) {
       id
+      status
       subject
       authorName
       authorEmail

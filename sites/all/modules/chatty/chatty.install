@@ -48,6 +48,12 @@ function chatty_schema() {
         'length' => 256,
         'not null' => TRUE,
       ),
+      'agencyMail' => array(
+        'description' => 'The e-mail address from the agency.',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
       'url' => array(
         'description' => 'The URL of the agency.',
         'type' => 'varchar',

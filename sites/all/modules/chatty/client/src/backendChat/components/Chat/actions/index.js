@@ -7,6 +7,7 @@ import REOPEN_QUESTION_MUTATION from '../../../../shared/Apollo/mutation/reopenQ
 import Modal from '../../Modal';
 import CloseButton from './CloseButton';
 import ReopenButton from './ReopenButton';
+import AnswerLaterButton from './AnswerLaterButton';
 import StandardAnswerList from './StandardAnswerList';
 
 const Actions = () => {
@@ -95,10 +96,7 @@ const Actions = () => {
               <div className="button-list__item">
                 <Mutation mutation={CLOSE_QUESTION_MUTATION}>
                   {(closeQuestion, { loading, data }) => (
-                    <CloseButton
-                      text="Besvar senere"
-                      confirmText="Vil du gemme denne chat og besvare den senere, som et spørgsmål?"
-                      reason="later"
+                    <AnswerLaterButton
                       closeQuestion={closeQuestion}
                       loading={loading}
                       data={data}

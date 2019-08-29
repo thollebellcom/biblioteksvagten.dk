@@ -154,10 +154,14 @@ function assign_question_callback() {
  * Params:
  * - questionId: required
  * - reason: required
+ * - keepConsultant: optional
+ * - title: optional
  */
 function close_question_callback() {
   $questionId = $_POST['questionId'];
   $reason = $_POST['reason'];
+  $keepConsultant = $_POST['keepConsultant'];
+  $title = $_POST['title'];
 
   // Validate params.
   if (!$questionId) {
@@ -173,12 +177,21 @@ function close_question_callback() {
   }
 
   // Update the database.
+  $updateArray = array(
+    'reason' => $reason,
+    'status' => 'complete',
+    'updatedAt' => REQUEST_TIME,
+  );
+
+  if (!empty($keepConsultant)) {
+    $updateArray['keepConsultant'] = (boolean) $keepConsultant;
+  }
+  if (!empty($title)) {
+    $updateArray['title'] = $title;
+  }
+
   db_update('chatty_questions')
-    ->fields(array(
-      'reason' => $reason,
-      'status' => 'complete',
-      'updatedAt' => REQUEST_TIME,
-    ))
+    ->fields($updateArray)
     ->condition('id', $questionId)
     ->execute();
 
@@ -195,7 +208,10 @@ function close_question_callback() {
     $question->authorEmail,
     $messages_in_plain_text,
     $question->url,
-    $question->agencyMail);
+    $question->agencyMail,
+    $question->keepConsultant,
+    $question->title
+  );
 
   return $question;
 }

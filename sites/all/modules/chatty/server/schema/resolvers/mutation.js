@@ -65,10 +65,16 @@ const resolver = {
 
       return question;
     },
-    closeQuestion: async (_, { questionId, reason }, { pubsub }) => {
+    closeQuestion: async (
+      _,
+      { questionId, reason, keepConsultant, title },
+      { pubsub },
+    ) => {
       const question = await QuestionController.closeQuestion(
         questionId,
         reason,
+        keepConsultant,
+        title,
       );
       const consultantName = await SettingsController.getConsultantName(
         question.consultant,

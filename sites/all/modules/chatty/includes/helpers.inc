@@ -137,8 +137,10 @@ function _chatty_status() {
  * - $messages: required
  * - $fromUrl: required
  * - $agencyMail: required
+ * - $keepConsultant: optional
+ * - $title: optional
  */
-function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail) {
+function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $title) {
   $default_values = array(
     'user_answer_preference' => 'chat',
     'channel' => 'chat',
@@ -152,6 +154,10 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
       'site_email' => $agencyMail,
     ),
   );
+
+  if (!empty($title)) {
+    $default_values['question_title'] = trim($title);
+  }
 
   // Spam.
   if ($reason === 'spam') {
@@ -168,6 +174,14 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
   // Answer later.
   if ($reason === 'later') {
     $default_values['question_status'] = 'active';
+
+    if ($keepConsultant) {
+      $default_values['question_status'] = 'assigned';
+    }
+    else {
+      // Release the question.
+      $default_values['uid'] = 0;
+    }
 
     // The question is still open, change the answer preference to allow editors
     // to contact the user by mail later.

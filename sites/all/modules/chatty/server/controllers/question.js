@@ -55,12 +55,14 @@ const assignQuestion = async (questionId, consultantId) => {
   return response.data;
 };
 
-const closeQuestion = async (questionId, reason) => {
+const closeQuestion = async (questionId, reason, keepConsultant, title) => {
   const response = await axios.post(
     'close-question',
     qs.stringify({
       questionId,
       reason,
+      keepConsultant,
+      title,
     }),
   );
 

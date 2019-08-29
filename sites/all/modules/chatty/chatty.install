@@ -20,6 +20,18 @@ function chatty_schema() {
         'not null' => TRUE,
         'default' => '',
       ),
+      'title' => array(
+        'description' => 'The title to use when "saved for later".',
+        'type' => 'varchar',
+        'length' => 256,
+        'default' => '',
+      ),
+      'keepConsultant' => array(
+        'description' => 'Whether or not the question is answered by consultant, when "saved for later',
+        'type' => 'int',
+        'size' => 'tiny',
+        'default' => 0,
+      ),
       'authorName' => array(
         'description' => 'The authors name',
         'type' => 'varchar',

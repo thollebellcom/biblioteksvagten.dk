@@ -5,7 +5,12 @@ const typeDef = gql`
     createQuestion(data: QuestionCreateInput!): Question!
     createMessage(questionId: ID!, data: MessageCreateInput!): Message!
     assignQuestion(questionId: ID!, consultantId: ID!): Question!
-    closeQuestion(questionId: ID!, reason: String!): Question!
+    closeQuestion(
+      questionId: ID!
+      reason: String!
+      keepConsultant: Boolean
+      title: String
+    ): Question!
     reopenQuestion(questionId: ID!): Question!
     makeHeartbeat(questionId: ID!): Question!
   }

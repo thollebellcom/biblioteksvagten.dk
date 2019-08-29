@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 const http = require('http');
 const https = require('https');

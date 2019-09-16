@@ -27,7 +27,7 @@ const ReopenButton = ({ reopenQuestion }) => {
       className="backend-chat__button backend-chat__button--reopen-question"
       onClick={handleClick}
     >
-      Genåbn spørgsmål
+      Forlad chat
     </button>
   );
 };

@@ -18,7 +18,7 @@ const AnswerLaterButton = ({ closeQuestion, data, loading }) => {
   const showForm = event => {
     event.preventDefault();
 
-    if (window.confirm('Vil du genåbne dette spørgsmål?')) {
+    if (window.confirm('Vil du besvare dette spørgsmål senere?')) {
       setShowOptions(true);
     }
   };

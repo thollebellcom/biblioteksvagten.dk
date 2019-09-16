@@ -124,7 +124,7 @@ const AvailableQuestions = () => {
 
         return (
           <QuestionList
-            title="Tilgængelige spørgsmål"
+            title="Chats, Afventer svar"
             questions={data.questions}
             subscriptions={subscriptions}
             subscribeToMore={subscribeToMore}

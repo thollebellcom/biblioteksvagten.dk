@@ -119,7 +119,7 @@ const AssignedQuestions = () => {
 
         return (
           <QuestionList
-            title="Tildelte spørgsmål"
+            title="Chats, Ved at blive besvaret"
             questions={data.questions}
             subscriptions={subscriptions}
             subscribeToMore={subscribeToMore}

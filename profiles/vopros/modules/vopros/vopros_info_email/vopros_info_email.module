@@ -96,7 +96,8 @@ function vopros_info_email_form($form, &$form_state) {
  * @ingroup form_example
  */
 function vopros_info_email_form_validate($form, &$form_state) {
-  $file = file_save_upload('file', array());
+  $validators = array('file_validate_extensions' => array());
+  $file = file_save_upload('file', $validators);
 
   // If the file passed validation:
   if ($file) {

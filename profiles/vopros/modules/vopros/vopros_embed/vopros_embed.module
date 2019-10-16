@@ -214,10 +214,19 @@ function vopros_embed_render_page($page) {
   }
 
   // Include files.
-  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css');
-  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed_form.css');
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed.css', array('weight' => 0));
+  drupal_add_css(drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed_form.css', array('weight' => 0));
   drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_styling.js');
   drupal_add_js(drupal_get_path('module', 'vopros_embed') . '/js/vopros_embed_popup.js');
+
+  drupal_add_css(
+    drupal_get_path('module', 'vopros_embed') . '/css/vopros_embed_2019.css',
+    array(
+      'type' => 'file',
+      'group' => CSS_THEME,
+      'weight' => 500,
+    )
+  );
 
   return drupal_render($page);
 }

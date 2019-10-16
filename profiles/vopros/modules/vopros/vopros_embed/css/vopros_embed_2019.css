@@ -1,0 +1,45 @@
+body.vopros-embed {
+  background-color: #fff;
+  background-image: none;
+}
+
+
+body.vopros-embed .header {
+  background-image: url(https://www.biblioteksvagten.dk/img/biblioteksvagten_logo.png);
+  background-size: contain;
+  background-position: left;
+  margin-bottom: 20px;
+}
+
+body.vopros-embed #edit-user-answer-preference .form-item-user-answer-preference label, body.vopros-embed #edit-user-answer-preference .form-item-user-answer-preference label i, body.vopros-embed input.form-submit, body.vopros-embed input.form-submit:hover {
+  background: #e2342d;
+}
+
+body.vopros-embed .form-item-user-answer-preference .active_answer_type label {
+  color: #fff;
+  font-weight: bold;
+}
+
+body.vopros-embed .form-item-user-answer-preference .active_answer_type label i {
+  color: #f39200;
+}
+
+body.vopros-embed .form-item-question-content label, body.vopros-embed .vopros-chat legend, body.vopros-embed .form-type-textfield label, body.vopros-embed .form-type-radios > label {
+  background: #f39200;
+  color: #fff;
+  padding: 5px;
+}
+
+body.vopros-embed .form-required {
+  color: #fff;
+}
+
+body.vopros-embed .form-textarea-wrapper, body.vopros-embed .form-item input, body.vopros-embed .vopros-chat .form-item textarea {
+  border: 1px solid #f39200;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body.vopros-embed .form-item-question-deadline .form-item label:before, body.vopros-embed .form-type-checkbox label:before {
+  color: #e2342d;
+}

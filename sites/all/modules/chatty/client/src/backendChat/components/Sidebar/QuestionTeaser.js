@@ -84,6 +84,7 @@ const QuestionTeaser = ({
         return prev;
       },
     });
+    // eslint-disable-next-line
   }, [state]);
 
   const handleAssignQuestion = assign => {

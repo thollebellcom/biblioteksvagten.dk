@@ -3,6 +3,15 @@
 module_load_include('inc', 'chatty', 'includes/helpers');
 
 /*
+ * Implements hook_init().
+ */
+function chatty_init() {
+  global $user;
+
+  drupal_add_js(array('consultantId' => $user->uid), 'setting');
+}
+
+/*
  * Implements hook_menu().
  */
 function chatty_menu() {

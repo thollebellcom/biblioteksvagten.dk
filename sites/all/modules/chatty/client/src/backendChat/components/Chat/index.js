@@ -14,7 +14,12 @@ import Actions from './actions';
 import Form from './Form';
 
 const ChatContainer = () => {
-  const myConsultantId = '666';
+  const myConsultantId =
+    window.Drupal &&
+    window.Drupal.settings &&
+    window.Drupal.settings.consultantId
+      ? window.Drupal.settings.consultantId.toString()
+      : '1';
   const [state, dispatch] = useContext(ChatContext);
 
   return (

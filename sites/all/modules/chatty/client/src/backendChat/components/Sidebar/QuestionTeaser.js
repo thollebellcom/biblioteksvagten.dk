@@ -22,7 +22,12 @@ const QuestionTeaser = ({
   subscribeToMore,
 }) => {
   const convertedDate = convertTimestampToDate(createdAt);
-  const myConsultantId = '666';
+  const myConsultantId =
+    window.Drupal &&
+    window.Drupal.settings &&
+    window.Drupal.settings.consultantId
+      ? window.Drupal.settings.consultantId.toString()
+      : '1';
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
   const [dateString, setDateString] = useState(
     generateDateString(convertedDate),

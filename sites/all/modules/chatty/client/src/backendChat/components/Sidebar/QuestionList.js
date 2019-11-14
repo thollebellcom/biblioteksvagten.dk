@@ -10,7 +10,12 @@ const QuestionList = ({
   subscriptions,
   subscribeToMore,
 }) => {
-  const myConsultantId = '666';
+  const myConsultantId =
+    window.Drupal &&
+    window.Drupal.settings &&
+    window.Drupal.settings.consultantId
+      ? window.Drupal.settings.consultantId.toString()
+      : '1';
 
   useEffect(() => {
     for (let i = 0; i < subscriptions.length; i++) {

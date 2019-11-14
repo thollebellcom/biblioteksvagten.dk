@@ -142,7 +142,7 @@ function _chatty_status() {
  */
 function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $title) {
   $default_values = array(
-    'user_answer_preference' => 'chat',
+    'user_answer_preference' => 'mail',
     'channel' => 'chat',
     'client_id' => 52,
     'question_content' => t('Chat log:') . "\n" . $subject . "\n" . $messages,

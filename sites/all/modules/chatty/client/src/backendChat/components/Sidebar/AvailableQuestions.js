@@ -1,5 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import { Howl } from 'howler';
 
 import GET_QUESTIONS from '../../../shared/Apollo/query/getQuestions';
 import NEW_QUESTION_SUBSCRIPTION from '../../../shared/Apollo/subscription/newQuestion';
@@ -7,7 +8,7 @@ import QUESTION_ASSIGNED_TO_CONSULTANT_SUBSCRIPTION from '../../../shared/Apollo
 import QUESTION_REOPENED_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionReopened';
 
 import QuestionList from './QuestionList';
-import QUESTION_HEARTBEAT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionHeartbeat'
+import QUESTION_HEARTBEAT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionHeartbeat';
 
 const AvailableQuestions = () => {
   let subscriptions = [];
@@ -40,9 +41,18 @@ const AvailableQuestions = () => {
 
               const question = subscriptionData.data.newQuestion;
 
-              return Object.assign({}, prev, {
-                questions: [...prev.questions, question],
-              });
+              // Play sound.
+              // const sound = new Howl({
+              //   src: ['/sounds/new-question.mp3'],
+              // });
+              // sound.play();
+
+              // Wait on returning until audio is done playing.
+              setTimeout(() => {
+                return Object.assign({}, prev, {
+                  questions: [...prev.questions, question],
+                });
+              }, 700);
             },
           }),
         );
@@ -107,7 +117,7 @@ const AvailableQuestions = () => {
 
               const mutatedQuestion = {
                 ...currentQuestion,
-              }
+              };
 
               const filteredQuestions = prev.questions.filter(
                 question => question.id !== questionHeartbeat.id,

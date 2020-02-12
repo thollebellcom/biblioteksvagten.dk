@@ -12,8 +12,7 @@ const Form = ({ createMessage, disabled }) => {
 
   const handleKeyDown = event => {
 
-    // cmd / Windows + enter || ctrl + enter.
-    if ((event.keyCode === 13 && event.metaKey) || (event.keyCode === 13 && event.ctrlKey)) {
+    if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
       formRef.current.dispatchEvent(new Event('submit'));
     }
   };
@@ -47,6 +46,7 @@ const Form = ({ createMessage, disabled }) => {
           onKeyDown={handleKeyDown}
           disabled={disabled}
         />
+        <input type="submit" value="Send besked" />
       </form>
     </div>
   );

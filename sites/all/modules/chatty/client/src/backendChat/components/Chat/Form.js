@@ -16,8 +16,8 @@ const Form = ({ createMessage }) => {
 
   const handleKeyDown = event => {
 
-    // cmd / Windows + enter || ctrl + enter.
-    if ((event.keyCode === 13 && event.metaKey) || (event.keyCode === 13 && event.ctrlKey)) {
+    // enter (submit) - NOT when using shift.
+    if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
       formRef.current.dispatchEvent(new Event('submit'));
     }
   };

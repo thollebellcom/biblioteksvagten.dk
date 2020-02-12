@@ -54,6 +54,7 @@ const Form = ({ createMessage }) => {
           placeholder="Indtast din besked..."
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          autoFocus
         />
       </form>
     </div>

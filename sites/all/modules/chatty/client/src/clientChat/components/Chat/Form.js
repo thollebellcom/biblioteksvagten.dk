@@ -47,6 +47,7 @@ const Form = ({ createMessage, disabled }) => {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           disabled={disabled}
+          autoFocus
         />
         <input type="submit" value="Send besked" />
       </form>

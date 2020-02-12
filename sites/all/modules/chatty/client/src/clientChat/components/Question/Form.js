@@ -38,7 +38,7 @@ const Form = ({ createQuestion, loading }) => {
       <div className="question-form__input-wrapper question-form__input-wrapper--question">
         <label>Hvad vil du spørge om?</label>
         <div>
-          <textarea disabled={disableInputs} rows="5" ref={subjectInput} />
+          <textarea autoFocus disabled={disableInputs} rows="5" ref={subjectInput} />
         </div>
       </div>
       <div className="question-form__input-wrapper question-form__input-wrapper--name">

@@ -18,6 +18,10 @@ const StandardAnswerList = ({ modalToggle, modalVisible }) => {
     });
 
     modalToggle(!modalVisible);
+
+    // Move the focus inside the textarea.
+    const textarea = document.querySelector('.backend-form textarea');
+    textarea.focus();
   };
 
   const renderList = Object.keys(standardAnswers).map((headingKey, index) => {

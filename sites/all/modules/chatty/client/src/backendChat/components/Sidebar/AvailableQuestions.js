@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { Howl } from 'howler';
 
 import GET_QUESTIONS from '../../../shared/Apollo/query/getQuestions';
 import NEW_QUESTION_SUBSCRIPTION from '../../../shared/Apollo/subscription/newQuestion';
@@ -41,18 +40,9 @@ const AvailableQuestions = () => {
 
               const question = subscriptionData.data.newQuestion;
 
-              // Play sound.
-              // const sound = new Howl({
-              //   src: ['/sounds/new-question.mp3'],
-              // });
-              // sound.play();
-
-              // Wait on returning until audio is done playing.
-              setTimeout(() => {
-                return Object.assign({}, prev, {
-                  questions: [...prev.questions, question],
-                });
-              }, 700);
+              return Object.assign({}, prev, {
+                questions: [...prev.questions, question],
+              });
             },
           }),
         );

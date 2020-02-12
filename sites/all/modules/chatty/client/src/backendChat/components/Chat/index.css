@@ -143,6 +143,8 @@
   min-width: 5px;
 
   border-radius: 14px;
+  
+  white-space: pre-wrap;
 }
 
 .backend-message__created-at {

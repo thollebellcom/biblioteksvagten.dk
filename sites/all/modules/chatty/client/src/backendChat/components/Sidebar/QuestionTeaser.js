@@ -17,6 +17,7 @@ const QuestionTeaser = ({
   heading,
   text,
   source,
+  isActive,
   createdAt,
   lastHeartbeat,
   subscribeToMore,
@@ -122,7 +123,7 @@ const QuestionTeaser = ({
     <Mutation mutation={AssignQuestionMutation}>
       {assignQuestion => (
         <div
-          className="question question--teaser"
+          className={`question question--teaser ${isActive && 'question--active'}`}
           onClick={() => {
             if (canAssign) {
               handleAssignQuestion(assignQuestion);

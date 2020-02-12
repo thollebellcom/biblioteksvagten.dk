@@ -50,6 +50,8 @@
 }
 
 .backend-list__item {
+  position: relative;
+
   padding: 5px 20px;
 
   cursor: pointer;
@@ -76,6 +78,24 @@
 
 /* Question teaser. */
 .question {}
+
+.question--active::before {
+  position: absolute;
+
+  content: "";
+  
+  height: 8px;
+  width: 8px;
+
+  left: 5px;
+  top: 50%;
+
+  margin-top: -4px;
+
+  background-color: #A9C974;
+
+  border-radius: 100%;
+}
 
 .question__heading h1,
 .question__heading h2,

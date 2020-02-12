@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
+import { ChatContext } from '../../context/ChatContext';
 import QuestionTeaser from './QuestionTeaser';
 
 const QuestionList = ({
@@ -16,6 +17,7 @@ const QuestionList = ({
     window.Drupal.settings.consultantId
       ? window.Drupal.settings.consultantId.toString()
       : '1';
+  const [state, dispatch] = useContext(ChatContext);
 
   useEffect(() => {
     for (let i = 0; i < subscriptions.length; i++) {
@@ -33,7 +35,7 @@ const QuestionList = ({
       );
     }
 
-    return questions.map(question => (
+    return questions.sort((a, b) => (a.id > b.id) ? 1 : -1).map(question => (
       <div
         className={
           myConsultantId !== question.consultant
@@ -52,6 +54,7 @@ const QuestionList = ({
           lastHeartbeat={question.lastHeartbeatAt}
           readOnly={myConsultantId !== question.consultant}
           subscribeToMore={subscribeToMore}
+          isActive={(state.backendChat && (state.backendChat.questionId === question.id))}
         />
       </div>
     ));

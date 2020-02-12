@@ -43,6 +43,8 @@
   min-width: 5px;
 
   border-radius: 14px;
+
+  white-space: pre-wrap;
 }
 
 .client-message__created-at {

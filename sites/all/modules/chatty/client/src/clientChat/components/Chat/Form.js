@@ -13,6 +13,8 @@ const Form = ({ createMessage, disabled }) => {
   const handleKeyDown = event => {
 
     if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
+      event.preventDefault();
+
       formRef.current.dispatchEvent(new Event('submit'));
     }
   };

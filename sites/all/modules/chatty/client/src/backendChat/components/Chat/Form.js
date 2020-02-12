@@ -18,6 +18,8 @@ const Form = ({ createMessage }) => {
 
     // enter (submit) - NOT when using shift.
     if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
+      event.preventDefault();
+
       formRef.current.dispatchEvent(new Event('submit'));
     }
   };

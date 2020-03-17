@@ -100,6 +100,6 @@ function watchmen_vopros_embed_tab_style_alter(&$styles) {
  * Add path to the logo.
  */
 function watchmen_preprocess_vopros_embed_tab(&$variables) {
-  $variables['logo_path'] = url(path_to_theme() . '/images/logo_light.png',
+  $variables['logo_path'] = url(path_to_theme() . '/images/logo_light_compass.png',
                             array('absolute' => TRUE));
 }

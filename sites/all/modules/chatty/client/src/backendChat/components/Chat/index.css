@@ -147,10 +147,12 @@
   white-space: pre-wrap;
 }
 
+.backend-message__submitted-by,
 .backend-message__created-at {
   font-size: 0.8rem;
   color: #c0c4ca;
 }
+.backend-message--admin .backend-message__submitted-by,
 .backend-message--admin .backend-message__created-at {
   text-align: right;
 }

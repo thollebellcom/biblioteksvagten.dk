@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import convertTimestampToDate from '../../../shared/utils/convertTimestampToDate';
 import generateDateString from '../../../shared/utils/generateDateString';
 
-const Message = ({ sentFrom, text, createdAt }) => {
+const Message = ({ sentFrom, submittedBy, text, createdAt }) => {
   const convertedDate = convertTimestampToDate(createdAt);
   const [dateString, setDateString] = useState(
     generateDateString(convertedDate),
@@ -23,6 +23,11 @@ const Message = ({ sentFrom, text, createdAt }) => {
       <div className="backend-message__box">
         <div className="backend-message__text">{text}</div>
       </div>
+      
+      {submittedBy && (
+        <div className="backend-message__submitted-by">Af {submittedBy}</div>
+      )}
+
       {sentFrom === 'system' ? (
         ''
       ) : (

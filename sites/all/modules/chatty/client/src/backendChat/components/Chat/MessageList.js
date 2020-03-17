@@ -7,12 +7,19 @@ import Message from './Message';
 import scrollToBottom from '../../../shared/utils/scrollToBottom';
 
 const MessageList = ({
+  author,
   subject,
   questionCreatedAt,
   messages,
   subscribeToMore,
 }) => {
   const [state] = useContext(ChatContext);
+  const consultantName =
+    window.Drupal &&
+      window.Drupal.settings &&
+      window.Drupal.settings.consultantName
+      ? window.Drupal.settings.consultantName.toString()
+      : 'ikke defineret';
 
   useEffect(() => {
     subscribeToMore({
@@ -44,15 +51,27 @@ const MessageList = ({
   });
 
   const renderMessages = () =>
-    messages.map((message, index) => (
-      <div key={`backend-message-${index}-${message.id}`}>
-        <Message
-          text={message.text}
-          createdAt={message.createdAt}
-          sentFrom={message.sentFrom}
-        />
-      </div>
-    ));
+    messages.map((message, index) => {
+      let submittedBy = '';
+
+      if (message.sentFrom === 'admin') {
+        submittedBy = consultantName;
+      }
+      else if (message.sentFrom === 'user') {
+        submittedBy = author;
+      }
+
+      return (
+        <div key={`backend-message-${index}-${message.id}`}>
+          <Message
+            submittedBy={submittedBy}
+            text={message.text}
+            createdAt={message.createdAt}
+            sentFrom={message.sentFrom}
+          />
+        </div>
+      );
+    });
 
   const renderSubject = () => (
     <Message text={subject} createdAt={questionCreatedAt} sentFrom="user" />

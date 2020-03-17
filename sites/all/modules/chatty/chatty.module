@@ -9,6 +9,7 @@ function chatty_init() {
   global $user;
 
   drupal_add_js(array('consultantId' => $user->uid), 'setting');
+  drupal_add_js(array('consultantName' => vopros_user_name($user)), 'setting');
 }
 
 /*

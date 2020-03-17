@@ -51,6 +51,7 @@ const ChatContainer = () => {
             {data.question.consultant !== myConsultantId && <ReadonlyMessage />}
 
             <MessageList
+              author={data.question.authorName}
               subject={data.question.subject}
               questionCreatedAt={data.question.createdAt}
               messages={data.question.messages}

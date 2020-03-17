@@ -257,3 +257,7 @@ body.vopros-embed .form-type-checkbox.checked label:before {
 .form-item-date-to-date label {
   display: none;
 }
+
+body.vopros-embed h1#page-title {
+  display: none;
+}

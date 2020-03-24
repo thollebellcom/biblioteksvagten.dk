@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node utils/moveBuildFiles.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,5 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ncp": "^2.0.0"
+  }
 }

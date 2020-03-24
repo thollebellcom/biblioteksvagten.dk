@@ -3,8 +3,8 @@ core = 7.x
 
 configure = admin/config/chatty/settings
 
-scripts[] = static/js/2.7005ef48.chunk.js
-scripts[] = static/js/main.f3ebfa8d.chunk.js
+scripts[] = static/js/2.js
+scripts[] = static/js/main.js
 
 stylesheets[all][] = css/admin.css
-stylesheets[all][] = static/css/main.dccd25a9.chunk.css
+stylesheets[all][] = static/css/main.css

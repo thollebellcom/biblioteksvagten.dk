@@ -15,6 +15,7 @@
     "react-scripts": "3.4.1",
     "react-textarea-autosize": "^7.1.2",
     "subscriptions-transport-ws": "^0.9.16",
+    "unfetch": "^4.1.0",
     "voca": "^1.4.0"
   },
   "scripts": {

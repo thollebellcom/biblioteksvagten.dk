@@ -50,7 +50,6 @@ ncp(srcDir, destDir, err => {
 
         throw err;
       }
-      console.log('files', files);
 
       files.forEach(file => {
         fs.rename(file, renameFile.to, () => {});

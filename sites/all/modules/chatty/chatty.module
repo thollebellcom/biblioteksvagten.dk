@@ -159,7 +159,7 @@ function chatty_vopros_question_user_answer_preference() {
     return array();
   }
 
-  return array('chatty' => t('Chat - chatty'));
+  return array('chatty' => t('Chat'));
 }
 
 /**

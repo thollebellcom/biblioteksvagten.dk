@@ -88,8 +88,6 @@
 
     </div>
     <!-- End - colleague chat -->
-
-    <div id="chatty_backend"></div>
   <?php endif; ?>
 
   <!-- Begin - load javascript files -->

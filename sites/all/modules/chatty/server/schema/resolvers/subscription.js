@@ -30,14 +30,14 @@ const resolver = {
           }
 
           return true;
-        },
+        }
       ),
     },
     newMessage: {
       subscribe: withFilter(
         (_, __, { pubsub }) => pubsub.asyncIterator(NEW_MESSAGE),
         (payload, variables) =>
-          payload.newMessage.question.toString() === variables.questionId,
+          payload.newMessage.question.toString() === variables.questionId
       ),
     },
     questionAssignedToConsultant: {
@@ -56,14 +56,14 @@ const resolver = {
           }
 
           return true;
-        },
+        }
       ),
     },
     questionAssigned: {
       subscribe: withFilter(
         (_, __, { pubsub }) => pubsub.asyncIterator(QUESTION_ASSIGNED),
         (payload, variables) =>
-          payload.questionAssigned.id === variables.questionId,
+          payload.questionAssigned.id === variables.questionId
       ),
     },
     assignedQuestionClosed: {
@@ -81,14 +81,14 @@ const resolver = {
           }
 
           return true;
-        },
+        }
       ),
     },
     questionClosed: {
       subscribe: withFilter(
         (_, __, { pubsub }) => pubsub.asyncIterator(QUESTION_CLOSED),
         (payload, variables) =>
-          payload.questionClosed.id === variables.questionId,
+          payload.questionClosed.id === variables.questionId
       ),
     },
     questionReopened: {
@@ -103,7 +103,7 @@ const resolver = {
           }
 
           return true;
-        },
+        }
       ),
     },
     questionHeartbeat: {
@@ -118,7 +118,7 @@ const resolver = {
           }
 
           return true;
-        },
+        }
       ),
     },
   },

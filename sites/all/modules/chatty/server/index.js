@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('events').EventEmitter.prototype._maxListeners = 100;
+require('events').EventEmitter.prototype._maxListeners = 500;
 
 const http = require('http');
 const https = require('https');
@@ -23,7 +23,7 @@ if (process.env.SSL === 'true') {
       key: fs.readFileSync(process.env.SSL_KEY_PATH),
       cert: fs.readFileSync(process.env.SSL_CERT_PATH),
     },
-    app,
+    app
   );
 } else {
   server = http.createServer(app);
@@ -45,11 +45,11 @@ server.listen(PORT, () => {
   console.log(
     `🚀 Server ready at http${
       process.env.SSL === 'true' ? 's' : ''
-    }://localhost:${PORT}${apolloServer.graphqlPath}`,
+    }://localhost:${PORT}${apolloServer.graphqlPath}`
   );
   console.log(
     `🚀 Subscriptions ready at ws${
       process.env.SSL === 'true' ? 's' : ''
-    }://localhost:${PORT}${apolloServer.subscriptionsPath}`,
+    }://localhost:${PORT}${apolloServer.subscriptionsPath}`
   );
 });

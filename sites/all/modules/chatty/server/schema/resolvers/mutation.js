@@ -36,11 +36,11 @@ const resolver = {
     },
     assignQuestion: async (_, { questionId, consultantId }, { pubsub }) => {
       const consultantName = await SettingsController.getConsultantName(
-        consultantId,
+        consultantId
       );
       const question = await QuestionController.assignQuestion(
         questionId,
-        consultantId,
+        consultantId
       );
       const message = await MessageController.create(questionId, {
         text: tokenReplacer(
@@ -48,7 +48,7 @@ const resolver = {
           {
             token: '%consultant_name',
             replaceBy: consultantName,
-          },
+          }
         ),
         sentFrom: 'system',
       });
@@ -68,16 +68,16 @@ const resolver = {
     closeQuestion: async (
       _,
       { questionId, reason, keepConsultant, title },
-      { pubsub },
+      { pubsub }
     ) => {
       const question = await QuestionController.closeQuestion(
         questionId,
         reason,
         keepConsultant,
-        title,
+        title
       );
       const consultantName = await SettingsController.getConsultantName(
-        question.consultant,
+        question.consultant
       );
       const message = await MessageController.create(questionId, {
         text: tokenReplacer(
@@ -85,7 +85,7 @@ const resolver = {
           {
             token: '%consultant_name',
             replaceBy: consultantName,
-          },
+          }
         ),
         sentFrom: 'system',
       });

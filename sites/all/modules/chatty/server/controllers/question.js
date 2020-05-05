@@ -49,7 +49,7 @@ const assignQuestion = async (questionId, consultantId) => {
     qs.stringify({
       questionId,
       consultantId,
-    }),
+    })
   );
 
   return response.data;
@@ -63,7 +63,7 @@ const closeQuestion = async (questionId, reason, keepConsultant, title) => {
       reason,
       keepConsultant,
       title,
-    }),
+    })
   );
 
   return response.data;
@@ -74,7 +74,7 @@ const reopenQuestion = async questionId => {
     'reopen-question',
     qs.stringify({
       questionId,
-    }),
+    })
   );
 
   return response.data;
@@ -85,7 +85,7 @@ const makeHeartbeat = async questionId => {
     'question-heartbeat',
     qs.stringify({
       questionId,
-    }),
+    })
   );
 
   return response.data;

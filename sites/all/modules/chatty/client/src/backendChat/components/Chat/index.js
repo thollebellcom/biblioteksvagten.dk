@@ -25,7 +25,6 @@ const ChatContainer = () => {
   return (
     <Query
       query={GET_QUESTION_QUERY}
-      fetchPolicy="network-only"
       variables={{
         questionId: state.backendChat.questionId,
       }}

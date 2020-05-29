@@ -202,7 +202,8 @@ function close_question_callback() {
   $messages = chatty_load_messages($questionId);
   $messages_in_plain_text = _render_messages_in_plain_text($messages);
 
-  _create_vopros_question($reason,
+  _create_vopros_question(
+    $reason,
     $question->subject,
     $question->authorName,
     $question->authorEmail,

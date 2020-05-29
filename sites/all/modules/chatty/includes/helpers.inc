@@ -173,6 +173,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
 
   // Answer later.
   if ($reason === 'later') {
+    $default_values['channel'] = 'mail';
     $default_values['question_status'] = 'active';
 
     if ($keepConsultant) {

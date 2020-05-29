@@ -18,7 +18,7 @@
   background-color: #fff;
 }
 .colleague-chat.open {
-  height: 550px;
+  height: 600px;
 }
 
 .colleague-chat__members,
@@ -79,6 +79,11 @@
 .colleague-chat__members {
   padding-top: 5px;
   padding-bottom: 5px;
+
+  max-height: 210px;
+  overflow: scroll;
+
+  border-bottom: 1px solid #ddd;
 }
 
 /* Content */

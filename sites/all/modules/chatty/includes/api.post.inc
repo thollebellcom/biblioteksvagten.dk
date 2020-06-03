@@ -160,7 +160,7 @@ function assign_question_callback() {
 function close_question_callback() {
   $questionId = $_POST['questionId'];
   $reason = $_POST['reason'];
-  $keepConsultant = $_POST['keepConsultant'];
+  $keepConsultant = ($_POST['keepConsultant'] === 'false') ? false : true;
   $title = $_POST['title'];
 
   // Validate params.
@@ -184,7 +184,7 @@ function close_question_callback() {
   );
 
   if (!empty($keepConsultant)) {
-    $updateArray['keepConsultant'] = (boolean) $keepConsultant;
+    $updateArray['keepConsultant'] = $keepConsultant;
   }
   if (!empty($title)) {
     $updateArray['title'] = $title;
@@ -210,8 +210,8 @@ function close_question_callback() {
     $messages_in_plain_text,
     $question->url,
     $question->agencyMail,
-    $question->keepConsultant,
-    $question->title
+    $keepConsultant,
+    $title
   );
 
   return $question;

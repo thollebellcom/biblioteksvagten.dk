@@ -43,3 +43,15 @@ body.vopros-embed .form-textarea-wrapper, body.vopros-embed .form-item input, bo
 body.vopros-embed .form-item-question-deadline .form-item label:before, body.vopros-embed .form-type-checkbox label:before {
   color: #e2342d;
 }
+
+body.vopros-embed #edit-information a {
+  color: #00528b;
+  text-decoration: underline;
+}
+
+body.vopros-embed textarea:focus,
+body.vopros-embed input[type="email"]:focus,
+body.vopros-embed input[type="number"]:focus,
+body.vopros-embed input[type="text"]:focus {
+  border-color: #E12923;
+}

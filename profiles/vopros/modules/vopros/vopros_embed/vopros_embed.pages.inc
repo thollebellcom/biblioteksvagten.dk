@@ -165,6 +165,10 @@ EOF;
           'input[name=user_answer_preference]' => $values,
         ),
       ),
+      '#attributes' => array(
+        'aria-label' => t('How to receive answer'),
+        'role' => 'radiogroup',
+      ),
     );
   }
   else {

@@ -31,7 +31,7 @@ body.vopros-embed .form-item-question-content label, body.vopros-embed .vopros-c
 }
 
 body.vopros-embed .form-required {
-  color: #fff;
+  color: #292929;
 }
 
 body.vopros-embed .form-textarea-wrapper, body.vopros-embed .form-item input, body.vopros-embed .vopros-chat .form-item textarea {

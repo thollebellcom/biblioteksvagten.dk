@@ -139,8 +139,9 @@ function _chatty_status() {
  * - $agencyMail: required
  * - $keepConsultant: optional
  * - $title: optional
+ * - $consultantUid: optional
  */
-function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $consultantUid, $title) {
+function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $title, $consultantUid) {
   $default_values = array(
     'user_answer_preference' => 'mail',
     'channel' => 'chat',

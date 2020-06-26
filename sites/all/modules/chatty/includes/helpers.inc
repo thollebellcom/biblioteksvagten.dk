@@ -170,7 +170,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
   if ($reason === 'answered') {
     $default_values['question_title'] = t('Answered chat question');
     $default_values['question_status'] = 'answered';
-    $default_values['user_answer_preference'] = 'chat';
+    $default_values['user_answer_preference'] = 'chatty';
   }
 
   // Answer later.

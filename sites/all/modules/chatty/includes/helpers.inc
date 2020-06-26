@@ -140,7 +140,7 @@ function _chatty_status() {
  * - $keepConsultant: optional
  * - $title: optional
  */
-function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $title) {
+function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $keepConsultant, $consultantUid, $title) {
   $default_values = array(
     'user_answer_preference' => 'mail',
     'channel' => 'chat',
@@ -177,6 +177,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
     $default_values['question_status'] = 'active';
 
     if ($keepConsultant) {
+      $default_values['uid'] = $consultantUid;
       $default_values['question_status'] = 'assigned';
     }
     else {

@@ -211,7 +211,8 @@ function close_question_callback() {
     $question->url,
     $question->agencyMail,
     $keepConsultant,
-    $title
+    $consultantUid,
+    $title,
   );
 
   return $question;

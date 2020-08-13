@@ -1,5 +1,5 @@
 const scrollToBottom = element => {
-  if (element.length === 0) {
+  if (!element) {
     return false;
   }
 

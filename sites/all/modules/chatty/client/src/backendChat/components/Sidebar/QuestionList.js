@@ -17,7 +17,7 @@ const QuestionList = ({
     window.Drupal.settings.consultantId
       ? window.Drupal.settings.consultantId.toString()
       : '1';
-  const [state, dispatch] = useContext(ChatContext);
+  const [state] = useContext(ChatContext);
 
   useEffect(() => {
     for (let i = 0; i < subscriptions.length; i++) {

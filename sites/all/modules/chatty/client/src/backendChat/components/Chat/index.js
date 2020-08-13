@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Mutation, Query } from 'react-apollo';
 
 import GET_QUESTION_QUERY from '../../../shared/Apollo/query/getQuestion';
+import GET_MESSAGES_QUERY from '../../../shared/Apollo/query/getMessages';
 import CREATE_MESSAGE_MUTATION from '../../../shared/Apollo/mutation/createMessage';
 import { ChatContext, RESET_CHAT } from '../../context/ChatContext';
 
@@ -29,12 +30,12 @@ const ChatContainer = () => {
         questionId: state.backendChat.questionId,
       }}
     >
-      {({ data, loading, subscribeToMore }) => {
-        if (!data || !data.question || loading) return '';
+      {({ data: {question}, loading, subscribeToMore }) => {
+        if (!question || loading) return '';
 
         // The received question is marked as complete, so dispatch an action
         // invalidating everything in the state.
-        if (data.question.status === 'complete') {
+        if (question.status === 'complete') {
           dispatch({
             type: RESET_CHAT,
             payload: null,
@@ -43,25 +44,35 @@ const ChatContainer = () => {
 
         return (
           <div className="backend-chat">
-            <Bar name={data.question.authorName} email={data.question.authorEmail} source={data.question.source} />
+            <Bar name={question.authorName} email={question.authorEmail} source={question.source} />
 
-            <OfflineMessage lastHeartbeat={data.question.lastHeartbeatAt} />
+            <OfflineMessage lastHeartbeat={question.lastHeartbeatAt} />
 
-            {data.question.consultant !== myConsultantId && <ReadonlyMessage />}
+            {question.consultant !== myConsultantId && <ReadonlyMessage />}
 
-            <MessageList
-              author={data.question.authorName}
-              subject={data.question.subject}
-              questionCreatedAt={data.question.createdAt}
-              messages={data.question.messages}
-              subscribeToMore={subscribeToMore}
-            />
+            <Query 
+              query={GET_MESSAGES_QUERY}
+              variables={{ questionId: state.backendChat.questionId }}
+              fetchPolicy="network-only"
+              pollInterval={2000}
+            >
+              {({ data: { messages }, loading }) => {
+                if (!messages) return null;
 
-            {data.question.consultant === myConsultantId && <Actions />}
+                return (
+                  <MessageList
+                    author={question.authorName}
+                    subject={question.subject}
+                    questionCreatedAt={question.createdAt}
+                    messages={messages}
+                  />
+                );
+              }}
+            </Query>
 
-            {data.question.consultant === myConsultantId && (
-              <Mutation mutation={CREATE_MESSAGE_MUTATION}>
-                {createMessage => <Form createMessage={createMessage} />}
+            {question.consultant === myConsultantId && (
+              <Mutation mutation={CREATE_MESSAGE_MUTATION} id={question.id}>
+                {createMessage => <Form questionId={question.id} createMessage={createMessage} />}
               </Mutation>
             )}
           </div>

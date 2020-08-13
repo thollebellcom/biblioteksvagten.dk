@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && node utils/moveBuildFiles.js",
+    "build:prod": "NODE_ENV=production react-scripts build && node utils/moveBuildFiles.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

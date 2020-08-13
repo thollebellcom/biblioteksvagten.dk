@@ -54,7 +54,7 @@ const ChatContainer = () => {
               query={GET_MESSAGES_QUERY}
               variables={{ questionId: state.backendChat.questionId }}
               fetchPolicy="network-only"
-              pollInterval={2000}
+              pollInterval={1000}
             >
               {({ data: { messages }, loading }) => {
                 if (!messages) return null;

@@ -56,7 +56,7 @@ const ChatContainer = () => {
               fetchPolicy="network-only"
               pollInterval={1000}
             >
-              {({ data: { messages }, loading }) => {
+              {({ data: { messages } }) => {
                 if (!messages) return null;
 
                 return (
@@ -69,6 +69,8 @@ const ChatContainer = () => {
                 );
               }}
             </Query>
+
+            {question.consultant === myConsultantId && <Actions />}
 
             {question.consultant === myConsultantId && (
               <Mutation mutation={CREATE_MESSAGE_MUTATION} id={question.id}>

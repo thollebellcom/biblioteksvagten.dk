@@ -18,13 +18,16 @@ const app = express();
 const pubsub = new PubSub();
 
 if (process.env.SSL === 'true') {
-  server = https.createServer(
-    {
-      key: fs.readFileSync(process.env.SSL_KEY_PATH),
-      cert: fs.readFileSync(process.env.SSL_CERT_PATH),
-    },
-    app
-  );
+  const sslOptions = {
+    key: fs.readFileSync(process.env.SSL_KEY_PATH),
+    cert: fs.readFileSync(process.env.SSL_CERT_PATH),
+  };
+
+  if (process.env.SSL_PASSPHRASE && process.env.SSL_PASSPHRASE !== '') {
+    sslOptions.passphrase = process.env.SSL_PASSPHRASE;
+  }
+
+  server = https.createServer(sslOptions, app);
 } else {
   server = http.createServer(app);
 }

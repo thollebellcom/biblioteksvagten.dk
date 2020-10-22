@@ -61,8 +61,6 @@ const AnswerLaterButton = ({ closeQuestion, data, loading }) => {
       {showOptions && (
         <form onSubmit={handleSubmit}>
           <div>
-            <strong>Der er behov for ekstra informationer.</strong>
-
             <div>
               <label htmlFor="title">Titel</label>
               <input type="text" id="title" ref={titleInputRef} />

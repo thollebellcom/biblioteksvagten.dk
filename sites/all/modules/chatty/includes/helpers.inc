@@ -206,13 +206,13 @@ function _render_messages_in_plain_text($messages) {
   $plain = array();
 
   foreach ($messages as $message) {
-    $sentFrom = 'Unknown';
+    $sentFrom = 'Ukendt';
 
     if ($message->sentFrom == 'admin') {
-      $sentFrom = t('Operator');
+      $sentFrom = 'Biblioteksvagt';
     }
     if ($message->sentFrom == 'user') {
-      $sentFrom = t('Asker');
+      $sentFrom = 'Bruger';
     }
     if ($message->sentFrom == 'system') {
       $sentFrom = t('System');

@@ -65,6 +65,10 @@
   background-color: #eee;
 }
 
+.backend-list__item--highlighted {
+  background-color: #f8d7da;
+}
+
 .backend-list__item--no-result,
 .backend-list__item--no-result:hover {
   cursor: initial;
@@ -114,12 +118,18 @@
 .backend-list__item--faded .question__heading__title {
   color: #8f949d;
 }
+.backend-list__item--highlighted .question__heading__title {
+  color: #721c24;
+}
 
 .question__body {
   color: #636770;
 }
 .backend-list__item--faded .question__body {
   color: #8f949d;
+}
+.backend-list__item--highlighted .question__body {
+  color: #721c24;
 }
 
 .question__created-at {
@@ -128,6 +138,9 @@
   font-size: 0.8rem;
 
   color: #8f949d;
+}
+.backend-list__item--highlighted .question__created-at {
+  color: #721c24;
 }
 
 .question__unread-messages {

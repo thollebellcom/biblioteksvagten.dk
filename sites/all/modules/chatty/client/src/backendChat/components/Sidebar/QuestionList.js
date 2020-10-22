@@ -39,7 +39,7 @@ const QuestionList = ({
       <div
         className={
           myConsultantId !== question.consultant
-            ? 'backend-list__item backend-list__item--faded'
+            ? 'backend-list__item backend-list__item--highlighted'
             : 'backend-list__item'
         }
         key={`question-${question.id}`}

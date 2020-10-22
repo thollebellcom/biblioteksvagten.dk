@@ -123,7 +123,7 @@ const QuestionTeaser = ({
     <Mutation mutation={AssignQuestionMutation}>
       {assignQuestion => (
         <div
-          className={`question question--teaser ${isActive && 'question--active'}`}
+          className={`question question--teaser ${isActive ? 'question--active' : ''}`}
           onClick={() => {
             if (canAssign) {
               handleAssignQuestion(assignQuestion);

@@ -141,14 +141,14 @@ function get_consultant_name_callback() {
   // Get the name.
   $profile = profile2_load_by_user($user, 'vopros_user_librarian');
   if ($profile) {
-    $name = vopros_user_profile_user_name($profile);
+    $name = _chatty_get_firstname($profile);
   }
   else {
     // Else fall back to username.
     $name = $user->name;
   }
 
-  return $name;
+  return $name . ' (Biblioteksvagten)';
 }
 
 /**

@@ -223,3 +223,12 @@ function _render_messages_in_plain_text($messages) {
 
   return implode("\n", $plain);
 }
+
+/**
+ * Get a full user name from a profile.
+ */
+function _chatty_get_firstname($profile) {
+  $wrapper = entity_metadata_wrapper('profile2', $profile);
+
+  return $wrapper->vopros_user_first_name->value();
+}

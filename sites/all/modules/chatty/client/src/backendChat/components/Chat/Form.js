@@ -15,6 +15,9 @@ const Form = ({ createMessage }) => {
   };
 
   const handleKeyDown = event => {
+    console.log('event.keyCode', event.keyCode);
+    console.log('event.key', event.key);
+    console.log('event.code', event.code);
 
     // enter (submit) - NOT when using shift.
     if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {

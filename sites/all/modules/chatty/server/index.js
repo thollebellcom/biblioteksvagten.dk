@@ -6,16 +6,32 @@ const https = require('https');
 const fs = require('fs');
 const express = require('express');
 const { ApolloServer, PubSub } = require('apollo-server-express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const { typeDefs, resolvers } = require('./schema');
 
 const { PORT } = process.env;
+const allowedDomains = process.env.CORS_ALLOWED_DOMAINS;
+
+const corsOptionsDelegate = function(req, callback) {
+  const corsOptions = {
+    origin: false,
+  };
+
+  if (allowedDomains.indexOf(req.header('Origin')) !== -1) {
+    corsOptions.origin = true;
+  }
+
+  callback(null, corsOptions);
+};
 
 // Server.
 let server;
 const app = express();
 const pubsub = new PubSub();
+
+app.use(cors(corsOptionsDelegate));
 
 if (process.env.SSL === 'true') {
   const sslOptions = {

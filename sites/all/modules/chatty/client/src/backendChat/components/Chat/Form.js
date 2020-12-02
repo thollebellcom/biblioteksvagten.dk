@@ -15,15 +15,21 @@ const Form = ({ createMessage }) => {
   };
 
   const handleKeyDown = event => {
-    console.log('event.keyCode', event.keyCode);
-    console.log('event.key', event.key);
-    console.log('event.code', event.code);
+    let eventFnc;
+
+    // IE11 way to solve event creation. See: https://stackoverflow.com/a/49071358
+    if (typeof (Event) === 'function') {
+      eventFnc = new Event('submit');
+    } else {
+      eventFnc = document.createEvent('Event');
+      eventFnc.initEvent('submit', true, true);
+    }
 
     // enter (submit) - NOT when using shift.
     if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
       event.preventDefault();
-
-      formRef.current.dispatchEvent(new Event('submit'));
+      
+      formRef.current.dispatchEvent(eventFnc);
     }
   };
 

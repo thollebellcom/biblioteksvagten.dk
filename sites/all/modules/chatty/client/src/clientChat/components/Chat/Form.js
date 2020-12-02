@@ -11,11 +11,20 @@ const Form = ({ createMessage, disabled }) => {
   const handleChange = event => setMessage(event.target.value);
 
   const handleKeyDown = event => {
+    let eventFnc;
+
+    // IE11 way to solve event creation. See: https://stackoverflow.com/a/49071358
+    if (typeof (Event) === 'function') {
+      eventFnc = new Event('submit');
+    } else {
+      eventFnc = document.createEvent('Event');
+      eventFnc.initEvent('submit', true, true);
+    }
 
     if (event.keyCode === 13 && !(event.keyCode === 13 && event.shiftKey)) {
       event.preventDefault();
 
-      formRef.current.dispatchEvent(new Event('submit'));
+      formRef.current.dispatchEvent(eventFnc);
     }
   };
 

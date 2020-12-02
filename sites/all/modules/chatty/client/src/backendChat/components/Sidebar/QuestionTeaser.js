@@ -22,6 +22,7 @@ const QuestionTeaser = ({
   lastHeartbeat,
   subscribeToMore,
 }) => {
+  const newTitleString = '(ny besked) ';
   const convertedDate = convertTimestampToDate(createdAt);
   const myConsultantId =
     window.Drupal &&
@@ -44,6 +45,27 @@ const QuestionTeaser = ({
     }, 1000 * 30);
 
     return () => clearInterval(timer);
+  });
+
+  // Window focus.
+  const handleWindowFocus = () => {
+
+    // Remove (ny besked) from document title.
+    if (document.title.includes(newTitleString)) {
+      var strippedTitle = document.title.replace(newTitleString, '');
+
+      document.title = strippedTitle;
+    }
+  }
+  const handleWindowBlur = () => {}
+  useEffect(() => {
+    window.addEventListener('focus', handleWindowFocus);
+    window.addEventListener('blur', handleWindowBlur);
+    
+    return () => {
+      window.removeEventListener('focus', handleWindowFocus);
+      window.removeEventListener('blur', handleWindowBlur);
+    };
   });
 
   // Offline.
@@ -83,6 +105,10 @@ const QuestionTeaser = ({
 
             return prev;
           }
+        }
+
+        if (!document.title.includes(newTitleString)) {
+          document.title = newTitleString + document.title;
         }
 
         setHasUnreadMessages(true);

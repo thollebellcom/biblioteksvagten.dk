@@ -1,7 +1,7 @@
 import React from 'react';
 
 import App from './components/App';
-import Apollo from '../shared/Apollo';
+import Apollo from './apollo';
 import Store from './context/Store';
 import Settings from './components/Settings';
 

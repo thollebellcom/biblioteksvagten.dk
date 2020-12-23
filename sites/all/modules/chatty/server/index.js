@@ -5,10 +5,17 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const express = require('express');
-const { ApolloServer, PubSub } = require('apollo-server-express');
+const {
+  ApolloServer,
+  makeExecutableSchema,
+  PubSub,
+} = require('apollo-server-express');
+const { applyMiddleware } = require('graphql-middleware');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
+const permissions = require('./permissions');
 const { typeDefs, resolvers } = require('./schema');
 
 const { PORT } = process.env;
@@ -17,6 +24,7 @@ const allowedDomains = process.env.CORS_ALLOWED_DOMAINS;
 const corsOptionsDelegate = function(req, callback) {
   const corsOptions = {
     origin: false,
+    credentials: true,
   };
 
   if (allowedDomains.indexOf(req.header('Origin')) !== -1) {
@@ -52,11 +60,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: { pubsub },
-});
+  schema: applyMiddleware(
+    makeExecutableSchema({ typeDefs, resolvers }),
+    permissions
+  ),
+  context: ({ req, res, connection }) => {
+    let token;
 
+    if (connection) {
+      token = process.env.SECRET_KEY; // Allow subscriptions.
+    } else {
+      token = req.headers.authorization || null;
+
+      if (token) {
+        token = token.split('Bearer ')[1];
+      }
+    }
+
+    return {
+      req,
+      res,
+      token,
+      pubsub,
+    };
+  },
+});
 apolloServer.applyMiddleware({ app });
 apolloServer.installSubscriptionHandlers(server);
 

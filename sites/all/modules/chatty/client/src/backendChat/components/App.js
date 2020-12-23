@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { ChatContext } from '../context/ChatContext';
 import Sidebar from './Sidebar';
@@ -10,10 +10,10 @@ const App = () => {
   const renderChat = state.backendChat ? <Chat /> : '';
 
   return (
-    <Fragment>
+    <>
       <Sidebar />
       {renderChat}
-    </Fragment>
+    </>
   );
 };
 

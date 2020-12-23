@@ -13,6 +13,8 @@ const typeDef = gql`
     ): Question!
     reopenQuestion(questionId: ID!): Question!
     makeHeartbeat(questionId: ID!): Question!
+    signIn(token: String): String
+    signOut(token: String): Boolean
   }
 `;
 

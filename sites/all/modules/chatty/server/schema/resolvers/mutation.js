@@ -127,6 +127,19 @@ const resolver = {
 
       return question;
     },
+    signIn: (parent, args, { res }, info) => {
+      res.cookie('token', process.env.SECRET_TOKEN, {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+      });
+
+      return 'success';
+    },
+    signOut: (parent, args, { res }, info) => {
+      res.clearCookie('token');
+
+      return true;
+    },
   },
 };
 

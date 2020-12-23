@@ -3,6 +3,7 @@
   "dependencies": {
     "apollo-boost": "^0.4.2",
     "apollo-client": "^2.6.10",
+    "apollo-link-context": "^1.0.20",
     "apollo-link-ws": "^1.0.18",
     "core-js": "^3.6.4",
     "date-fns": "^1.30.1",

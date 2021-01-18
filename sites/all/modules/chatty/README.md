@@ -24,3 +24,18 @@ Apply `renderOnly=backend` to the URL.
 **Only wants to see the client?**
 
 Apply `renderOnly=client` to the URL.
+
+
+** Start server with pm2 **
+
+Run
+`
+pm2 start index.js --name="chatty" --interpreter=/opt/node/bin/node
+`
+
+** Restart server **
+
+Run
+`
+pm2 restart chatty
+`

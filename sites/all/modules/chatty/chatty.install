@@ -1,0 +1,151 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function chatty_schema() {
+  $schema['chatty_questions'] = array(
+    'description' => 'Chatty - questions',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a question.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'reason' => array(
+        'description' => 'The reason for closing the question.',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'title' => array(
+        'description' => 'The title to use when "saved for later".',
+        'type' => 'varchar',
+        'length' => 256,
+        'default' => '',
+      ),
+      'keepConsultant' => array(
+        'description' => 'Whether or not the question is answered by consultant, when "saved for later',
+        'type' => 'int',
+        'size' => 'tiny',
+        'default' => 0,
+      ),
+      'authorName' => array(
+        'description' => 'The authors name',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'authorEmail' => array(
+        'description' => 'The authors email',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'subject' => array(
+        'description' => 'Questions subject',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+      ),
+      'consultant' => array(
+        'description' => 'The {users}.uid that owns this question.',
+        'type' => 'int',
+      ),
+      'agencyId' => array(
+        'description' => 'The foreign key to the agency.id',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'agencyMail' => array(
+        'description' => 'The e-mail address from the agency.',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'url' => array(
+        'description' => 'The URL of the agency.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Status of the question',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => 'pending',
+      ),
+      'lastHeartbeatAt' => array(
+        'description' => 'The Unix timestamp when the question last had a client heartbeat.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'createdAt' => array(
+        'description' => 'The Unix timestamp when the question was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updatedAt' => array(
+        'description' => 'The Unix timestamp when the question was most recently saved.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  $schema['chatty_messages'] = array(
+    'description' => 'Chatty - messages',
+    'fields' => array(
+      'id' => array(
+        'description' => 'The primary identifier for a message.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'text' => array(
+        'description' => 'Body of the message',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'sentFrom' => array(
+        'description' => 'Who sent the message',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'question' => array(
+        'description' => 'The foreign key to the question.id',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'createdAt' => array(
+        'description' => 'The Unix timestamp when the message was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete configuration variables.
+ */
+function chatty_uninstall() {
+  variable_del('chatty_hours');
+}

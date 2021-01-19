@@ -1,0 +1,28 @@
+body.development {
+    font-size: 16px;
+}
+
+body.development #chatty_client {
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 50%;
+
+    overflow: hidden;
+
+    background-color: #eee;
+}
+body.development #chatty_backend {
+    position: fixed;
+
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 50%;
+
+    overflow: hidden;
+}

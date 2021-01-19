@@ -1,0 +1,187 @@
+<?php
+
+module_load_include('inc', 'chatty', 'includes/helpers');
+
+/*
+ * Implements hook_init().
+ */
+function chatty_init() {
+  global $user;
+
+  drupal_add_js(array('consultantId' => $user->uid), 'setting');
+  drupal_add_js(array('consultantName' => vopros_user_name($user)), 'setting');
+}
+
+/*
+ * Implements hook_menu().
+ */
+function chatty_menu() {
+  $items = array();
+
+  // Get routes.
+  $items['chatty/api/v1/questions'] = array(
+    'page callback' => 'get_questions_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/question'] = array(
+    'page callback' => 'get_question_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/messages'] = array(
+    'page callback' => 'get_messages_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/settings'] = array(
+    'page callback' => 'get_settings_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/consultant-name'] = array(
+    'page callback' => 'get_consultant_name_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Post routes.
+  $items['chatty/api/v1/create-question'] = array(
+    'page callback' => 'create_question_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/create-message'] = array(
+    'page callback' => 'create_message_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/assign-question'] = array(
+    'page callback' => 'assign_question_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/close-question'] = array(
+    'page callback' => 'close_question_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/reopen-question'] = array(
+    'page callback' => 'reopen_question_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['chatty/api/v1/question-heartbeat'] = array(
+    'page callback' => 'question_client_heartbeat_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.post.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Administrative pages.
+  $items['admin/config/chatty'] = array(
+    'type' => MENU_LOCAL_TASK,
+    'title' => 'Chatty',
+    'description' => 'Configure chatty module.',
+    'position' => 'left',
+    'weight' => -20,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/chatty/settings'] = array(
+    'type' => MENU_LOCAL_TASK,
+    'title' => 'Configuration',
+    'description' => 'Adjust chatty settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('chatty_setting_form'),
+    'access arguments' => array('administer chatty'),
+    'file' => 'includes/admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function chatty_permission() {
+  return array(
+    'administer chatty' => array(
+      'title' => t('Administer chat settings'),
+      'description' => '',
+    ),
+  );
+}
+
+/**
+ * Access callback.
+ *
+ * Grants access if the user have administer chatty permission.
+ */
+function chatty_access() {
+  if (user_access('administer chatty')) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_vopros_question_user_answer_preference().
+ *
+ * Exposes chat as an user answer preference for questions.
+ */
+function chatty_vopros_question_user_answer_preference() {
+  if (_chatty_status() === 'closed') {
+    return array();
+  }
+
+  return array('chatty' => t('Chat'));
+}
+
+/**
+ * Implements hook_vopros_question_channels().
+ */
+function chatty_vopros_question_channels() {
+  return array(
+    'chatty' => array(
+      'name' => t('Chatty'),
+      'data render' => 'vopros_embed_channel_data_render',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function chatty_theme() {
+  return array(
+    'chatty_admin_hours' => array(
+      'render element' => 'elements',
+      'file' => 'includes/admin.inc',
+    ),
+  );
+}

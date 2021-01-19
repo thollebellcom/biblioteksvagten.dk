@@ -1,0 +1,64 @@
+.question-form {}
+
+.question-form__input-wrapper + .question-form__input-wrapper {
+    margin-top: 15px;
+}
+
+.question-form__input-wrapper--question label {
+    display: block;
+
+    margin-bottom: 0;
+    padding: 5px;
+
+    color: #fff;
+    background-color: #f39200;
+}
+.question-form__input-wrapper--question input[type="text"],
+.question-form__input-wrapper--question input[type="email"],
+.question-form__input-wrapper--question textarea {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    border: none !important;
+}
+
+.question-form label {
+    margin-bottom: 3px;
+
+    font-weight: normal;
+}
+
+.question-form input[type="text"],
+.question-form input[type="email"],
+.question-form textarea {
+    padding: 4px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    font-size: 0.929em;
+
+    outline: 0;
+    border: 2px solid #f39200;
+    border-radius: 2px;
+}
+.question-form input[type="text"]:focus,
+.question-form input[type="email"]:focus,
+.question-form textarea:focus {
+    border-color: #f39200;
+}
+
+.question-form input[type="submit"] {
+    padding: 10px;
+    border: 0;
+
+    font-weight: bold;
+    font-size: 0.929em;
+    outline: 0;
+
+    cursor: pointer;
+
+    color: #fff;
+    background-color: #e2342d;
+}

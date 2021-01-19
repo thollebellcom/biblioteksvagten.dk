@@ -1,0 +1,10 @@
+name = Chatty
+core = 7.x
+
+configure = admin/config/chatty/settings
+
+scripts[] = static/js/2.js
+scripts[] = static/js/main.js
+
+stylesheets[all][] = css/admin.css
+stylesheets[all][] = static/css/main.css

@@ -1,0 +1,150 @@
+/* Sidebar */
+.backend-sidebar {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 1000;
+
+  overflow: auto;
+
+  width: 300px;
+
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+}
+
+/* List. */
+.backend-list {
+}
+.backend-list + .backend-list {
+  margin-top: 30px;
+}
+
+.backend-list__heading {
+  padding: 10px 20px;
+
+  border-top: 1px solid #dddfe2;
+  border-bottom: 1px solid #dddfe2;
+  background-color: #f5f6f7;
+}
+
+.backend-list__heading__title {
+  font-size: 1rem;
+
+  color: #51545b;
+}
+
+.backend-list__heading h1,
+.backend-list__heading h2,
+.backend-list__heading h3,
+.backend-list__heading h4,
+.backend-list__heading h5,
+.backend-list__heading h6 {
+  margin: 0;
+}
+
+.backend-list__body {
+}
+
+.backend-list__item {
+  position: relative;
+
+  padding: 5px 20px;
+
+  cursor: pointer;
+  cursor: hand;
+}
+.backend-list__item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.backend-list__item--faded {
+  background-color: #eee;
+}
+
+.backend-list__item--highlighted {
+  background-color: #f8d7da;
+}
+
+.backend-list__item--no-result,
+.backend-list__item--no-result:hover {
+  cursor: initial;
+
+  background-color: transparent;
+}
+
+.backend-list__item + .backend-list__item {
+  border-top: 1px solid #dddfe2;
+}
+
+/* Question teaser. */
+.question {}
+
+.question--active::before {
+  position: absolute;
+
+  content: "";
+  
+  height: 8px;
+  width: 8px;
+
+  left: 5px;
+  top: 50%;
+
+  margin-top: -4px;
+
+  background-color: #A9C974;
+
+  border-radius: 100%;
+}
+
+.question__heading h1,
+.question__heading h2,
+.question__heading h3,
+.question__heading h4,
+.question__heading h5,
+.question__heading h6 {
+  margin: 0;
+}
+
+.question__heading__title {
+  font-weight: bold;
+
+  color: #636770;
+}
+.backend-list__item--faded .question__heading__title {
+  color: #8f949d;
+}
+.backend-list__item--highlighted .question__heading__title {
+  color: #721c24;
+}
+
+.question__body {
+  color: #636770;
+}
+.backend-list__item--faded .question__body {
+  color: #8f949d;
+}
+.backend-list__item--highlighted .question__body {
+  color: #721c24;
+}
+
+.question__created-at {
+  display: block;
+
+  font-size: 0.8rem;
+
+  color: #8f949d;
+}
+.backend-list__item--highlighted .question__created-at {
+  color: #721c24;
+}
+
+.question__unread-messages {
+  display: block;
+
+  color: #b70f17;
+}

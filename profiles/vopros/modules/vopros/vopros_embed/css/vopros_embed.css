@@ -45,6 +45,7 @@
 }
 
 /* Hide "old" chat. */
+.chat-status-message,
 #edit-user-answer-preference-chat,
 label[for="edit-user-answer-preference-chat"] {
   display: none !important;

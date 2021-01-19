@@ -19,6 +19,7 @@ body {
   min-height: 300px;
 }
 
+.vopros-chat-admin-manned,
 .vopros-chat-admin-status {
   display: none !important;
 }

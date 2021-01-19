@@ -12,7 +12,7 @@ body.vopros-embed .header {
 }
 
 body.vopros-embed #edit-user-answer-preference .form-item-user-answer-preference label, body.vopros-embed #edit-user-answer-preference .form-item-user-answer-preference label i, body.vopros-embed input.form-submit, body.vopros-embed input.form-submit:hover {
-  background: #e2342d;
+  background: #E12923;
 }
 
 body.vopros-embed .form-item-user-answer-preference .active_answer_type label {
@@ -26,12 +26,12 @@ body.vopros-embed .form-item-user-answer-preference .active_answer_type label i 
 
 body.vopros-embed .form-item-question-content label, body.vopros-embed .vopros-chat legend, body.vopros-embed .form-type-textfield label, body.vopros-embed .form-type-radios > label {
   background: #f39200;
-  color: #fff;
+  color: #292929;
   padding: 5px;
 }
 
 body.vopros-embed .form-required {
-  color: #fff;
+  color: #292929;
 }
 
 body.vopros-embed .form-textarea-wrapper, body.vopros-embed .form-item input, body.vopros-embed .vopros-chat .form-item textarea {
@@ -42,4 +42,16 @@ body.vopros-embed .form-textarea-wrapper, body.vopros-embed .form-item input, bo
 
 body.vopros-embed .form-item-question-deadline .form-item label:before, body.vopros-embed .form-type-checkbox label:before {
   color: #e2342d;
+}
+
+body.vopros-embed #edit-information a {
+  color: #00528b;
+  text-decoration: underline;
+}
+
+body.vopros-embed textarea:focus,
+body.vopros-embed input[type="email"]:focus,
+body.vopros-embed input[type="number"]:focus,
+body.vopros-embed input[type="text"]:focus {
+  border-color: #E12923;
 }

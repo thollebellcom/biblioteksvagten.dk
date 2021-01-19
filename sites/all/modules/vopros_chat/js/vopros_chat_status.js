@@ -8,6 +8,9 @@
 
 (function ($) {
 
+  
+	$('body').addClass('aaaa-something');
+
   /**
    * Theme function for rendering the extend status info.
    */
@@ -30,6 +33,8 @@
         // Ensure the submit button is enabled.
         $('.chat-submit').attr('disabled', false).removeClass('disabled');
         $('.chat-status-message').hide();
+        console.log('open');
+	$('body').addClass('aaaa-open');
       }
       else {
         // Do the reverse of the above.
@@ -46,6 +51,8 @@
           vars.text = Drupal.settings.vopros_chat.closed_message;
         }
         $('.chat-status-message').replaceWith(Drupal.theme('voprosChatStatus', vars).addClass('chat-status-message'));
+        console.log('closed');
+	$('body').addClass('aaaaa-closed');
       }
     }
   };
@@ -62,16 +69,19 @@
       };
       var status_message = Drupal.theme('voprosChatStatus', {text: ''}).addClass('chat-status-message').hide();
       $('.form-type-radios.form-item-user-answer-preference').append(status_message);
-      Drupal.Nodejs.socket.emit('message', msg);
+      setTimeout(function() {
+         Drupal.Nodejs.socket.emit('message', msg);
+      }, 2000);
+
 
       // First time visitor
-      //if (! Cookies.get('firstie')) {
-      //  Cookies.set('firstie', 1, { expires: 365 });
-
-      //  setTimeout(function() {
-      //    location.reload(true);
-      //  }, 500);
-      //}
+      if (! Cookies.get('firstie')) {
+        Cookies.set('firstie', 1, { expires: 365, sameSite: 'none' });
+	console.log('firsfirstiee');
+        //setTimeout(function() {
+        //  location.reload(true);
+        //}, 500);
+      }
     }
   };
 

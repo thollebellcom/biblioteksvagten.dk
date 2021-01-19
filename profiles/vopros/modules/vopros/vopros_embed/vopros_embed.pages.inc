@@ -73,6 +73,8 @@ EOF;
     '#default_value' => $answer_preference,
     '#weight' => -70,
     '#attributes' => array(
+      'aria-label' => t('How to receive answer'),
+      'role' => 'radiogroup',
       'class' => array('options-' . count($options)),
     ),
   );
@@ -199,6 +201,10 @@ EOF;
         'visible' => array(
           'input[name=user_answer_preference]' => $values,
         ),
+      ),
+      '#attributes' => array(
+        'aria-label' => t('How to receive answer'),
+        'role' => 'radiogroup',
       ),
     );
   }

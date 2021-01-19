@@ -43,3 +43,9 @@
     margin: 1rem 0;
   }
 }
+
+/* Hide "old" chat. */
+#edit-user-answer-preference-chat,
+label[for="edit-user-answer-preference-chat"] {
+  display: none !important;
+}

@@ -18,3 +18,7 @@ body {
 .cke_reset {
   min-height: 300px;
 }
+
+.vopros-chat-admin-status {
+  display: none !important;
+}

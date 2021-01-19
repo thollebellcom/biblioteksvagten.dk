@@ -29,9 +29,6 @@ function create_question_callback() {
   if (!$agencyId) {
     return 'An agency ID is required.';
   }
-  if (!$agencyMail) {
-    return 'An agency mail is required.';
-  }
   if (!$authorName) {
     return 'A author name is required.';
   }

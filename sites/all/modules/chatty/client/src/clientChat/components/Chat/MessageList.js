@@ -120,7 +120,7 @@ const MessageList = ({
           questionId: state.clientChat.questionId,
         },
       });
-    }, 1000 * 10);
+    }, 1000 * 20);
 
     return () => clearInterval(timer);
   });

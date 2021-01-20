@@ -61,7 +61,7 @@ const QuestionTeaser = ({
   useEffect(() => {
     window.addEventListener('focus', handleWindowFocus);
     window.addEventListener('blur', handleWindowBlur);
-    
+
     return () => {
       window.removeEventListener('focus', handleWindowFocus);
       window.removeEventListener('blur', handleWindowBlur);
@@ -73,7 +73,7 @@ const QuestionTeaser = ({
     // Check if we are now offline.
     const timer = setInterval(() => {
       setOffline(isOffline(lastHeartbeat));
-    }, 1000 * 10);
+    }, 1000 * 40);
 
     return () => clearInterval(timer);
   });

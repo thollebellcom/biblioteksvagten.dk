@@ -2,7 +2,7 @@ import differenceInSeconds from 'date-fns/difference_in_seconds';
 import convertTimestampToDate from './convertTimestampToDate';
 
 const calculateOffline = timestamp => {
-  const distanceInSeconds = 15;
+  const distanceInSeconds = 80;
   const date = convertTimestampToDate(timestamp);
 
   // Difference is bigger than $distance. It is seen as offline.

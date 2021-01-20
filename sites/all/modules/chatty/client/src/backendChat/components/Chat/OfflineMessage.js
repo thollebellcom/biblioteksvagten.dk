@@ -10,7 +10,7 @@ const OfflineMessage = ({ lastHeartbeat }) => {
     // Check if we are now offline.
     const timer = setInterval(() => {
       setOffline(isOffline(lastHeartbeat));
-    }, 1000 * 10);
+    }, 1000 * 40);
 
     return () => clearInterval(timer);
   });

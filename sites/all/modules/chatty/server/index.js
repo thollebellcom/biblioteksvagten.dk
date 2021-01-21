@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('events').EventEmitter.prototype._maxListeners = 5000;
+require('events').EventEmitter.prototype._maxListeners = 10000;
 
 const http = require('http');
 const https = require('https');
@@ -64,6 +64,8 @@ const apolloServer = new ApolloServer({
     makeExecutableSchema({ typeDefs, resolvers }),
     permissions
   ),
+  introspection: false,
+  playground: false,
   context: ({ req, res, connection }) => {
     let token;
 

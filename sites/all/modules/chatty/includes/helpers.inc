@@ -155,7 +155,6 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
       'from_url' => $fromUrl,
       'site_email' => $agencyMail,
     ),
-    'vopros_editorial' => 2,
   );
 
   if (!empty($title)) {
@@ -195,6 +194,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
   }
 
   $question = vopros_question_new($default_values);
+  $question->vopros_editorial->set(2);
 
   $question->save();
 }

@@ -142,13 +142,11 @@ function _chatty_status() {
  * - $title: optional
  * - $consultantUid: optional
  */
-function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $agencyId, $keepConsultant, $title, $consultantUid) {
-  $client = vopros_question_client_load_by_agency($agencyId);
-
+function _create_vopros_question($reason, $subject, $name, $email, $messages, $fromUrl, $agencyMail, $clientId, $keepConsultant, $title, $consultantUid) {
   $default_values = array(
     'user_answer_preference' => 'mail',
     'channel' => 'chat',
-    'client_id' => $client->client_id,
+    'client_id' => $clientId,
     'question_content' => t('Chat log:') . "\n" . $subject . "\n" . $messages,
     'user_name' => $name,
     'user_email' => $email,

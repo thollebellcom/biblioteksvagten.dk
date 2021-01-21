@@ -155,6 +155,7 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
       'from_url' => $fromUrl,
       'site_email' => $agencyMail,
     ),
+    'vopros_editorial' => 2,
   );
 
   if (!empty($title)) {

@@ -59,10 +59,10 @@ function get_questions_callback() {
       unset($results[$int]->agencyId);
 
       if ($client) {
-        $results[$int]->source = $client->label;
+        $results[$int]->source = $client->client_id;
       }
       else {
-        $results[$int]->source = t('Undefined');
+        $results[$int]->source = 0;
       }
 
       $int++;

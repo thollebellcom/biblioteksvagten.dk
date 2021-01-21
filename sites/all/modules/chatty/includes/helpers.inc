@@ -34,10 +34,10 @@ function chatty_load_question($questionId) {
   unset($result->agencyId);
 
   if ($client) {
-    $result->source = $client->label;
+    $result->source = $client->client_id;
   }
   else {
-    $result->source = t('Undefined');
+    $result->source = 0;
   }
 
   return $result;

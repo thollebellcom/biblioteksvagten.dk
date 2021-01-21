@@ -194,7 +194,11 @@ function _create_vopros_question($reason, $subject, $name, $email, $messages, $f
   }
 
   $question = vopros_question_new($default_values);
-  $question->vopros_editorial->set(2);
+
+  if (module_exists('vopros_editorial')) {
+    $question_wrapper = entity_metadata_wrapper('vopros_question', $question);
+    $question_wrapper->vopros_editorial = 2;
+  }
 
   $question->save();
 }

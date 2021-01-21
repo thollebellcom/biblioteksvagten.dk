@@ -207,9 +207,10 @@ function close_question_callback() {
     $messages_in_plain_text,
     $question->url,
     $question->agencyMail,
+    $question->agencyId,
     $keepConsultant,
     $title,
-    $question->consultant
+    $question->consultant,
   );
 
   return $question;

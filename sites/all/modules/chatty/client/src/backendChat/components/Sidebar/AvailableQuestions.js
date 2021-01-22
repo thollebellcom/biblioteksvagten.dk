@@ -1,15 +1,23 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import UIfx from 'uifx';
 
 import GET_QUESTIONS from '../../../shared/Apollo/query/getQuestions';
 import NEW_QUESTION_SUBSCRIPTION from '../../../shared/Apollo/subscription/newQuestion';
 import QUESTION_ASSIGNED_TO_CONSULTANT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionAssignedToConsultant';
 import QUESTION_REOPENED_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionReopened';
-
-import QuestionList from './QuestionList';
 import QUESTION_HEARTBEAT_SUBSCRIPTION from '../../../shared/Apollo/subscription/questionHeartbeat';
 
+import QuestionList from './QuestionList';
+import audioFile from './message.mp3'
+
 const AvailableQuestions = () => {
+  const beep = new UIfx(
+    audioFile,
+    {
+      volume: 1
+    }
+  );
   let subscriptions = [];
 
   return (
@@ -39,6 +47,9 @@ const AvailableQuestions = () => {
               if (!subscriptionData.data) return prev;
 
               const question = subscriptionData.data.newQuestion;
+
+              // Notify end user.
+              beep.play();
 
               return Object.assign({}, prev, {
                 questions: [...prev.questions, question],

@@ -97,7 +97,7 @@ function _chatty_status() {
   $status = 'closed';
   $hours = variable_get('chatty_hours');
   $readable_hours = json_decode($hours);
-  $day_of_week = date('w');
+  $day_of_week = (int) date('w', strtotime('2016-10-02'));
   $now_in_minutes = ((date('G') * 60) + date('i'));
   $today = new stdClass();
 
@@ -107,7 +107,7 @@ function _chatty_status() {
 
   $count = 1;
   foreach ($readable_hours as $readable_hour) {
-    if ($count === (int) $day_of_week) {
+    if ($count === $day_of_week) {
       $today = $readable_hour;
     }
 

@@ -276,7 +276,7 @@ function vopros_question_question_form($form, &$form_state, $question, $add_ques
     '#type' => 'select',
     '#title' => t('How to recieve answer'),
     '#options' => _vopros_question_create_user_answer_preference(),
-    '#default_value' => !empty($question->user_answer_preference) ? $question->user_answer_preference : '',
+    '#default_value' => !empty($question->user_answer_preference) ? $question->user_answer_preference : 'mail',
   );
 
   $form['form']['buttons'] = array(

@@ -1159,6 +1159,7 @@ function _vopros_question_user_answer_preference() {
 function _vopros_question_create_user_answer_preference() {
   $methods = _vopros_question_user_answer_preference();
   unset($methods['chat'], $methods['vopros_service']);
+  unset($methods['chatty'], $methods['vopros_service']);
   return $methods;
 }
 

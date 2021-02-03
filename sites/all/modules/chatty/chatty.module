@@ -207,5 +207,12 @@ function chatty_cron() {
 
   foreach ($questions_to_close as $question_to_close) {
     chatty_close_question($question_to_close, 'answered');
+
+    watchdog(
+      'chatty',
+      'Question ID: @question_id was converted to a answered question automatically.',
+      array('@question_id' => $question_to_close),
+      WATCHDOG_INFO
+    );
   }
 }

@@ -173,45 +173,7 @@ function close_question_callback() {
     return 'An invalid reason was given.';
   }
 
-  // Update the database.
-  $updateArray = array(
-    'reason' => $reason,
-    'status' => 'complete',
-    'updatedAt' => REQUEST_TIME,
-  );
-
-  if (!empty($keepConsultant)) {
-    $updateArray['keepConsultant'] = $keepConsultant;
-  }
-  if (!empty($title)) {
-    $updateArray['title'] = $title;
-  }
-
-  db_update('chatty_questions')
-    ->fields($updateArray)
-    ->condition('id', $questionId)
-    ->execute();
-
-  // Query the database, returning the updated question.
-  $question = chatty_load_question($questionId);
-
-  // Create a vopros question.
-  $messages = chatty_load_messages($questionId);
-  $messages_in_plain_text = _render_messages_in_plain_text($messages);
-
-  _create_vopros_question(
-    $reason,
-    $question->subject,
-    $question->authorName,
-    $question->authorEmail,
-    $messages_in_plain_text,
-    $question->url,
-    $question->agencyMail,
-    $question->source,
-    $keepConsultant,
-    $title,
-    $question->consultant
-  );
+  $question = chatty_close_question($questionId, $reason, $keepConsultant, $title);
 
   return $question;
 }

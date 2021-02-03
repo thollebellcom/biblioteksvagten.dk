@@ -23,53 +23,9 @@ function get_questions_callback() {
     return 'An invalid status type was given. Only pending, assigned and complete can be used.';
   }
 
-  // Query the database.
-  $query = db_select('chatty_questions');
+  $questions = chatty_get_questions_by_status($statusType, $consultantId);
 
-  $query->addField('chatty_questions', 'id');
-  $query->addField('chatty_questions', 'authorName');
-  $query->addField('chatty_questions', 'authorEmail');
-  $query->addField('chatty_questions', 'subject');
-  $query->addField('chatty_questions', 'status');
-  $query->addField('chatty_questions', 'consultant');
-  $query->addField('chatty_questions', 'url');
-  $query->addField('chatty_questions', 'agencyId');
-  $query->addField('chatty_questions', 'agencyMail');
-  $query->addField('chatty_questions', 'lastHeartbeatAt');
-  $query->addField('chatty_questions', 'createdAt');
-  $query->addField('chatty_questions', 'updatedAt');
-
-  $query->condition('chatty_questions.status', $statusType, '=');
-
-  // Filter only if a consultant ID is given. A null parameter (or no param)
-  // does not filter on consultants.
-  if ($consultantId) {
-    $query->condition('chatty_questions.consultant', $consultantId, '=');
-  }
-
-  $results = $query->execute()->fetchAll();
-
-  if (!empty($results)) {
-    $int = 0;
-
-    foreach ($results as $result) {
-
-      // Grab the client by the agency ID.
-      $client = vopros_question_client_load_by_agency($result->agencyId);
-      unset($results[$int]->agencyId);
-
-      if ($client) {
-        $results[$int]->source = $client->client_id;
-      }
-      else {
-        $results[$int]->source = 0;
-      }
-
-      $int++;
-    }
-  }
-
-  return $results;
+  return $questions;
 }
 
 /**

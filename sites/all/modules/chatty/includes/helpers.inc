@@ -238,3 +238,136 @@ function _chatty_get_firstname($profile) {
 
   return $wrapper->vopros_user_first_name->value();
 }
+
+/**
+ * Get questions by status.
+ *
+ * Params:
+ * - $status_type: required
+ * - $consultant_id: optional
+ */
+function chatty_get_questions_by_status($status_type, $consultant_id) {
+  $query = db_select('chatty_questions');
+
+  $query->addField('chatty_questions', 'id');
+  $query->addField('chatty_questions', 'authorName');
+  $query->addField('chatty_questions', 'authorEmail');
+  $query->addField('chatty_questions', 'subject');
+  $query->addField('chatty_questions', 'status');
+  $query->addField('chatty_questions', 'consultant');
+  $query->addField('chatty_questions', 'url');
+  $query->addField('chatty_questions', 'agencyId');
+  $query->addField('chatty_questions', 'agencyMail');
+  $query->addField('chatty_questions', 'lastHeartbeatAt');
+  $query->addField('chatty_questions', 'createdAt');
+  $query->addField('chatty_questions', 'updatedAt');
+
+  $query->condition('chatty_questions.status', $status_type, '=');
+
+  // Filter only if a consultant ID is given. A null parameter (or no param)
+  // does not filter on consultants.
+  if ($consultant_id) {
+    $query->condition('chatty_questions.consultant', $consultant_id, '=');
+  }
+
+  $results = $query->execute()->fetchAll();
+
+  if (!empty($results)) {
+    $int = 0;
+
+    foreach ($results as $result) {
+
+      // Grab the client by the agency ID.
+      $client = vopros_question_client_load_by_agency($result->agencyId);
+      unset($results[$int]->agencyId);
+
+      if ($client) {
+        $results[$int]->source = $client->client_id;
+      }
+      else {
+        $results[$int]->source = 0;
+      }
+
+      $int++;
+    }
+  }
+
+  return $results;
+}
+
+/**
+ * Get latest message.
+ *
+ * Params:
+ * - $question_id: required
+ */
+function chatty_get_overdue_messages($question_id, $period = '-6 hours') {
+  $ago = strtotime($period, time());
+
+  $query = db_select('chatty_messages');
+
+  $query->addField('chatty_messages', 'id');
+  $query->addField('chatty_messages', 'text');
+  $query->addField('chatty_messages', 'sentFrom');
+  $query->addField('chatty_messages', 'question');
+  $query->addField('chatty_messages', 'createdAt');
+  $query->condition('createdAt', $ago, '<');
+
+  $query->condition('chatty_messages.question', $question_id, '=');
+
+  return $query->execute()->fetchAll();
+}
+
+/**
+ * Close question.
+ *
+ * Params:
+ * - questionId: required
+ * - reason: required
+ * - keepConsultant: optional
+ * - title: optional
+ */
+function chatty_close_question($questionId, $reason, $keepConsultant, $title) {
+
+  // Update the database.
+  $updateArray = array(
+    'reason' => $reason,
+    'status' => 'complete',
+    'updatedAt' => REQUEST_TIME,
+  );
+
+  if (!empty($keepConsultant)) {
+    $updateArray['keepConsultant'] = $keepConsultant;
+  }
+  if (!empty($title)) {
+    $updateArray['title'] = $title;
+  }
+
+  db_update('chatty_questions')
+    ->fields($updateArray)
+    ->condition('id', $questionId)
+    ->execute();
+
+  // Query the database, returning the updated question.
+  $question = chatty_load_question($questionId);
+
+  // Create a vopros question.
+  $messages = chatty_load_messages($questionId);
+  $messages_in_plain_text = _render_messages_in_plain_text($messages);
+
+  _create_vopros_question(
+    $reason,
+    $question->subject,
+    $question->authorName,
+    $question->authorEmail,
+    $messages_in_plain_text,
+    $question->url,
+    $question->agencyMail,
+    $question->source,
+    $keepConsultant,
+    $title,
+    $question->consultant
+  );
+
+  return $question;
+}

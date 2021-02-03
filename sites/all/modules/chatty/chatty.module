@@ -26,6 +26,13 @@ function chatty_menu() {
     'file' => 'includes/api.get.inc',
     'type' => MENU_CALLBACK,
   );
+  $items['chatty/api/v1/trigger-cleanup'] = array(
+    'page callback' => 'trigger_cleanup_callback',
+    'access callback' => TRUE,
+    'delivery callback' => 'drupal_json_output',
+    'file' => 'includes/api.get.inc',
+    'type' => MENU_CALLBACK,
+  );
   $items['chatty/api/v1/question'] = array(
     'page callback' => 'get_question_callback',
     'access callback' => TRUE,
@@ -190,29 +197,5 @@ function chatty_theme() {
  * Implements hook_cron().
  */
 function chatty_cron() {
-  $questions_to_close = array();
-  $ago = strtotime('-6 hours', time());
-  $open_questions = chatty_get_questions_by_status('assigned');
-
-  // Run through open questions and find out if the latest message, is more than 6 hours old.
-  foreach ($open_questions as $open_question) {
-    $messages = chatty_get_overdue_messages($open_question->id, $ago);
-
-    if (!$messages) {
-      continue;
-    }
-
-    $questions_to_close[] = $open_question->id;
-  }
-
-  foreach ($questions_to_close as $question_to_close) {
-    chatty_close_question($question_to_close, 'answered');
-
-    watchdog(
-      'chatty',
-      'Question ID: @question_id was converted to a answered question automatically.',
-      array('@question_id' => $question_to_close),
-      WATCHDOG_INFO
-    );
-  }
+  chatty_cleanup_overdue_questions();
 }

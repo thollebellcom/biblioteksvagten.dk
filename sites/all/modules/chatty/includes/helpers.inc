@@ -371,3 +371,33 @@ function chatty_close_question($questionId, $reason, $keepConsultant, $title) {
 
   return $question;
 }
+
+function chatty_cleanup_overdue_questions() {
+  $questions_to_close = array();
+  $ago = strtotime('-6 hours', time());
+  $open_questions = chatty_get_questions_by_status('assigned');
+
+  // Run through open questions and find out if the latest message, is more than 6 hours old.
+  foreach ($open_questions as $open_question) {
+    $messages = chatty_get_overdue_messages($open_question->id, $ago);
+
+    if (!$messages) {
+      continue;
+    }
+
+    $questions_to_close[] = $open_question->id;
+  }
+
+  foreach ($questions_to_close as $question_to_close) {
+    chatty_close_question($question_to_close, 'answered');
+
+    watchdog(
+      'chatty',
+      'Question ID: @question_id was converted to a answered question automatically.',
+      array('@question_id' => $question_to_close),
+      WATCHDOG_INFO
+    );
+  }
+
+  return $questions_to_close;
+}

@@ -3,6 +3,17 @@
 module_load_include('inc', 'chatty', 'includes/helpers');
 
 /**
+ * Trigger cleanup callback.
+ *
+ * Ex. /api/endpoint
+ */
+function trigger_cleanup_callback() {
+  $question_ids = chatty_cleanup_overdue_questions();
+
+  return $question_ids;
+}
+
+/**
  * Get all questions callback.
  *
  * Params:

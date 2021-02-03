@@ -301,7 +301,7 @@ function chatty_get_questions_by_status($status_type, $consultant_id) {
  * Params:
  * - $question_id: required
  */
-function chatty_get_overdue_messages($question_id, $period = '-6 hours') {
+function chatty_get_overdue_messages($question_id, $period = '-6 hour') {
   $ago = strtotime($period, time());
 
   $query = db_select('chatty_messages');
@@ -374,12 +374,11 @@ function chatty_close_question($questionId, $reason, $keepConsultant, $title) {
 
 function chatty_cleanup_overdue_questions() {
   $questions_to_close = array();
-  $ago = strtotime('-6 hours', time());
   $open_questions = chatty_get_questions_by_status('assigned');
 
   // Run through open questions and find out if the latest message, is more than 6 hours old.
   foreach ($open_questions as $open_question) {
-    $messages = chatty_get_overdue_messages($open_question->id, $ago);
+    $messages = chatty_get_overdue_messages($open_question->id);
 
     if (!$messages) {
       continue;

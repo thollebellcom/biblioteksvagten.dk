@@ -257,16 +257,16 @@ EOF;
 
   // This a copy of $form['submit'] with just the label changed and only show
   // when chat is chosen as user answer preference.
-  $form['submit-chat'] = array(
-    '#type' => 'submit',
-    '#value' => t('Start chat'),
-    '#attributes' => array('class' => array('primary-action', 'chat-submit')),
-    '#states' => array(
-      'visible' => array(
-        'input[name=user_answer_preference]' => array('value' => 'chat'),
-      ),
-    ),
-  );
+//  $form['submit-chat'] = array(
+//    '#type' => 'submit',
+//    '#value' => t('Start chat'),
+//    '#attributes' => array('class' => array('primary-action', 'chat-submit')),
+//    '#states' => array(
+//      'visible' => array(
+//        'input[name=user_answer_preference]' => array('value' => 'chat'),
+//      ),
+//    ),
+//  );
 
   $information_text = variable_get('vopros_embed_information_text', array('value' => '', 'format' => 0));
   if ($information_text['value']) {

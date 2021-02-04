@@ -68,7 +68,8 @@ const Form = ({ createQuestion, loading }) => {
         </label>
       </div>
 
-      <input type="submit" value="Spørg nu" />
+      <input type="submit" value="Spørg nu"
+             disabled={disableInputs} />
     </form>
   );
 };

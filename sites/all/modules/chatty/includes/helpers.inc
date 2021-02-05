@@ -35,9 +35,11 @@ function chatty_load_question($questionId) {
 
   if ($client) {
     $result->source = $client->label;
+    $result->client = $client->client_id;
   }
   else {
-    $result->source = 0;
+    $result->source = 'Ukendt';
+    $result->client = 0;
   }
 
   return $result;
@@ -283,9 +285,11 @@ function chatty_get_questions_by_status($status_type, $consultant_id) {
 
       if ($client) {
         $results[$int]->source = $client->label;
+        $results[$int]->client = $client->client_id;
       }
       else {
-        $results[$int]->source = 0;
+        $results[$int]->source = 'Ukendt';
+        $results[$int]->client = 0;
       }
 
       $int++;
@@ -363,7 +367,7 @@ function chatty_close_question($questionId, $reason, $keepConsultant, $title) {
     $messages_in_plain_text,
     $question->url,
     $question->agencyMail,
-    $question->source,
+    $question->client,
     $keepConsultant,
     $title,
     $question->consultant

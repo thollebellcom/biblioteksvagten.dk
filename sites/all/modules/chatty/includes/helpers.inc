@@ -34,7 +34,7 @@ function chatty_load_question($questionId) {
   unset($result->agencyId);
 
   if ($client) {
-    $result->source = $client->client_id;
+    $result->source = $client->label;
   }
   else {
     $result->source = 0;
@@ -282,7 +282,7 @@ function chatty_get_questions_by_status($status_type, $consultant_id) {
       unset($results[$int]->agencyId);
 
       if ($client) {
-        $results[$int]->source = $client->client_id;
+        $results[$int]->source = $client->label;
       }
       else {
         $results[$int]->source = 0;

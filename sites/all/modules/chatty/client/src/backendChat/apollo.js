@@ -29,6 +29,7 @@ const authLink = setContext((_, { headers }) => {
 const wsLink = new WebSocketLink({
   uri: process.env.REACT_APP_APOLLO_WS_URI,
   fetch: fetch,
+  lazy: true,
   options: {
     reconnect: true,
   },

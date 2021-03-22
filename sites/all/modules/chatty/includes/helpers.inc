@@ -248,7 +248,7 @@ function _chatty_get_firstname($profile) {
  * - $status_type: required
  * - $consultant_id: optional
  */
-function chatty_get_questions_by_status($status_type, $consultant_id) {
+function chatty_get_questions_by_status($status_type, $consultant_id = false) {
   $query = db_select('chatty_questions');
 
   $query->addField('chatty_questions', 'id');
@@ -331,7 +331,7 @@ function chatty_get_overdue_messages($question_id, $period = '-6 hour') {
  * - keepConsultant: optional
  * - title: optional
  */
-function chatty_close_question($questionId, $reason, $keepConsultant, $title) {
+function chatty_close_question($questionId, $reason, $keepConsultant = false, $title = false) {
 
   // Update the database.
   $updateArray = array(

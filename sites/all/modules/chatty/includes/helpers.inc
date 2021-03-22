@@ -248,7 +248,7 @@ function _chatty_get_firstname($profile) {
  * - $status_type: required
  * - $consultant_id: optional
  */
-function chatty_get_questions_by_status($status_type, $consultant_id = null) {
+function chatty_get_questions_by_status($status_type, $consultant_id) {
   $query = db_select('chatty_questions');
 
   $query->addField('chatty_questions', 'id');

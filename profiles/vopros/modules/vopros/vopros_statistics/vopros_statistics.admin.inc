@@ -487,69 +487,65 @@ function vopros_statistics_client_channels_form_submit($form, &$form_state) {
 /**
  * Display statistics based on Q and A service names.
  */
-function vopros_statistics_info_email_view($status = null) {
+function vopros_statistics_info_email_view($status = 1) {
   $csv = $_GET['csv'];
-  $build = array();
   $rows = array();
 
-  if ($status === 0 || $status === 1) {
+  // Grab all users.
+  $query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'user', '=')
+    ->propertyCondition('status', true)
+    ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
+    ->execute();
 
-    // Grab all users.
-    $query = new EntityFieldQuery();
-    $entities = $query->entityCondition('entity_type', 'user', '=')
-      ->propertyCondition('status', true)
-      ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
-      ->execute();
+  $users = entity_load('user', array_keys($entities['user']));
 
-    $users = entity_load('user', array_keys($entities['user']));
+  // Run through all users.
+  foreach($users as $user) {
+    $wants_to_recieve = true;
 
-    // Run through all users.
-    foreach($users as $user) {
-      $wants_to_recieve = true;
+    // If no email is set (user 0), don't proceed.
+    if (! $user->mail) continue;
 
-      // If no email is set (user 0), don't proceed.
-      if (! $user->mail) continue;
+    // If the user don't want to receive emails, don't proceed.
+    if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
 
-      // If the user don't want to receive emails, don't proceed.
-      if ($field = field_get_items('user', $user, 'field_no_info_mail')) {
-
-        // The user doesn't want any emails.
-        if ($field[0]['value'] === '1') {
-          $wants_to_recieve = false;
-        }
-      }
-
-      if ($wants_to_recieve == $status) {
-        $rows[] = array($user->mail);
+      // The user doesn't want any emails.
+      if ($field[0]['value'] === '1') {
+        $wants_to_recieve = false;
       }
     }
 
-    $header = array(t('E-mail addresses (' . count($rows) . ')'));
-
-    if ($csv === 'yes') {
-      _vopros_statistics_download_send_headers("statistics-channels-" . date("Y-m-d") . ".csv");
-      echo _vopros_statistics_array2csv($header, $rows);
-
-      die();
+    if ($wants_to_recieve == $status) {
+      $rows[] = array($user->mail);
     }
-
-    $build = array(
-      'form' => drupal_get_form('vopros_statistics_info_email_form', $status),
-      'csv' => array(
-        '#markup' => l(t('Download as CSV'),
-          $_GET['q'],
-          array(
-            'query' => array('csv' => 'yes'),
-            'attributes' => array('target' => '_blank'),
-          )),
-      ),
-      'table' => array(
-        '#theme' => 'table',
-        '#header' => $header,
-        '#rows' => $rows,
-      ),
-    );
   }
+
+  $header = array(t('E-mail addresses (' . count($rows) . ')'));
+
+  if ($csv === 'yes') {
+    _vopros_statistics_download_send_headers("statistics-channels-" . date("Y-m-d") . ".csv");
+    echo _vopros_statistics_array2csv($header, $rows);
+
+    die();
+  }
+
+  $build = array(
+    'form' => drupal_get_form('vopros_statistics_info_email_form', $status),
+    'csv' => array(
+      '#markup' => l(t('Download as CSV'),
+        $_GET['q'],
+        array(
+          'query' => array('csv' => 'yes'),
+          'attributes' => array('target' => '_blank'),
+        )),
+    ),
+    'table' => array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    ),
+  );
 
   return $build;
 }

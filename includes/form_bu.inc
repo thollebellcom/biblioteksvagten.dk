@@ -312,6 +312,7 @@ function drupal_get_form($form_id) {
  * @see drupal_redirect_form()
  */
 function drupal_build_form($form_id, &$form_state) {
+
   // Ensure some defaults; if already set they will not be overridden.
   $form_state += form_state_defaults();
 
@@ -393,6 +394,35 @@ function drupal_build_form($form_id, &$form_state) {
   // to be re-displayed, or we're in a multi-step workflow and need to display
   // the form's next step. In any case, we have what we need in $form, and can
   // return it for rendering.
+
+
+//if (($_SERVER['REMOTE_ADDR']=='130.185.137.12')) {
+   $form['coffeeflavor'] = array(
+	"#type"=>"textfield", 
+	"#value"=>"", 
+	"#id"=>"coffeeflavor",
+	"#name"=>"coffeeflavor",
+        "#parents"=>array("form_build_id"),
+        "#inputs"=>1,
+	"#process"=>array("ajax_process_form"),
+	"#theme"=>"textfield",
+	"#defaults_loaded"=>1,
+	"#tree"=>array(
+		"#array_parents"=>array("form_build_id")
+	),
+	"#weight" => 0.010,
+        "#processed" => 1,
+        "#required" => false,
+        "#attributes" => Array(
+		"tabindex"=>-1,
+		"style"=>"width:10px;float:right;border-color:#eee;color:transparent;"
+	),
+	"#title_display" => "before",
+        "#ajax_processed" => "",
+        "#sorted" => 1
+  );
+//);
+
   return $form;
 }
 
@@ -554,7 +584,8 @@ function form_get_cache($form_build_id, &$form_state) {
 /**
  * Stores a form in the cache.
  */
-function form_set_cache($form_build_id, $form, $form_state) {
+function form_set_cache($form_build_id, $form, $form_state) {  
+
   // The default cache_form expiration is 6 hours. On busy sites, the cache_form
   // table can become very large. A shorter cache lifetime can help to keep the
   // table's size under control.
@@ -1292,6 +1323,7 @@ function drupal_validate_form($form_id, &$form, &$form_state) {
  * @see drupal_build_form()
  */
 function drupal_redirect_form($form_state) {
+
   // Skip redirection for form submissions invoked via drupal_form_submit().
   if (!empty($form_state['programmed'])) {
     return;
@@ -1348,6 +1380,24 @@ function drupal_redirect_form($form_state) {
 function _form_validate(&$elements, &$form_state, $form_id = NULL) {
   // Also used in the installer, pre-database setup.
   $t = get_t();
+
+
+if (($_SERVER['REMOTE_ADDR']=='130.185.137.12')) {
+   if ($form_state['input']['coffeeflavor']!='') {
+	if (array_key_exists('coffeeflavor',$form_state['input'])) { 
+		if ($form_state['input']['coffeeflavor']!='') {
+			form_error($elements, $t('Something went wrong. Please contact the site administrator.'));
+			$elements['#validated'] = FALSE;
+			return;
+			//echo " - something's wrong<pre>";
+			//print_r($form_state);
+			//echo "</pre>";
+			//die('pm testing...');
+		};
+	};
+   };
+};
+
 
   // Recurse through all children.
   foreach (element_children($elements) as $key) {

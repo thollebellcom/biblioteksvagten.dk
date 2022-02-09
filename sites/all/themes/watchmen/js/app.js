@@ -85,6 +85,17 @@
       $input.attr('autocomplete', 'off');
     }
   };
+  Drupal.behaviors.windowStatus = {
+    attach: function (context, settings) {
+      $(window).focus(function() {
+        $('body').removeClass('blured');
+      });
+
+      $(window).blur(function() {
+        $('body').addClass('blured');
+      });
+    }
+  };
   Drupal.behaviors.exportAsCSV = {
     attach: function (context, settings) {
       function exportTableToCSV($table, filename) {

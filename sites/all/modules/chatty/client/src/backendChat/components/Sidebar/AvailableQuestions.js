@@ -48,8 +48,19 @@ const AvailableQuestions = () => {
 
               const question = subscriptionData.data.newQuestion;
 
-              // Notify end user.
-              beep.play();
+              const notifyEndUser = function() {
+                beep.play();
+		const delay = 10000;
+                if (document.body.classList.contains('blured')) {
+                  console.log('Page is blured play sound again in ' + delay + ' miliseconds');
+                  setTimeout(function () {notifyEndUser(); }, delay);
+                }
+                else {
+                  console.log('Page is active. Do not play sound anymore.');
+                }
+              }
+
+              notifyEndUser();
 
               return Object.assign({}, prev, {
                 questions: [...prev.questions, question],

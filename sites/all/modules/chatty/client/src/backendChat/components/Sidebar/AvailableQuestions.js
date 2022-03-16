@@ -49,9 +49,9 @@ const AvailableQuestions = () => {
               const question = subscriptionData.data.newQuestion;
 
               const notifyEndUser = function() {
-                beep.play();
-		const delay = 10000;
+                const delay = 10000;
                 if (document.body.classList.contains('blured')) {
+                  beep.play();
                   console.log('Page is blured play sound again in ' + delay + ' miliseconds');
                   setTimeout(function () {notifyEndUser(); }, delay);
                 }
